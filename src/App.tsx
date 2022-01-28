@@ -1,17 +1,34 @@
-import { css } from '@emotion/react';
-import React from 'react';
-import gallery from './assets/icons/gallery.png';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Suspense } from 'react';
+import CustomRoute from './components/CustomRoute';
+import { PATH } from './constants/path';
+import ROUTE from './constants/route';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
-  /* <img src={gallery} alt="hello" /> */
   return (
-    <div
-      css={css`
-        color: dodgerblue;
-      `}
-    >
-      hello
-    </div>
+    <Router>
+      <Routes>
+        {ROUTE.map(({ path, Component, auth }) => (
+          <Route
+            key={path}
+            path="/"
+            element={<CustomRoute auth={auth} redirectTo={PATH.MAIN} />}
+          >
+            <Route
+              path={path}
+              element={
+                // TODO: Loading style
+                <Suspense fallback={<>Loading...</>}>
+                  <Component />
+                </Suspense>
+              }
+            />
+          </Route>
+        ))}
+        <Route path={PATH.NOT_FOUND} element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
 }
 
