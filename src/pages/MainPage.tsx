@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Card from '../components/Card';
 import { sample, sample2, sample3 } from '../constants/images';
 
+import Carousel from '../components/Carousel';
+
 function MainPage() {
   // TODO: 받아오는 컴포넌트 위치 변경
   const mockData = [
@@ -61,9 +63,10 @@ function MainPage() {
 
   return (
     <MainContainer>
-      {mockData.map((cardInfo) => (
+      {/* {mockData.map((cardInfo) => (
         <Card key={`${cardInfo.author.nickname}`} cardInfo={cardInfo} />
-      ))}
+      ))} */}
+      <Carousel />
     </MainContainer>
   );
 }
