@@ -8,7 +8,7 @@ interface ButtonProps {
 
 function ButtonBasic({ value, handleClick }: ButtonProps) {
   return (
-    <Button onClick={() => handleClick} orange={false}>
+    <Button onClick={handleClick} orange={false}>
       {value}
     </Button>
   );
@@ -16,14 +16,14 @@ function ButtonBasic({ value, handleClick }: ButtonProps) {
 
 function ButtonOrange({ value, handleClick }: ButtonProps) {
   return (
-    <Button onClick={() => handleClick} orange>
+    <Button onClick={handleClick} orange>
       {value}
     </Button>
   );
 }
 
 function ButtonNeumo({ value, handleClick }: ButtonProps) {
-  return <ButtonLarge onClick={() => handleClick}>{value}</ButtonLarge>;
+  return <ButtonLarge onClick={handleClick}>{value}</ButtonLarge>;
 }
 
 export default { ButtonBasic, ButtonOrange, ButtonNeumo };
