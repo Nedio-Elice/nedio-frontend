@@ -8,4 +8,10 @@ describe('GalleryEdit', () => {
 
     expect(container).toHaveTextContent('GalleryEditPage');
   });
+
+  it('renders poster upload interface', () => {
+    const { getByLabelText } = render(<GalleryEdit />);
+
+    expect(getByLabelText('포스터 업로드')).not.toBeNull();
+  });
 });
