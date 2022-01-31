@@ -67,9 +67,9 @@ const Button = styled.button<{ orange: boolean }>`
   line-height: 19px;
   text-align: center;
   color: #777777;
-  width: 96px;
   border: none;
   height: 40px;
+  padding: 0 12px;
   text-align: center;
   background: linear-gradient(
     134.47deg,

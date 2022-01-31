@@ -2,10 +2,9 @@ import styled from 'styled-components';
 
 interface InputProps {
   defaultText: string;
-  value: string;
 }
 
-function InputField({ defaultText, value }: InputProps) {
+function InputField({ defaultText }: InputProps) {
   return <InputBox type="input" placeholder={defaultText} />;
 }
 
