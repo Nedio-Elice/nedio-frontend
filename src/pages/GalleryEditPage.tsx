@@ -1,5 +1,11 @@
+import GalleryEditContainer from '../containers/GalleryEditContainer';
+
 function GalleryEditPage() {
-  return <div>GalleryEditPage</div>;
+  return (
+    <div>
+      <GalleryEditContainer />
+    </div>
+  );
 }
 
 export default GalleryEditPage;
