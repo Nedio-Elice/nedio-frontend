@@ -1,22 +1,16 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 interface Props {
   tapMenu: string;
-  to: string;
 }
 
-function TapButton({ tapMenu, to }: Props) {
-  return (
-    <Link to={to} style={{ textDecoration: 'none' }}>
-      <TapButtonLink>{tapMenu}</TapButtonLink>
-    </Link>
-  );
+function LoginLogoutButton({ tapMenu }: Props) {
+  return <LoginLogoutButtonLink>{tapMenu}</LoginLogoutButtonLink>;
 }
 
-export default TapButton;
+export default LoginLogoutButton;
 
-const TapButtonLink = styled.span`
+const LoginLogoutButtonLink = styled.span`
   display: inline-block;
   width: 154px;
   height: 40px;
@@ -36,4 +30,5 @@ const TapButtonLink = styled.span`
   line-height: 40px;
   text-align: center;
   text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.75);
+  cursor: pointer;
 `;
