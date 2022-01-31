@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { sample, sample2, sample3 } from '../constants/images';
-
-import Carousel from '../components/Carousel';
+import CarouselContainer from '../containers/Carousel';
 
 function MainPage() {
   // TODO: 받아오는 컴포넌트 위치 변경
@@ -63,10 +62,10 @@ function MainPage() {
 
   return (
     <MainContainer>
+      <CarouselContainer />
       {/* {mockData.map((cardInfo) => (
         <Card key={`${cardInfo.author.nickname}`} cardInfo={cardInfo} />
       ))} */}
-      <Carousel />
     </MainContainer>
   );
 }
@@ -84,11 +83,6 @@ const MainContainer = styled.div`
     #f2f3f5 100%
   );
   mix-blend-mode: normal;
-
-  // TODO: temp
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-row-gap: 15px;
-  grid-column-gap: 30px;
-  padding: 20px;
+  display: flex;
+  padding-top: 50px;
 `;

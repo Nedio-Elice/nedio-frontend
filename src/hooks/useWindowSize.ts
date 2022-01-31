@@ -1,17 +1,20 @@
 import { useLayoutEffect, useState } from 'react';
+import { throttle } from '../utils';
 
 function useWindowSize() {
-  // width, hegight init
   const [windowSize, setWindowSize] = useState([0, 0]);
 
   useLayoutEffect(() => {
+    const throttleUpdateSize = throttle(updateSize);
+
     function updateSize() {
       setWindowSize([window.innerWidth, window.innerHeight]);
     }
-    window.addEventListener('resize', updateSize);
+
+    window.addEventListener('resize', throttleUpdateSize);
     updateSize();
 
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', throttleUpdateSize);
   }, []);
 
   return windowSize;

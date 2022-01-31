@@ -1,6 +1,10 @@
-export function paddingToItem(items: [], paddingLength: number) {
-  // TODO: CHANGE TYPE OBJECT
-  const paddedItems: Array<object> = [...items];
+import { ThemeCardData } from '../types/Card';
+
+export function paddingToItem(
+  items: Array<ThemeCardData>,
+  paddingLength: number,
+) {
+  const paddedItems: Array<ThemeCardData> = [...items];
   const itemLen = items.length;
 
   for (let i = 0; i < paddingLength; i += 1) {
