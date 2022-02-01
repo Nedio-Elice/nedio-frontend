@@ -1,40 +1,55 @@
+import styled from 'styled-components';
+
+import PosterField from './PosterField';
+import TitleField from './TitleField';
+import CategoriesField from './CategoriesField';
+import DateField from './DateField';
+import DescriptionField from './DescriptionField';
+import ButtonsField from './ButtonsField';
+
+const Container = styled.div`
+  box-sizing: border-box;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  width: 100%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  height: 20em;
+  margin-bottom: 2em;
+`;
+
+const Inputs = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  div + div {
+    margin-top: 1em;
+  }
+
+  div > label {
+    min-width: fit-content;
+    margin-right: 0.5em;
+  }
+`;
+
 function GalleryEdit() {
   return (
-    <div>
-      <h1>This is GalleryEditPage</h1>
-      <div>
-        <label htmlFor="posterUpload">포스터 업로드</label>
-        <input type="file" id="posterUpload" />
-      </div>
-      <div>
-        <label htmlFor="title">제목</label>
-        <input type="text" id="title" />
-      </div>
-      <div>
-        <label htmlFor="category">분류</label>
-        <select id="category">
-          <option value="">카테고리를 선택해주세요</option>
-          <option value="자연">자연</option>
-          <option value="인물">인물</option>
-          <option value="동물">동물</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="date">기간</label>
-        <input type="date" id="date" />
-        -
-        <input type="date" id="date" />
-      </div>
-      <div>
-        <label htmlFor="description">설명</label>
-        <input type="textarea" id="description" />
-      </div>
-      <div>
-        <button type="button">전시관 추가</button>
-        <button type="button">미리보기</button>
-        <button type="button">갤러리 생성</button>
-      </div>
-    </div>
+    <Container>
+      <Wrapper>
+        <PosterField />
+        <Inputs>
+          <TitleField />
+          <CategoriesField />
+          <DateField />
+          <DescriptionField />
+        </Inputs>
+      </Wrapper>
+      <ButtonsField />
+    </Container>
   );
 }
 
