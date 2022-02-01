@@ -29,6 +29,11 @@ function GalleryEdit() {
         <label htmlFor="description">설명</label>
         <input type="textarea" id="description" />
       </div>
+      <div>
+        <button type="button">전시관 추가</button>
+        <button type="button">미리보기</button>
+        <button type="button">갤러리 생성</button>
+      </div>
     </div>
   );
 }

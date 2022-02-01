@@ -29,4 +29,12 @@ describe('GalleryEdit', () => {
     expect(getByLabelText('기간')).not.toBeNull();
     expect(getByLabelText('설명')).not.toBeNull();
   });
+
+  it('renders buttons for this page', () => {
+    const { container } = render(<GalleryEdit />);
+
+    expect(container).toHaveTextContent('전시관 추가');
+    expect(container).toHaveTextContent('미리보기');
+    expect(container).toHaveTextContent('갤러리 생성');
+  });
 });
