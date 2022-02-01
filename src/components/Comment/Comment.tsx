@@ -35,7 +35,8 @@ const CommentContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: top;
-  margin-top: 16px;
+  margin: 16px auto;
+  padding-left: 96px;
 `;
 
 const CommentContent = styled.div`
@@ -58,10 +59,12 @@ const CommentUsername = styled.p`
 `;
 
 const CommentText = styled.p`
+  width: 407px;
   line-height: 18px;
   font-family: Pretendard;
   font-style: normal;
   font-size: 14px;
+  word-break: keep-all;
 `;
 
 const CommentButton = styled.button`

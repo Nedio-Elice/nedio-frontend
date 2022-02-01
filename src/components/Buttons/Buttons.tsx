@@ -3,28 +3,43 @@ import styled, { css } from 'styled-components';
 
 interface ButtonProps {
   value: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   handleClick: (event: React.MouseEvent) => void;
 }
 
-function ButtonBasic({ value, handleClick }: ButtonProps) {
+function ButtonBasic({ value, type, handleClick }: ButtonProps) {
   return (
-    <Button onClick={handleClick} orange={false}>
+    <Button onClick={handleClick} type={type} orange={false}>
       {value}
     </Button>
   );
 }
 
-function ButtonOrange({ value, handleClick }: ButtonProps) {
+function ButtonOrange({ value, type, handleClick }: ButtonProps) {
   return (
-    <Button onClick={handleClick} orange>
+    <Button onClick={handleClick} type={type} orange>
       {value}
     </Button>
   );
 }
 
-function ButtonNeumo({ value, handleClick }: ButtonProps) {
-  return <ButtonLarge onClick={handleClick}>{value}</ButtonLarge>;
+function ButtonNeumo({ value, type, handleClick }: ButtonProps) {
+  return (
+    <ButtonLarge onClick={handleClick} type={type}>
+      {value}
+    </ButtonLarge>
+  );
 }
+
+ButtonBasic.defaultProps = {
+  type: 'button',
+};
+ButtonOrange.defaultProps = {
+  type: 'button',
+};
+ButtonNeumo.defaultProps = {
+  type: 'button',
+};
 
 export default { ButtonBasic, ButtonOrange, ButtonNeumo };
 
@@ -64,12 +79,12 @@ const Button = styled.button<{ orange: boolean }>`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 16px;
   text-align: center;
   color: #777777;
   border: none;
   height: 40px;
-  padding: 0 12px;
+  padding: 2px 12px;
   text-align: center;
   background: linear-gradient(
     134.47deg,
@@ -91,11 +106,14 @@ const Button = styled.button<{ orange: boolean }>`
     `}
 
   &:hover {
+    height: 40px;
     border: 2px solid #ff6e00;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0px 10px;
     ${(props) =>
       props.orange &&
       css`
-        border: none;
         box-shadow: none;
       `}
   }
@@ -105,6 +123,7 @@ const Button = styled.button<{ orange: boolean }>`
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;
+    padding: 2px 12px;
     ${(props) =>
       props.orange &&
       css`

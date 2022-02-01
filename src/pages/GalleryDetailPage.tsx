@@ -5,8 +5,9 @@ import axios, { AxiosResponse } from 'axios';
 import Buttons from '../components/Buttons/Buttons';
 import InputField from '../components/InputField/InputField';
 import Comment from '../components/Comment/Comment';
+import Pagination from '../components/Pagination/index';
 
-const { ButtonOrange } = Buttons;
+const { ButtonBasic, ButtonOrange } = Buttons;
 
 interface Gallery {
   _id: string;
@@ -19,6 +20,16 @@ interface Gallery {
   authorId: string;
 }
 
+interface CommentSingle {
+  _id: string;
+  profileURL: string;
+  content: string;
+  authorId: string;
+  galleryId: string;
+}
+
+type Comments = Array<CommentSingle>;
+
 function formatDateString(date: string): string {
   const year = date.slice(0, 4);
   const month = date.slice(5, 7);
@@ -29,16 +40,24 @@ function formatDateString(date: string): string {
 
 function GalleryDetailPage() {
   const [gallery, setGallery] = useState<Gallery | null>(null);
+  const [comments, setComments] = useState<Comments | null>(null);
+  const [currPage, setCurrPage] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(5);
   const { galleryId } = useParams();
   const dataUrl = `http://localhost:5000/api/galleries/${galleryId}`;
+  const commentsUrl = `http://localhost:5000/api/comments`;
 
   useEffect(() => {
     axios
       .get<Gallery>(dataUrl)
       .then((response: AxiosResponse) => setGallery(response.data));
-
-    // 페이지 이동이 취소되는 경우 현재 페이지를 유지합니다.
   }, [dataUrl, gallery]);
+
+  useEffect(() => {
+    axios
+      .get<Comments>(commentsUrl)
+      .then((response: AxiosResponse) => setComments(response.data));
+  }, [commentsUrl, comments]);
 
   if (gallery === null) {
     return <h1>No data</h1>;
@@ -66,20 +85,37 @@ function GalleryDetailPage() {
       </GalleryInfoWrapper>
       <ButtonWrapper>
         <Link to="/">
-          <ButtonOrange value="1관" handleClick={() => {}} />
+          <ButtonBasic value="1관" handleClick={() => {}} />
         </Link>
         <Link to="/">
-          <ButtonOrange value="2관" handleClick={() => {}} />
+          <ButtonBasic value="2관" handleClick={() => {}} />
         </Link>
         <Link to="/">
-          <ButtonOrange value="3관" handleClick={() => {}} />
+          <ButtonBasic value="3관" handleClick={() => {}} />
         </Link>
       </ButtonWrapper>
       <CommentsWrapper>
         <UserImg />
         <InputField defaultText="방명록을 입력해 주세요." />
-        <ButtonOrange value="입력" handleClick={() => {}} />
+        <ButtonOrange value="입력" type="submit" handleClick={() => {}} />
       </CommentsWrapper>
+      {comments !== null &&
+        comments.map((c) => (
+          <Comment
+            username={c.authorId}
+            profileImgURL={c.profileURL}
+            content={c.content}
+            handleClickUpdate={() => {}}
+            handleClickDelete={() => {}}
+          />
+        ))}
+      <Pagination
+        currPage={currPage}
+        pageCount={pageCount}
+        onClickPage={(num) => {
+          setCurrPage(num);
+        }}
+      />
     </Background>
   );
 }
@@ -88,7 +124,8 @@ export default GalleryDetailPage;
 
 const Background = styled.div`
   width: 100vw;
-  height: 100vh;
+  max-width: 100%;
+  min-height: 100vh;
   background: linear-gradient(
     180deg,
     #f2f3f5 0%,
@@ -98,6 +135,7 @@ const Background = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  overflow: hidden;
 `;
 
 const GalleryInfoWrapper = styled.div`
@@ -126,6 +164,7 @@ const GalleryTitle = styled.h1`
 `;
 
 const GalleryPeriod = styled.p`
+  margin-top: 16px;
   font-family: Pretendard;
   font-style: normal;
   font-weight: 300;
@@ -135,8 +174,8 @@ const GalleryPeriod = styled.p`
 `;
 
 const GalleryDescription = styled.p`
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin: 48px 0;
+  min-height: 115px;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
@@ -145,8 +184,8 @@ const GalleryDescription = styled.p`
 `;
 
 const AuthorProfile = styled.div`
-  position: absolute;
-  right: 0;
+  width: fit-content;
+  margin-left: auto;
   display: flex;
   align-items: flex-end;
 `;
@@ -185,13 +224,14 @@ const AuthorEmail = styled.p`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 0 auto;
+  position: relative;
+  margin: 12px auto;
   display: flex;
   gap: 36px;
 `;
 
-const CommentsWrapper = styled.div`
-  margin: 48px auto;
+const CommentsWrapper = styled.form`
+  margin: 24px auto;
   display: flex;
   gap: 24px;
   align-items: center;
