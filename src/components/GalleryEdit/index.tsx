@@ -6,6 +6,7 @@ import CategoriesField from './CategoriesField';
 import DateField from './DateField';
 import DescriptionField from './DescriptionField';
 import ButtonsField from './ButtonsField';
+import HallField from './HallField';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -36,7 +37,17 @@ const Inputs = styled.div`
   }
 `;
 
-function GalleryEdit() {
+interface HallProps {
+  id: number;
+  name: string;
+}
+
+interface Props {
+  halls: HallProps[];
+  onClickAddHallButton: () => void;
+}
+
+function GalleryEdit({ halls, onClickAddHallButton }: Props) {
   return (
     <Container>
       <Wrapper>
@@ -48,7 +59,8 @@ function GalleryEdit() {
           <DescriptionField />
         </Inputs>
       </Wrapper>
-      <ButtonsField />
+      <ButtonsField onClickAddHallButton={onClickAddHallButton} />
+      <HallField halls={halls} />
     </Container>
   );
 }

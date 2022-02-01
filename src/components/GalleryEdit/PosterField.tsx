@@ -7,6 +7,7 @@ const Container = styled.div`
   justify-content: center;
   border: 1px solid black;
   border-radius: 1em;
+  min-width: 230px;
   width: 15em;
   height: 20em;
   margin-right: 2em;
