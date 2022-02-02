@@ -4,36 +4,37 @@ import GalleryEdit from './index';
 
 describe('GalleryEdit', () => {
   const handleClickAddHallButton = jest.fn();
+  const handleChangeHallName = jest.fn();
 
-  it('renders poster upload interface', () => {
-    const { getByLabelText } = render(
+  interface HallProps {
+    id: number;
+    name: string;
+  }
+
+  function renderGalleryEdit(halls: HallProps[] = []) {
+    return render(
       <GalleryEdit
-        halls={[]}
+        halls={halls}
         onClickAddHallButton={handleClickAddHallButton}
+        onChangeHallName={handleChangeHallName}
       />,
     );
+  }
+
+  it('renders poster upload interface', () => {
+    const { getByLabelText } = renderGalleryEdit();
 
     expect(getByLabelText('포스터 업로드')).not.toBeNull();
   });
 
   it('renders poster upload interface', () => {
-    const { getByLabelText } = render(
-      <GalleryEdit
-        halls={[]}
-        onClickAddHallButton={handleClickAddHallButton}
-      />,
-    );
+    const { getByLabelText } = renderGalleryEdit();
 
     expect(getByLabelText('포스터 업로드')).not.toBeNull();
   });
 
   it('renders gallery upload interfaces', () => {
-    const { getByLabelText } = render(
-      <GalleryEdit
-        halls={[]}
-        onClickAddHallButton={handleClickAddHallButton}
-      />,
-    );
+    const { getByLabelText } = renderGalleryEdit();
 
     expect(getByLabelText('제목')).not.toBeNull();
     expect(getByLabelText('분류')).not.toBeNull();
@@ -42,12 +43,7 @@ describe('GalleryEdit', () => {
   });
 
   it('renders buttons for this page', () => {
-    const { container } = render(
-      <GalleryEdit
-        halls={[]}
-        onClickAddHallButton={handleClickAddHallButton}
-      />,
-    );
+    const { container } = renderGalleryEdit();
 
     expect(container).toHaveTextContent('전시관 추가');
     expect(container).toHaveTextContent('미리보기');
@@ -55,12 +51,7 @@ describe('GalleryEdit', () => {
   });
 
   it('listens click event on "전시관 추가" button', () => {
-    const { getByText } = render(
-      <GalleryEdit
-        halls={[]}
-        onClickAddHallButton={handleClickAddHallButton}
-      />,
-    );
+    const { getByText } = renderGalleryEdit();
 
     fireEvent.click(getByText('전시관 추가'));
 
@@ -71,24 +62,15 @@ describe('GalleryEdit', () => {
     const mockHalls = [
       {
         id: 1,
-        name: '1관',
+        name: '',
       },
       {
         id: 2,
-        name: '2관',
+        name: '',
       },
     ];
 
-    const { container, getByText } = render(
-      <GalleryEdit
-        halls={mockHalls}
-        onClickAddHallButton={handleClickAddHallButton}
-      />,
-    );
-
-    mockHalls.forEach(({ name }) => {
-      expect(getByText(name)).not.toBeNull();
-    });
+    const { container } = renderGalleryEdit(mockHalls);
 
     expect(container).toHaveTextContent('작품등록');
   });

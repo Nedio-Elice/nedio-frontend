@@ -12,16 +12,24 @@ interface HallProps {
 
 interface Props {
   halls: HallProps[];
+  onChangeHallName: (prameter: HallProps) => void;
 }
 
-function HallField({ halls }: Props) {
+function HallField({ halls, onChangeHallName }: Props) {
   return (
     <Container>
       {halls
         ? halls.map(({ id, name }) => {
-            return <HallAddInterface key={id} id={id} name={name} />;
+            return (
+              <HallAddInterface
+                key={id}
+                id={id}
+                name={name}
+                onChangeHallName={onChangeHallName}
+              />
+            );
           })
-        : '아직 등록된 전시관이 없습니다 :)'}
+        : '전시관을 등록해주세요 :)'}
     </Container>
   );
 }

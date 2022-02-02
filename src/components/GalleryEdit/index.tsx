@@ -45,9 +45,10 @@ interface HallProps {
 interface Props {
   halls: HallProps[];
   onClickAddHallButton: () => void;
+  onChangeHallName: (parameter: HallProps) => void;
 }
 
-function GalleryEdit({ halls, onClickAddHallButton }: Props) {
+function GalleryEdit({ halls, onClickAddHallButton, onChangeHallName }: Props) {
   return (
     <Container>
       <Wrapper>
@@ -60,7 +61,7 @@ function GalleryEdit({ halls, onClickAddHallButton }: Props) {
         </Inputs>
       </Wrapper>
       <ButtonsField onClickAddHallButton={onClickAddHallButton} />
-      <HallField halls={halls} />
+      <HallField halls={halls} onChangeHallName={onChangeHallName} />
     </Container>
   );
 }

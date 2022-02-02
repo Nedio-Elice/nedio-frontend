@@ -9,6 +9,11 @@ const Container = styled.div`
   div + div {
     margin-left: 1em;
   }
+
+  input {
+    margin-right: 1em;
+    width: 5em;
+  }
 `;
 
 const Buttons = styled.div`
@@ -24,15 +29,31 @@ const Buttons = styled.div`
   }
 `;
 
-interface Props {
+interface HallProps {
   id: number;
   name: string;
 }
 
-function HallAddInterface({ id, name }: Props) {
+interface Props {
+  id: number;
+  name: string;
+  onChangeHallName: (parameter: HallProps) => void;
+}
+
+function HallAddInterface({ id, name, onChangeHallName }: Props) {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    onChangeHallName({ id, name: value });
+  };
+
   return (
     <Container key={id}>
-      <div>{name}</div>
+      <input
+        type="text"
+        value={name}
+        placeholder="관명"
+        onChange={handleChange}
+      />
       <Buttons>
         {Array.from({ length: 10 }, (_, i) => (
           <button key={i} type="button">
