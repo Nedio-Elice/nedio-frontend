@@ -1,4 +1,4 @@
-function debounce(callback: any, wait = 500) {
+function debounce<Params extends any[]>(callback: () => any, wait = 500) {
   let timer: NodeJS.Timeout;
 
   return () => {
@@ -9,7 +9,7 @@ function debounce(callback: any, wait = 500) {
   };
 }
 
-function throttle(callback: any, wait = 1000) {
+function throttle<Params extends any[]>(callback: () => any, wait = 1000) {
   let timer: NodeJS.Timeout | null;
 
   return () => {

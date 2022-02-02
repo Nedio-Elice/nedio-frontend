@@ -20,8 +20,14 @@ export function paddingToItem(
 export function calcWidth(
   windowWidth: number,
   padding: number,
+  minWidth: number,
   maxWidth: number,
 ) {
-  const width = windowWidth - padding * 2;
-  return width > maxWidth ? maxWidth : width;
+  let nextWidth = windowWidth - padding * 2;
+
+  if (nextWidth < minWidth) nextWidth = minWidth;
+
+  if (nextWidth > maxWidth) nextWidth = maxWidth;
+
+  return nextWidth;
 }
