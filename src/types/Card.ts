@@ -13,3 +13,7 @@ export interface CardData {
   endDate: Date;
   isOpened: boolean;
 }
+
+export interface ThemeCardData extends CardData {
+  theme: string;
+}
