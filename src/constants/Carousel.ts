@@ -7,7 +7,7 @@ const CAROUSEL = {
     NEXT: 1,
   },
   ITEM_MAX_WIDTH: 1250,
-  ITEM_MIN_WIDTH: 300,
+  ITEM_MIN_WIDTH: 560,
 };
 
 // eslint-disable-next-line import/prefer-default-export

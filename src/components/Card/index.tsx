@@ -8,8 +8,8 @@ interface Props {
 
 function Card({ cardInfo }: Props) {
   return (
-    <CardContainer>
-      <CardImg src={cardInfo.posterUrl} />
+    <Container>
+      <CardImg src={cardInfo.posterUrl} alt={cardInfo.title} />
       <CardTitle>{cardInfo.title}</CardTitle>
       <CardContent>
         <CardAuthor>{cardInfo.author.nickname}</CardAuthor>
@@ -17,24 +17,22 @@ function Card({ cardInfo }: Props) {
           cardInfo.endDate,
         )}`}</CardPeriod>
       </CardContent>
-    </CardContainer>
+    </Container>
   );
 }
 
 export default Card;
 
-const CardContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 12px 8px;
-
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
   background: linear-gradient(180deg, #ffffff 0%, #ededed 51.8%, #ffffff 100%);
   mix-blend-mode: normal;
   box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.25), 8px 8px 16px #dde1e9;
   border-radius: 15px;
-
   width: 250px;
   height: 380px;
   font-size: 0.8rem;

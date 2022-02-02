@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CarouselButton from './CarouselButton';
 import useWindowSize from '../../hooks/useWindowSize';
-import { CAROUSEL } from '../../constants/Carousel';
-import { calcWidth, paddingToItem } from '../../utils/Carousel';
+import { CAROUSEL } from '../../constants/carousel';
+import { calcWidth, paddingToItem } from '../../utils/carousel';
 import { ThemeCardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
 import DetatilButton from './DetatilButton';
@@ -16,11 +16,16 @@ interface Props {
 }
 
 function Carousel({ cardInfo }: Props) {
-  const [windowWidth, windowHeight] = useWindowSize();
+  const [windowWidth] = useWindowSize();
   const [itemWidth, setItemWidth] = useState(() =>
-    calcWidth(windowWidth, CAROUSEL.PADDING, CAROUSEL.ITEM_MAX_WIDTH),
+    calcWidth(
+      windowWidth,
+      CAROUSEL.PADDING,
+      CAROUSEL.ITEM_MIN_WIDTH,
+      CAROUSEL.ITEM_MAX_WIDTH,
+    ),
   );
-  const [paddedItems, setPaddedItems] = useState(() =>
+  const [paddedItems] = useState(() =>
     paddingToItem(cardInfo, CAROUSEL.PADDING_DATA),
   );
   const transitionStyle = `transform ${CAROUSEL.TRANSITION_TIME}ms ease-in-out 0s`;
@@ -33,6 +38,7 @@ function Carousel({ cardInfo }: Props) {
     const nextWidth = calcWidth(
       windowWidth,
       CAROUSEL.PADDING,
+      CAROUSEL.ITEM_MIN_WIDTH,
       CAROUSEL.ITEM_MAX_WIDTH,
     );
     setItemWidth(nextWidth);
@@ -65,9 +71,9 @@ function Carousel({ cardInfo }: Props) {
   }
 
   return (
-    <CarouselContainer>
+    <Container>
       <CarouselRow
-        moveX={(-100 / paddedItems.length) * (0.5 + curIdx)}
+        moveX={(-100 / paddedItems.length) * (curIdx + 0.5)}
         transitionEffect={transitionEffect}
       >
         {paddedItems.map((item, idx) => (
@@ -76,20 +82,22 @@ function Carousel({ cardInfo }: Props) {
             itemWidth={itemWidth}
             isCurrent={curIdx === idx}
           >
-            <CarouselColContainer>
+            <ItemContainer>
               <ThemeTag />
               <ThemeTagTitle>{item.theme}</ThemeTagTitle>
-              <ContentContainer>
-                <ContentTitle>{item.title}</ContentTitle>
-                <ContentPeriod>{`${dateToString(
-                  item.startDate,
-                )} ~ ${dateToString(item.endDate)}`}</ContentPeriod>
-                <ContentAuthor>{item.author.nickname}</ContentAuthor>
+              <Content>
+                <Title>{item.title}</Title>
+                <Period>{`${dateToString(item.startDate)} ~ ${dateToString(
+                  item.endDate,
+                )}`}</Period>
+                <Author>{item.author.nickname}</Author>
                 {/* TODO: item URL (백엔드와 이야기) */}
                 <DetatilButton linkURL="tempURL" isCurrent={curIdx === idx} />
-              </ContentContainer>
-              {windowWidth > 640 && <CarouselColImg src={item.posterUrl} />}
-            </CarouselColContainer>
+              </Content>
+              {windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 3 && (
+                <CarouselColImg src={item.posterUrl} alt={item.title} />
+              )}
+            </ItemContainer>
           </CarouselCol>
         ))}
       </CarouselRow>
@@ -103,16 +111,16 @@ function Carousel({ cardInfo }: Props) {
         isLeft={false}
         onClick={() => handleCarousel('NEXT')}
       />
-    </CarouselContainer>
+    </Container>
   );
 }
 
 export default Carousel;
 
-const CarouselContainer = styled.article`
+const Container = styled.article`
   position: relative;
+  height: 300px;
   overflow: hidden;
-  height: auto;
 `;
 
 const CarouselRow = styled.section<{ moveX: number; transitionEffect: string }>`
@@ -128,12 +136,12 @@ const CarouselCol = styled.div<{ isCurrent: boolean; itemWidth: number }>`
   position: relative;
   padding: 0 20px;
   filter: ${({ isCurrent }) =>
-    isCurrent ? 'brightness(100%)' : 'brightness(30%)'};
+    isCurrent ? 'brightness(100%)' : 'brightness(70%)'};
   width: ${({ itemWidth }) => `${itemWidth}px` || 'auto'};
   height: 280px;
 `;
 
-const CarouselColContainer = styled.div`
+const ItemContainer = styled.div`
   position: relative;
   border-radius: 5px;
   padding: 7px;
@@ -147,11 +155,11 @@ const CarouselColContainer = styled.div`
 
 const CarouselColImg = styled.img`
   position: absolute;
-  width: 200px;
-  height: 250px;
-  bottom: -15px;
-  right: 3%;
-  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  width: 220px;
+  height: 260px;
+  bottom: -25px;
+  right: 6%;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 `;
 
 const ThemeTag = styled.div`
@@ -161,8 +169,8 @@ const ThemeTag = styled.div`
   height: 52px;
   width: 48px;
   padding: 0px;
-  border-left: 24px solid red;
-  border-right: 24px solid red;
+  border-left: 24px solid white;
+  border-right: 24px solid white;
   border-bottom: 24px solid transparent;
 `;
 
@@ -170,9 +178,12 @@ const ThemeTagTitle = styled.p`
   position: absolute;
   left: calc(45px + 24px);
   transform: translateX(-50%);
+  color: #1f3e5a;
+  top: 10px;
+  font-size: 0.8rem;
 `;
 
-const ContentContainer = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -181,16 +192,16 @@ const ContentContainer = styled.div`
   padding: 0 45px;
 `;
 
-const ContentTitle = styled.h5`
+const Title = styled.h5`
   font-size: 1.5rem;
   margin-bottom: 15px;
 `;
 
-const ContentAuthor = styled.p`
+const Author = styled.p`
   font-weight: 500;
   margin-bottom: 15%;
 `;
-const ContentPeriod = styled.p`
+const Period = styled.p`
   font-size: 0.8rem;
   margin-bottom: 15px;
 `;

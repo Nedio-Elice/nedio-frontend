@@ -7,18 +7,25 @@ interface Props {
 }
 
 function CarouselButton({ isClicked, isLeft, onClick }: Props) {
-  return (
+  const arrowIcon = isLeft ? (
+    <Button disabled={isClicked} isLeft={isLeft} onClick={onClick}>
+      &#10094;
+    </Button>
+  ) : (
     <Button disabled={isClicked} isLeft={isLeft} onClick={onClick}>
       &#10095;
     </Button>
   );
+
+  return arrowIcon;
 }
 
 export default CarouselButton;
 
 const Button = styled.button<{ isLeft: boolean }>`
   position: absolute;
-  top: 100px;
+  top: 50%;
+  transform: translateY(-70%);
   z-index: 1000;
   background-color: rgba(255, 255, 255, 0.5);
   width: 30px;
@@ -37,7 +44,6 @@ const Button = styled.button<{ isLeft: boolean }>`
     isLeft
       ? css`
           left: 15px;
-          transform: rotate(180deg);
         `
       : css`
           right: 15px;
