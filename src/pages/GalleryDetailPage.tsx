@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import axiosInstance from '../api/api';
 import Buttons from '../components/Buttons';
-import InputField from '../components/InputField';
+import InputFields from '../components/InputFields';
 import Comment from '../components/Comment';
 import Pagination from '../components/Pagination';
 
 const { ButtonBasic, ButtonOrange } = Buttons;
+const { InputField, InputTextField } = InputFields;
 
 interface Gallery {
   _id: string;
   posterUrl: string;
   description: string;
-  closeDate: string;
-  openDate: string;
+  endDate: string;
+  startDate: string;
   category: string;
   title: string;
   authorId: string;
@@ -44,20 +46,36 @@ function GalleryDetailPage() {
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(5);
   const { galleryId } = useParams();
-  const dataUrl = `http://localhost:5000/api/galleries/${galleryId}`;
-  const commentsUrl = `http://localhost:5000/api/comments`;
 
   useEffect(() => {
-    axios
-      .get<Gallery>(dataUrl)
-      .then((response: AxiosResponse) => setGallery(response.data));
-  }, [dataUrl, gallery]);
+    const fetchGallery = async () => {
+      try {
+        await axiosInstance
+          .get<Gallery>(`api/galleries/${galleryId}`)
+          .then((response: AxiosResponse) => setGallery(response.data));
+      } catch (error) {
+        const err = error as AxiosError;
+        throw new Error(err.response?.data);
+      }
+    };
+
+    fetchGallery();
+  }, [gallery, galleryId]);
 
   useEffect(() => {
-    axios
-      .get<Comments>(commentsUrl)
-      .then((response: AxiosResponse) => setComments(response.data));
-  }, [commentsUrl, comments]);
+    const fetchComments = async () => {
+      try {
+        await axiosInstance
+          .get<Comments>(`api/comments`)
+          .then((response: AxiosResponse) => setComments(response.data));
+      } catch (error) {
+        const err = error as AxiosError;
+        throw new Error(err.response?.data);
+      }
+    };
+
+    fetchComments();
+  }, [gallery, galleryId]);
 
   if (gallery === null) {
     return <h1>No data</h1>;
@@ -70,8 +88,8 @@ function GalleryDetailPage() {
         <GalleryInfo>
           <GalleryTitle>{gallery.title}</GalleryTitle>
           <GalleryPeriod>
-            기간: {formatDateString(gallery.openDate)} -{' '}
-            {formatDateString(gallery.closeDate)}
+            기간: {formatDateString(gallery.startDate)} -{' '}
+            {formatDateString(gallery.endDate)}
           </GalleryPeriod>
           <GalleryDescription>{gallery.description}</GalleryDescription>
           <AuthorProfile>
