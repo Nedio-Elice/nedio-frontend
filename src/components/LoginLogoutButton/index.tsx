@@ -5,30 +5,25 @@ interface Props {
 }
 
 function LoginLogoutButton({ tapMenu }: Props) {
-  return <LoginLogoutButtonLink>{tapMenu}</LoginLogoutButtonLink>;
+  return <Button>{tapMenu}</Button>;
 }
 
 export default LoginLogoutButton;
 
-const LoginLogoutButtonLink = styled.span`
-  display: inline-block;
-  width: 154px;
-  height: 40px;
+const Button = styled.button`
+  outline: none;
+  border: none;
+  width: 80px;
+  height: 35px;
+  border-radius: 25px;
   background: #f2f3f5;
-  box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
-    4px 4px 16px rgba(218, 218, 218, 0.75);
-  border-radius: 20px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 16px;
-  color: #e1e1e1;
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 40px;
-  text-align: center;
+  box-shadow: 5px 5px 10px #e1e2e4, -5px -5px 10px #ffffff;
+  color: rgba(156, 156, 156, 0.48);
+  font-size: 0.8rem;
   text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.75);
-  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 2.5px 2.5px 5px #e1e2e4, -2.5px -2.5px 5px #ffffff;
+  }
 `;
