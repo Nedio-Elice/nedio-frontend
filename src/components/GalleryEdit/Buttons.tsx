@@ -21,7 +21,7 @@ interface Props {
   onClickAddHallButton: () => void;
 }
 
-function ButtonsField({ onClickAddHallButton }: Props) {
+function Buttons({ onClickAddHallButton }: Props) {
   const handleClick = () => {
     onClickAddHallButton();
   };
@@ -37,4 +37,4 @@ function ButtonsField({ onClickAddHallButton }: Props) {
   );
 }
 
-export default ButtonsField;
+export default Buttons;

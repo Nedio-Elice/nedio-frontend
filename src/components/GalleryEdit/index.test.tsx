@@ -5,6 +5,7 @@ import GalleryEdit from './index';
 describe('GalleryEdit', () => {
   const handleClickAddHallButton = jest.fn();
   const handleChangeHallName = jest.fn();
+  const handleClickDeleteButton = jest.fn();
 
   interface HallProps {
     id: number;
@@ -17,6 +18,7 @@ describe('GalleryEdit', () => {
         halls={halls}
         onClickAddHallButton={handleClickAddHallButton}
         onChangeHallName={handleChangeHallName}
+        onClickDeleteHallButton={handleClickDeleteButton}
       />,
     );
   }

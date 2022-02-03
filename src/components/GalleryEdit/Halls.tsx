@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import HallAddInterface from './HallAddInterface';
+import HallAddForm from './HallAddForm';
 
 const Container = styled.div`
   width: 100%;
@@ -13,19 +13,21 @@ interface HallProps {
 interface Props {
   halls: HallProps[];
   onChangeHallName: (prameter: HallProps) => void;
+  onClickDeleteHallButton: (id: number) => void;
 }
 
-function HallField({ halls, onChangeHallName }: Props) {
+function Halls({ halls, onChangeHallName, onClickDeleteHallButton }: Props) {
   return (
     <Container>
       {halls
         ? halls.map(({ id, name }) => {
             return (
-              <HallAddInterface
+              <HallAddForm
                 key={id}
                 id={id}
                 name={name}
                 onChangeHallName={onChangeHallName}
+                onClickDeleteHallButton={onClickDeleteHallButton}
               />
             );
           })
@@ -34,4 +36,4 @@ function HallField({ halls, onChangeHallName }: Props) {
   );
 }
 
-export default HallField;
+export default Halls;

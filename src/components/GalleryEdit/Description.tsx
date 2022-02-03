@@ -11,7 +11,7 @@ const Container = styled.div`
   }
 `;
 
-function DescriptionField() {
+function Description() {
   return (
     <Container>
       <label htmlFor="description">설명</label>
@@ -20,4 +20,4 @@ function DescriptionField() {
   );
 }
 
-export default DescriptionField;
+export default Description;

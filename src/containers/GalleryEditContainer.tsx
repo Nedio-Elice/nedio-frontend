@@ -11,7 +11,7 @@ function GalleryEditContainer() {
   const [halls, setHalls] = useState<HallProps[]>([]);
 
   const handleClickAddHallButton = () => {
-    const id = halls.length + 1;
+    const id = new Date().valueOf();
 
     setHalls([
       ...halls,
@@ -29,10 +29,16 @@ function GalleryEditContainer() {
     setHalls(newHalls);
   };
 
+  const handleClickDeleteHallButton = (id: number) => {
+    const newHalls = halls.filter((hall) => hall.id !== id);
+    setHalls(newHalls);
+  };
+
   return (
     <div>
       <GalleryEdit
         onClickAddHallButton={handleClickAddHallButton}
+        onClickDeleteHallButton={handleClickDeleteHallButton}
         onChangeHallName={handleChangeHallName}
         halls={halls}
       />

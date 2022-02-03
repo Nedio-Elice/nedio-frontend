@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-import PosterField from './PosterField';
-import TitleField from './TitleField';
-import CategoriesField from './CategoriesField';
-import DateField from './DateField';
-import DescriptionField from './DescriptionField';
-import ButtonsField from './ButtonsField';
-import HallField from './HallField';
+import Poster from './Poster';
+import Title from './Title';
+import Categories from './Categories';
+import Date from './Date';
+import Description from './Description';
+import Buttons from './Buttons';
+import Halls from './Halls';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -45,23 +45,33 @@ interface HallProps {
 interface Props {
   halls: HallProps[];
   onClickAddHallButton: () => void;
+  onClickDeleteHallButton: (id: number) => void;
   onChangeHallName: (parameter: HallProps) => void;
 }
 
-function GalleryEdit({ halls, onClickAddHallButton, onChangeHallName }: Props) {
+function GalleryEdit({
+  halls,
+  onClickAddHallButton,
+  onClickDeleteHallButton,
+  onChangeHallName,
+}: Props) {
   return (
     <Container>
       <Wrapper>
-        <PosterField />
+        <Poster />
         <Inputs>
-          <TitleField />
-          <CategoriesField />
-          <DateField />
-          <DescriptionField />
+          <Title />
+          <Categories />
+          <Date />
+          <Description />
         </Inputs>
       </Wrapper>
-      <ButtonsField onClickAddHallButton={onClickAddHallButton} />
-      <HallField halls={halls} onChangeHallName={onChangeHallName} />
+      <Buttons onClickAddHallButton={onClickAddHallButton} />
+      <Halls
+        halls={halls}
+        onChangeHallName={onChangeHallName}
+        onClickDeleteHallButton={onClickDeleteHallButton}
+      />
     </Container>
   );
 }

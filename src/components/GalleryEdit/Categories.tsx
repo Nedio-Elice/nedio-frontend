@@ -8,7 +8,7 @@ const Container = styled.div`
   }
 `;
 
-function CategoriesField() {
+function Categories() {
   return (
     <Container>
       <label htmlFor="category">분류</label>
@@ -22,4 +22,4 @@ function CategoriesField() {
   );
 }
 
-export default CategoriesField;
+export default Categories;

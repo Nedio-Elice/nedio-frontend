@@ -11,7 +11,7 @@ const Container = styled.div`
   }
 `;
 
-function DateField() {
+function Date() {
   return (
     <Container>
       <label htmlFor="date">기간</label>
@@ -22,4 +22,4 @@ function DateField() {
   );
 }
 
-export default DateField;
+export default Date;

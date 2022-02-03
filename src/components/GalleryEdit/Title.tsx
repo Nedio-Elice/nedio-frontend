@@ -8,7 +8,7 @@ const Container = styled.div`
   }
 `;
 
-function TitleField() {
+function Title() {
   return (
     <Container>
       <label htmlFor="title">제목</label>
@@ -17,4 +17,4 @@ function TitleField() {
   );
 }
 
-export default TitleField;
+export default Title;

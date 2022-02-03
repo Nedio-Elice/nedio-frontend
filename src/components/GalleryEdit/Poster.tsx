@@ -17,7 +17,7 @@ const Container = styled.div`
   }
 `;
 
-function PosterField() {
+function Poster() {
   return (
     <Container>
       <label htmlFor="posterUpload">포스터 업로드</label>
@@ -26,4 +26,4 @@ function PosterField() {
   );
 }
 
-export default PosterField;
+export default Poster;
