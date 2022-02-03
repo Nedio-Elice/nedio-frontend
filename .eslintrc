@@ -22,8 +22,6 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "linebreak-style": ["error", "windows"],
-	  "prettier/prettier": ["error", { "endOfLine": "auto"} ]
+    "@typescript-eslint/no-use-before-define": "off"
   }
 }
