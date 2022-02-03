@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
-import Buttons from '../components/Buttons/Buttons';
-import InputField from '../components/InputField/InputField';
-import Comment from '../components/Comment/Comment';
-import Pagination from '../components/Pagination/index';
+import Buttons from '../components/Buttons';
+import InputField from '../components/InputField';
+import Comment from '../components/Comment';
+import Pagination from '../components/Pagination';
 
 const { ButtonBasic, ButtonOrange } = Buttons;
 
@@ -112,7 +112,7 @@ function GalleryDetailPage() {
       <Pagination
         currPage={currPage}
         pageCount={pageCount}
-        onClickPage={(num) => {
+        onClickPage={(num: number) => {
           setCurrPage(num);
         }}
       />
