@@ -22,7 +22,6 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }]
+    "@typescript-eslint/no-use-before-define": "off"
   }
 }
