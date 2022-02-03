@@ -40,15 +40,16 @@ const Inputs = styled.div`
 `;
 
 interface WorksProps {
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
 }
 
 interface HallProps {
-  id: number;
+  id: string;
   name: string;
-  works?: WorksProps[];
+  works: WorksProps[];
 }
 
 interface GalleryProps {
@@ -64,8 +65,8 @@ interface GalleryProps {
 interface Props {
   gallery: GalleryProps;
   onClickAddHallButton: () => void;
-  onClickDeleteHallButton: (id: number) => void;
-  onChangeHallName: (parameter: HallProps) => void;
+  onClickDeleteHallButton: (id: string) => void;
+  onChangeHallName: (id: string, value: string) => void;
   onClickAddPieceButton: (piece: WorksProps) => void;
   onChangeGalleryInputField: (value: string, name: string) => void;
 }

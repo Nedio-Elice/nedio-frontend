@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import styled from 'styled-components';
 import Modal from './Modal';
@@ -52,22 +52,23 @@ const AddButtons = styled.div`
 `;
 
 interface WorksProps {
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
 }
 
 interface HallProps {
-  id: number;
+  id: string;
   name: string;
-  works?: WorksProps[];
+  works: WorksProps[];
 }
 
 interface Props {
-  id: number;
+  id: string;
   name: string;
-  onChangeHallName: (parameter: HallProps) => void;
-  onClickDeleteHallButton: (id: number) => void;
+  onChangeHallName: (id: string, value: string) => void;
+  onClickDeleteHallButton: (id: string) => void;
   onClickAddPieceButton: (piece: WorksProps) => void;
 }
 
@@ -79,19 +80,20 @@ function HallAddForm({
   onClickAddPieceButton,
 }: Props) {
   const [modalOn, setModalOn] = useState(false);
+  const PieceId = useRef(0);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    onChangeHallName({ id, name: value });
+    onChangeHallName(id, value);
   };
 
   const handleClick = () => {
     onClickDeleteHallButton(id);
   };
 
-  const openModal = () => {
+  const openModal = (i: number) => {
     setModalOn(true);
-    console.log(modalOn);
+    PieceId.current = i + 1;
   };
 
   const closeModal = () => {
@@ -114,7 +116,7 @@ function HallAddForm({
       </Wrapper>
       <AddButtons>
         {Array.from({ length: 10 }, (_, i) => (
-          <button key={i} type="button" onClick={openModal}>
+          <button key={i} type="button" onClick={() => openModal(i)}>
             작품
             <br />
             등록
@@ -122,6 +124,7 @@ function HallAddForm({
         ))}
       </AddButtons>
       <Modal
+        id={`${id}-${PieceId.current}`}
         modalOn={modalOn}
         closeModal={closeModal}
         onClickAddPieceButton={onClickAddPieceButton}

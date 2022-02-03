@@ -45,12 +45,14 @@ const Buttons = styled.div`
 `;
 
 interface WorksProps {
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
 }
 
 interface Props {
+  id: string;
   modalOn: boolean;
   closeModal: () => void;
   onClickAddPieceButton: (piece: WorksProps) => void;
@@ -62,7 +64,7 @@ interface InputValues {
   imageUrl: string;
 }
 
-function Modal({ modalOn, closeModal, onClickAddPieceButton }: Props) {
+function Modal({ id, modalOn, closeModal, onClickAddPieceButton }: Props) {
   const inittialValue = {
     title: '',
     description: '',
@@ -90,6 +92,7 @@ function Modal({ modalOn, closeModal, onClickAddPieceButton }: Props) {
   const handleClickAddButton = () => {
     // TOOD: 이미지 URL 넣기
     onClickAddPieceButton({
+      id,
       title,
       description,
       imageUrl: '#',

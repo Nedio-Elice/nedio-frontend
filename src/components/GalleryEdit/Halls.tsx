@@ -6,21 +6,22 @@ const Container = styled.div`
 `;
 
 interface WorksProps {
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
 }
 
 interface HallProps {
-  id: number;
+  id: string;
   name: string;
-  works?: WorksProps[];
+  works: WorksProps[];
 }
 
 interface Props {
   halls: HallProps[];
-  onChangeHallName: (prameter: HallProps) => void;
-  onClickDeleteHallButton: (id: number) => void;
+  onChangeHallName: (id: string, value: string) => void;
+  onClickDeleteHallButton: (id: string) => void;
   onClickAddPieceButton: (piece: WorksProps) => void;
 }
 

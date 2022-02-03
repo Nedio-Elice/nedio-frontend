@@ -11,15 +11,16 @@ describe('GalleryEdit', () => {
   const openModal = jest.fn();
 
   interface WorksProps {
+    id: string;
     title: string;
     description: string;
     imageUrl: string;
   }
 
   interface HallProps {
-    id: number;
+    id: string;
     name: string;
-    works?: WorksProps[];
+    works: WorksProps[];
   }
 
   interface GalleryProps {
@@ -41,12 +42,12 @@ describe('GalleryEdit', () => {
     posterUrl: '',
     halls: [
       {
-        id: 1,
+        id: '1',
         name: '',
         works: [],
       },
       {
-        id: 2,
+        id: '2',
         name: '',
         works: [],
       },
