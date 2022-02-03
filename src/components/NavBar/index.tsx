@@ -6,9 +6,10 @@ import { ReactComponent as XIcon } from '../../assets/icons/x-icon.svg';
 import TapButton from '../TapButton';
 import LoginLogoutButton from '../LoginLogoutButton';
 import { PATH } from '../../constants/path';
+import SignInContainer from '../../containers/SignInContainer';
 
 function NavBar() {
-  const [isLogined, setIsLogined] = useState(true);
+  const [isLogined, setIsLogined] = useState(false);
   const navigate = useNavigate();
 
   const handleNavMain = () => navigate(`${PATH.MAIN}`);
@@ -39,10 +40,15 @@ function NavBar() {
             <>
               <TapButton tapMenu="갤러리 생성" to={PATH.GALLERY_EDIT} />
               <TapButton tapMenu="마이 갤러리" to={PATH.MY_PAGE} />
-              <LoginLogoutButton tapMenu="로그아웃" />
+              <LoginLogoutButton
+                handleClick={() => {
+                  console.log('TODO: 로그아웃');
+                }}
+                tapMenu="로그아웃"
+              />
             </>
           ) : (
-            <LoginLogoutButton tapMenu="로그인" />
+            <SignInContainer />
           )}
         </NavBarLinks>
       </NavBarRight>
