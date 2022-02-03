@@ -17,7 +17,7 @@ function ThemeCard({ item }: Props) {
   const handleClick = () => navigate(`/galleries?category=${item.category}`);
 
   return (
-    <Cotainer link={`${item.imageURL}`}>
+    <Container link={`${item.imageURL}`}>
       <ThemeCardTitle>{item.title}</ThemeCardTitle>
       <ThemeCardBtn onClick={handleClick}>찾아보기</ThemeCardBtn>
     </Cotainer>
@@ -26,7 +26,7 @@ function ThemeCard({ item }: Props) {
 
 export default ThemeCard;
 
-const Cotainer = styled.div<{ link: string }>`
+const Container = styled.div<{ link: string }>`
   width: 250px;
   height: 380px;
   display: flex;
