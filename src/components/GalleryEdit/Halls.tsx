@@ -5,18 +5,31 @@ const Container = styled.div`
   width: 100%;
 `;
 
+interface WorksProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
 interface HallProps {
   id: number;
   name: string;
+  works?: WorksProps[];
 }
 
 interface Props {
   halls: HallProps[];
   onChangeHallName: (prameter: HallProps) => void;
   onClickDeleteHallButton: (id: number) => void;
+  onClickAddPieceButton: (piece: WorksProps) => void;
 }
 
-function Halls({ halls, onChangeHallName, onClickDeleteHallButton }: Props) {
+function Halls({
+  halls,
+  onChangeHallName,
+  onClickDeleteHallButton,
+  onClickAddPieceButton,
+}: Props) {
   return (
     <Container>
       {halls
@@ -28,6 +41,7 @@ function Halls({ halls, onChangeHallName, onClickDeleteHallButton }: Props) {
                 name={name}
                 onChangeHallName={onChangeHallName}
                 onClickDeleteHallButton={onClickDeleteHallButton}
+                onClickAddPieceButton={onClickAddPieceButton}
               />
             );
           })

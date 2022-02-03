@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -11,13 +12,35 @@ const Container = styled.div`
   }
 `;
 
-function Date() {
+interface Props {
+  onChange: (value: string, name: string) => void;
+  startDate: string;
+  endDate: string;
+}
+
+function Date({ onChange, startDate, endDate }: Props) {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    onChange(value, name);
+  };
   return (
     <Container>
       <label htmlFor="date">기간</label>
-      <input type="date" id="date" />
+      <input
+        type="date"
+        id="date"
+        name="startDate"
+        value={startDate}
+        onChange={handleChange}
+      />
       -
-      <input type="date" id="date" />
+      <input
+        type="date"
+        id="date"
+        name="endDate"
+        value={endDate}
+        onChange={handleChange}
+      />
     </Container>
   );
 }

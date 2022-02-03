@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+interface ContainerProps {
+  width: string;
+  height: string;
+}
+
+const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,19 +13,24 @@ const Container = styled.div`
   border: 1px solid black;
   border-radius: 1em;
   min-width: 230px;
-  width: 15em;
-  height: 20em;
-  margin-right: 2em;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   cursor: pointer;
   input {
     display: none;
   }
 `;
 
-function Poster() {
+interface Props {
+  label: string;
+  width: string;
+  height: string;
+}
+
+function Poster({ label, width, height }: Props) {
   return (
-    <Container>
-      <label htmlFor="posterUpload">포스터 업로드</label>
+    <Container width={width} height={height}>
+      <label htmlFor="posterUpload">{label}</label>
       <input type="file" id="posterUpload" />
     </Container>
   );
