@@ -1,43 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 interface Props {
-  modalState: boolean;
-  onClose: () => void;
   children: React.ReactNode;
 }
 
-const SignInModal = React.forwardRef<HTMLInputElement, Props>(
-  ({ modalState, onClose, children }, ref) => {
-    const [isOpen, setIsOpen] = useState(false);
+interface ModalHandle {
+  show: () => void;
+}
 
-    useEffect(() => {
-      let timer: NodeJS.Timeout;
-      if (modalState) {
-        setIsOpen(true);
-      } else {
-        timer = setTimeout(() => setIsOpen(false), 500);
-      }
+const SignInModal = React.forwardRef<ModalHandle, Props>((props, ref) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalState, setModalState] = useState(false);
+  const modal = useRef<HTMLInputElement>(null);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    }, [modalState]);
+  useImperativeHandle(ref, () => ({
+    show() {
+      setModalState(true);
+    },
+  }));
 
-    if (!isOpen) return null;
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (modalState) {
+      setIsOpen(true);
+    } else {
+      timer = setTimeout(() => setIsOpen(false), 500);
+    }
 
-    return (
-      <Background>
-        <Container ref={ref} modalState={modalState}>
-          {children}
-          <CloseBtn type="button" onClick={onClose}>
-            &#10094;
-          </CloseBtn>
-        </Container>
-      </Background>
-    );
-  },
-);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [modalState]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (!modal.current?.contains(e.target as Node)) {
+      if (modalState) setModalState(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <Background onClick={(e) => handleClick(e)}>
+      <Container ref={modal} modalState={modalState}>
+        <CloseBtn type="button" onClick={() => setModalState(false)}>
+          &#10094;
+        </CloseBtn>
+        {props.children}
+      </Container>
+    </Background>
+  );
+});
 
 export default SignInModal;
 

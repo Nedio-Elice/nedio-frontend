@@ -1,31 +1,11 @@
 /* eslint-disable react/button-has-type */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import GoogleLogin from 'react-google-login';
 import LoginLogoutButton from '../../components/LoginLogoutButton';
-import SignInModal from '../../components/SignInModal';
+import Modal from '../../components/Modal';
 
 function SignInContainer() {
-  const modal = useRef<HTMLInputElement>(null);
-  const [modalState, setModalState] = useState(false);
-
-  const onClose = () => setModalState(false);
-  const onOpen = () => setModalState(true);
-
-  const handleClick = useCallback(
-    (e: MouseEvent) => {
-      if (!modal.current?.contains(e.target as Node)) {
-        if (modalState) onClose();
-      }
-    },
-    [modalState],
-  );
-
-  useEffect(() => {
-    window.addEventListener('click', handleClick);
-    return () => {
-      window.removeEventListener('click', handleClick);
-    };
-  }, [handleClick]);
+  const modalRef = useRef<React.ElementRef<typeof Modal>>(null);
 
   const responseGoogle = (response: any) => {
     console.log(response);
@@ -33,8 +13,11 @@ function SignInContainer() {
 
   return (
     <>
-      <LoginLogoutButton tapMenu="로그인" handleClick={onOpen} />
-      <SignInModal ref={modal} modalState={modalState} onClose={onClose}>
+      <LoginLogoutButton
+        tapMenu="로그인"
+        handleClick={() => modalRef.current?.show()}
+      />
+      <Modal ref={modalRef}>
         {/* TODO: modal 내부 구현 */}
         <h3>Nedio에 오신 것을 환영합니다!</h3>
         <GoogleLogin
@@ -52,7 +35,7 @@ function SignInContainer() {
           onFailure={responseGoogle}
           cookiePolicy="single_host_origin"
         />
-      </SignInModal>
+      </Modal>
     </>
   );
 }
