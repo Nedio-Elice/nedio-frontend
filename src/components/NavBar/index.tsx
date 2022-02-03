@@ -14,7 +14,7 @@ function NavBar() {
       <NavBarContainer>
         <NavBarLeft>
           <Link to={PATH.MAIN} style={{ textDecoration: 'none' }}>
-            <Logo>NEDIO</Logo>
+            <Logo>Nedio</Logo>
           </Link>
         </NavBarLeft>
         <NavBarCenter>
@@ -70,9 +70,10 @@ const NavBarLeft = styled.div`
 `;
 
 const Logo = styled.span`
+  font-family: 'Julius Sans One', sans-serif;
   font-size: 48px;
   margin-left: 48px;
-  cursor: : pointer;
+  cursor: pointer;
   color: #000000;
 `;
 

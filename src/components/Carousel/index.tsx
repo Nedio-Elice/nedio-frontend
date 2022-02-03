@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CarouselButton from './CarouselButton';
@@ -78,7 +77,7 @@ function Carousel({ cardInfo }: Props) {
       >
         {paddedItems.map((item, idx) => (
           <CarouselCol
-            key={`${idx}`}
+            key={idx}
             itemWidth={itemWidth}
             isCurrent={curIdx === idx}
           >
