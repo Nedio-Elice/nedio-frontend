@@ -20,7 +20,7 @@ function ThemeCard({ item }: Props) {
     <Container link={`${item.imageURL}`}>
       <ThemeCardTitle>{item.title}</ThemeCardTitle>
       <ThemeCardBtn onClick={handleClick}>찾아보기</ThemeCardBtn>
-    </Cotainer>
+    </Container>
   );
 }
 

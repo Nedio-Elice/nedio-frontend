@@ -4,6 +4,7 @@ import CustomRoute from './components/CustomRoute';
 import { PATH } from './constants/path';
 import ROUTE from './constants/route';
 import NotFoundPage from './pages/NotFoundPage';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               element={
                 // TODO: Loading style
                 <Suspense fallback={<>Loading...</>}>
+                  <NavBar />
                   <Component />
                 </Suspense>
               }

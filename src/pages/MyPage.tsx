@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-import NavBar from '../components/NavBar';
 
 function MyPage() {
   return (
     <>
-      <NavBar />
       <ProfileBox />
       <MyGalleryBox />
     </>
