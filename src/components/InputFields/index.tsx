@@ -118,7 +118,7 @@ const InputTextBox = styled.textarea<{
   font-style: normal;
   font-size: 16px;
   background: #ffffff;
-  padding: 0px 20px 0px 20px;
+  padding: 12px 16px;
   border: 1px solid #d1d1d1;
   box-sizing: border-box;
   box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);

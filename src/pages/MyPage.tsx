@@ -1,69 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLinkClickHandler } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { RootState } from '../store/root';
+import { getUser, putUser } from '../store/user';
 import axiosInstance from '../api/api';
-import InputFields from '../components/InputFields';
+import ProfileInfos from '../components/ProfileInfos';
+import Card from '../components/Card';
 import Buttons from '../components/Buttons';
 
 const { ButtonBasic, ButtonOrange, ButtonNeumo } = Buttons;
-const { InputField, InputTextField } = InputFields;
-
-interface User {
-  _id: string;
-  introduce: string;
-  contact: string;
-  profileURL: string;
-  nickname: string;
-  email: string;
-}
+const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
 
 function MyPage() {
-  const [user, setUser] = useState<User | null>(null);
+  const { userId } = useParams();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.users);
+
+  const [profileURL, setProfileURL] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
-  const { userId } = useParams();
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      await axiosInstance.put<User>(`api/users/${userId}`, {
-        nickname,
-        email,
-        introduce,
-        profileURL: user?.profileURL,
-        contact: user?.contact,
-      });
-    } catch (error) {
-      const err = error as AxiosError;
-      throw new Error(err.response?.data);
-    }
-  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        await axiosInstance
-          .get<User>(`api/users/${userId}`)
-          .then((response: AxiosResponse) => {
-            setUser(response.data);
-            setNickname(response.data.nickname);
-            setEmail(response.data.email);
-            setIntroduce(response.data.introduce);
-          });
-      } catch (error) {
-        const err = error as AxiosError;
-        throw new Error(err.response?.data);
-      }
-    };
-
-    fetchUser();
-  }, [userId]);
+    dispatch(getUser(userId));
+    setNickname(user.nickname);
+    setEmail(user.email);
+    setIntroduce(user.introduce);
+    setProfileURL(user.profileURL);
+  }, [
+    dispatch,
+    userId,
+    user.nickname,
+    user.email,
+    user.introduce,
+    user.profileURL,
+  ]);
 
   if (user === null) {
     return <h1>No such user</h1>;
   }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const newUser = {
+      id: userId,
+      introduce,
+      contact: user.contact,
+      profileURL,
+      nickname,
+      email,
+    };
+    dispatch(putUser(newUser));
+  };
+
+  const handleProfileSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const newUser = {
+      id: userId,
+      introduce: user.introduce,
+      contact: user.contact,
+      profileURL,
+      nickname: user.nickname,
+      email: user.email,
+    };
+    dispatch(putUser(newUser));
+  };
 
   return (
     <>
@@ -73,39 +77,33 @@ function MyPage() {
           <ButtonBasic
             value="사진 업로드"
             type="submit"
-            handleClick={() => {}}
+            handleClick={handleProfileSubmit}
           />
           <InfoWrapper>
             <InfoSubWrapper>
-              <InfoType>이름</InfoType>
-              <InputField
+              <ProfileInfo
+                name="이름"
                 defaultText={user.nickname}
                 value={nickname}
                 width="80%"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setNickname(event.target.value)
-                }
+                onChange={setNickname}
               />
               <br />
-              <InfoType>이메일</InfoType>
-              <InputField
+              <ProfileInfo
+                name="이메일"
+                defaultText={user.email}
                 value={email}
                 width="80%"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(event.target.value)
-                }
+                onChange={setEmail}
               />
             </InfoSubWrapper>
             <InfoSubWrapper>
-              <InfoType>소개</InfoType>
-              <InputTextField
+              <ProfileTextInfo
+                name="소개"
                 defaultText={user.introduce}
                 value={introduce}
                 width="80%"
-                height="200px"
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                  setIntroduce(e.target.value)
-                }
+                onChange={setIntroduce}
               />
             </InfoSubWrapper>
             <ButtonWrapperRight>
@@ -163,16 +161,6 @@ const InfoSubWrapper = styled.div`
   padding-top: 72px;
   display: flex;
   flex-direction: column;
-`;
-
-const InfoType = styled.h2`
-  font-family: Pretendard-Regular;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
-  text-align: left;
-  margin-bottom: 8px;
 `;
 
 const ButtonWrapperRight = styled.div`

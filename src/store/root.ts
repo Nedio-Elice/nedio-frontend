@@ -4,7 +4,7 @@ import userReducer from './user';
 
 export const store = configureStore({
   reducer: {
-    [SLICE.USER]: userReducer,
+    users: userReducer,
   },
   devTools: true,
 });

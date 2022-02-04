@@ -12,15 +12,29 @@ const { ButtonBasic, ButtonOrange } = Buttons;
 const { InputField, InputTextField } = InputFields;
 
 interface Gallery {
-  _id: string;
   posterUrl: string;
   description: string;
   endDate: string;
   startDate: string;
   category: string;
   title: string;
+  author: Author;
   authorId: string;
+  halls: Halls;
 }
+
+interface Author {
+  email: string;
+  nickname: string;
+  contact: string;
+}
+
+interface Hall {
+  hallId: string;
+  hallName: string;
+}
+
+type Halls = Array<Hall>;
 
 interface CommentSingle {
   _id: string;
@@ -75,7 +89,7 @@ function GalleryDetailPage() {
     };
 
     fetchComments();
-  }, [gallery, galleryId]);
+  }, [comments, galleryId]);
 
   if (gallery === null) {
     return <h1>No data</h1>;

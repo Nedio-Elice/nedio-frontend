@@ -4,7 +4,9 @@ import styled, { css } from 'styled-components';
 interface ButtonProps {
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
-  handleClick: (event: React.MouseEvent) => void;
+  handleClick?:
+    | React.MouseEventHandler<HTMLButtonElement>
+    | React.FormEventHandler<HTMLButtonElement>;
 }
 
 function ButtonBasic({ value, type, handleClick }: ButtonProps) {
@@ -33,12 +35,15 @@ function ButtonNeumo({ value, type, handleClick }: ButtonProps) {
 
 ButtonBasic.defaultProps = {
   type: 'button',
+  handleClick: () => {},
 };
 ButtonOrange.defaultProps = {
   type: 'button',
+  handleClick: () => {},
 };
 ButtonNeumo.defaultProps = {
   type: 'button',
+  handleClick: () => {},
 };
 
 export default { ButtonBasic, ButtonOrange, ButtonNeumo };
