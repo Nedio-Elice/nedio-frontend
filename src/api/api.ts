@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const url = process.env.SERVER_URL || 'http://localhost:6000/api';
+export const url = process.env.SERVER_URL || 'http://localhost:4000/api';
 
 const axiosInstance = axios.create({
   baseURL: url,
@@ -8,5 +8,6 @@ const axiosInstance = axios.create({
     'Content-type': 'application/json',
   },
 });
+axiosInstance.defaults.withCredentials = true;
 
 export default axiosInstance;

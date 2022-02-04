@@ -1,15 +1,18 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg';
-import { ReactComponent as XIcon } from '../../assets/icons/x-icon.svg';
+import { GoogleLogout } from 'react-google-login';
 import TapButton from '../TapButton';
-import LoginLogoutButton from '../LoginLogoutButton';
 import { PATH } from '../../constants/path';
 import SignInContainer from '../../containers/SignInContainer';
+import { SearchIcon, XIcon } from '../../constants/icons';
+import AuthButton from '../AuthButton';
 
-function NavBar() {
-  const [isLogined, setIsLogined] = useState(false);
+interface Props {
+  isSignIn: boolean;
+  signOut: () => void;
+}
+
+function NavBar({ isSignIn, signOut }: Props) {
   const navigate = useNavigate();
 
   const handleNavMain = () => navigate(`${PATH.MAIN}`);
@@ -22,7 +25,7 @@ function NavBar() {
 
       <NavBarCenter>
         <SearchBar>
-          <SearchIcon style={{ marginLeft: 19 }} />
+          <SearchIcon />
           <SearchInput placeholder="검색어를 입력해주세요" />
           {/* <XIcon /> */}
         </SearchBar>
@@ -36,15 +39,20 @@ function NavBar() {
 
       <NavBarRight>
         <NavBarLinks>
-          {isLogined ? (
+          {isSignIn ? (
             <>
               <TapButton tapMenu="갤러리 생성" to={PATH.GALLERY_EDIT} />
               <TapButton tapMenu="마이 갤러리" to={PATH.MY_PAGE} />
-              <LoginLogoutButton
-                handleClick={() => {
-                  console.log('TODO: 로그아웃');
-                }}
-                tapMenu="로그아웃"
+              <GoogleLogout
+                clientId={process.env.REACT_APP_GOOGLE_API_KEY}
+                buttonText="Logout"
+                onLogoutSuccess={signOut}
+                render={(renderProps) => (
+                  <AuthButton
+                    handleClick={renderProps.onClick}
+                    tapMenu="로그아웃"
+                  />
+                )}
               />
             </>
           ) : (
@@ -97,9 +105,9 @@ const SearchBar = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
-  box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 7px #e1e2e4;
-  box-shadow: inset -3px -3px 7px #f2f3f5, inset 3px 3px 7px #e1e2e4;
+  box-shadow: inset -1.5px -1.5px 5px #f2f3f5, inset 3px 3px 5px #e1e2e4;
   border-radius: 50px;
+  padding: 0 10px;
 `;
 
 const SearchInput = styled.input`

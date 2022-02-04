@@ -2,6 +2,8 @@ import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 interface Props {
+  width: number;
+  height: number;
   children: React.ReactNode;
 }
 
@@ -9,51 +11,58 @@ interface ModalHandle {
   show: () => void;
 }
 
-const SignInModal = React.forwardRef<ModalHandle, Props>((props, ref) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [modalState, setModalState] = useState(false);
-  const modal = useRef<HTMLInputElement>(null);
+const Modal = React.forwardRef<ModalHandle, Props>(
+  ({ width, height, children }, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [modalState, setModalState] = useState(false);
+    const modal = useRef<HTMLInputElement>(null);
 
-  useImperativeHandle(ref, () => ({
-    show() {
-      setModalState(true);
-    },
-  }));
+    useImperativeHandle(ref, () => ({
+      show() {
+        setModalState(true);
+      },
+    }));
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (modalState) {
-      setIsOpen(true);
-    } else {
-      timer = setTimeout(() => setIsOpen(false), 500);
-    }
+    useEffect(() => {
+      let timer: NodeJS.Timeout;
+      if (modalState) {
+        setIsOpen(true);
+      } else {
+        timer = setTimeout(() => setIsOpen(false), 500);
+      }
 
-    return () => {
-      clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [modalState]);
+
+    const handleClick = (e: React.MouseEvent) => {
+      if (!modal.current?.contains(e.target as Node)) {
+        if (modalState) setModalState(false);
+      }
     };
-  }, [modalState]);
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (!modal.current?.contains(e.target as Node)) {
-      if (modalState) setModalState(false);
-    }
-  };
+    if (!isOpen) return null;
 
-  if (!isOpen) return null;
+    return (
+      <Background onClick={(e) => handleClick(e)}>
+        <Container
+          ref={modal}
+          modalState={modalState}
+          modalWidth={width}
+          modalHeight={height}
+        >
+          <CloseBtn type="button" onClick={() => setModalState(false)}>
+            &#10094;
+          </CloseBtn>
+          {children}
+        </Container>
+      </Background>
+    );
+  },
+);
 
-  return (
-    <Background onClick={(e) => handleClick(e)}>
-      <Container ref={modal} modalState={modalState}>
-        <CloseBtn type="button" onClick={() => setModalState(false)}>
-          &#10094;
-        </CloseBtn>
-        {props.children}
-      </Container>
-    </Background>
-  );
-});
-
-export default SignInModal;
+export default Modal;
 
 const slideUp = keyframes`
   0% {
@@ -86,11 +95,15 @@ const Background = styled.div`
   background: rgba(77, 77, 77, 0.5);
 `;
 
-const Container = styled.div<{ modalState: boolean }>`
+const Container = styled.div<{
+  modalState: boolean;
+  modalWidth: number;
+  modalHeight: number;
+}>`
   position: relative;
-  width: 350px;
-  height: 350px;
-  background: #e1e2e4;
+  width: ${({ modalWidth }) => `${modalWidth}px`};
+  height: ${({ modalHeight }) => `${modalHeight}px`};
+  background: #f2f3f5;
   border-radius: 25px;
   animation-duration: 0.5s;
   animation-timing-function: ease-out;
@@ -101,11 +114,6 @@ const Container = styled.div<{ modalState: boolean }>`
     css`
       animation-name: ${slideDown};
     `};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 `;
 
 const CloseBtn = styled.button`
