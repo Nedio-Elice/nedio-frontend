@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
-
 import styled from 'styled-components';
-import Modal from './Modal';
+
+import { Piece } from '../../types/GalleryEdit';
+
+import PieceField from './PieceField';
 
 const Container = styled.div`
   display: flex;
@@ -41,47 +42,25 @@ const Wrapper = styled.div`
 const AddButtons = styled.div`
   display: flex;
   align-items: center;
-
-  & > button {
-    margin-right: 1em;
-    padding: 0.3em;
-    background: none;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
 `;
-
-interface WorksProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-interface HallProps {
-  id: string;
-  name: string;
-  works: WorksProps[];
-}
 
 interface Props {
   id: string;
   name: string;
+  pieces: Piece[];
   onChangeHallName: (id: string, value: string) => void;
   onClickDeleteHallButton: (id: string) => void;
-  onClickAddPieceButton: (piece: WorksProps) => void;
+  onChangePieceField: (piece: Piece) => void;
 }
 
 function HallAddForm({
   id,
   name,
+  pieces,
   onChangeHallName,
   onClickDeleteHallButton,
-  onClickAddPieceButton,
+  onChangePieceField,
 }: Props) {
-  const [modalOn, setModalOn] = useState(false);
-  const PieceId = useRef(0);
-
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     onChangeHallName(id, value);
@@ -89,16 +68,6 @@ function HallAddForm({
 
   const handleClick = () => {
     onClickDeleteHallButton(id);
-  };
-
-  const openModal = (i: number) => {
-    setModalOn(true);
-    PieceId.current = i + 1;
-  };
-
-  const closeModal = () => {
-    setModalOn(false);
-    console.log(modalOn);
   };
 
   return (
@@ -115,20 +84,14 @@ function HallAddForm({
         </button>
       </Wrapper>
       <AddButtons>
-        {Array.from({ length: 10 }, (_, i) => (
-          <button key={i} type="button" onClick={() => openModal(i)}>
-            작품
-            <br />
-            등록
-          </button>
+        {pieces.map((piece) => (
+          <PieceField
+            key={piece.id}
+            piece={piece}
+            onChange={onChangePieceField}
+          />
         ))}
       </AddButtons>
-      <Modal
-        id={`${id}-${PieceId.current}`}
-        modalOn={modalOn}
-        closeModal={closeModal}
-        onClickAddPieceButton={onClickAddPieceButton}
-      />
     </Container>
   );
 }

@@ -1,48 +1,39 @@
 import styled from 'styled-components';
+
 import HallAddForm from './HallAddForm';
+
+import { Hall, Piece } from '../../types/GalleryEdit';
 
 const Container = styled.div`
   width: 100%;
 `;
 
-interface WorksProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-interface HallProps {
-  id: string;
-  name: string;
-  works: WorksProps[];
-}
-
 interface Props {
-  halls: HallProps[];
+  halls: Hall[];
   onChangeHallName: (id: string, value: string) => void;
   onClickDeleteHallButton: (id: string) => void;
-  onClickAddPieceButton: (piece: WorksProps) => void;
+  onChangePieceField: (piece: Piece) => void;
 }
 
 function Halls({
   halls,
   onChangeHallName,
   onClickDeleteHallButton,
-  onClickAddPieceButton,
+  onChangePieceField,
 }: Props) {
   return (
     <Container>
       {halls
-        ? halls.map(({ id, name }) => {
+        ? halls.map(({ id, name, pieces }) => {
             return (
               <HallAddForm
                 key={id}
                 id={id}
                 name={name}
+                pieces={pieces}
                 onChangeHallName={onChangeHallName}
                 onClickDeleteHallButton={onClickDeleteHallButton}
-                onClickAddPieceButton={onClickAddPieceButton}
+                onChangePieceField={onChangePieceField}
               />
             );
           })

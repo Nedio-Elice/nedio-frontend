@@ -8,6 +8,8 @@ import Description from './Description';
 import Buttons from './Buttons';
 import Halls from './Halls';
 
+import { Gallery, Piece } from '../../types/GalleryEdit';
+
 const Container = styled.div`
   box-sizing: border-box;
   font-size: 16px;
@@ -39,35 +41,12 @@ const Inputs = styled.div`
   }
 `;
 
-interface WorksProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-interface HallProps {
-  id: string;
-  name: string;
-  works: WorksProps[];
-}
-
-interface GalleryProps {
-  title: string;
-  category: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  posterUrl: string;
-  halls: HallProps[];
-}
-
 interface Props {
-  gallery: GalleryProps;
+  gallery: Gallery;
   onClickAddHallButton: () => void;
   onClickDeleteHallButton: (id: string) => void;
   onChangeHallName: (id: string, value: string) => void;
-  onClickAddPieceButton: (piece: WorksProps) => void;
+  onChangePieceField: (piece: Piece) => void;
   onChangeGalleryInputField: (value: string, name: string) => void;
 }
 
@@ -76,7 +55,7 @@ function GalleryEdit({
   onClickAddHallButton,
   onClickDeleteHallButton,
   onChangeHallName,
-  onClickAddPieceButton,
+  onChangePieceField,
   onChangeGalleryInputField,
 }: Props) {
   const { title, category, startDate, endDate, description, halls } = gallery;
@@ -114,7 +93,7 @@ function GalleryEdit({
         halls={halls}
         onChangeHallName={onChangeHallName}
         onClickDeleteHallButton={onClickDeleteHallButton}
-        onClickAddPieceButton={onClickAddPieceButton}
+        onChangePieceField={onChangePieceField}
       />
     </Container>
   );

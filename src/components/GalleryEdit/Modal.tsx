@@ -1,8 +1,10 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+
 import Description from './Description';
 import Poster from './Poster';
 import Title from './Title';
+
+import { Piece } from '../../types/GalleryEdit';
 
 interface ContainerProps {
   modalOn: boolean;
@@ -44,60 +46,31 @@ const Buttons = styled.div`
   justify-content: space-evenly;
 `;
 
-interface WorksProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
 interface Props {
-  id: string;
+  piece: Piece;
   modalOn: boolean;
   closeModal: () => void;
-  onClickAddPieceButton: (piece: WorksProps) => void;
+  onChange: (piece: Piece) => void;
 }
 
-interface InputValues {
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-function Modal({ id, modalOn, closeModal, onClickAddPieceButton }: Props) {
-  const inittialValue = {
-    title: '',
-    description: '',
-    imageUrl: '',
-  };
-
-  const [inputValues, setInputValues] = useState<InputValues>(inittialValue);
-
-  const { title, description } = inputValues;
+function Modal({ piece, modalOn, closeModal, onChange }: Props) {
+  const { title, description } = piece;
 
   const handleClickCloseButton = () => {
-    setInputValues(inittialValue);
     closeModal();
   };
 
   const handleChange = (value: string, name: string) => {
-    setInputValues((current) => {
-      return {
-        ...current,
-        [name]: value,
-      };
-    });
+    const newPiece = {
+      ...piece,
+      [name]: value,
+    };
+
+    onChange(newPiece);
   };
 
   const handleClickAddButton = () => {
     // TOOD: 이미지 URL 넣기
-    onClickAddPieceButton({
-      id,
-      title,
-      description,
-      imageUrl: '#',
-    });
-    setInputValues(inittialValue);
     closeModal();
   };
 

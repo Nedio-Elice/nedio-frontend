@@ -1,4 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
+import { Gallery } from '../../types/GalleryEdit';
 
 import GalleryEdit from './index';
 
@@ -6,32 +7,8 @@ describe('GalleryEdit', () => {
   const handleClickAddHallButton = jest.fn();
   const handleChangeHallName = jest.fn();
   const handleClickDeleteButton = jest.fn();
-  const handleClickAddPieceButton = jest.fn();
+  const handleChangePieceField = jest.fn();
   const handleChangeGalleryInputField = jest.fn();
-  const openModal = jest.fn();
-
-  interface WorksProps {
-    id: string;
-    title: string;
-    description: string;
-    imageUrl: string;
-  }
-
-  interface HallProps {
-    id: string;
-    name: string;
-    works: WorksProps[];
-  }
-
-  interface GalleryProps {
-    title: string;
-    category: string;
-    startDate: string;
-    endDate: string;
-    description: string;
-    posterUrl: string;
-    halls: HallProps[];
-  }
 
   const initialValue = {
     title: '',
@@ -44,24 +21,24 @@ describe('GalleryEdit', () => {
       {
         id: '1',
         name: '',
-        works: [],
+        pieces: [],
       },
       {
         id: '2',
         name: '',
-        works: [],
+        pieces: [],
       },
     ],
   };
 
-  function renderGalleryEdit(gallery: GalleryProps = initialValue) {
+  function renderGalleryEdit(gallery: Gallery = initialValue) {
     return render(
       <GalleryEdit
         gallery={gallery}
         onClickAddHallButton={handleClickAddHallButton}
         onChangeHallName={handleChangeHallName}
         onClickDeleteHallButton={handleClickDeleteButton}
-        onClickAddPieceButton={handleClickAddPieceButton}
+        onChangePieceField={handleChangePieceField}
         onChangeGalleryInputField={handleChangeGalleryInputField}
       />,
     );
@@ -109,12 +86,4 @@ describe('GalleryEdit', () => {
 
     expect(container).toHaveTextContent('작품등록');
   });
-
-  // it('listens click event on "작품 등록" button', () => {
-  //   const { getAllByText } = renderGalleryEdit();
-
-  //   fireEvent.click(getAllByText('작품등록')[0]);
-
-  //   expect(openModal).toHaveBeenCalled();
-  // });
 });

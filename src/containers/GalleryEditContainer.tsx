@@ -1,9 +1,21 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import styled from 'styled-components';
 
 import GalleryEdit from '../components/GalleryEdit';
-import HallAddForm from '../components/GalleryEdit/HallAddForm';
 
+import {
+  addHall,
+  updatePiece,
+  changeGalleryInput,
+  changeHallName,
+  deleteHall,
+} from '../store/gallery';
+
+import { RootState } from '../store/root';
+import { Piece } from '../types/GalleryEdit';
+
+// 임시
 const State = styled.div`
   position: absolute;
   top: 30%;
@@ -15,124 +27,32 @@ const State = styled.div`
   }
 `;
 
-interface WorksProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-interface HallProps {
-  id: string;
-  name: string;
-  works: WorksProps[];
-}
-
-interface GalleryProps {
-  title: string;
-  category: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  posterUrl: string;
-  halls: HallProps[];
-}
-
 function GalleryEditContainer() {
-  const initialValue = {
-    title: '',
-    category: '',
-    startDate: '',
-    endDate: '',
-    description: '',
-    posterUrl: '',
-    halls: [],
-  };
-  // TODO: 리덕스 추가
-  const [gallery, setGallery] = useState<GalleryProps>(initialValue);
+  const dispatch = useDispatch();
 
-  const { halls, title, category, startDate, endDate, description, posterUrl } =
-    gallery;
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const gallery = useSelector((state: RootState) => state.gallery);
+
+  const { halls, title, category, startDate, endDate, description } = gallery;
 
   const handleClickAddHallButton = () => {
-    const id = new Date().valueOf().toString();
-
-    setGallery((current) => {
-      return {
-        ...current,
-        halls: [
-          ...current.halls,
-          {
-            id,
-            name: '',
-            works: [],
-          },
-        ],
-      };
-    });
+    dispatch(addHall());
   };
 
   const handleChangeHallName = (id: string, value: string) => {
-    const newHalls = halls.map((hall) =>
-      hall.id === id ? { ...hall, name: value } : hall,
-    );
-
-    setGallery((current) => {
-      return {
-        ...current,
-        halls: newHalls,
-      };
-    });
+    dispatch(changeHallName({ id, value }));
   };
 
   const handleClickDeleteHallButton = (id: string) => {
-    const newHalls = halls.filter((hall) => hall.id !== id);
-
-    setGallery((current) => {
-      return {
-        ...current,
-        halls: newHalls,
-      };
-    });
+    dispatch(deleteHall(id));
   };
 
-  const sortByIndex = (works: WorksProps[]) => {
-    const newWorks = works.sort(
-      (a, b) =>
-        parseInt(a.id.split('-')[1], 10) - parseInt(b.id.split('-')[1], 10),
-    );
-    return newWorks;
-  };
-
-  const handleClickAddPieceButton = (piece: WorksProps) => {
-    const { id } = piece;
-
-    const hallId = id.split('-')[0];
-
-    const newHalls = halls.map((hall) =>
-      hall.id === hallId
-        ? {
-            ...hall,
-            works: sortByIndex([...hall.works, piece]),
-          }
-        : hall,
-    );
-
-    setGallery((current) => {
-      return {
-        ...current,
-        halls: newHalls,
-      };
-    });
+  const handleChangePieceField = (piece: Piece) => {
+    dispatch(updatePiece(piece));
   };
 
   const handleChangeGalleryInputField = (value: string, name: string) => {
-    setGallery((current) => {
-      return {
-        ...current,
-        [name]: value,
-      };
-    });
+    dispatch(changeGalleryInput({ name, value }));
   };
 
   return (
@@ -141,7 +61,7 @@ function GalleryEditContainer() {
         onClickAddHallButton={handleClickAddHallButton}
         onClickDeleteHallButton={handleClickDeleteHallButton}
         onChangeHallName={handleChangeHallName}
-        onClickAddPieceButton={handleClickAddPieceButton}
+        onChangePieceField={handleChangePieceField}
         onChangeGalleryInputField={handleChangeGalleryInputField}
         gallery={gallery}
       />
@@ -154,15 +74,15 @@ function GalleryEditContainer() {
           {halls &&
             halls.map((hall) => {
               return (
-                <div>
+                <div key={hall.id}>
                   <span>{hall.name}</span>
-                  {hall.works &&
-                    hall.works.map((work) => {
+                  {hall.pieces &&
+                    hall.pieces.map((piece, idx) => {
                       return (
-                        <ul>
-                          <li>{work.id}</li>
-                          <li>{work.title}</li>
-                          <li>{work.description}</li>
+                        <ul key={piece.title + idx}>
+                          <li>{idx + 1}번 작품</li>
+                          <li>{piece.title}</li>
+                          <li>{piece.description}</li>
                         </ul>
                       );
                     })}
