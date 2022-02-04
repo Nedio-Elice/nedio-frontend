@@ -19,3 +19,10 @@ export const getPiecesButtons = (id: string) => {
   });
   return pieces;
 };
+
+export const validatePieceForm = (piece: Piece) => {
+  if (piece.title && piece.description) {
+    return true;
+  }
+  return false;
+};

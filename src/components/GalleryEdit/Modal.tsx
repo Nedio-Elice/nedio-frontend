@@ -1,3 +1,5 @@
+import { useState, useRef } from 'react';
+
 import styled from 'styled-components';
 
 import Description from './Description';
@@ -6,11 +8,15 @@ import Title from './Title';
 
 import { Piece } from '../../types/GalleryEdit';
 
-interface ContainerProps {
+interface ContainerStyle {
   modalOn: boolean;
 }
 
-const Container = styled.div<ContainerProps>`
+interface ButtonsStyle {
+  isUpdated: boolean;
+}
+
+const Container = styled.div<ContainerStyle>`
   display: ${(props) => (props.modalOn ? 'flex' : 'none')};
   position: absolute;
   top: 0;
@@ -40,37 +46,68 @@ const Wrapper = styled.div`
   }
 `;
 
-const Buttons = styled.div`
+const Buttons = styled.div<ButtonsStyle>`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+
+  & > button:nth-child(2) {
+    display: ${(props) => (props.isUpdated ? 'block' : 'none')};
+  }
 `;
 
 interface Props {
   piece: Piece;
   modalOn: boolean;
+  isUpdated: boolean;
   closeModal: () => void;
   onChange: (piece: Piece) => void;
 }
 
-function Modal({ piece, modalOn, closeModal, onChange }: Props) {
-  const { title, description } = piece;
+function Modal({ piece, modalOn, closeModal, onChange, isUpdated }: Props) {
+  const [inputValues, setInputValues] = useState<Piece>(piece);
+
+  const prevValues = useRef<Piece>(piece);
 
   const handleClickCloseButton = () => {
+    onChange(prevValues.current);
+
+    setInputValues(prevValues.current);
+
     closeModal();
   };
 
   const handleChange = (value: string, name: string) => {
     const newPiece = {
-      ...piece,
+      ...inputValues,
       [name]: value,
     };
 
-    onChange(newPiece);
+    setInputValues(newPiece);
+  };
+
+  const handleClickDeleteButton = () => {
+    const cleanForm = {
+      ...inputValues,
+      title: '',
+      description: '',
+      imageUrl: '',
+    };
+
+    setInputValues(cleanForm);
+
+    prevValues.current = cleanForm;
+
+    onChange(cleanForm);
+
+    closeModal();
   };
 
   const handleClickAddButton = () => {
-    // TOOD: 이미지 URL 넣기
+    prevValues.current = inputValues;
+
+    onChange(inputValues);
+
     closeModal();
   };
 
@@ -80,19 +117,22 @@ function Modal({ piece, modalOn, closeModal, onChange }: Props) {
         <Poster label="이미지 업로드" width="100%" height="100%" />
         <Title
           label=""
-          title={title}
+          title={inputValues.title}
           placeholder="작품의 제목을 입력해주세요"
           onChange={handleChange}
         />
         <Description
           label=""
-          description={description}
+          description={inputValues.description}
           placeholder="작품에 대해 소개해주세요"
           onChange={handleChange}
         />
-        <Buttons>
+        <Buttons isUpdated={isUpdated}>
           <button type="button" onClick={handleClickAddButton}>
-            등록
+            {isUpdated ? '수정' : '등록'}
+          </button>
+          <button type="button" onClick={handleClickDeleteButton}>
+            삭제
           </button>
           <button type="button" onClick={handleClickCloseButton}>
             취소

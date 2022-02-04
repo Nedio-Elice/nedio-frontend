@@ -4,7 +4,10 @@ import styled from 'styled-components';
 
 import { Piece } from '../../types/GalleryEdit';
 
+import { validatePieceForm } from '../../utils/galleryEdit';
+
 import Modal from './Modal';
+import PieceButton from './PieceButton';
 
 const Container = styled.div`
   display: flex;
@@ -12,14 +15,6 @@ const Container = styled.div`
   align-items: flex-start;
   margin-bottom: 1em;
   width: 100%;
-
-  & > button {
-    margin-right: 1em;
-    padding: 0.3em;
-    background: none;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
 `;
 
 interface Props {
@@ -32,6 +27,8 @@ function PieceField({ piece, onChange }: Props) {
 
   const { id } = piece;
 
+  const isUpdated = validatePieceForm(piece);
+
   const openModal = () => {
     setModalOn(true);
   };
@@ -42,16 +39,13 @@ function PieceField({ piece, onChange }: Props) {
 
   return (
     <Container key={id}>
-      <button type="button" onClick={openModal}>
-        작품
-        <br />
-        등록
-      </button>
+      <PieceButton openModal={openModal} isUpdated={isUpdated} />
       <Modal
         piece={piece}
         modalOn={modalOn}
         closeModal={closeModal}
         onChange={onChange}
+        isUpdated={isUpdated}
       />
     </Container>
   );
