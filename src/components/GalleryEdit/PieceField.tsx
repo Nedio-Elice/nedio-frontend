@@ -40,11 +40,7 @@ function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
 
   return (
     <Container key={id}>
-      <PieceButton
-        openModal={openModal}
-        isUpdated={isUpdated}
-        thumbnail={piece.imageUrl}
-      />
+      <PieceButton openModal={openModal} thumbnail={piece.imageUrl} />
       <Modal
         piece={piece}
         modalOn={modalOn}

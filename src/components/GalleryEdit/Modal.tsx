@@ -37,19 +37,39 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 1em;
+  padding-top: 2em;
   width: 300px;
   height: 400px;
   border: 1px solid black;
+  position: relative;
 
   div + div {
     margin-top: 1em;
   }
 `;
 
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+  width: 100%;
+  height: 2em;
+  border-bottom: 1px solid black;
+`;
+
 const Buttons = styled.div<ButtonsStyle>`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+
+  & > button {
+    background: none;
+    border-radius: 0.3em;
+    cursor: pointer;
+  }
 
   & > button:nth-child(2) {
     display: ${(props) => (props.isUpdated ? 'block' : 'none')};
@@ -122,6 +142,7 @@ function Modal({
   return (
     <Container modalOn={modalOn}>
       <Wrapper>
+        <Header>작품 등록</Header>
         <Poster
           label="이미지 업로드"
           width="100%"

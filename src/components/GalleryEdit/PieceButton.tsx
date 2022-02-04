@@ -5,7 +5,6 @@ interface ButtonStyle {
 }
 
 interface Props {
-  isUpdated: boolean;
   thumbnail: string | null;
   openModal: () => void;
 }
@@ -24,10 +23,10 @@ const Button = styled.button<ButtonStyle>`
   background-size: 100% 100%;
 `;
 
-function PieceButton({ openModal, isUpdated, thumbnail }: Props) {
+function PieceButton({ openModal, thumbnail }: Props) {
   return (
     <Button type="button" onClick={openModal} thumbnail={thumbnail}>
-      {isUpdated ? '' : '작품\n등록'}
+      {thumbnail ? '' : '작품\n등록'}
     </Button>
   );
 }
