@@ -62,9 +62,17 @@ interface Props {
   isUpdated: boolean;
   closeModal: () => void;
   onChange: (piece: Piece) => void;
+  onChangePosterUrl: (formData: any, piece?: Piece) => void;
 }
 
-function Modal({ piece, modalOn, closeModal, onChange, isUpdated }: Props) {
+function Modal({
+  piece,
+  modalOn,
+  closeModal,
+  onChange,
+  isUpdated,
+  onChangePosterUrl,
+}: Props) {
   const [inputValues, setInputValues] = useState<Piece>(piece);
 
   const prevValues = useRef<Piece>(piece);
@@ -114,7 +122,15 @@ function Modal({ piece, modalOn, closeModal, onChange, isUpdated }: Props) {
   return (
     <Container modalOn={modalOn}>
       <Wrapper>
-        <Poster label="이미지 업로드" width="100%" height="100%" />
+        <Poster
+          label="이미지 업로드"
+          width="100%"
+          height="100%"
+          thumbnail={piece.imageUrl}
+          piece={piece}
+          onChangePieceImageUrl={handleChange}
+          onChangePosterUrl={onChangePosterUrl}
+        />
         <Title
           label=""
           title={inputValues.title}

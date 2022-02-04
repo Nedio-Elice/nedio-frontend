@@ -20,9 +20,10 @@ const Container = styled.div`
 interface Props {
   piece: Piece;
   onChange: (piece: Piece) => void;
+  onChangePosterUrl: (formData: any, piece?: Piece) => void;
 }
 
-function PieceField({ piece, onChange }: Props) {
+function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
   const [modalOn, setModalOn] = useState(false);
 
   const { id } = piece;
@@ -46,6 +47,7 @@ function PieceField({ piece, onChange }: Props) {
         closeModal={closeModal}
         onChange={onChange}
         isUpdated={isUpdated}
+        onChangePosterUrl={onChangePosterUrl}
       />
     </Container>
   );

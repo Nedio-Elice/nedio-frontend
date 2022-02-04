@@ -10,6 +10,7 @@ import {
   changeGalleryInput,
   changeHallName,
   deleteHall,
+  changePosterUrl,
 } from '../store/gallery';
 
 import { RootState } from '../store/root';
@@ -18,8 +19,9 @@ import { Piece } from '../types/GalleryEdit';
 // 임시
 const State = styled.div`
   position: absolute;
-  top: 30%;
-  right: 30%;
+  width: 500px;
+  top: 10%;
+  right: 0;
   display: flex;
   flex-direction: column;
   ul {
@@ -33,7 +35,8 @@ function GalleryEditContainer() {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const gallery = useSelector((state: RootState) => state.gallery);
 
-  const { halls, title, category, startDate, endDate, description } = gallery;
+  const { halls, title, category, startDate, endDate, description, posterUrl } =
+    gallery;
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());
@@ -55,6 +58,14 @@ function GalleryEditContainer() {
     dispatch(changeGalleryInput({ name, value }));
   };
 
+  const handleChangePosterUrl = (formData: any, piece?: Piece) => {
+    if (piece) {
+      dispatch(changePosterUrl(formData, piece));
+      return;
+    }
+    dispatch(changePosterUrl(formData));
+  };
+
   return (
     <div>
       <GalleryEdit
@@ -63,6 +74,7 @@ function GalleryEditContainer() {
         onChangeHallName={handleChangeHallName}
         onChangePieceField={handleChangePieceField}
         onChangeGalleryInputField={handleChangeGalleryInputField}
+        onChangePosterUrl={handleChangePosterUrl}
         gallery={gallery}
       />
       <State>
@@ -70,6 +82,7 @@ function GalleryEditContainer() {
         <span>{category}</span>
         <span>{`${startDate}-${endDate}`}</span>
         <span>{description}</span>
+        <span>{posterUrl}</span>
         <div>
           {halls &&
             halls.map((hall) => {
@@ -83,6 +96,7 @@ function GalleryEditContainer() {
                           <li>{idx + 1}번 작품</li>
                           <li>{piece.title}</li>
                           <li>{piece.description}</li>
+                          <li>{piece.imageUrl}</li>
                         </ul>
                       );
                     })}

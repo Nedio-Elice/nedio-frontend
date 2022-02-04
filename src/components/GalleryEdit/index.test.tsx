@@ -9,6 +9,7 @@ describe('GalleryEdit', () => {
   const handleClickDeleteButton = jest.fn();
   const handleChangePieceField = jest.fn();
   const handleChangeGalleryInputField = jest.fn();
+  const handleChangePosterUrl = jest.fn();
 
   const initialValue = {
     title: '',
@@ -40,6 +41,7 @@ describe('GalleryEdit', () => {
         onClickDeleteHallButton={handleClickDeleteButton}
         onChangePieceField={handleChangePieceField}
         onChangeGalleryInputField={handleChangeGalleryInputField}
+        onChangePosterUrl={handleChangePosterUrl}
       />,
     );
   }

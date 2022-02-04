@@ -13,6 +13,7 @@ interface Props {
   onChangeHallName: (id: string, value: string) => void;
   onClickDeleteHallButton: (id: string) => void;
   onChangePieceField: (piece: Piece) => void;
+  onChangePosterUrl: (formData: any, piece?: Piece) => void;
 }
 
 function Halls({
@@ -20,6 +21,7 @@ function Halls({
   onChangeHallName,
   onClickDeleteHallButton,
   onChangePieceField,
+  onChangePosterUrl,
 }: Props) {
   return (
     <Container>
@@ -34,6 +36,7 @@ function Halls({
                 onChangeHallName={onChangeHallName}
                 onClickDeleteHallButton={onClickDeleteHallButton}
                 onChangePieceField={onChangePieceField}
+                onChangePosterUrl={onChangePosterUrl}
               />
             );
           })

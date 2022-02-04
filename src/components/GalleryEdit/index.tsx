@@ -48,6 +48,7 @@ interface Props {
   onChangeHallName: (id: string, value: string) => void;
   onChangePieceField: (piece: Piece) => void;
   onChangeGalleryInputField: (value: string, name: string) => void;
+  onChangePosterUrl: (formData: any) => void;
 }
 
 function GalleryEdit({
@@ -57,13 +58,23 @@ function GalleryEdit({
   onChangeHallName,
   onChangePieceField,
   onChangeGalleryInputField,
+  onChangePosterUrl,
 }: Props) {
-  const { title, category, startDate, endDate, description, halls } = gallery;
+  const { title, category, startDate, endDate, description, halls, posterUrl } =
+    gallery;
 
   return (
     <Container>
       <Wrapper>
-        <Poster label="포스터 업로드" width="15em" height="20em" />
+        <Poster
+          label="포스터 업로드"
+          thumbnail={posterUrl}
+          width="15em"
+          height="20em"
+          onChangePosterUrl={onChangePosterUrl}
+          onChangePieceImageUrl={null}
+          piece={null}
+        />
         <Inputs>
           <Title
             label="제목"
@@ -94,6 +105,7 @@ function GalleryEdit({
         onChangeHallName={onChangeHallName}
         onClickDeleteHallButton={onClickDeleteHallButton}
         onChangePieceField={onChangePieceField}
+        onChangePosterUrl={onChangePosterUrl}
       />
     </Container>
   );

@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { fetchMockImageUrl } from '../api/mockApi';
+
 import { SLICE } from '../constants/slice';
 
-import { Gallery } from '../types/GalleryEdit';
+import { Gallery, Piece } from '../types/GalleryEdit';
 
 import { getPiecesButtons } from '../utils/galleryEdit';
 
@@ -90,5 +92,22 @@ export const {
   updatePiece,
   changeGalleryInput,
 } = actions;
+
+export function changePosterUrl(formData: any, piece?: Piece) {
+  return async (dispatch: any) => {
+    const imageUrl = await fetchMockImageUrl(formData);
+
+    if (piece) {
+      const newPiece = {
+        ...piece,
+        imageUrl,
+      };
+      dispatch(updatePiece(newPiece));
+      return;
+    }
+
+    dispatch(changeGalleryInput({ name: 'posterUrl', value: imageUrl }));
+  };
+}
 
 export default reducer;
