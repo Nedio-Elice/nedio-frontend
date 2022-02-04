@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 interface Props {
   tapMenu: string;
+  handleClick: () => void;
 }
 
-function LoginLogoutButton({ tapMenu }: Props) {
-  return <Button>{tapMenu}</Button>;
+function AuthButton({ tapMenu, handleClick }: Props) {
+  return <Button onClick={handleClick}>{tapMenu}</Button>;
 }
 
-export default LoginLogoutButton;
+export default AuthButton;
 
 const Button = styled.button`
   outline: none;
