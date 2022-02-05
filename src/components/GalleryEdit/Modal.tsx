@@ -58,7 +58,6 @@ const Wrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%, -50%); */
   padding: 1em;
   padding-top: 2em;
   border-radius: 0.5em;

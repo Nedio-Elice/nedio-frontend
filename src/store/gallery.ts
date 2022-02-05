@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
-import { fetchGallery, fetchMockImageUrl } from '../api/mockApi';
+import axios from 'axios';
+
+import { url } from '../api/api';
+
+import { fetchGallery } from '../api/mockApi';
 
 import { SLICE } from '../constants/slice';
 
@@ -17,8 +21,6 @@ const initialState = {
   posterUrl: '',
   halls: [],
 } as Gallery;
-
-// const initialState = getMockGalleryInputs();
 
 const { actions, reducer } = createSlice({
   name: SLICE.GALLERY,
@@ -96,8 +98,15 @@ export const {
 } = actions;
 
 export function changePosterUrl(formData: any, piece?: Piece) {
-  return async (dispatch: any) => {
-    const imageUrl = await fetchMockImageUrl(formData);
+  return async (dispatch: Dispatch) => {
+    const response = await axios({
+      method: 'POST',
+      url: `${url}api/uploadImage`,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    const { url: imageUrl } = response.data;
 
     if (piece) {
       const newPiece = {
@@ -113,7 +122,7 @@ export function changePosterUrl(formData: any, piece?: Piece) {
 }
 
 export function updateGallery() {
-  return async (dispatch: any, getState: any) => {
+  return async (dispatch: Dispatch, getState: any) => {
     const { gallery } = getState();
 
     const response = await fetchGallery(gallery);

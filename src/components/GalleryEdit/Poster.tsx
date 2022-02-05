@@ -1,9 +1,9 @@
-import { url } from 'inspector';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { fetchMockImageUrl } from '../../api/mockApi';
+import axios from 'axios';
+import { url } from '../../api/api';
 
 import { Piece } from '../../types/GalleryEdit';
 
@@ -75,16 +75,26 @@ function Poster({
 
       const formData = new FormData();
 
-      formData.append('image', selectFile);
-
-      // console.log(formData.values().next());
+      formData.append('upload', selectFile);
 
       if (piece && onChangePieceImageUrl) {
-        onChangePosterUrl(formData, piece);
+        // onChangePosterUrl(formData, piece);
 
         (async () => {
-          const imageUrl = await fetchMockImageUrl(formData);
-          onChangePieceImageUrl(imageUrl, 'imageUrl');
+          await axios({
+            method: 'POST',
+            url: `${url}api/uploadImage`,
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' },
+          })
+            .then((res) => {
+              const { url: imageUrl } = res.data;
+              onChangePieceImageUrl(imageUrl, 'imageUrl');
+            })
+            .catch((err) => {
+              // handle error
+              console.log(err);
+            });
         })();
 
         return;
@@ -98,21 +108,18 @@ function Poster({
   const handleDragIn = useCallback((e: DragEvent): void => {
     e.preventDefault();
     e.stopPropagation();
-    // console.log('drag in')
   }, []);
 
   const handleDragOut = useCallback((e: DragEvent): void => {
     e.preventDefault();
     e.stopPropagation();
-    // console.log('drag out')
+
     setIsDragging(false);
   }, []);
 
   const handleDragOver = useCallback((e: DragEvent): void => {
     e.preventDefault();
     e.stopPropagation();
-
-    // console.log('drag over')
 
     if (e.dataTransfer?.files) {
       setIsDragging(true);
@@ -123,8 +130,6 @@ function Poster({
     (e: DragEvent): void => {
       e.preventDefault();
       e.stopPropagation();
-
-      // console.log('drop')
 
       onChangeFiles(e);
       setIsDragging(false);
