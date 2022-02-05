@@ -34,6 +34,7 @@ const Modal = React.forwardRef<ModalHandle, Props>(
 
       return () => {
         clearTimeout(timer);
+        if (modalState) document.body.style.overflow = 'auto';
       };
     }, [modalState]);
 
