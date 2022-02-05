@@ -82,7 +82,7 @@ const NavBarContainer = styled.div`
   );
   z-index: 9999;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 0 45px;
+  padding: 0 5%;
   user-select: none;
 `;
 
