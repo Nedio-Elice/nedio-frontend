@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
@@ -18,14 +19,18 @@ const Container = styled.div<ContainerProps>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
   border-radius: 1em;
   min-width: 230px;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-image: ${(props) =>
-    props.thumbnail ? `url(${props.thumbnail})` : 'none'};
+    props.thumbnail
+      ? `url(${props.thumbnail})`
+      : `url('https://images.unsplash.com/photo-1516541196182-6bdb0516ed27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8d2FsbHxlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60')`};
   background-size: 100% 100%;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  opacity: ${(props) => (props.thumbnail ? 1 : 0.5)};
   cursor: pointer;
 
   label {

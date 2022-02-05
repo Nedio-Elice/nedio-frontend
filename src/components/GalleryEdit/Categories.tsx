@@ -29,7 +29,7 @@ function Categories({ onChange, category }: Props) {
         value={category}
         onChange={handleChange}
       >
-        <option value="">Select</option>
+        <option value="">select</option>
         <option value="자연">자연</option>
         <option value="인물">인물</option>
         <option value="동물">동물</option>

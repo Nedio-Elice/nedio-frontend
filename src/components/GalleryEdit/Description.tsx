@@ -9,6 +9,7 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
     overflow: auto;
+    padding-top: 0.3em;
   }
 `;
 
