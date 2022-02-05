@@ -1,8 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import styled from 'styled-components';
-
-import GalleryEdit from '../components/GalleryEdit';
+import GalleryEdit from '../../components/GalleryEdit';
 
 import {
   addHall,
@@ -12,23 +10,23 @@ import {
   deleteHall,
   changePosterUrl,
   updateGallery,
-} from '../store/gallery';
+} from '../../store/gallery';
 
-import { RootState } from '../store/root';
-import { Piece } from '../types/GalleryEdit';
+import { RootState } from '../../store/root';
+import { Piece } from '../../types/GalleryEdit';
 
 // 임시
-const State = styled.div`
-  position: absolute;
-  width: 500px;
-  top: 10%;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  ul {
-    margin-left: 10%;
-  }
-`;
+// const State = styled.div`
+//   position: absolute;
+//   width: 500px;
+//   top: 10%;
+//   right: 0;
+//   display: flex;
+//   flex-direction: column;
+//   ul {
+//     margin-left: 10%;
+//   }
+// `;
 
 function GalleryEditContainer() {
   const dispatch = useDispatch();
@@ -36,8 +34,8 @@ function GalleryEditContainer() {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const gallery = useSelector((state: RootState) => state.gallery);
 
-  const { halls, title, category, startDate, endDate, description, posterUrl } =
-    gallery;
+  // const { halls, title, category, startDate, endDate, description, posterUrl } =
+  //   gallery;
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());
@@ -83,7 +81,7 @@ function GalleryEditContainer() {
         onClickUpdateGallery={handleClickUpdateGallery}
         gallery={gallery}
       />
-      <State>
+      {/* <State>
         <span>{title}</span>
         <span>{category}</span>
         <span>{`${startDate}-${endDate}`}</span>
@@ -110,7 +108,7 @@ function GalleryEditContainer() {
               );
             })}
         </div>
-      </State>
+      </State> */}
     </div>
   );
 }

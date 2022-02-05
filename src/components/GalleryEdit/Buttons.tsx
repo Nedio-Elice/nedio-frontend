@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 100%;
+  width: 680px;
   display: flex;
   justify-content: start;
   margin-bottom: 1.5em;

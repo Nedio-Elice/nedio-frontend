@@ -5,7 +5,7 @@ import HallAddForm from './HallAddForm';
 import { Hall, Piece } from '../../types/GalleryEdit';
 
 const Container = styled.div`
-  width: 100%;
+  width: 680px;
 `;
 
 interface Props {

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import GalleryEditContainer from './GalleryEditContainer';
+import GalleryEditContainer from './index';
 
 describe('GalleryEditContainer', () => {
   it('renders buttons for this page', () => {

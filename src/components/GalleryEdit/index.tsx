@@ -15,9 +15,19 @@ const Container = styled.div`
   font-size: 16px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 5%;
-  width: fit-content;
   position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  height: fit-content;
+  background: linear-gradient(
+    180deg,
+    #f2f3f5 0%,
+    #ffffff 49.48%,
+    rgba(242, 243, 245, 0.977401) 100%,
+    #f2f3f5 100%
+  );
 `;
 
 const Wrapper = styled.div`
