@@ -19,6 +19,7 @@ const Modal = React.forwardRef<ModalHandle, Props>(
 
     useImperativeHandle(ref, () => ({
       show() {
+        document.body.style.overflow = 'hidden';
         setModalState(true);
       },
     }));
@@ -36,9 +37,14 @@ const Modal = React.forwardRef<ModalHandle, Props>(
       };
     }, [modalState]);
 
+    const closeModal = () => {
+      document.body.style.overflow = 'auto';
+      setModalState(false);
+    };
+
     const handleClick = (e: React.MouseEvent) => {
       if (!modal.current?.contains(e.target as Node)) {
-        if (modalState) setModalState(false);
+        if (modalState) closeModal();
       }
     };
 
@@ -52,7 +58,7 @@ const Modal = React.forwardRef<ModalHandle, Props>(
           modalWidth={width}
           modalHeight={height}
         >
-          <CloseBtn type="button" onClick={() => setModalState(false)}>
+          <CloseBtn type="button" onClick={closeModal}>
             &#10094;
           </CloseBtn>
           {children}
