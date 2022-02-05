@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchMockImageUrl } from '../api/mockApi';
+import { fetchGallery, fetchMockImageUrl } from '../api/mockApi';
 
 import { SLICE } from '../constants/slice';
 
@@ -107,6 +107,19 @@ export function changePosterUrl(formData: any, piece?: Piece) {
     }
 
     dispatch(changeGalleryInput({ name: 'posterUrl', value: imageUrl }));
+  };
+}
+
+export function updateGallery() {
+  return async (dispatch: any, getState: any) => {
+    const { gallery } = getState();
+
+    const response = await fetchGallery(gallery);
+
+    // TODO: 필수 항목 미입력시 에러 상태 추가
+
+    // TODO: 업로드 실패시 에러 상태 추가?
+    console.log(response);
   };
 }
 

@@ -10,8 +10,8 @@ interface Props {
 }
 
 const Button = styled.button<ButtonStyle>`
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   margin-right: 1em;
   padding: 0.3em;
   background: none;

@@ -16,7 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5%;
-  width: 100%;
+  width: fit-content;
   position: relative;
 `;
 
@@ -49,6 +49,7 @@ interface Props {
   onChangePieceField: (piece: Piece) => void;
   onChangeGalleryInputField: (value: string, name: string) => void;
   onChangePosterUrl: (formData: any) => void;
+  onClickUpdateGallery: () => void;
 }
 
 function GalleryEdit({
@@ -59,6 +60,7 @@ function GalleryEdit({
   onChangePieceField,
   onChangeGalleryInputField,
   onChangePosterUrl,
+  onClickUpdateGallery,
 }: Props) {
   const { title, category, startDate, endDate, description, halls, posterUrl } =
     gallery;
@@ -99,7 +101,10 @@ function GalleryEdit({
           />
         </Inputs>
       </Wrapper>
-      <Buttons onClickAddHallButton={onClickAddHallButton} />
+      <Buttons
+        onClickAddHallButton={onClickAddHallButton}
+        onClickUpdateGallery={onClickUpdateGallery}
+      />
       <Halls
         halls={halls}
         onChangeHallName={onChangeHallName}

@@ -11,6 +11,7 @@ import {
   changeHallName,
   deleteHall,
   changePosterUrl,
+  updateGallery,
 } from '../store/gallery';
 
 import { RootState } from '../store/root';
@@ -66,6 +67,10 @@ function GalleryEditContainer() {
     dispatch(changePosterUrl(formData));
   };
 
+  const handleClickUpdateGallery = () => {
+    dispatch(updateGallery());
+  };
+
   return (
     <div>
       <GalleryEdit
@@ -75,6 +80,7 @@ function GalleryEditContainer() {
         onChangePieceField={handleChangePieceField}
         onChangeGalleryInputField={handleChangeGalleryInputField}
         onChangePosterUrl={handleChangePosterUrl}
+        onClickUpdateGallery={handleClickUpdateGallery}
         gallery={gallery}
       />
       <State>
