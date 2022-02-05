@@ -1,0 +1,81 @@
+import styled from 'styled-components';
+import { SearchIcon, XIcon } from '../../constants/icons';
+
+interface Props {
+  keyword: string;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleKeyword: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  resetKeyword: () => void;
+}
+
+function SearchBar({
+  keyword,
+  handleKeyword,
+  resetKeyword,
+  handleSubmit,
+}: Props) {
+  return (
+    <Container onSubmit={handleSubmit}>
+      <SearchIcon />
+      <SearchInput
+        type="text"
+        maxLength={20}
+        placeholder="검색어를 입력해주세요"
+        value={keyword}
+        onChange={handleKeyword}
+      />
+      {keyword && <XIcon onClick={resetKeyword} />}
+    </Container>
+  );
+}
+
+const Container = styled.form`
+  width: 320px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  position: relative;
+
+  background: linear-gradient(
+    90deg,
+    #f2f3f5 0.59%,
+    #ffffff 49.78%,
+    #f2f3f5 100%
+  );
+  box-shadow: inset -1.5px -1.5px 3px #f2f3f5, inset 1.5px 1.5px 3px #e1e2e4;
+  border-radius: 40px;
+  > svg {
+    position: absolute;
+
+    &:first-child {
+      left: 10px;
+    }
+    &:last-child {
+      right: 10px;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+  }
+`;
+
+const SearchInput = styled.input`
+  border: none;
+  width: 100%;
+  padding: 0 35px;
+  background: transparent;
+  color: rgba(104, 104, 104, 0.9);
+  font-size: 0.8rem;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    font-family: 'Pretendard-Regular';
+    color: rgba(104, 104, 104, 0.5);
+    font-size: 0.8rem;
+  }
+`;
+
+export default SearchBar;

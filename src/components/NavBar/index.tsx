@@ -4,8 +4,8 @@ import { GoogleLogout } from 'react-google-login';
 import TapButton from '../TapButton';
 import { PATH } from '../../constants/path';
 import SignInContainer from '../../containers/SignInContainer';
-import { SearchIcon, XIcon } from '../../constants/icons';
 import AuthButton from '../AuthButton';
+import SearchContainer from '../../containers/SearchContainer';
 
 interface Props {
   isSignIn: boolean;
@@ -24,17 +24,7 @@ function NavBar({ isSignIn, signOut }: Props) {
       </NavBarLeft>
 
       <NavBarCenter>
-        <SearchBar>
-          <SearchIcon />
-          <SearchInput placeholder="검색어를 입력해주세요" />
-          {/* <XIcon /> */}
-        </SearchBar>
-        <SearchSelect>
-          <option value="title" hidden>
-            제목 검색
-          </option>
-          <option value="author">작가 검색</option>
-        </SearchSelect>
+        <SearchContainer />
       </NavBarCenter>
 
       <NavBarRight>
@@ -98,48 +88,6 @@ const Logo = styled.span`
 const NavBarCenter = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const SearchBar = styled.div`
-  width: 320px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  box-shadow: inset -1.5px -1.5px 5px #f2f3f5, inset 3px 3px 5px #e1e2e4;
-  border-radius: 50px;
-  padding: 0 10px;
-`;
-
-const SearchInput = styled.input`
-  border: none;
-  width: 75%;
-  margin-left: 11px;
-  background: transparent;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const SearchSelect = styled.select`
-  width: 100px;
-  height: 30px;
-  background: #ffffff;
-  color: #777777;
-  padding-left: 5px;
-  font-size: 14px;
-  line-height: 19px;
-  border: 1px solid rgba(209, 209, 209, 0.38);
-  border-radius: 5px;
-  margin-left: 10px;
-  outline: none;
-
-  option {
-    display: flex;
-    white-space: pre;
-    min-height: 20px;
-    padding: 0px 2px 1px;
-  }
 `;
 
 const NavBarRight = styled.div``;
