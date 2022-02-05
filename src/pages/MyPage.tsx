@@ -4,7 +4,7 @@ import { useParams, Link, useLinkClickHandler } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
-import { getUser, putUser } from '../store/user';
+import { getUser, putUser } from '../store/profile';
 import axiosInstance from '../api/api';
 import ProfileInfos from '../components/ProfileInfos';
 import Card from '../components/Card';
@@ -16,7 +16,7 @@ const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
 function MyPage() {
   const { userId } = useParams();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.users);
+  const user = useSelector((state: RootState) => state.profile);
 
   const [profileURL, setProfileURL] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');

@@ -41,6 +41,7 @@ function Pagination({
           <NumberButton
             key={`pagination-button-${page}`}
             active={currPage === page}
+            onClick={() => onClickPage(page)}
           >
             {page + 1}
           </NumberButton>
@@ -84,6 +85,7 @@ const NumberButton = styled.button<{ active: boolean }>`
   font-weight: 500;
   text-align: center;
   background-color: transparent;
+  cursor: pointer;
   ${(props) =>
     props.active &&
     css`
@@ -98,4 +100,5 @@ const ArrowButton = styled.button`
   height: 16px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 `;

@@ -9,7 +9,13 @@ import Comment from '../components/Comment';
 import Pagination from '../components/Pagination';
 
 const { ButtonBasic, ButtonOrange } = Buttons;
-const { InputField, InputTextField } = InputFields;
+const { InputField } = InputFields;
+
+interface GalleryWrapper {
+  sucess: string;
+  message: string;
+  data: Gallery;
+}
 
 interface Gallery {
   posterUrl: string;
@@ -38,7 +44,6 @@ type Halls = Array<Hall>;
 
 interface CommentSingle {
   _id: string;
-  profileURL: string;
   content: string;
   authorId: string;
   galleryId: string;
@@ -66,22 +71,23 @@ function GalleryDetailPage() {
       try {
         await axiosInstance
           .get<Gallery>(`api/galleries/${galleryId}`)
-          .then((response: AxiosResponse) => setGallery(response.data));
+          .then((response: AxiosResponse) => setGallery(response.data.data));
       } catch (error) {
         const err = error as AxiosError;
         throw new Error(err.response?.data);
       }
     };
-
     fetchGallery();
-  }, [gallery, galleryId]);
+  }, [galleryId]);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         await axiosInstance
-          .get<Comments>(`api/comments`)
-          .then((response: AxiosResponse) => setComments(response.data));
+          .get<Comments>(
+            `api/comments/${galleryId}?page=${currPage + 1}&perPage=5`,
+          )
+          .then((response: AxiosResponse) => setComments(response.data.data));
       } catch (error) {
         const err = error as AxiosError;
         throw new Error(err.response?.data);
@@ -89,7 +95,7 @@ function GalleryDetailPage() {
     };
 
     fetchComments();
-  }, [comments, galleryId]);
+  }, [currPage, galleryId]);
 
   if (gallery === null) {
     return <h1>No data</h1>;
@@ -135,7 +141,7 @@ function GalleryDetailPage() {
         comments.map((c) => (
           <Comment
             username={c.authorId}
-            profileImgURL={c.profileURL}
+            profileImgURL="/"
             content={c.content}
             handleClickUpdate={() => {}}
             handleClickDelete={() => {}}

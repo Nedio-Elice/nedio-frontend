@@ -1,82 +1,22 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse, AxiosError } from 'axios';
-import { isDoStatement } from 'typescript';
-import axiosInstance from '../api/api';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { SLICE } from '../constants/slice';
 
-export type User = {
-  id: string | undefined;
-  introduce: string;
-  contact: string;
-  profileURL: string;
-  nickname: string;
+export interface MyInfo {
   email: string;
-};
+  name: string;
+  profileURL: string;
+}
 
 const initialState = {
-  id: '',
-  introduce: '',
-  contact: '',
-  profileURL: '',
-  nickname: '',
   email: '',
-} as User;
-
-export const getUser = createAsyncThunk(
-  'GET/USER',
-  async (userId: string | undefined) => {
-    try {
-      const response = await axiosInstance.get<User>(`api/users/${userId}`);
-      return response.data;
-    } catch (error) {
-      const err = error as AxiosError;
-      throw new Error(err.response?.data);
-    }
-  },
-);
-
-export const putUser = createAsyncThunk('PUT/USER', async (user: User) => {
-  try {
-    const response = await axiosInstance.put<User>(`api/users/${user.id}`, {
-      nickname: user.nickname,
-      email: user.email,
-      introduce: user.introduce,
-      profileURL: user.profileURL,
-      contact: user.contact,
-    });
-    return response.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    throw new Error(err.response?.data);
-  }
-});
+  name: '',
+  profileURL: '',
+} as MyInfo;
 
 const userSlice = createSlice({
   name: SLICE.USER,
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(
-      getUser.fulfilled,
-      (
-        state,
-        { payload: { introduce, contact, profileURL, nickname, email } },
-      ) => {
-        return { ...state, introduce, contact, profileURL, nickname, email };
-      },
-    );
-    builder.addCase(getUser.rejected, (state, action) => {});
-    builder.addCase(
-      putUser.fulfilled,
-      (
-        state,
-        { payload: { introduce, contact, profileURL, nickname, email } },
-      ) => {
-        return { ...state, introduce, contact, profileURL, nickname, email };
-      },
-    );
-    builder.addCase(putUser.rejected, (state, action) => {});
-  },
 });
 
 // TODO: action 통일 및 createAsyncThunk 공부
