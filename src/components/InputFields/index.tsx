@@ -96,6 +96,11 @@ const InputBox = styled.input<{
   box-sizing: border-box;
   box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);
   border-radius: 5px;
+
+  &::placeholder {
+    font-family: 'Pretendard-Regular';
+    opacity: 0.6;
+  }
 `;
 
 const InputTextBox = styled.textarea<{
@@ -123,4 +128,9 @@ const InputTextBox = styled.textarea<{
   box-sizing: border-box;
   box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);
   border-radius: 5px;
+
+  &::placeholder {
+    font-family: 'Pretendard-Regular';
+    opacity: 0.6;
+  }
 `;

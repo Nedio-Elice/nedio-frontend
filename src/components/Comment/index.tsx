@@ -1,17 +1,24 @@
 import styled from 'styled-components';
+import { VoidExpression } from 'typescript';
 
 interface CommentProps {
+  key: string;
+  commentId: string;
   username: string;
   profileImgURL: string;
   content: string;
-  handleClickDelete: (event: React.MouseEvent) => void;
-  handleClickUpdate: (event: React.MouseEvent) => void;
+  update: boolean;
+  handleClickDelete: (value: string) => void;
+  handleClickUpdate: (value: React.SetStateAction<string>) => void;
 }
 
 function Comment({
+  key,
+  commentId,
   username,
   profileImgURL,
   content,
+  update,
   handleClickUpdate,
   handleClickDelete,
 }: CommentProps) {
@@ -20,10 +27,18 @@ function Comment({
       <CommentImg src={profileImgURL} />
       <CommentContent>
         <CommentUsername>{username}</CommentUsername>
-        <CommentText>{content}</CommentText>
+        {update === false ? (
+          <CommentText>{content}</CommentText>
+        ) : (
+          <CommentUpdate value={content} />
+        )}
       </CommentContent>
-      <CommentButton onClick={handleClickUpdate}>수정</CommentButton>
-      <CommentButton onClick={handleClickDelete}>삭제</CommentButton>
+      <CommentButton onClick={() => handleClickUpdate(commentId)}>
+        {update === false ? '수정' : '취소'}
+      </CommentButton>
+      <CommentButton onClick={() => handleClickDelete(commentId)}>
+        삭제
+      </CommentButton>
     </CommentContainer>
   );
 }
@@ -59,6 +74,15 @@ const CommentUsername = styled.p`
 `;
 
 const CommentText = styled.p`
+  width: 407px;
+  line-height: 18px;
+  font-family: Pretendard;
+  font-style: normal;
+  font-size: 14px;
+  word-break: keep-all;
+`;
+
+const CommentUpdate = styled.input`
   width: 407px;
   line-height: 18px;
   font-family: Pretendard;
