@@ -148,7 +148,7 @@ const NavBarLinks = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  > button:not(:last-child) {
-    margin-right: 10px;
+  > button:not(:first-child) {
+    margin-left: 10px;
   }
 `;
