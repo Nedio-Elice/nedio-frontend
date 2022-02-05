@@ -6,6 +6,9 @@ import { Hall, Piece } from '../../types/GalleryEdit';
 
 const Container = styled.div`
   width: 680px;
+  @media only screen and (max-width: 720px) {
+    width: 340px;
+  }
 `;
 
 interface Props {

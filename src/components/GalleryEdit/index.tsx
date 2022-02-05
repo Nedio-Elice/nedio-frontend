@@ -32,8 +32,23 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  width: 680px;
   height: 20em;
   margin-bottom: 2em;
+
+  @media only screen and (max-width: 720px) {
+    flex-direction: column;
+    align-items: center;
+    height: 40em;
+    & > div {
+      display: flex;
+      justify-content: center;
+    }
+    & > div + div {
+      margin-top: 2em;
+    }
+  }
 `;
 
 const Inputs = styled.div`
@@ -48,6 +63,11 @@ const Inputs = styled.div`
   div > label {
     min-width: fit-content;
     margin-right: 0.5em;
+  }
+
+  @media only screen and (max-width: 720px) {
+    width: 340px;
+    margin-left: 0;
   }
 `;
 

@@ -10,6 +10,9 @@ interface Props {
 }
 
 const Button = styled.button<ButtonStyle>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50px;
   height: 50px;
   margin-right: 1em;

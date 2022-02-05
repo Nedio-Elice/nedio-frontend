@@ -13,8 +13,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   margin-bottom: 1em;
   width: 100%;
+  @media only screen and (max-width: 720px) {
+    align-items: center;
+  }
 `;
 
 interface Props {

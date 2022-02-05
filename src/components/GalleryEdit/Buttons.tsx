@@ -20,6 +20,10 @@ const Container = styled.div`
   button + button {
     margin-left: 1em;
   }
+
+  @media only screen and (max-width: 720px) {
+    width: 340px;
+  }
 `;
 
 interface Props {

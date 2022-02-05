@@ -10,6 +10,7 @@ const Container = styled.div`
   align-items: flex-start;
   margin-bottom: 1em;
   width: 100%;
+
   & > input {
     border: none;
     border-bottom: 1px solid black;
@@ -33,6 +34,7 @@ const Wrapper = styled.div`
 
   & > input {
     border: none;
+    background: none;
     border-bottom: 1px solid black;
     margin-right: 1em;
     width: 5em;
@@ -40,8 +42,13 @@ const Wrapper = styled.div`
 `;
 
 const AddButtons = styled.div`
-  display: flex;
+  display: grid;
   align-items: center;
+  grid-template-columns: repeat(10, 1fr);
+  width: 100%;
+  @media only screen and (max-width: 720px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 interface Props {
