@@ -16,7 +16,7 @@ interface Props {
   onChangeHallName: (id: string, value: string) => void;
   onClickDeleteHallButton: (id: string) => void;
   onChangePieceField: (piece: Piece) => void;
-  onChangePosterUrl: (formData: any, piece?: Piece) => void;
+  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
 }
 
 function Halls({

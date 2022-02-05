@@ -47,7 +47,7 @@ interface Props {
   width: string;
   height: string;
   thumbnail: string;
-  onChangePosterUrl: (formData: any, piece?: Piece) => void;
+  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
   onChangePieceImageUrl: ((value: string, name: string) => void) | null;
   piece: Piece | null;
 }
@@ -78,7 +78,7 @@ function Poster({
       formData.append('upload', selectFile);
 
       if (piece && onChangePieceImageUrl) {
-        // onChangePosterUrl(formData, piece);
+        onChangePosterUrl(formData, piece);
 
         (async () => {
           await axios({

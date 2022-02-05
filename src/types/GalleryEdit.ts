@@ -20,3 +20,7 @@ export interface Gallery {
   posterUrl: string;
   halls: Hall[];
 }
+
+// export interface FormData {
+//   upload: File;
+// }

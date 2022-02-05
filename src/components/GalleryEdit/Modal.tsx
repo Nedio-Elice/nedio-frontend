@@ -117,7 +117,7 @@ interface Props {
   isUpdated: boolean;
   closeModal: () => void;
   onChange: (piece: Piece) => void;
-  onChangePosterUrl: (formData: any, piece?: Piece) => void;
+  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
 }
 
 function Modal({

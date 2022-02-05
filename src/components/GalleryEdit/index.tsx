@@ -136,7 +136,7 @@ interface Props {
   onChangeHallName: (id: string, value: string) => void;
   onChangePieceField: (piece: Piece) => void;
   onChangeGalleryInputField: (value: string, name: string) => void;
-  onChangePosterUrl: (formData: any) => void;
+  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
   onClickUpdateGallery: () => void;
 }
 

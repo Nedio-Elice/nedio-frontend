@@ -97,7 +97,7 @@ export const {
   changeGalleryInput,
 } = actions;
 
-export function changePosterUrl(formData: any, piece?: Piece) {
+export function changePosterUrl(formData: FormData, piece?: Piece) {
   return async (dispatch: Dispatch) => {
     const response = await axios({
       method: 'POST',

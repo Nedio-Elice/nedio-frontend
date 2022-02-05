@@ -57,7 +57,7 @@ function GalleryEditContainer() {
     dispatch(changeGalleryInput({ name, value }));
   };
 
-  const handleChangePosterUrl = (formData: any, piece?: Piece) => {
+  const handleChangePosterUrl = (formData: FormData, piece?: Piece) => {
     if (piece) {
       dispatch(changePosterUrl(formData, piece));
       return;
