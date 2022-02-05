@@ -31,6 +31,7 @@ const Container = styled.div`
 
   input {
     border: none;
+    outline: none;
     border-radius: 0.3em;
     padding-left: 0.3em;
     height: 2em;
@@ -44,6 +45,7 @@ const Container = styled.div`
 
   textarea {
     border: none;
+    outline: none;
     padding-left: 0.3em;
     border-radius: 0.3em;
     box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
@@ -56,6 +58,7 @@ const Container = styled.div`
 
   select {
     border: none;
+    outline: none;
     border-radius: 0.3em;
     height: 2em;
     box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
@@ -63,7 +66,7 @@ const Container = styled.div`
   }
 
   button {
-    background: rgba(242, 243, 245, 0.79);
+    background-color: rgba(242, 243, 245, 0.79);
     padding: 0.3em;
     border: none;
     cursor: pointer;
@@ -75,6 +78,10 @@ const Container = styled.div`
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
       rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
+    background: rgba(242, 243, 245, 0.79);
+    padding: 0.3em;
+    border: none;
+    cursor: pointer;
   }
 `;
 
@@ -116,6 +123,9 @@ const Inputs = styled.div`
   @media only screen and (max-width: 720px) {
     width: 340px;
     margin-left: 0;
+    textarea {
+      height: 8em;
+    }
   }
 `;
 

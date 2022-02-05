@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import Description from './Description';
 import Poster from './Poster';
@@ -16,6 +16,21 @@ interface ButtonsStyle {
   isUpdated: boolean;
 }
 
+const modalUp = keyframes`
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, 65%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+`;
+
 const Container = styled.div<ContainerStyle>`
   display: ${(props) => (props.modalOn ? 'flex' : 'none')};
   position: absolute;
@@ -23,24 +38,32 @@ const Container = styled.div<ContainerStyle>`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: ${(props) => (props.modalOn ? 'rgba(0,0,0,0.4)' : 'none')};
+  min-height: fit-content;
+  background-color: ${(props) => (props.modalOn ? 'rgba(0,0,0,0.3)' : 'none')};
 `;
 
 const Wrapper = styled.div`
+  animation: ${modalUp} 0.5s ease-in forwards;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background: linear-gradient(
+    180deg,
+    #f2f3f5 0%,
+    #ffffff 49.48%,
+    rgba(242, 243, 245, 0.977401) 100%,
+    #f2f3f5 100%
+  );
   align-items: center;
   justify-content: center;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
   padding: 1em;
   padding-top: 2em;
+  border-radius: 0.5em;
   width: 300px;
   height: 400px;
-  border: 1px solid black;
   position: relative;
 
   div + div {
@@ -54,10 +77,14 @@ const Header = styled.div`
   left: 0;
   display: flex;
   align-items: center;
+  border-radius: 0.5em 0.5em 0 0;
   padding: 0 1em;
   width: 100%;
   height: 2em;
-  border-bottom: 1px solid black;
+  background-color: #ff6e00;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 0.5px 5px -1px;
 `;
 
 const Buttons = styled.div<ButtonsStyle>`
@@ -66,13 +93,22 @@ const Buttons = styled.div<ButtonsStyle>`
   justify-content: space-evenly;
 
   & > button {
-    background: none;
     border-radius: 0.3em;
-    cursor: pointer;
-  }
+    color: #ff6e00;
+    transition: all 1s;
 
-  & > button:nth-child(2) {
-    display: ${(props) => (props.isUpdated ? 'block' : 'none')};
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
+      rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
+
+    &:first-child {
+      background-color: #ff6e00;
+      color: white;
+      opacity: 1;
+    }
+
+    &:nth-child(2) {
+      display: ${(props) => (props.isUpdated ? 'block' : 'none')};
+    }
   }
 `;
 
@@ -144,7 +180,7 @@ function Modal({
       <Wrapper>
         <Header>작품 등록</Header>
         <Poster
-          label="이미지 업로드"
+          label="작품 이미지 끌어서 놓기"
           width="100%"
           height="100%"
           thumbnail={piece.imageUrl}
@@ -166,13 +202,13 @@ function Modal({
         />
         <Buttons isUpdated={isUpdated}>
           <button type="button" onClick={handleClickAddButton}>
-            {isUpdated ? '수정' : '등록'}
+            {isUpdated ? '수 정' : '등 록'}
           </button>
           <button type="button" onClick={handleClickDeleteButton}>
-            삭제
+            삭 제
           </button>
           <button type="button" onClick={handleClickCloseButton}>
-            취소
+            취 소
           </button>
         </Buttons>
       </Wrapper>

@@ -18,6 +18,8 @@ const initialState = {
   halls: [],
 } as Gallery;
 
+// const initialState = getMockGalleryInputs();
+
 const { actions, reducer } = createSlice({
   name: SLICE.GALLERY,
   initialState,
