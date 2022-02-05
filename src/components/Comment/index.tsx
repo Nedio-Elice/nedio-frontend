@@ -1,27 +1,48 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { VoidExpression } from 'typescript';
+import { putComment } from '../../store/comment';
+import Buttons from '../Buttons';
+
+const { ButtonMini } = Buttons;
 
 interface CommentProps {
-  key: string;
   commentId: string;
   username: string;
   profileImgURL: string;
   content: string;
-  update: boolean;
   handleClickDelete: (value: string) => void;
-  handleClickUpdate: (value: React.SetStateAction<string>) => void;
+}
+
+interface CommentPost {
+  commentId: string;
+  content: string;
 }
 
 function Comment({
-  key,
   commentId,
   username,
   profileImgURL,
   content,
-  update,
-  handleClickUpdate,
   handleClickDelete,
 }: CommentProps) {
+  const dispatch = useDispatch();
+  const [text, setText] = useState<string>(content);
+  const [update, setUpdate] = useState<boolean>(false);
+
+  function handleChange(event: any) {
+    event.preventDefault();
+    setText(event.target.value);
+  }
+
+  function handleUpdate(comment: CommentPost) {
+    dispatch(
+      putComment({ commentId: comment.commentId, content: comment.content }),
+    );
+    setUpdate(!update);
+  }
+
   return (
     <CommentContainer>
       <CommentImg src={profileImgURL} />
@@ -30,10 +51,26 @@ function Comment({
         {update === false ? (
           <CommentText>{content}</CommentText>
         ) : (
-          <CommentUpdate value={content} />
+          <UpdateWrapper>
+            <CommentUpdate
+              value={text}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                handleChange(event)
+              }
+            />
+            <ButtonMini
+              value="방명록 수정"
+              handleClick={() =>
+                handleUpdate({
+                  commentId,
+                  content: text,
+                })
+              }
+            />
+          </UpdateWrapper>
         )}
       </CommentContent>
-      <CommentButton onClick={() => handleClickUpdate(commentId)}>
+      <CommentButton onClick={() => setUpdate(!update)}>
         {update === false ? '수정' : '취소'}
       </CommentButton>
       <CommentButton onClick={() => handleClickDelete(commentId)}>
@@ -46,16 +83,15 @@ function Comment({
 export default Comment;
 
 const CommentContainer = styled.div`
-  width: 750px;
+  width: 550px;
   display: flex;
   flex-direction: row;
   align-items: top;
   margin: 16px auto;
-  padding-left: 96px;
 `;
 
 const CommentContent = styled.div`
-  width: 407px;
+  width: 90%;
   margin-left: 24px;
 `;
 
@@ -67,14 +103,14 @@ const CommentImg = styled.img`
 
 const CommentUsername = styled.p`
   line-height: 18px;
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-style: medium;
   font-size: 14px;
   margin-bottom: 8px;
 `;
 
 const CommentText = styled.p`
-  width: 407px;
+  width: 90%;
   line-height: 18px;
   font-family: Pretendard;
   font-style: normal;
@@ -82,13 +118,24 @@ const CommentText = styled.p`
   word-break: keep-all;
 `;
 
-const CommentUpdate = styled.input`
-  width: 407px;
-  line-height: 18px;
-  font-family: Pretendard;
+const UpdateWrapper = styled.p`
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+`;
+
+const CommentUpdate = styled.textarea`
+  width: 100%;
+  line-height: 24px;
+  font-family: Pretendard-Regular;
   font-style: normal;
   font-size: 14px;
   word-break: keep-all;
+  padding: 8px 8px;
+  border: 1px solid #d1d1d1;
+  box-sizing: border-box;
+  box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);
+  border-radius: 5px;
 `;
 
 const CommentButton = styled.button`

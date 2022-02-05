@@ -5,9 +5,7 @@ import styled, { css } from 'styled-components';
 interface ButtonProps {
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
-  handleClick?:
-    | React.MouseEventHandler<HTMLButtonElement>
-    | React.FormEventHandler<HTMLButtonElement>;
+  handleClick?: any;
 }
 
 function ButtonBasic({ value, type, handleClick }: ButtonProps) {
@@ -23,6 +21,14 @@ function ButtonOrange({ value, type, handleClick }: ButtonProps) {
     <Button onClick={handleClick} type={type} orange>
       {value}
     </Button>
+  );
+}
+
+function ButtonMini({ value, type, handleClick }: ButtonProps) {
+  return (
+    <ButtonSmall onClick={handleClick} type={type} orange>
+      {value}
+    </ButtonSmall>
   );
 }
 
@@ -42,12 +48,16 @@ ButtonOrange.defaultProps = {
   type: 'button',
   handleClick: () => {},
 };
+ButtonMini.defaultProps = {
+  type: 'button',
+  handleClick: () => {},
+};
 ButtonNeumo.defaultProps = {
   type: 'button',
   handleClick: () => {},
 };
 
-export default { ButtonBasic, ButtonOrange, ButtonNeumo };
+export default { ButtonBasic, ButtonOrange, ButtonNeumo, ButtonMini };
 
 const ButtonLarge = styled.button`
   font-family: Pretendard;
@@ -113,6 +123,70 @@ const Button = styled.button<{ orange: boolean }>`
 
   &:hover {
     height: 40px;
+    border: 2px solid #ff6e00;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0px 10px;
+    ${(props) =>
+      props.orange &&
+      css`
+        box-shadow: none;
+      `}
+  }
+
+  &:active {
+    color: #ff6e00;
+    box-shadow: inset -3px -3px 7px #ffffff,
+      inset 3px 3px 7px rgba(156, 156, 156, 0.48);
+    border: 0;
+    padding: 2px 12px;
+    ${(props) =>
+      props.orange &&
+      css`
+        color: #ffffff;
+        border: none;
+        box-shadow: none;
+        box-shadow: inset -3px -3px 7px #ff9545,
+          inset 3px 3px 7px rgba(156, 156, 156, 0.78);
+      `}
+  }
+`;
+
+const ButtonSmall = styled.button<{ orange: boolean }>`
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  color: #777777;
+  border: none;
+  height: 20px;
+  padding: 2px 12px;
+  text-align: center;
+  margin-top: 8px;
+  margin-left: 80%;
+  background: linear-gradient(
+    134.47deg,
+    #ffffff 36.25%,
+    #d1d1d1 230.69%,
+    rgba(242, 242, 244, 0) 230.72%
+  );
+  box-shadow: inset 2px 2px 0px #ffffff;
+  filter: drop-shadow(2px 8px 24px rgba(0, 0, 0, 0.12));
+  border-radius: 4px;
+
+  ${(props) =>
+    props.orange &&
+    css`
+      background: #ff6e00;
+      box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.73),
+        2px 8px 24px rgba(0, 0, 0, 0.25);
+      color: #ffffff;
+    `}
+
+  &:hover {
+    height: 20px;
     border: 2px solid #ff6e00;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

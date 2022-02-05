@@ -11,6 +11,11 @@ interface CommentSingle {
   galleryId: string;
 }
 
+interface CommentPut {
+  commentId: string;
+  content: string;
+}
+
 export type Comments = {
   success: string;
   message: string;
@@ -46,11 +51,11 @@ export const getComments = createAsyncThunk(
 
 export const putComment = createAsyncThunk(
   'PUT/COMMENT',
-  async (comment: CommentSingle) => {
+  async (comment: CommentPut) => {
     try {
-      const response = await axiosInstance.put<CommentSingle>(
+      const response = await axiosInstance.put<CommentPut>(
         // eslint-disable-next-line no-underscore-dangle
-        `api/comments/${comment._id}`,
+        `api/comments/${comment.commentId}`,
         {
           content: comment.content,
         },
@@ -86,7 +91,6 @@ export const postComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   'DELETE/COMMENT',
   async (commentId: string) => {
-    console.log(commentId);
     try {
       const response = await axiosInstance.delete<string>(
         // eslint-disable-next-line no-underscore-dangle

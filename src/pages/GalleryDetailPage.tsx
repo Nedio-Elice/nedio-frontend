@@ -71,7 +71,6 @@ function GalleryDetailPage() {
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(5);
   const [newComment, setNewComment] = useState<string>('');
-  const [fixId, setFixId] = useState<string>('');
   const { galleryId } = useParams();
 
   useEffect(() => {
@@ -90,7 +89,7 @@ function GalleryDetailPage() {
 
   useEffect(() => {
     dispatch(getComments({ galleryId, currPage }));
-  }, [dispatch, galleryId, currPage, fixId]);
+  }, [dispatch, galleryId, currPage]);
 
   if (gallery === null) {
     return <h1>No data</h1>;
@@ -149,27 +148,13 @@ function GalleryDetailPage() {
       {comments !== null &&
         comments.data.map((c) => {
           // eslint-disable-next-line no-underscore-dangle
-          return c._id === fixId ? (
+          return (
             <Comment
               key={c._id}
               commentId={c._id}
               username={c.authorId}
               profileImgURL="/"
               content={c.content}
-              update
-              handleClickUpdate={setFixId}
-              handleClickDelete={() => handleDelete(c._id)}
-            />
-          ) : (
-            <Comment
-              key={c._id}
-              commentId={c._id}
-              username={c.authorId}
-              profileImgURL="/"
-              // eslint-disable-next-line no-underscore-dangle
-              content={c.content}
-              update={false}
-              handleClickUpdate={setFixId}
               handleClickDelete={() => handleDelete(c._id)}
             />
           );
