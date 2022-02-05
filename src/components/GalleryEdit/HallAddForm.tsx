@@ -22,20 +22,20 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   margin-bottom: 1em;
-
   & > button {
-    background: none;
-    border: none;
-    background-color: tomato;
-    color: white;
-    border-radius: 0.5em;
-    cursor: pointer;
+    border-radius: 0.3em;
+    margin-left: auto;
+    background: rgba(242, 243, 245, 0.79);
+    text-shadow: none;
+    color: #e1e1e1;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+    transition: all 1s;
+    &:hover {
+      color: #ff6e00;
+    }
   }
 
   & > input {
-    border: none;
-    background: none;
-    border-bottom: 1px solid black;
     margin-right: 1em;
     width: 5em;
   }

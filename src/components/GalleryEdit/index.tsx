@@ -32,16 +32,26 @@ const Container = styled.div`
   input {
     border: none;
     border-radius: 0.3em;
+    padding-left: 0.3em;
     height: 2em;
     box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
       rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
+    &::placeholder {
+      font-family: 'Pretendard-Regular';
+      opacity: 0.6;
+    }
   }
 
   textarea {
     border: none;
+    padding-left: 0.3em;
     border-radius: 0.3em;
     box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
       rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
+    &::placeholder {
+      font-family: 'Pretendard-Regular';
+      opacity: 0.6;
+    }
   }
 
   select {
@@ -50,6 +60,21 @@ const Container = styled.div`
     height: 2em;
     box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
       rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
+  }
+
+  button {
+    background: rgba(242, 243, 245, 0.79);
+    padding: 0.3em;
+    border: none;
+    cursor: pointer;
+  }
+
+  & > div > button {
+    border-radius: 0.3em;
+    color: #ff6e00;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
+      rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
   }
 `;
 

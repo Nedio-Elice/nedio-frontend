@@ -7,12 +7,11 @@ const Container = styled.div`
   margin-bottom: 1.5em;
 
   button {
-    background: none;
-    border-radius: 0.3em;
-    cursor: pointer;
+    height: 2em;
     &:last-child {
       margin-left: auto;
-      background-color: black;
+      background-color: #ff6e00;
+      text-shadow: none;
       color: white;
     }
   }
