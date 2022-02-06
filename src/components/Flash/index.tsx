@@ -1,0 +1,43 @@
+import styled, { keyframes } from 'styled-components';
+
+interface Props {
+  notification: string;
+}
+
+function Flash({ notification }: Props) {
+  if (notification) {
+    return <Container>{notification}</Container>;
+  }
+
+  return <div />;
+}
+
+export default Flash;
+
+const popUp = keyframes`
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+`;
+
+const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 2em;
+  background-color: #ee9047;
+  color: white;
+  animation: ${popUp} 5s ease-out backwards;
+  opacity: 0;
+`;

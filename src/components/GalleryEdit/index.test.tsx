@@ -11,6 +11,7 @@ describe('GalleryEdit', () => {
   const handleChangeGalleryInputField = jest.fn();
   const handleChangePosterUrl = jest.fn();
   const handleClickUpdateGallery = jest.fn();
+  const handleChangeNotification = jest.fn();
 
   const initialValue = {
     title: '',
@@ -37,6 +38,8 @@ describe('GalleryEdit', () => {
     return render(
       <GalleryEdit
         gallery={gallery}
+        notification=""
+        onChangeNotification={handleChangeNotification}
         onClickAddHallButton={handleClickAddHallButton}
         onChangeHallName={handleChangeHallName}
         onClickDeleteHallButton={handleClickDeleteButton}

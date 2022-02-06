@@ -23,5 +23,5 @@ export interface GalleryData {
 
 export interface Gallery {
   data: GalleryData;
-  message: string;
+  notification: string;
 }

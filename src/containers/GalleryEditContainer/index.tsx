@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 
@@ -9,6 +10,9 @@ import {
   deleteHall,
   changePosterUrl,
   updateGallery,
+  setNotification,
+  refreshNotification,
+  resetGalleryEditState,
 } from '../../store/gallery';
 
 import { ImagesData } from '../../types/GalleryEdit';
@@ -18,7 +22,9 @@ import GalleryEdit from '../../components/GalleryEdit';
 function GalleryEditContainer() {
   const dispatch = useAppDispatch();
 
-  const { data: gallery } = useAppSelector((state: RootState) => state.gallery);
+  const { data: gallery, notification } = useAppSelector(
+    (state: RootState) => state.gallery,
+  );
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());
@@ -52,6 +58,16 @@ function GalleryEditContainer() {
     dispatch(updateGallery());
   };
 
+  const handleChangeNotification = (text: string) => {
+    dispatch(refreshNotification(text));
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetGalleryEditState());
+    };
+  }, [dispatch]);
+
   return (
     <div>
       <GalleryEdit
@@ -62,7 +78,9 @@ function GalleryEditContainer() {
         onChangeGalleryInputField={handleChangeGalleryInputField}
         onChangePosterUrl={handleChangePosterUrl}
         onClickUpdateGallery={handleClickUpdateGallery}
+        onChangeNotification={handleChangeNotification}
         gallery={gallery}
+        notification={notification}
       />
     </div>
   );

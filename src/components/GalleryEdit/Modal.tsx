@@ -8,7 +8,7 @@ import Poster from './Poster';
 import Title from './Title';
 
 import { ImagesData } from '../../types/GalleryEdit';
-import { capitalizeString } from '../../utils/galleryEdit';
+import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
 
 interface ContainerStyle {
   modalOn: boolean;
@@ -120,6 +120,7 @@ interface Props {
   closeModal: () => void;
   onChange: (piece: ImagesData) => void;
   onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  onChangeNotification: (text: string) => void;
 }
 
 function Modal({
@@ -129,6 +130,7 @@ function Modal({
   onChange,
   isUpdated,
   onChangePosterUrl,
+  onChangeNotification,
 }: Props) {
   const [inputValues, setInputValues] = useState<ImagesData>(piece);
 
@@ -171,12 +173,10 @@ function Modal({
   };
 
   const handleClickAddButton = () => {
-    console.log(inputValues);
-    const { imageTitle, imageDescription, imageUrl } = inputValues;
+    onChangeNotification('');
 
-    if (!imageTitle || !imageDescription || !imageUrl) {
-      // valid message handling
-      console.log('Not Valid!');
+    if (isEmpty(inputValues)) {
+      onChangeNotification('모든 항목을 입력해주세요');
       return;
     }
 

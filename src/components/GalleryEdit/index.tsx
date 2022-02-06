@@ -9,6 +9,7 @@ import Buttons from './Buttons';
 import Halls from './Halls';
 
 import { GalleryData, ImagesData } from '../../types/GalleryEdit';
+import Flash from '../Flash';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -131,6 +132,7 @@ const Inputs = styled.div`
 
 interface Props {
   gallery: GalleryData;
+  notification: string;
   onClickAddHallButton: () => void;
   onClickDeleteHallButton: (id: string) => void;
   onChangeHallName: (id: string, value: string) => void;
@@ -138,10 +140,12 @@ interface Props {
   onChangeGalleryInputField: (value: string, name: string) => void;
   onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
   onClickUpdateGallery: () => void;
+  onChangeNotification: (text: string) => void;
 }
 
 function GalleryEdit({
   gallery,
+  notification,
   onClickAddHallButton,
   onClickDeleteHallButton,
   onChangeHallName,
@@ -149,12 +153,14 @@ function GalleryEdit({
   onChangeGalleryInputField,
   onChangePosterUrl,
   onClickUpdateGallery,
+  onChangeNotification,
 }: Props) {
   const { title, category, startDate, endDate, description, halls, posterUrl } =
     gallery;
 
   return (
     <Container>
+      <Flash notification={notification} />
       <Wrapper>
         <Poster
           label="포스터 끌어서 놓기"
@@ -199,6 +205,7 @@ function GalleryEdit({
         onClickDeleteHallButton={onClickDeleteHallButton}
         onChangePieceField={onChangePieceField}
         onChangePosterUrl={onChangePosterUrl}
+        onChangeNotification={onChangeNotification}
       />
     </Container>
   );

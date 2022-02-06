@@ -59,6 +59,7 @@ interface Props {
   onClickDeleteHallButton: (id: string) => void;
   onChangePieceField: (piece: ImagesData) => void;
   onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  onChangeNotification: (text: string) => void;
 }
 
 function HallAddForm({
@@ -69,6 +70,7 @@ function HallAddForm({
   onClickDeleteHallButton,
   onChangePieceField,
   onChangePosterUrl,
+  onChangeNotification,
 }: Props) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -99,6 +101,7 @@ function HallAddForm({
             piece={piece}
             onChange={onChangePieceField}
             onChangePosterUrl={onChangePosterUrl}
+            onChangeNotification={onChangeNotification}
           />
         ))}
       </AddButtons>

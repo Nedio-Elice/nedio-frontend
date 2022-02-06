@@ -24,7 +24,7 @@ const initialState = {
     posterUrl: '',
     halls: [],
   },
-  message: '',
+  notification: '',
 } as Gallery;
 
 const { actions, reducer } = createSlice({
@@ -103,6 +103,15 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+    setNotification(state, { payload: notification }) {
+      return {
+        ...state,
+        notification,
+      };
+    },
+    resetGalleryEditState() {
+      return initialState;
+    },
   },
 });
 
@@ -112,6 +121,8 @@ export const {
   changeHallName,
   updatePiece,
   changeGalleryInput,
+  setNotification,
+  resetGalleryEditState,
 } = actions;
 
 export function changePosterUrl(formData: FormData, piece?: ImagesData) {
@@ -136,29 +147,40 @@ export function changePosterUrl(formData: FormData, piece?: ImagesData) {
   };
 }
 
+export function refreshNotification(text: string) {
+  return async (dispatch: Dispatch) => {
+    await dispatch(setNotification(''));
+    dispatch(setNotification(text));
+  };
+}
+
 export function updateGallery() {
   return async (dispatch: Dispatch, getState: any) => {
     const {
       gallery: { data },
     } = getState();
 
+    await dispatch(setNotification(''));
+
     const { startDate, endDate, halls } = data;
 
     if (isEmpty(data)) {
-      // valid message handling
+      const notification = '모든 항목을 입력해주세요';
+      dispatch(setNotification(notification));
       console.log('Not Valid Gallery');
       return;
     }
 
     if (!isValidDate(startDate, endDate)) {
-      // valid message handling
+      const notification = '유효하지 않은 날짜 입력입니다';
+      dispatch(setNotification(notification));
       console.log('Not Valid Date!');
       return;
     }
 
     if (isEmptyHalls(halls)) {
-      // valid message handling
-      console.log('Not Valid Hall');
+      const notification = '전시관에 최소 한 개 이상의 작품을 등록해주세요';
+      dispatch(setNotification(notification));
       return;
     }
 

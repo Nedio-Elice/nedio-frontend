@@ -25,9 +25,15 @@ interface Props {
   piece: ImagesData;
   onChange: (piece: ImagesData) => void;
   onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  onChangeNotification: (text: string) => void;
 }
 
-function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
+function PieceField({
+  piece,
+  onChange,
+  onChangePosterUrl,
+  onChangeNotification,
+}: Props) {
   const [modalOn, setModalOn] = useState(false);
 
   const { imageId } = piece;
@@ -52,6 +58,7 @@ function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
         onChange={onChange}
         isUpdated={isUpdated}
         onChangePosterUrl={onChangePosterUrl}
+        onChangeNotification={onChangeNotification}
       />
     </Container>
   );
