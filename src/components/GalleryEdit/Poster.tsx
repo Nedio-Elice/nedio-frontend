@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { url } from '../../api/api';
 
-import { Piece } from '../../types/GalleryEdit';
+import { ImagesData } from '../../types/GalleryEdit';
 
 interface ContainerProps {
   width: string;
@@ -47,9 +47,9 @@ interface Props {
   width: string;
   height: string;
   thumbnail: string;
-  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
   onChangePieceImageUrl: ((value: string, name: string) => void) | null;
-  piece: Piece | null;
+  piece: ImagesData | null;
 }
 
 function Poster({
@@ -89,7 +89,7 @@ function Poster({
           })
             .then((res) => {
               const { url: imageUrl } = res.data;
-              onChangePieceImageUrl(imageUrl, 'imageUrl');
+              onChangePieceImageUrl(imageUrl, 'url');
             })
             .catch((err) => {
               // handle error

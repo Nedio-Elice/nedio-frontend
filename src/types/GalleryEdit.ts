@@ -1,14 +1,14 @@
-export interface Piece {
-  id: string;
-  title: string;
-  description: string;
+export interface ImagesData {
+  imageId: string;
+  imageTitle: string;
+  imageDescription: string;
   imageUrl: string;
 }
 
 export interface Hall {
   id: string;
-  name: string;
-  pieces: Piece[];
+  hallName: string;
+  imagesData: ImagesData[];
 }
 
 export interface Gallery {

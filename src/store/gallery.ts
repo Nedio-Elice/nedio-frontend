@@ -2,13 +2,13 @@ import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
-import { url } from '../api/api';
+import axiosInstance, { url } from '../api/api';
 
 import { fetchGallery } from '../api/mockApi';
 
 import { SLICE } from '../constants/slice';
 
-import { Gallery, Piece } from '../types/GalleryEdit';
+import { Gallery, ImagesData } from '../types/GalleryEdit';
 
 import { setDefaultPieces, isEmpty, isEmptyHalls } from '../utils/galleryEdit';
 
@@ -35,8 +35,8 @@ const { actions, reducer } = createSlice({
           ...state.halls,
           {
             id,
-            name: '',
-            pieces: setDefaultPieces(id),
+            hallName: '',
+            imagesData: setDefaultPieces(id),
           },
         ],
       };
@@ -51,7 +51,7 @@ const { actions, reducer } = createSlice({
     },
     changeHallName(state, { payload: { id, value } }) {
       const updatedHalls = state.halls.map((hall) =>
-        hall.id === id ? { ...hall, name: value } : hall,
+        hall.id === id ? { ...hall, hallName: value } : hall,
       );
 
       return {
@@ -60,16 +60,18 @@ const { actions, reducer } = createSlice({
       };
     },
     updatePiece(state, { payload: piece }) {
-      const { id } = piece;
+      const { imageId } = piece;
 
-      const hallId = id.split('-')[0];
+      const hallId = imageId.split('-')[0];
 
       const updatedHalls = state.halls.map((hall) => {
         if (hall.id === hallId) {
-          const p = hall.pieces.map((prev) => (prev.id === id ? piece : prev));
+          const p = hall.imagesData.map((prev) =>
+            prev.imageId === imageId ? piece : prev,
+          );
           return {
             ...hall,
-            pieces: p,
+            imagesData: p,
           };
         }
         return hall;
@@ -97,7 +99,7 @@ export const {
   changeGalleryInput,
 } = actions;
 
-export function changePosterUrl(formData: FormData, piece?: Piece) {
+export function changePosterUrl(formData: FormData, piece?: ImagesData) {
   return async (dispatch: Dispatch) => {
     const response = await axios({
       method: 'POST',
@@ -125,7 +127,15 @@ export function updateGallery() {
   return async (dispatch: Dispatch, getState: any) => {
     const { gallery } = getState();
 
-    const { halls } = gallery;
+    const {
+      title,
+      category,
+      description,
+      startData,
+      endDate,
+      posterUrl,
+      halls,
+    } = gallery;
 
     if (isEmpty(gallery)) {
       // valid message handling
@@ -136,13 +146,20 @@ export function updateGallery() {
     if (isEmptyHalls(halls)) {
       // valid message handling
       console.log('Not Valid Hall');
-      return;
     }
 
-    // TODO: 실제 데이터 전송
-    const response = await fetchGallery(gallery);
+    // // TODO: 실제 데이터 전송
+    // const data =
 
-    console.log(response);
+    // const result = await axiosInstance.post('/users/login', userData);
+
+    // const response = await fetchGallery(gallery);
+
+    // console.log(response);
+
+    // 요청 성공하면 상태 초기화?
+
+    // 리다이렉트는 언제? 어디서?
   };
 }
 

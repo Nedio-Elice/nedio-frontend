@@ -13,7 +13,7 @@ import {
 } from '../../store/gallery';
 
 import { RootState } from '../../store/root';
-import { Piece } from '../../types/GalleryEdit';
+import { ImagesData } from '../../types/GalleryEdit';
 
 // 임시
 // const State = styled.div`
@@ -49,7 +49,7 @@ function GalleryEditContainer() {
     dispatch(deleteHall(id));
   };
 
-  const handleChangePieceField = (piece: Piece) => {
+  const handleChangePieceField = (piece: ImagesData) => {
     dispatch(updatePiece(piece));
   };
 
@@ -57,7 +57,7 @@ function GalleryEditContainer() {
     dispatch(changeGalleryInput({ name, value }));
   };
 
-  const handleChangePosterUrl = (formData: FormData, piece?: Piece) => {
+  const handleChangePosterUrl = (formData: FormData, piece?: ImagesData) => {
     if (piece) {
       dispatch(changePosterUrl(formData, piece));
       return;

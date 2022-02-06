@@ -8,7 +8,7 @@ import Description from './Description';
 import Buttons from './Buttons';
 import Halls from './Halls';
 
-import { Gallery, Piece } from '../../types/GalleryEdit';
+import { Gallery, ImagesData } from '../../types/GalleryEdit';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -134,9 +134,9 @@ interface Props {
   onClickAddHallButton: () => void;
   onClickDeleteHallButton: (id: string) => void;
   onChangeHallName: (id: string, value: string) => void;
-  onChangePieceField: (piece: Piece) => void;
+  onChangePieceField: (piece: ImagesData) => void;
   onChangeGalleryInputField: (value: string, name: string) => void;
-  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
   onClickUpdateGallery: () => void;
 }
 

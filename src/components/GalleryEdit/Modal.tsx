@@ -2,11 +2,13 @@ import { useState, useRef } from 'react';
 
 import styled, { keyframes } from 'styled-components';
 
+import { stringify } from 'querystring';
 import Description from './Description';
 import Poster from './Poster';
 import Title from './Title';
 
-import { Piece } from '../../types/GalleryEdit';
+import { ImagesData } from '../../types/GalleryEdit';
+import { capitalizeString } from '../../utils/galleryEdit';
 
 interface ContainerStyle {
   modalOn: boolean;
@@ -112,12 +114,12 @@ const Buttons = styled.div<ButtonsStyle>`
 `;
 
 interface Props {
-  piece: Piece;
+  piece: ImagesData;
   modalOn: boolean;
   isUpdated: boolean;
   closeModal: () => void;
-  onChange: (piece: Piece) => void;
-  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
+  onChange: (piece: ImagesData) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
 }
 
 function Modal({
@@ -128,9 +130,9 @@ function Modal({
   isUpdated,
   onChangePosterUrl,
 }: Props) {
-  const [inputValues, setInputValues] = useState<Piece>(piece);
+  const [inputValues, setInputValues] = useState<ImagesData>(piece);
 
-  const prevValues = useRef<Piece>(piece);
+  const prevValues = useRef<ImagesData>(piece);
 
   const handleClickCloseButton = () => {
     onChange(prevValues.current);
@@ -141,9 +143,11 @@ function Modal({
   };
 
   const handleChange = (value: string, name: string) => {
+    const transformName = `image${capitalizeString(name)}`;
+
     const newPiece = {
       ...inputValues,
-      [name]: value,
+      [transformName]: value,
     };
 
     setInputValues(newPiece);
@@ -152,8 +156,8 @@ function Modal({
   const handleClickDeleteButton = () => {
     const cleanForm = {
       ...inputValues,
-      title: '',
-      description: '',
+      imageTitle: '',
+      imageDescription: '',
       imageUrl: '',
     };
 
@@ -167,9 +171,10 @@ function Modal({
   };
 
   const handleClickAddButton = () => {
-    const { title, description, imageUrl } = inputValues;
+    console.log(inputValues);
+    const { imageTitle, imageDescription, imageUrl } = inputValues;
 
-    if (!title || !description || !imageUrl) {
+    if (!imageTitle || !imageDescription || !imageUrl) {
       // valid message handling
       console.log('Not Valid!');
       return;
@@ -197,13 +202,13 @@ function Modal({
         />
         <Title
           label=""
-          title={inputValues.title}
+          title={inputValues.imageTitle}
           placeholder="작품의 제목을 입력해주세요"
           onChange={handleChange}
         />
         <Description
           label=""
-          description={inputValues.description}
+          description={inputValues.imageDescription}
           placeholder="작품에 대해 소개해주세요"
           onChange={handleChange}
         />

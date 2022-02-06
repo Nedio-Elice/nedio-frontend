@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { Piece } from '../../types/GalleryEdit';
+import { ImagesData } from '../../types/GalleryEdit';
 
 import { isEmpty } from '../../utils/galleryEdit';
 
@@ -22,15 +22,15 @@ const Container = styled.div`
 `;
 
 interface Props {
-  piece: Piece;
-  onChange: (piece: Piece) => void;
-  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
+  piece: ImagesData;
+  onChange: (piece: ImagesData) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
 }
 
 function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
   const [modalOn, setModalOn] = useState(false);
 
-  const { id } = piece;
+  const { imageId } = piece;
 
   const isUpdated = !isEmpty(piece);
 
@@ -43,7 +43,7 @@ function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
   };
 
   return (
-    <Container key={id}>
+    <Container key={imageId}>
       <PieceButton openModal={openModal} thumbnail={piece.imageUrl} />
       <Modal
         piece={piece}

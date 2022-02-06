@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Piece } from '../../types/GalleryEdit';
+import { ImagesData } from '../../types/GalleryEdit';
 
 import PieceField from './PieceField';
 
@@ -54,11 +54,11 @@ const AddButtons = styled.div`
 interface Props {
   id: string;
   name: string;
-  pieces: Piece[];
+  pieces: ImagesData[];
   onChangeHallName: (id: string, value: string) => void;
   onClickDeleteHallButton: (id: string) => void;
-  onChangePieceField: (piece: Piece) => void;
-  onChangePosterUrl: (formData: FormData, piece?: Piece) => void;
+  onChangePieceField: (piece: ImagesData) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
 }
 
 function HallAddForm({
@@ -95,7 +95,7 @@ function HallAddForm({
       <AddButtons>
         {pieces.map((piece) => (
           <PieceField
-            key={piece.id}
+            key={piece.imageId}
             piece={piece}
             onChange={onChangePieceField}
             onChangePosterUrl={onChangePosterUrl}

@@ -22,13 +22,13 @@ describe('GalleryEdit', () => {
     halls: [
       {
         id: '1',
-        name: '',
-        pieces: [],
+        hallName: '',
+        imagesData: [],
       },
       {
         id: '2',
-        name: '',
-        pieces: [],
+        hallName: '',
+        imagesData: [],
       },
     ],
   };
