@@ -3,9 +3,9 @@ import { addDaysFromToday } from '../utils/date';
 
 const initData: CardData = {
   _id: '',
-  category: '미정',
-  title: '작품을 등록해주세요',
-  nickname: '미정',
+  category: '',
+  title: '',
+  nickname: '',
   posterUrl: '',
   description: '',
   startDate: new Date(),

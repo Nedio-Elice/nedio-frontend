@@ -24,14 +24,17 @@ function Carousel({ cardInfo }: Props) {
       CAROUSEL.ITEM_MAX_WIDTH,
     ),
   );
-  const [paddedItems] = useState(() =>
-    paddingToItem(cardInfo, CAROUSEL.PADDING_DATA),
-  );
+  const [paddedItems, setPaddedItems] = useState<CardData[]>([]);
   const transitionStyle = `transform ${CAROUSEL.TRANSITION_TIME}ms ease-in-out 0s`;
-  const [transitionEffect, setTransitionEffect] = useState(transitionStyle);
+  const [transitionEffect, setTransitionEffect] = useState('');
+  // const [transitionEffect, setTransitionEffect] = useState(transitionStyle);
   const [curIdx, setCurIdx] = useState(CAROUSEL.PADDING_DATA);
   const [isClicked, setIsClicked] = useState(false);
   const itemSize = cardInfo.length;
+
+  useEffect(() => {
+    setPaddedItems(paddingToItem(cardInfo, CAROUSEL.PADDING_DATA));
+  }, [cardInfo]);
 
   useEffect(() => {
     const nextWidth = calcWidth(
@@ -85,20 +88,24 @@ function Carousel({ cardInfo }: Props) {
             isCurrent={curIdx === idx}
           >
             <ItemContainer>
-              <ThemeTag />
-              <ThemeTagTitle>{item.category}</ThemeTagTitle>
-              <Content>
-                <Title>{item.title}</Title>
-                <Period>{`${dateToString(item.startDate)} ~ ${dateToString(
-                  item.endDate,
-                )}`}</Period>
-                <Author>{item.nickname}</Author>
-                <DetatilButton id={item._id} isCurrent={curIdx === idx} />
-              </Content>
-              {isShowImg(item.posterUrl) && (
-                <ImgWrapper isCurrent={curIdx === idx}>
-                  <Img src={item.posterUrl} alt="이미지" />
-                </ImgWrapper>
+              {item._id && (
+                <>
+                  <ThemeTag />
+                  <ThemeTagTitle>{item.category}</ThemeTagTitle>
+                  <Content>
+                    <Title>{item.title}</Title>
+                    <Period>{`${dateToString(item.startDate)} ~ ${dateToString(
+                      item.endDate,
+                    )}`}</Period>
+                    <Author>{item.nickname}</Author>
+                    <DetatilButton id={item._id} isCurrent={curIdx === idx} />
+                  </Content>
+                  {isShowImg(item.posterUrl) && (
+                    <ImgWrapper isCurrent={curIdx === idx}>
+                      <Img src={item.posterUrl} alt="이미지" />
+                    </ImgWrapper>
+                  )}
+                </>
               )}
             </ItemContainer>
           </CarouselCol>

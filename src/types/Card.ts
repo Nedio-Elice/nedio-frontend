@@ -13,7 +13,8 @@ export type Category =
   | '건축'
   | '저널리즘'
   | '패션'
-  | '미정';
+  | '미정'
+  | '';
 
 export interface CardData {
   _id: string;
