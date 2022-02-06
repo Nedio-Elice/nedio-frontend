@@ -167,6 +167,14 @@ function Modal({
   };
 
   const handleClickAddButton = () => {
+    const { title, description, imageUrl } = inputValues;
+
+    if (!title || !description || !imageUrl) {
+      // valid message handling
+      console.log('Not Valid!');
+      return;
+    }
+
     prevValues.current = inputValues;
 
     onChange(inputValues);

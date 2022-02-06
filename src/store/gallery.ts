@@ -10,7 +10,7 @@ import { SLICE } from '../constants/slice';
 
 import { Gallery, Piece } from '../types/GalleryEdit';
 
-import { getPiecesButtons } from '../utils/galleryEdit';
+import { setDefaultPieces, isEmpty, isEmptyHalls } from '../utils/galleryEdit';
 
 const initialState = {
   title: '',
@@ -36,7 +36,7 @@ const { actions, reducer } = createSlice({
           {
             id,
             name: '',
-            pieces: getPiecesButtons(id),
+            pieces: setDefaultPieces(id),
           },
         ],
       };
@@ -125,11 +125,23 @@ export function updateGallery() {
   return async (dispatch: Dispatch, getState: any) => {
     const { gallery } = getState();
 
+    const { halls } = gallery;
+
+    if (isEmpty(gallery)) {
+      // valid message handling
+      console.log('Not Valid');
+      return;
+    }
+
+    if (isEmptyHalls(halls)) {
+      // valid message handling
+      console.log('Not Valid Hall');
+      return;
+    }
+
+    // TODO: 실제 데이터 전송
     const response = await fetchGallery(gallery);
 
-    // TODO: 필수 항목 미입력시 에러 상태 추가
-
-    // TODO: 업로드 실패시 에러 상태 추가?
     console.log(response);
   };
 }

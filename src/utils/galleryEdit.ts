@@ -1,15 +1,23 @@
-import { Gallery, Piece } from '../types/GalleryEdit';
+import { Gallery, Hall } from '../types/GalleryEdit';
 
-export const sortByIndex = (pieces: Piece[]) => {
-  const newWorks = pieces.sort(
-    (a, b) =>
-      parseInt(a.id.split('-')[1], 10) - parseInt(b.id.split('-')[1], 10),
-  );
-  return newWorks;
+export const isEmpty = (obj: any) => {
+  return Object.values(obj).some((e) => {
+    if (typeof e === 'string') return e === '';
+    if (Array.isArray(e)) return e.length === 0;
+    return false;
+  });
 };
 
-export const getPiecesButtons = (id: string) => {
-  const pieces = Array.from({ length: 10 }, (_, i) => {
+export const isEmptyHalls = (halls: Hall[]) => {
+  return halls.some((hall) => {
+    return hall.pieces.every((piece) => {
+      return isEmpty(piece);
+    });
+  });
+};
+
+export const setDefaultPieces = (id: string) => {
+  return Array.from({ length: 10 }, (_, i) => {
     return {
       id: `${id}-${i + 1}`,
       title: '',
@@ -17,14 +25,6 @@ export const getPiecesButtons = (id: string) => {
       imageUrl: '',
     };
   });
-  return pieces;
-};
-
-export const validatePieceForm = (piece: Piece) => {
-  if (piece.title && piece.description) {
-    return true;
-  }
-  return false;
 };
 
 export const getMockGalleryInputs = () => {
@@ -38,14 +38,48 @@ export const getMockGalleryInputs = () => {
       'https://images.unsplash.com/photo-1616738227115-954748f35c61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amVqdXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
     halls: [
       {
-        id: '1',
-        name: '돌관',
-        pieces: getPiecesButtons('1'),
+        id: '1644108008422',
+        name: '1관 이름',
+        pieces: [
+          {
+            id: '1644108008422-1',
+            title: '1관 - 1번 작품',
+            description: '1번 작품 소개',
+            imageUrl:
+              'https://images.unsplash.com/photo-1616738227115-954748f35c61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amVqdXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+          },
+          { id: '1644108008422-2', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-3', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-4', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-5', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-6', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-7', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-8', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-9', title: '', description: '', imageUrl: '' },
+          { id: '1644108008422-10', title: '', description: '', imageUrl: '' },
+        ],
       },
       {
-        id: '2',
-        name: '해녀관',
-        pieces: getPiecesButtons('2'),
+        id: '1644108046523',
+        name: '2관 이름',
+        pieces: [
+          { id: '1644108046523-1', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-2', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-3', title: '', description: '', imageUrl: '' },
+          {
+            id: '1644108046523-4',
+            title: '2관 4번 작품',
+            description: '4번 설명',
+            imageUrl:
+              'https://images.unsplash.com/photo-1616738227115-954748f35c61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amVqdXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+          },
+          { id: '1644108046523-5', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-6', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-7', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-8', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-9', title: '', description: '', imageUrl: '' },
+          { id: '1644108046523-10', title: '', description: '', imageUrl: '' },
+        ],
       },
     ],
   } as Gallery;

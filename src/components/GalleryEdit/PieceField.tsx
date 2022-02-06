@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Piece } from '../../types/GalleryEdit';
 
-import { validatePieceForm } from '../../utils/galleryEdit';
+import { isEmpty } from '../../utils/galleryEdit';
 
 import Modal from './Modal';
 import PieceButton from './PieceButton';
@@ -32,7 +32,7 @@ function PieceField({ piece, onChange, onChangePosterUrl }: Props) {
 
   const { id } = piece;
 
-  const isUpdated = validatePieceForm(piece);
+  const isUpdated = !isEmpty(piece);
 
   const openModal = () => {
     setModalOn(true);
