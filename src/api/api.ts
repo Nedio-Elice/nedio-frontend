@@ -10,4 +10,34 @@ const axiosInstance = axios.create({
 });
 axiosInstance.defaults.withCredentials = true;
 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.message === 'Network Error') return console.log('NETWORK ERROR');
+
+    const {
+      config,
+      response: { status },
+    } = error;
+    const originalRequest = config;
+
+    if (status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      if (
+        error.response.data.message ===
+        '만료나 유효하지 않는 토큰 처리할 때(의견나눠야함)'
+      ) {
+        // token setting
+        // axiosInstance.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+        // originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return axiosInstance(originalRequest);
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 export default axiosInstance;

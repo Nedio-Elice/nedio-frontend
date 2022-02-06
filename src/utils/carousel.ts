@@ -1,15 +1,15 @@
-import { ThemeCardData } from '../types/Card';
+import { CardData } from '../types/Card';
+import { CAROUSEL } from '../constants/carousel';
 
-export function paddingToItem(
-  items: Array<ThemeCardData>,
-  paddingLength: number,
-) {
-  const paddedItems: Array<ThemeCardData> = [...items];
-  const itemLen = items.length;
+export function paddingToItem(items: Array<CardData>, paddingLength: number) {
+  const paddedItems: Array<CardData> = [...items];
+
+  // shallow copy
+  if (items.length < 1) items.push(CAROUSEL.INIT_DATA);
 
   for (let i = 0; i < paddingLength; i += 1) {
-    const firstIdx = i % itemLen;
-    const lastIdx = itemLen - 1 - (i % itemLen);
+    const firstIdx = i % items.length;
+    const lastIdx = items.length - 1 - (i % items.length);
     paddedItems.push(items[firstIdx]);
     paddedItems.unshift(items[lastIdx]);
   }

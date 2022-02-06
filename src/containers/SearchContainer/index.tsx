@@ -22,7 +22,22 @@ function SearchContainer() {
     e.preventDefault();
     if (keyword.length < 1) return;
 
-    const queryStr = `page=1&perPage=10&${selectOption}=${keyword}`;
+    let queryStr;
+
+    switch (selectOption) {
+      case 'title': {
+        queryStr = `page=1&perPage=10&${selectOption}=${keyword}&nickname=&category=`;
+        break;
+      }
+
+      case 'nickname': {
+        queryStr = `page=1&perPage=10&title=&${selectOption}=${keyword}&category=`;
+        break;
+      }
+
+      default:
+        queryStr = `page=1&perPage=10&title=&nickname=&category=`;
+    }
     navigation(`${PATH.GALLERY_SEARCH}?${queryStr}`);
   };
 
