@@ -8,7 +8,7 @@ import Description from './Description';
 import Buttons from './Buttons';
 import Halls from './Halls';
 
-import { Gallery, ImagesData } from '../../types/GalleryEdit';
+import { GalleryData, ImagesData } from '../../types/GalleryEdit';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -130,7 +130,7 @@ const Inputs = styled.div`
 `;
 
 interface Props {
-  gallery: Gallery;
+  gallery: GalleryData;
   onClickAddHallButton: () => void;
   onClickDeleteHallButton: (id: string) => void;
   onChangeHallName: (id: string, value: string) => void;

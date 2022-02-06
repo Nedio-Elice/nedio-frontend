@@ -18,7 +18,7 @@ import GalleryEdit from '../../components/GalleryEdit';
 function GalleryEditContainer() {
   const dispatch = useAppDispatch();
 
-  const gallery = useAppSelector((state: RootState) => state.gallery);
+  const { data: gallery } = useAppSelector((state: RootState) => state.gallery);
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());

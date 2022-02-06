@@ -11,7 +11,7 @@ export interface Hall {
   imagesData: ImagesData[];
 }
 
-export interface Gallery {
+export interface GalleryData {
   title: string;
   category: string;
   startDate: string;
@@ -19,4 +19,9 @@ export interface Gallery {
   description: string;
   posterUrl: string;
   halls: Hall[];
+}
+
+export interface Gallery {
+  data: GalleryData;
+  message: string;
 }

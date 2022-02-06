@@ -1,4 +1,4 @@
-import { Gallery, Hall, ImagesData } from '../types/GalleryEdit';
+import { Hall, ImagesData } from '../types/GalleryEdit';
 
 export const isEmpty = (obj: any) => {
   return Object.values(obj).some((e) => {
@@ -21,11 +21,8 @@ export const isValidDate = (startDate: string, endDate: string) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  // 종료 시간이 시작 시간보다 앞서 있다면 false
   if (end.getTime() < start.getTime()) return false;
 
-  // 시작 시간이 현재 시간보다 앞서 있는 동시에 당일도 아니라면 false
-  // 앞서 있더라도 같은 날이면 ok
   if (start.getTime() < now.getTime() && start.getDate() !== now.getDate())
     return false;
 
@@ -45,6 +42,10 @@ export const setDefaultPieces = (id: string) => {
       imageUrl: '',
     };
   });
+};
+
+export const getId = () => {
+  return new Date().valueOf().toString();
 };
 
 // export const getMockGalleryInputs = () => {

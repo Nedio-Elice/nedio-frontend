@@ -11,16 +11,20 @@ import {
   isEmpty,
   isEmptyHalls,
   isValidDate,
+  getId,
 } from '../utils/galleryEdit';
 
 const initialState = {
-  title: '',
-  category: '',
-  startDate: '',
-  endDate: '',
-  description: '',
-  posterUrl: '',
-  halls: [],
+  data: {
+    title: '',
+    category: '',
+    startDate: '',
+    endDate: '',
+    description: '',
+    posterUrl: '',
+    halls: [],
+  },
+  message: '',
 } as Gallery;
 
 const { actions, reducer } = createSlice({
@@ -28,36 +32,40 @@ const { actions, reducer } = createSlice({
   initialState,
   reducers: {
     addHall(state) {
-      const id = new Date().valueOf().toString();
+      const id = getId();
 
       return {
         ...state,
-        halls: [
-          ...state.halls,
-          {
-            id,
-            hallName: '',
-            imagesData: setDefaultPieces(id),
-          },
-        ],
+        data: {
+          ...state.data,
+          halls: [
+            ...state.data.halls,
+            {
+              id,
+              hallName: '',
+              imagesData: setDefaultPieces(id),
+            },
+          ],
+        },
       };
     },
     deleteHall(state, { payload: id }) {
-      const updatedHalls = state.halls.filter((hall) => hall.id !== id);
-
       return {
         ...state,
-        halls: updatedHalls,
+        halls: state.data.halls.filter((hall) => hall.id !== id),
       };
     },
     changeHallName(state, { payload: { id, value } }) {
-      const updatedHalls = state.halls.map((hall) =>
+      const updated = state.data.halls.map((hall) =>
         hall.id === id ? { ...hall, hallName: value } : hall,
       );
 
       return {
         ...state,
-        halls: updatedHalls,
+        data: {
+          ...state.data,
+          halls: updated,
+        },
       };
     },
     updatePiece(state, { payload: piece }) {
@@ -65,14 +73,14 @@ const { actions, reducer } = createSlice({
 
       const hallId = imageId.split('-')[0];
 
-      const updatedHalls = state.halls.map((hall) => {
+      const updated = state.data.halls.map((hall) => {
         if (hall.id === hallId) {
-          const p = hall.imagesData.map((prev) =>
+          const imagesData = hall.imagesData.map((prev) =>
             prev.imageId === imageId ? piece : prev,
           );
           return {
             ...hall,
-            imagesData: p,
+            imagesData,
           };
         }
         return hall;
@@ -80,13 +88,19 @@ const { actions, reducer } = createSlice({
 
       return {
         ...state,
-        halls: updatedHalls,
+        data: {
+          ...state.data,
+          halls: updated,
+        },
       };
     },
     changeGalleryInput(state, { payload: { name, value } }) {
       return {
         ...state,
-        [name]: value,
+        data: {
+          ...state.data,
+          [name]: value,
+        },
       };
     },
   },
@@ -124,11 +138,13 @@ export function changePosterUrl(formData: FormData, piece?: ImagesData) {
 
 export function updateGallery() {
   return async (dispatch: Dispatch, getState: any) => {
-    const { gallery } = getState();
+    const {
+      gallery: { data },
+    } = getState();
 
-    const { startDate, endDate, halls } = gallery;
+    const { startDate, endDate, halls } = data;
 
-    if (isEmpty(gallery)) {
+    if (isEmpty(data)) {
       // valid message handling
       console.log('Not Valid Gallery');
       return;
@@ -148,7 +164,7 @@ export function updateGallery() {
 
     // // TODO: 실제 데이터 전송
 
-    const response = await axiosInstance.post('api/galleries', gallery);
+    const response = await axiosInstance.post('api/galleries', data);
 
     console.log(response);
 

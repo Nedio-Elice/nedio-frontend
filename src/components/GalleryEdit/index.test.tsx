@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import { Gallery } from '../../types/GalleryEdit';
+import { GalleryData } from '../../types/GalleryEdit';
 
 import GalleryEdit from './index';
 
@@ -33,7 +33,7 @@ describe('GalleryEdit', () => {
     ],
   };
 
-  function renderGalleryEdit(gallery: Gallery = initialValue) {
+  function renderGalleryEdit(gallery: GalleryData = initialValue) {
     return render(
       <GalleryEdit
         gallery={gallery}
