@@ -2,8 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
 
-import axios from 'axios';
-import { url } from '../../api/api';
+import { axiosInstanceFormData } from '../../api/api';
 
 import { ImagesData } from '../../types/GalleryEdit';
 
@@ -81,12 +80,8 @@ function Poster({
         onChangePosterUrl(formData, piece);
 
         (async () => {
-          await axios({
-            method: 'POST',
-            url: `${url}api/uploadImage`,
-            data: formData,
-            headers: { 'Content-Type': 'multipart/form-data' },
-          })
+          await await axiosInstanceFormData
+            .post('api/uploadImage', formData)
             .then((res) => {
               const { url: imageUrl } = res.data;
               onChangePieceImageUrl(imageUrl, 'url');
@@ -102,6 +97,7 @@ function Poster({
 
       onChangePosterUrl(formData);
     },
+
     [piece, onChangePosterUrl, onChangePieceImageUrl],
   );
 

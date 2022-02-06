@@ -1,10 +1,6 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
-import axios from 'axios';
-
-import axiosInstance, { url } from '../api/api';
-
-import { fetchGallery } from '../api/mockApi';
+import axiosInstance, { axiosInstanceFormData } from '../api/api';
 
 import { SLICE } from '../constants/slice';
 
@@ -106,12 +102,10 @@ export const {
 
 export function changePosterUrl(formData: FormData, piece?: ImagesData) {
   return async (dispatch: Dispatch) => {
-    const response = await axios({
-      method: 'POST',
-      url: `${url}api/uploadImage`,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    const response = await axiosInstanceFormData.post(
+      'api/uploadImage',
+      formData,
+    );
 
     const { url: imageUrl } = response.data;
 

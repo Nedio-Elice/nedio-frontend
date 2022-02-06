@@ -1,6 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
-
-import GalleryEdit from '../../components/GalleryEdit';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/root';
 
 import {
   addHall,
@@ -12,30 +11,14 @@ import {
   updateGallery,
 } from '../../store/gallery';
 
-import { RootState } from '../../store/root';
 import { ImagesData } from '../../types/GalleryEdit';
 
-// 임시
-// const State = styled.div`
-//   position: absolute;
-//   width: 500px;
-//   top: 10%;
-//   right: 0;
-//   display: flex;
-//   flex-direction: column;
-//   ul {
-//     margin-left: 10%;
-//   }
-// `;
+import GalleryEdit from '../../components/GalleryEdit';
 
 function GalleryEditContainer() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const gallery = useSelector((state: RootState) => state.gallery);
-
-  // const { halls, title, category, startDate, endDate, description, posterUrl } =
-  //   gallery;
+  const gallery = useAppSelector((state: RootState) => state.gallery);
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());
@@ -81,34 +64,6 @@ function GalleryEditContainer() {
         onClickUpdateGallery={handleClickUpdateGallery}
         gallery={gallery}
       />
-      {/* <State>
-        <span>{title}</span>
-        <span>{category}</span>
-        <span>{`${startDate}-${endDate}`}</span>
-        <span>{description}</span>
-        <span>{posterUrl}</span>
-        <div>
-          {halls &&
-            halls.map((hall) => {
-              return (
-                <div key={hall.id}>
-                  <span>{hall.name}</span>
-                  {hall.pieces &&
-                    hall.pieces.map((piece, idx) => {
-                      return (
-                        <ul key={piece.title + idx}>
-                          <li>{idx + 1}번 작품</li>
-                          <li>{piece.title}</li>
-                          <li>{piece.description}</li>
-                          <li>{piece.imageUrl}</li>
-                        </ul>
-                      );
-                    })}
-                </div>
-              );
-            })}
-        </div>
-      </State> */}
     </div>
   );
 }
