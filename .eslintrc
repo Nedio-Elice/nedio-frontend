@@ -25,6 +25,7 @@
     "@typescript-eslint/no-use-before-define": "off",
     "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
     "prettier/prettier": ["error", { "endOfLine": "auto"} ],
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "no-underscore-dangle": "off"
   }
 }

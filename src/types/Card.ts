@@ -5,6 +5,7 @@ export interface Author {
 }
 
 export interface CardData {
+  _id: string;
   title: string;
   author: Author;
   posterUrl: string;

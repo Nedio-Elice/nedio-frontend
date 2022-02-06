@@ -1,9 +1,11 @@
 import Carousel from '../../components/Carousel';
 import { sample, sample2, sample3 } from '../../constants/images';
+import { ThemeCardData } from '../../types/Card';
 
 // DELETE: 데이터 삭제
-const mockData = [
+const mockData: ThemeCardData[] = [
   {
+    _id: '61fe5569a1035b271361521a',
     theme: '자연',
     title: '별밤지기의 천문사진관',
     author: {
@@ -18,6 +20,7 @@ const mockData = [
     isOpened: true,
   },
   {
+    _id: '61fe5569a1035b271361521b',
     theme: '인물',
     title: '슈퍼 네이쳐',
     author: {
@@ -32,6 +35,7 @@ const mockData = [
     isOpened: true,
   },
   {
+    _id: '61fe5569a1035b271361521c',
     theme: '예술',
     title: '엘리스를 찾아서',
     author: {
@@ -46,6 +50,8 @@ const mockData = [
     isOpened: true,
   },
 ];
+
+// const mockData: ThemeCardData[] = [];
 
 function CarouselContainer() {
   return <Carousel cardInfo={mockData} />;

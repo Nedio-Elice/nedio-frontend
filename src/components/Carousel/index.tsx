@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import CarouselButton from './CarouselButton';
 import useWindowSize from '../../hooks/useWindowSize';
 import { CAROUSEL } from '../../constants/carousel';
@@ -46,6 +46,9 @@ function Carousel({ cardInfo }: Props) {
   const isMinMaxCarousel = (idx: number) =>
     idx - CAROUSEL.PADDING_DATA < 0 || idx - CAROUSEL.PADDING_DATA >= itemSize;
 
+  const isShowImg = (url: string) =>
+    url && windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 3;
+
   function changeCarousel(index: number) {
     setTimeout(() => {
       setTransitionEffect('');
@@ -90,12 +93,11 @@ function Carousel({ cardInfo }: Props) {
                   item.endDate,
                 )}`}</Period>
                 <Author>{item.author.nickname}</Author>
-                {/* TODO: item URL (백엔드와 이야기) */}
-                <DetatilButton linkURL="tempURL" isCurrent={curIdx === idx} />
+                <DetatilButton id={item._id} isCurrent={curIdx === idx} />
               </Content>
-              {windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 3 && (
-                <ImgWrapper className="img-hover-zoom img-hover-zoom--xyz">
-                  <Img src={item.posterUrl} alt={item.title} />
+              {isShowImg(item.posterUrl) && (
+                <ImgWrapper isCurrent={curIdx === idx}>
+                  <Img src={item.posterUrl} alt="이미지" />
                 </ImgWrapper>
               )}
             </ItemContainer>
@@ -149,11 +151,12 @@ const ItemContainer = styled.div`
   height: 100%;
   display: flex;
   background: #1f3e5a;
+  /* background-color: rgba(255, 110, 0, 0.8); */
   color: white;
   box-shadow: 8px 8px 16px rgba(174, 174, 174, 0.75);
 `;
 
-const ImgWrapper = styled.div`
+const ImgWrapper = styled.div<{ isCurrent: boolean }>`
   position: absolute;
   width: 220px;
   height: 260px;
@@ -162,11 +165,15 @@ const ImgWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   overflow: hidden;
 
-  &:hover {
-    img {
-      transform: scale(1.2);
-    }
-  }
+  ${({ isCurrent }) =>
+    isCurrent &&
+    css`
+      &:hover {
+        img {
+          transform: scale(1.2);
+        }
+      }
+    `}
 `;
 
 const Img = styled.img`

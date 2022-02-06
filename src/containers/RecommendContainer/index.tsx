@@ -5,6 +5,7 @@ import { sample, sample2, sample3 } from '../../constants/images';
 // DELETE: 데이터 삭제
 const mockData = [
   {
+    _id: '61fe5569a1035b271361521a',
     title: '제주 특별전',
     author: {
       nickname: 'jiseong',
@@ -18,6 +19,7 @@ const mockData = [
     isOpened: true,
   },
   {
+    _id: '61fe5569a1035b271361521b',
     title: '슈퍼 네이쳐',
     author: {
       nickname: 'jiseong2',
@@ -31,6 +33,7 @@ const mockData = [
     isOpened: false,
   },
   {
+    _id: '61fe5569a1035b271361521c',
     title: '엘리스를 찾아서',
     author: {
       nickname: 'jiseong3',
@@ -44,6 +47,7 @@ const mockData = [
     isOpened: false,
   },
   {
+    _id: '61fe5569a1035b271361521d',
     title: '제주 특별전',
     author: {
       nickname: 'jiseong4',

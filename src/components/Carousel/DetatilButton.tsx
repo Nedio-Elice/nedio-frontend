@@ -2,19 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Props {
-  linkURL: string;
+  id: string;
   isCurrent: boolean;
 }
 
-function DetatilButton({ linkURL, isCurrent }: Props) {
+function DetatilButton({ id, isCurrent }: Props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/galleries/${linkURL}`);
+    navigate(`/galleries/${id}`);
   };
 
+  const isDisabled = id === '' || !isCurrent;
+
   return (
-    <DetailButton disabled={!isCurrent} onClick={handleClick}>
+    <DetailButton disabled={isDisabled} onClick={handleClick}>
       자세히 보기
     </DetailButton>
   );
@@ -26,12 +28,13 @@ const DetailButton = styled.button`
   outline: none;
   width: fit-content;
   border-radius: 15px;
-  border: 1px solid white;
   padding: 8px 28px;
   margin-left: 15px;
-  &:hover {
+  border: 1px solid white;
+
+  &:hover:not([disabled]) {
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
     border: 1px solid white;
     color: white;
   }

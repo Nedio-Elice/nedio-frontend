@@ -1,3 +1,5 @@
+import { addDaysFromToday } from '../utils/date';
+
 const CAROUSEL = {
   PADDING_DATA: 2,
   PADDING: 80,
@@ -8,6 +10,21 @@ const CAROUSEL = {
   },
   ITEM_MAX_WIDTH: 1250,
   ITEM_MIN_WIDTH: 560,
+  INIT_DATA: {
+    _id: '',
+    theme: '미정',
+    title: '작품을 등록해주세요',
+    author: {
+      nickname: '미정',
+      contact: '010-1234-5678',
+      email: 'example@gmail.com',
+    },
+    posterUrl: '',
+    description: '',
+    startDate: new Date(),
+    endDate: addDaysFromToday(7),
+    isOpened: true,
+  },
 };
 
 // eslint-disable-next-line import/prefer-default-export

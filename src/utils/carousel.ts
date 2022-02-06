@@ -1,3 +1,4 @@
+import { CAROUSEL } from '../constants/carousel';
 import { ThemeCardData } from '../types/Card';
 
 export function paddingToItem(
@@ -5,11 +6,12 @@ export function paddingToItem(
   paddingLength: number,
 ) {
   const paddedItems: Array<ThemeCardData> = [...items];
-  const itemLen = items.length;
+
+  if (items.length < 2) items.push(CAROUSEL.INIT_DATA);
 
   for (let i = 0; i < paddingLength; i += 1) {
-    const firstIdx = i % itemLen;
-    const lastIdx = itemLen - 1 - (i % itemLen);
+    const firstIdx = i % items.length;
+    const lastIdx = items.length - 1 - (i % items.length);
     paddedItems.push(items[firstIdx]);
     paddedItems.unshift(items[lastIdx]);
   }

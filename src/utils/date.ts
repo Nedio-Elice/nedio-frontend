@@ -7,3 +7,10 @@ export const dateToString = (dateObj: Date): string => {
 
   return `${year}.${padding(month)}.${padding(date)}`;
 };
+
+export const addDaysFromToday = (days: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+
+  return date;
+};
