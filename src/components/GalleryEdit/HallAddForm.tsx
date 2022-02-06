@@ -1,55 +1,14 @@
 import styled from 'styled-components';
+import {
+  greyButton,
+  hoverOrange,
+  inputArea,
+  placeholders,
+} from '../../styles/mixins';
 
 import { ImagesData } from '../../types/GalleryEdit';
 
 import PieceField from './PieceField';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1em;
-  width: 100%;
-
-  & > input {
-    border: none;
-    border-bottom: 1px solid black;
-    margin-right: 1em;
-    width: 5em;
-  }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  margin-bottom: 1em;
-  & > button {
-    border-radius: 0.3em;
-    margin-left: auto;
-    background: rgba(242, 243, 245, 0.79);
-    text-shadow: none;
-    color: #e1e1e1;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
-    transition: all 1s;
-    &:hover {
-      color: #ff6e00;
-    }
-  }
-
-  & > input {
-    margin-right: 1em;
-    width: 5em;
-  }
-`;
-
-const AddButtons = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(10, 1fr);
-  width: 100%;
-  @media only screen and (max-width: 720px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-`;
 
 interface Props {
   id: string;
@@ -110,3 +69,46 @@ function HallAddForm({
 }
 
 export default HallAddForm;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1em;
+  width: 100%;
+
+  & > input {
+    border: none;
+    border-bottom: 1px solid black;
+    margin-right: 1em;
+    width: 5em;
+  }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  margin-bottom: 1em;
+  & > button {
+    ${greyButton}
+    transition: all 1s;
+
+    ${hoverOrange}
+  }
+
+  & > input {
+    ${inputArea}
+    ${placeholders}
+    margin-right: 1em;
+    width: 5em;
+  }
+`;
+
+const AddButtons = styled.div`
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(10, 1fr);
+  width: 100%;
+  @media only screen and (max-width: 720px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+`;

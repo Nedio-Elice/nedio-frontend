@@ -3,23 +3,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { ImagesData } from '../../types/GalleryEdit';
-
 import { isEmpty } from '../../utils/galleryEdit';
 
-import Modal from './Modal';
 import PieceButton from './PieceButton';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  margin-bottom: 1em;
-  width: 100%;
-  @media only screen and (max-width: 720px) {
-    align-items: center;
-  }
-`;
+import Modal from './Modal';
 
 interface Props {
   piece: ImagesData;
@@ -65,3 +52,15 @@ function PieceField({
 }
 
 export default PieceField;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 1em;
+  width: 100%;
+  @media only screen and (max-width: 720px) {
+    align-items: center;
+  }
+`;

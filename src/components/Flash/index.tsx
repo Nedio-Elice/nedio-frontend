@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { flexCenter } from '../../styles/mixins';
 
 interface Props {
   notification: string;
@@ -30,10 +31,8 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 2;
+  ${flexCenter}
   width: 100%;
   height: 2em;
   background-color: #ee9047;

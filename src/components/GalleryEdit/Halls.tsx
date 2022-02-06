@@ -1,15 +1,7 @@
 import styled from 'styled-components';
-
-import HallAddForm from './HallAddForm';
-
 import { Hall, ImagesData } from '../../types/GalleryEdit';
 
-const Container = styled.div`
-  width: 680px;
-  @media only screen and (max-width: 720px) {
-    width: 340px;
-  }
-`;
+import HallAddForm from './HallAddForm';
 
 interface Props {
   halls: Hall[];
@@ -52,3 +44,10 @@ function Halls({
 }
 
 export default Halls;
+
+const Container = styled.div`
+  width: 680px;
+  @media only screen and (max-width: 720px) {
+    width: 340px;
+  }
+`;

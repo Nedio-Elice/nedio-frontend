@@ -1,54 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
+import { flexCenter, posterShadow } from '../../styles/mixins';
 
 import { axiosInstanceFormData } from '../../api/api';
 
+import { defaultPoster } from '../../constants/images';
 import { ImagesData } from '../../types/GalleryEdit';
-
-interface ContainerProps {
-  width: string;
-  height: string;
-  thumbnail: string | null;
-  isDragging: boolean;
-}
-
-const Container = styled.div<ContainerProps>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1em;
-  min-width: 230px;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  background-image: ${(props) =>
-    props.thumbnail
-      ? `url(${props.thumbnail})`
-      : `url('https://images.unsplash.com/photo-1516541196182-6bdb0516ed27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8d2FsbHxlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60')`};
-  background-size: 100% 100%;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  opacity: ${(props) => (props.thumbnail ? 1 : 0.5)};
-  cursor: pointer;
-
-  label {
-    display: ${(props) => (props.thumbnail ? 'none' : 'block')};
-  }
-
-  input {
-    display: none;
-  }
-`;
 
 interface Props {
   label: string;
   width: string;
   height: string;
   thumbnail: string;
+  piece: ImagesData | null;
   onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
   onChangePieceImageUrl: ((value: string, name: string) => void) | null;
-  piece: ImagesData | null;
 }
 
 function Poster({
@@ -56,9 +23,9 @@ function Poster({
   thumbnail,
   width,
   height,
+  piece = null,
   onChangePosterUrl,
   onChangePieceImageUrl = null,
-  piece = null,
 }: Props) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
@@ -80,14 +47,14 @@ function Poster({
         onChangePosterUrl(formData, piece);
 
         (async () => {
-          await await axiosInstanceFormData
+          await axiosInstanceFormData
             .post('api/uploadImage', formData)
             .then((res) => {
               const { url: imageUrl } = res.data;
               onChangePieceImageUrl(imageUrl, 'url');
             })
             .catch((err) => {
-              // handle error
+              // error handling
               console.log(err);
             });
         })();
@@ -172,3 +139,34 @@ function Poster({
 }
 
 export default Poster;
+
+interface ContainerStyles {
+  width: string;
+  height: string;
+  thumbnail: string | null;
+  isDragging: boolean;
+}
+
+const Container = styled.div<ContainerStyles>`
+  ${flexCenter}
+
+  border-radius: 1em;
+  min-width: 230px;
+  background-size: 100% 100%;
+  ${posterShadow}
+  cursor: pointer;
+
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  opacity: ${(props) => (props.thumbnail ? 1 : 0.5)};
+  background-image: ${(props) =>
+    props.thumbnail ? `url(${props.thumbnail})` : `url(${defaultPoster})`};
+
+  label {
+    display: ${(props) => (props.thumbnail ? 'none' : 'block')};
+  }
+
+  input {
+    display: none;
+  }
+`;

@@ -1,17 +1,5 @@
 import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: start;
-  textarea {
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    padding-top: 0.3em;
-  }
-`;
+import { inputArea, placeholders } from '../../styles/mixins';
 
 interface Props {
   label: string;
@@ -43,3 +31,18 @@ function Description({ label, description, placeholder, onChange }: Props) {
 }
 
 export default Description;
+
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: start;
+  textarea {
+    ${inputArea}
+    ${placeholders}
+    width: 100%;
+    height: 100%;
+    padding-top: 0.3em;
+    overflow: auto;
+  }
+`;

@@ -2,10 +2,6 @@ import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
 import axiosInstance, { axiosInstanceFormData } from '../api/api';
 
-import { SLICE } from '../constants/slice';
-
-import { Gallery, ImagesData } from '../types/GalleryEdit';
-
 import {
   setDefaultPieces,
   isEmpty,
@@ -13,6 +9,10 @@ import {
   isValidDate,
   getId,
 } from '../utils/galleryEdit';
+
+import { Gallery, ImagesData } from '../types/GalleryEdit';
+import { MESSAGE } from '../constants/messages';
+import { SLICE } from '../constants/slice';
 
 const initialState = {
   data: {
@@ -109,7 +109,7 @@ const { actions, reducer } = createSlice({
         notification,
       };
     },
-    resetGalleryEditState() {
+    claerAllState() {
       return initialState;
     },
   },
@@ -122,7 +122,7 @@ export const {
   updatePiece,
   changeGalleryInput,
   setNotification,
-  resetGalleryEditState,
+  claerAllState,
 } = actions;
 
 export function changePosterUrl(formData: FormData, piece?: ImagesData) {
@@ -165,32 +165,25 @@ export function updateGallery() {
     const { startDate, endDate, halls } = data;
 
     if (isEmpty(data)) {
-      const notification = '모든 항목을 입력해주세요';
-      dispatch(setNotification(notification));
-      console.log('Not Valid Gallery');
+      dispatch(setNotification(MESSAGE.INVALID_FORM));
       return;
     }
 
     if (!isValidDate(startDate, endDate)) {
-      const notification = '유효하지 않은 날짜 입력입니다';
-      dispatch(setNotification(notification));
-      console.log('Not Valid Date!');
+      dispatch(setNotification(MESSAGE.INVALID_DATE));
       return;
     }
 
     if (isEmptyHalls(halls)) {
-      const notification = '전시관에 최소 한 개 이상의 작품을 등록해주세요';
-      dispatch(setNotification(notification));
+      dispatch(setNotification(MESSAGE.MINIMUM_PIECE));
       return;
     }
 
-    // // TODO: 실제 데이터 전송
+    // TODO: 실제 데이터 전송
 
     const response = await axiosInstance.post('api/galleries', data);
 
     console.log(response);
-
-    // 요청 성공하면 상태 초기화?
 
     // 리다이렉트는 언제? 어디서?
   };

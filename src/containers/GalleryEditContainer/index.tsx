@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
-
 import {
   addHall,
   updatePiece,
@@ -10,9 +10,8 @@ import {
   deleteHall,
   changePosterUrl,
   updateGallery,
-  setNotification,
   refreshNotification,
-  resetGalleryEditState,
+  claerAllState,
 } from '../../store/gallery';
 
 import { ImagesData } from '../../types/GalleryEdit';
@@ -64,13 +63,15 @@ function GalleryEditContainer() {
 
   useEffect(() => {
     return () => {
-      dispatch(resetGalleryEditState());
+      dispatch(claerAllState());
     };
   }, [dispatch]);
 
   return (
     <div>
       <GalleryEdit
+        gallery={gallery}
+        notification={notification}
         onClickAddHallButton={handleClickAddHallButton}
         onClickDeleteHallButton={handleClickDeleteHallButton}
         onChangeHallName={handleChangeHallName}
@@ -79,8 +80,6 @@ function GalleryEditContainer() {
         onChangePosterUrl={handleChangePosterUrl}
         onClickUpdateGallery={handleClickUpdateGallery}
         onChangeNotification={handleChangeNotification}
-        gallery={gallery}
-        notification={notification}
       />
     </div>
   );

@@ -1,13 +1,5 @@
 import styled from 'styled-components';
-
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  input {
-    width: 100%;
-  }
-`;
+import { inputArea, placeholders } from '../../styles/mixins';
 
 interface Props {
   label: string;
@@ -39,3 +31,13 @@ function Title({ label, title, placeholder, onChange }: Props) {
 }
 
 export default Title;
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  input {
+    ${inputArea}
+    ${placeholders}
+  }
+`;

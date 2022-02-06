@@ -1,16 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  input {
-    cursor: pointer;
-    &::-webkit-calendar-picker-indicator {
-      cursor: pointer;
-    }
-  }
-`;
+import styled from 'styled-components';
+import { inputArea } from '../../styles/mixins';
 
 interface Props {
   onChange: (value: string, name: string) => void;
@@ -46,3 +37,16 @@ function Date({ onChange, startDate, endDate }: Props) {
 }
 
 export default Date;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  input {
+    ${inputArea}
+    opacity: 0.7;
+    cursor: pointer;
+    &::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+    }
+  }
+`;
