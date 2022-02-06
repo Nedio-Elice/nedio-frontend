@@ -62,6 +62,7 @@ export default Pagination;
 const Container = styled.div`
   display: flex;
   margin: 24px auto;
+  justify-content: center;
 `;
 
 const ArrowImg = styled.img<{ flip: boolean }>`

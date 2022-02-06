@@ -51,8 +51,8 @@ export const putUser = createAsyncThunk('PUT/USER', async (user: User) => {
   }
 });
 
-const userSlice = createSlice({
-  name: SLICE.USER,
+const profileSlice = createSlice({
+  name: SLICE.PROFILE,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -81,6 +81,6 @@ const userSlice = createSlice({
 
 // TODO: action 통일 및 createAsyncThunk 공부
 
-const profileReducer = userSlice.reducer;
+const profileReducer = profileSlice.reducer;
 
 export default profileReducer;

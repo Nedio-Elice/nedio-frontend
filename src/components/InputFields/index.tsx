@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+type LabelProps = React.ComponentPropsWithoutRef<'input'>;
+
 interface InputProps {
   defaultText?: string;
   value?: string;
@@ -14,6 +16,10 @@ interface InputTextProps {
   width?: string;
   height?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+interface InputImgProps {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function InputField({
@@ -53,6 +59,14 @@ function InputTextField({
   );
 }
 
+function InputProfile({ onChange }: InputImgProps) {
+  return <InputImage type="file" onChange={onChange} />;
+}
+
+function InputProfileLabel({ children }: LabelProps) {
+  return <Label>{children}</Label>;
+}
+
 InputField.defaultProps = {
   defaultText: '',
   width: '576px',
@@ -69,7 +83,7 @@ InputTextField.defaultProps = {
   onChange: () => {},
 };
 
-export default { InputField, InputTextField };
+export default { InputField, InputTextField, InputProfile, InputProfileLabel };
 
 const InputBox = styled.input<{
   width: string | undefined;
@@ -132,5 +146,47 @@ const InputTextBox = styled.textarea<{
   &::placeholder {
     font-family: 'Pretendard-Regular';
     opacity: 0.6;
+  }
+`;
+
+const InputImage = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+  color: #777777;
+  border: none;
+  height: 40px;
+  padding: 2px 12px;
+  text-align: center;
+  background: linear-gradient(
+    134.47deg,
+    #ffffff 36.25%,
+    #d1d1d1 230.69%,
+    rgba(242, 242, 244, 0) 230.72%
+  );
+  box-shadow: inset 2px 2px 0px #ffffff;
+  filter: drop-shadow(2px 8px 24px rgba(0, 0, 0, 0.12));
+  border-radius: 4px;
+
+  &:hover {
+    height: 40px;
+    border: 2px solid #ff6e00;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0px 10px;
+  }
+
+  &:active {
+    color: #ff6e00;
+    box-shadow: inset -3px -3px 7px #ffffff,
+      inset 3px 3px 7px rgba(156, 156, 156, 0.48);
+    border: 0;
+    padding: 2px 12px;
   }
 `;

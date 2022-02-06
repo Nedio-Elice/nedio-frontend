@@ -5,12 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
-import {
-  getComments,
-  putComment,
-  postComment,
-  deleteComment,
-} from '../store/comment';
+import { getComments, postComment, deleteComment } from '../store/comment';
 import axiosInstance from '../api/api';
 import Buttons from '../components/Buttons';
 import InputFields from '../components/InputFields';
@@ -53,7 +48,7 @@ interface CommentSingle {
   galleryId: string;
 }
 
-type Comments = Array<CommentSingle>;
+type Comments = { data: Array<CommentSingle> };
 
 function formatDateString(date: string): string {
   const year = date.slice(0, 4);

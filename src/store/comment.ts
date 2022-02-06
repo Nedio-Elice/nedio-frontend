@@ -104,8 +104,8 @@ export const deleteComment = createAsyncThunk(
   },
 );
 
-const userSlice = createSlice({
-  name: SLICE.USER,
+const commentSlice = createSlice({
+  name: SLICE.COMMENT,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -121,6 +121,6 @@ const userSlice = createSlice({
 
 // TODO: action 통일 및 createAsyncThunk 공부
 
-const commentReducer = userSlice.reducer;
+const commentReducer = commentSlice.reducer;
 
 export default commentReducer;

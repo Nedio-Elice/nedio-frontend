@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { SLICE } from '../constants/slice';
 import userReducer from './user';
 import profileReducer from './profile';
+import myGalleryReducer from './myGallery';
 import commentReducer from './comment';
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     users: userReducer,
     profile: profileReducer,
     comment: commentReducer,
+    myGallery: myGalleryReducer,
   },
   devTools: true,
 });

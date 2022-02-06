@@ -7,24 +7,39 @@ import { RootState } from '../store/root';
 import { getUser, putUser } from '../store/profile';
 import axiosInstance from '../api/api';
 import ProfileInfos from '../components/ProfileInfos';
+import Pagination from '../components/Pagination';
 import Card from '../components/Card';
 import Buttons from '../components/Buttons';
+import InputField from '../components/InputFields';
+import { getGalleries } from '../store/myGallery';
+import { sample, sample2, sample3 } from '../constants/images';
+
+interface ImageResponse {
+  success: boolean;
+  message: string;
+  url: string;
+}
 
 const { ButtonBasic, ButtonOrange, ButtonNeumo } = Buttons;
 const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
+const { InputProfile, InputProfileLabel } = InputField;
 
 function MyPage() {
   const { userId } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.profile);
+  const myGalleries = useSelector((state: RootState) => state.myGallery);
 
   const [profileURL, setProfileURL] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
+  const [currPage, setCurrPage] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(5);
 
   useEffect(() => {
     dispatch(getUser(userId));
+    dispatch(getGalleries());
     setNickname(user.nickname);
     setEmail(user.email);
     setIntroduce(user.introduce);
@@ -56,36 +71,45 @@ function MyPage() {
     dispatch(putUser(newUser));
   };
 
-  const handleProfileSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
+  const handleImgUpdate = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     event.preventDefault();
-    const newUser = {
-      id: userId,
-      introduce: user.introduce,
-      contact: user.contact,
-      profileURL,
-      nickname: user.nickname,
-      email: user.email,
-    };
-    dispatch(putUser(newUser));
+    if (event.target.files === null) return;
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('upload', file);
+
+    try {
+      const response = await axiosInstance.post<ImageResponse>(
+        `/api/uploadImage`,
+        formData,
+      );
+      console.log(response.data);
+      setProfileURL(response.data.url);
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.response?.data);
+    }
   };
 
   return (
     <>
       <ProfileBox>
         <ProfileForm onSubmit={handleSubmit}>
-          <UserImg src={user.profileURL} />
-          <ButtonBasic
-            value="사진 업로드"
-            type="submit"
-            handleClick={handleProfileSubmit}
-          />
+          <UserImg src={profileURL} />
+          <InputProfileLabel>
+            사진 업로드
+            <InputProfile onChange={handleImgUpdate} />
+          </InputProfileLabel>
+
           <InfoWrapper>
             <InfoSubWrapper>
               <ProfileInfo
                 name="이름"
                 defaultText={user.nickname}
                 value={nickname}
-                width="80%"
+                width="100%"
                 onChange={setNickname}
               />
               <br />
@@ -93,7 +117,7 @@ function MyPage() {
                 name="이메일"
                 defaultText={user.email}
                 value={email}
-                width="80%"
+                width="100%"
                 onChange={setEmail}
               />
             </InfoSubWrapper>
@@ -102,7 +126,7 @@ function MyPage() {
                 name="소개"
                 defaultText={user.introduce}
                 value={introduce}
-                width="80%"
+                width="100%"
                 onChange={setIntroduce}
               />
             </InfoSubWrapper>
@@ -122,12 +146,78 @@ function MyPage() {
             <ButtonNeumo value="운영중인 전시" handleClick={() => {}} />
             <ButtonNeumo value="종료된 전시" handleClick={() => {}} />
           </ButtonWrapperLeft>
-          <GalleryTab />
+          <CardWrapper>
+            {mockData.map((cardInfo: any, idx) => (
+              <Card key={`${idx}`} cardInfo={cardInfo} />
+            ))}
+          </CardWrapper>
+          <Pagination
+            currPage={currPage}
+            pageCount={pageCount}
+            onClickPage={(num: number) => {
+              setCurrPage(num);
+            }}
+          />
         </GalleryWrapper>
       </MyGalleryBox>
     </>
   );
 }
+
+const mockData = [
+  {
+    title: '제주 특별전',
+    author: {
+      nickname: 'jiseong',
+      contact: '010-1234-5678',
+      email: 'example@gmail.com',
+    },
+    posterUrl: sample,
+    description: 'This is...',
+    startDate: new Date(2022, 0, 25),
+    endDate: new Date(),
+    isOpened: true,
+  },
+  {
+    title: '슈퍼 네이쳐',
+    author: {
+      nickname: 'jiseong2',
+      contact: '010-1234-5678',
+      email: 'example@gmail.com',
+    },
+    posterUrl: sample2,
+    description: 'This is...',
+    startDate: new Date(2022, 0, 25),
+    endDate: new Date(),
+    isOpened: false,
+  },
+  {
+    title: '엘리스를 찾아서',
+    author: {
+      nickname: 'jiseong3',
+      contact: '010-1234-5678',
+      email: 'example@gmail.com',
+    },
+    posterUrl: sample3,
+    description: 'This is...',
+    startDate: new Date(2022, 0, 25),
+    endDate: new Date(),
+    isOpened: false,
+  },
+  {
+    title: '제주 특별전',
+    author: {
+      nickname: 'jiseong4',
+      contact: '010-1234-5678',
+      email: 'example@gmail.com',
+    },
+    posterUrl: sample,
+    description: 'This is...',
+    startDate: new Date(2022, 0, 25),
+    endDate: new Date(),
+    isOpened: false,
+  },
+];
 
 export default MyPage;
 
@@ -158,19 +248,19 @@ const InfoWrapper = styled.div`
 
 const InfoSubWrapper = styled.div`
   width: 50%;
-  padding-top: 72px;
+  padding: 72px 48px 0 0;
   display: flex;
   flex-direction: column;
 `;
 
 const ButtonWrapperRight = styled.div`
   display: flex;
-  margin: 24px 0 0 auto;
+  margin: 24px 48px 0 auto;
 `;
 
 const ButtonWrapperLeft = styled.div`
   display: flex;
-  padding: 24px auto 0 0;
+  margin-bottom: 48px;
   gap: 48px;
 `;
 
@@ -182,10 +272,15 @@ const MyGalleryBox = styled.div`
 
 const GalleryWrapper = styled.div`
   margin: 0 auto;
-  padding: 0 72px 72px 72px;
+  padding: 0 0 72px 0;
   width: 1072px;
 `;
 
-const GalleryTab = styled.div`
+const CardWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
+  justify-content: space-between;
+  gap: 50px 0px;
+  margin-bottom: 48px;
 `;
