@@ -10,7 +10,12 @@ import { SLICE } from '../constants/slice';
 
 import { Gallery, ImagesData } from '../types/GalleryEdit';
 
-import { setDefaultPieces, isEmpty, isEmptyHalls } from '../utils/galleryEdit';
+import {
+  setDefaultPieces,
+  isEmpty,
+  isEmptyHalls,
+  isValidDate,
+} from '../utils/galleryEdit';
 
 const initialState = {
   title: '',
@@ -127,35 +132,31 @@ export function updateGallery() {
   return async (dispatch: Dispatch, getState: any) => {
     const { gallery } = getState();
 
-    const {
-      title,
-      category,
-      description,
-      startData,
-      endDate,
-      posterUrl,
-      halls,
-    } = gallery;
+    const { startDate, endDate, halls } = gallery;
 
     if (isEmpty(gallery)) {
       // valid message handling
-      console.log('Not Valid');
+      console.log('Not Valid Gallery');
+      return;
+    }
+
+    if (!isValidDate(startDate, endDate)) {
+      // valid message handling
+      console.log('Not Valid Date!');
       return;
     }
 
     if (isEmptyHalls(halls)) {
       // valid message handling
       console.log('Not Valid Hall');
+      return;
     }
 
     // // TODO: 실제 데이터 전송
-    // const data =
 
-    // const result = await axiosInstance.post('/users/login', userData);
+    const response = await axiosInstance.post('api/galleries', gallery);
 
-    // const response = await fetchGallery(gallery);
-
-    // console.log(response);
+    console.log(response);
 
     // 요청 성공하면 상태 초기화?
 
