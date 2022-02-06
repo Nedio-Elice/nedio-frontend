@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import CardLayout from '../../components/CardLayout';
 import ThemeCard from '../../components/ThemeCard';
 import {
@@ -10,6 +11,7 @@ import {
   nature,
   person,
 } from '../../constants/images';
+import { PATH } from '../../constants/path';
 
 // DELETE: 데이터 삭제
 const themeList = [
@@ -56,10 +58,21 @@ const themeList = [
 ];
 
 function ThemeContainer() {
+  const navigation = useNavigate();
+
+  const handleClick = (category: string) =>
+    navigation(
+      `${PATH.GALLERY_SEARCH}?page=1&perPage=5&title=&nickname=&category=${category}`,
+    );
+
   return (
     <CardLayout title="원하는 주제로 전시를 찾아보세요">
       {themeList.map((theme) => (
-        <ThemeCard key={theme.imageURL} item={theme} />
+        <ThemeCard
+          key={theme.imageURL}
+          item={theme}
+          handleClick={handleClick}
+        />
       ))}
     </CardLayout>
   );

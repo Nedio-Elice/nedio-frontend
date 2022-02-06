@@ -1,11 +1,8 @@
+import { CardData } from '../types/Card';
 import { CAROUSEL } from '../constants/carousel';
-import { ThemeCardData } from '../types/Card';
 
-export function paddingToItem(
-  items: Array<ThemeCardData>,
-  paddingLength: number,
-) {
-  const paddedItems: Array<ThemeCardData> = [...items];
+export function paddingToItem(items: Array<CardData>, paddingLength: number) {
+  const paddedItems: Array<CardData> = [...items];
 
   if (items.length < 2) items.push(CAROUSEL.INIT_DATA);
 

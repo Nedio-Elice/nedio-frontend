@@ -9,7 +9,7 @@ function SearchSelect({ selectOption, handleSelectOption }: Props) {
   return (
     <Container onChange={handleSelectOption} value={selectOption}>
       <option value="title">제목 검색</option>
-      <option value="author">작가 검색</option>
+      <option value="nickname">작가 검색</option>
     </Container>
   );
 }

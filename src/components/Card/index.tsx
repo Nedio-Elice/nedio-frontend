@@ -4,17 +4,18 @@ import { dateToString } from '../../utils/date';
 
 interface Props {
   cardInfo: CardData;
+  handleClick: (id: string) => void;
 }
 
-function Card({ cardInfo }: Props) {
+function Card({ cardInfo, handleClick }: Props) {
   return (
-    <Container>
+    <Container onClick={() => handleClick(cardInfo._id)}>
       <CardImgWrapper>
         <CardImg src={cardInfo.posterUrl} alt={cardInfo.title} />
       </CardImgWrapper>
       <CardTitle>{cardInfo.title}</CardTitle>
       <CardContent>
-        <CardAuthor>{cardInfo.author.nickname}</CardAuthor>
+        <CardAuthor>{cardInfo.nickname}</CardAuthor>
         <CardPeriod>{`${dateToString(cardInfo.startDate)} ~ ${dateToString(
           cardInfo.endDate,
         )}`}</CardPeriod>

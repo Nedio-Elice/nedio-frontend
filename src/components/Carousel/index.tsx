@@ -4,14 +4,14 @@ import CarouselButton from './CarouselButton';
 import useWindowSize from '../../hooks/useWindowSize';
 import { CAROUSEL } from '../../constants/carousel';
 import { calcWidth, paddingToItem } from '../../utils/carousel';
-import { ThemeCardData } from '../../types/Card';
+import { CardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
 import DetatilButton from './DetatilButton';
 
 export type HANDLETYPE = keyof typeof CAROUSEL.HANDLE_TYPE;
 
 interface Props {
-  cardInfo: Array<ThemeCardData>;
+  cardInfo: Array<CardData>;
 }
 
 function Carousel({ cardInfo }: Props) {
@@ -86,13 +86,13 @@ function Carousel({ cardInfo }: Props) {
           >
             <ItemContainer>
               <ThemeTag />
-              <ThemeTagTitle>{item.theme}</ThemeTagTitle>
+              <ThemeTagTitle>{item.category}</ThemeTagTitle>
               <Content>
                 <Title>{item.title}</Title>
                 <Period>{`${dateToString(item.startDate)} ~ ${dateToString(
                   item.endDate,
                 )}`}</Period>
-                <Author>{item.author.nickname}</Author>
+                <Author>{item.nickname}</Author>
                 <DetatilButton id={item._id} isCurrent={curIdx === idx} />
               </Content>
               {isShowImg(item.posterUrl) && (

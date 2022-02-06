@@ -10,6 +10,7 @@ function DetatilButton({ id, isCurrent }: Props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    // TODO: PATH 상수 이용
     navigate(`/galleries/${id}`);
   };
 
