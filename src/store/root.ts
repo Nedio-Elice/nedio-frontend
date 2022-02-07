@@ -1,16 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { SLICE } from '../constants/slice';
+// import { SLICE } from '../constants/slice';
+
 import userReducer from './user';
-import profileReducer from './profile';
-import myGalleryReducer from './myGallery';
-import commentReducer from './comment';
+import galleryReducer from './gallery';
 
 export const store = configureStore({
   reducer: {
+    // [SLICE.USER]: userReducer,
+    // [SLICE.GALLERY]: galleryReducer,
     users: userReducer,
-    profile: profileReducer,
-    comment: commentReducer,
-    myGallery: myGalleryReducer,
+    gallery: galleryReducer,
   },
   devTools: true,
 });
