@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
 import { getUser, putUser } from '../store/profile';
@@ -9,8 +9,16 @@ import ProfileInfos from '../components/ProfileInfos';
 import Pagination from '../components/Pagination';
 import Buttons from '../components/Buttons';
 import InputField from '../components/InputFields';
-import { getGalleries, Gallery } from '../store/myGallery';
+import {
+  Gallery,
+  getGalClosed,
+  getGalComing,
+  getGalRunning,
+} from '../store/myGallery';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
+import Card from '../components/Card';
+import { PATH } from '../constants/path';
+import makePageCount from '../utils/makePageCount';
 
 interface ImageResponse {
   success: boolean;
@@ -24,6 +32,7 @@ const { InputProfile, InputProfileLabel } = InputField;
 
 function MyPage() {
   const dispatch = useAppDispatch();
+  const navigation = useNavigate();
   const user = useAppSelector((state: RootState) => state.profile);
   const myGalleries = useAppSelector((state: RootState) => state.myGallery);
 
@@ -33,17 +42,43 @@ function MyPage() {
   const [introduce, setIntroduce] = useState<string>('');
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(0);
-  // const [currGallery, setCurrGallery] = useState<Array<Gallery>>([]);
-  // const [galleryState, setGalleryState] = useState<string>('Running');
+  const [galleryState, setGalleryState] = useState<string>('');
 
   useEffect(() => {
     dispatch(getUser());
-    dispatch(getGalleries());
     setProfileURL(user.profileURL);
     setNickname(user.nickname);
     setEmail(user.email);
     setIntroduce(user.introduce);
-  }, [dispatch, user.profileURL, user.nickname, user.email, user.introduce]);
+    setPageCount(myGalleries.length);
+  }, [
+    dispatch,
+    user.profileURL,
+    user.nickname,
+    user.email,
+    user.introduce,
+    myGalleries.length,
+    currPage,
+  ]);
+
+  useEffect(() => {
+    switch (galleryState) {
+      case 'Running':
+        dispatch(getGalRunning(currPage));
+        setPageCount(myGalleries.length);
+        break;
+      case 'Coming':
+        dispatch(getGalComing(currPage));
+        setPageCount(myGalleries.length);
+        break;
+      case 'Closed':
+        dispatch(getGalClosed(currPage));
+        setPageCount(myGalleries.length);
+        break;
+      default:
+        break;
+    }
+  }, [currPage, dispatch, galleryState, myGalleries.length]);
 
   const handleSubmit = () => {
     const newUser = {
@@ -87,33 +122,23 @@ function MyPage() {
     }
   };
 
-  // const handleClick = () => {
-  //   let filteredGalleries: Array<Gallery> = [];
-  //   if (galleryState === 'Running') {
-  //     filteredGalleries = myGalleries.filter(
-  //       (g: any) =>
-  //         Date.parse(g.startDate) < Date.now() &&
-  //         Date.parse(g.endDate) > Date.now(),
-  //     );
-  //   } else if (galleryState === 'Coming') {
-  //     filteredGalleries = myGalleries.filter(
-  //       (g: any) => Date.parse(g.startDate) > Date.now(),
-  //     );
-  //   } else if (galleryState === 'Closed') {
-  //     filteredGalleries = myGalleries.filter(
-  //       (g: any) => Date.parse(g.startDate) < Date.now(),
-  //     );
-  //   }
+  const handleCardClick = (id: string) =>
+    navigation(`${PATH.GALLERY_SEARCH}/${id}`);
 
-  //   setPageCount(filteredGalleries.length);
+  const changeStateRunning = () => {
+    setGalleryState('Running');
+    setCurrPage(0);
+  };
 
-  //   const currentGalleries = [];
+  const changeStateComing = () => {
+    setGalleryState('Coming');
+    setCurrPage(0);
+  };
 
-  //   for (let i = 8 * currPage; i < 8; i += 1) {
-  //     if (filteredGalleries[i]) currentGalleries.push(filteredGalleries[i]);
-  //   }
-  //   setCurrGallery(currentGalleries);
-  // };
+  const changeStateClosed = () => {
+    setGalleryState('Closed');
+    setCurrPage(0);
+  };
 
   return (
     <>
@@ -165,22 +190,32 @@ function MyPage() {
       <MyGalleryBox>
         <GalleryWrapper>
           <ButtonWrapperLeft>
-            <ButtonNeumo value="운영중인 전시" handleClick={() => {}} />
-            <ButtonNeumo value="예정된 전시" handleClick={() => {}} />
-            <ButtonNeumo value="종료된 전시" handleClick={() => {}} />
+            <ButtonNeumo
+              value="운영중인 전시"
+              handleClick={changeStateRunning}
+            />
+            <ButtonNeumo value="예정된 전시" handleClick={changeStateComing} />
+            <ButtonNeumo value="종료된 전시" handleClick={changeStateClosed} />
           </ButtonWrapperLeft>
           <CardWrapper>
-            {/* {currGallery.map((cardInfo: any, idx) => (
-              <Card key={`${idx}`} cardInfo={cardInfo} />
-            ))} */}
+            {myGalleries.list !== undefined &&
+              myGalleries.list.map((cardInfo: any, idx) => (
+                <Card
+                  key={`${idx}`}
+                  cardInfo={cardInfo}
+                  handleClick={handleCardClick}
+                />
+              ))}
           </CardWrapper>
-          <Pagination
-            currPage={currPage}
-            pageCount={Math.floor(pageCount / 8) + 1}
-            onClickPage={(num: number) => {
-              setCurrPage(num);
-            }}
-          />
+          {myGalleries.list !== undefined && (
+            <Pagination
+              currPage={currPage}
+              pageCount={makePageCount(pageCount)}
+              onClickPage={(num: number) => {
+                setCurrPage(num);
+              }}
+            />
+          )}
         </GalleryWrapper>
       </MyGalleryBox>
     </>

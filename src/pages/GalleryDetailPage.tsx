@@ -14,6 +14,7 @@ import Pagination from '../components/Pagination';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { CommentSingle } from '../types/Comment';
 import { Gallery } from '../types/GalleryDetail';
+import makePageCount from '../utils/makePageCount';
 
 const { ButtonBasic, ButtonOrange } = Buttons;
 const { InputField } = InputFields;
@@ -54,7 +55,7 @@ function GalleryDetailPage() {
 
   useEffect(() => {
     dispatch(getComments({ galleryId, currPage }));
-    setPageCount(Math.floor(comments.count / 5) + 1);
+    setPageCount(makePageCount(comments.count));
   }, [dispatch, galleryId, currPage, comments.count]);
 
   if (gallery === null) {
@@ -125,13 +126,15 @@ function GalleryDetailPage() {
             />
           );
         })}
-      <Pagination
-        currPage={currPage}
-        pageCount={pageCount}
-        onClickPage={(num: number) => {
-          setCurrPage(num);
-        }}
-      />
+      {comments.data !== null && (
+        <Pagination
+          currPage={currPage}
+          pageCount={pageCount}
+          onClickPage={(num: number) => {
+            setCurrPage(num);
+          }}
+        />
+      )}
     </Background>
   );
 }
