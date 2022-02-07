@@ -52,7 +52,10 @@ const { actions, reducer } = createSlice({
     deleteHall(state, { payload: id }) {
       return {
         ...state,
-        halls: state.data.halls.filter((hall) => hall.id !== id),
+        data: {
+          ...state.data,
+          halls: state.data.halls.filter((hall) => hall.id !== id),
+        },
       };
     },
     changeHallName(state, { payload: { id, value } }) {

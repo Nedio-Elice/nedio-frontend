@@ -40,6 +40,5 @@ const Button = styled.button<ButtonStyle>`
   &:hover {
     transform: scale(1.1);
   }
-
   ${hoverOrange}
 `;
