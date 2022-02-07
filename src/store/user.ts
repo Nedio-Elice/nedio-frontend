@@ -5,7 +5,7 @@ import { removeToken, setToken } from '../utils/auth';
 
 export interface MyInfo {
   email: string;
-  name: string;
+  nickname: string;
   profileURL: string;
 }
 
@@ -13,7 +13,7 @@ const initialState = {
   isSignIn: false,
   userInfo: {
     email: '',
-    name: '',
+    nickname: '',
     profileURL: '',
   } as MyInfo,
 };

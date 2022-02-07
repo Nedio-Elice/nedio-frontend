@@ -18,11 +18,11 @@ function SignInContainer() {
     res: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
     if ('profileObj' in res) {
-      const { email, imageUrl: profileURL, name } = res.profileObj;
+      const { email, imageUrl: profileURL, name: nickname } = res.profileObj;
       const userData = {
         email,
         profileURL,
-        name,
+        nickname,
       };
       dispatch(signInUser(userData));
     }
