@@ -48,7 +48,7 @@ function Poster({
 
         (async () => {
           await axiosInstanceFormData
-            .post('api/uploadImage', formData)
+            .post('uploadImage', formData)
             .then((res) => {
               const { url: imageUrl } = res.data;
               onChangePieceImageUrl(imageUrl, 'url');

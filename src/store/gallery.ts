@@ -130,10 +130,7 @@ export const {
 
 export function changePosterUrl(formData: FormData, piece?: ImagesData) {
   return async (dispatch: Dispatch) => {
-    const response = await axiosInstanceFormData.post(
-      'api/uploadImage',
-      formData,
-    );
+    const response = await axiosInstanceFormData.post('uploadImage', formData);
 
     const { url: imageUrl } = response.data;
 
@@ -184,7 +181,7 @@ export function updateGallery() {
 
     // TODO: 실제 데이터 전송
 
-    const response = await axiosInstance.post('api/galleries', data);
+    const response = await axiosInstance.post('galleries', data);
 
     console.log(response);
 
