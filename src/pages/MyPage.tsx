@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useParams, Link, useLinkClickHandler } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,10 +8,9 @@ import { getUser, putUser } from '../store/profile';
 import axiosInstance from '../api/api';
 import ProfileInfos from '../components/ProfileInfos';
 import Pagination from '../components/Pagination';
-import Card from '../components/Card';
 import Buttons from '../components/Buttons';
 import InputField from '../components/InputFields';
-import { getGalleries } from '../store/myGallery';
+import { getGalleries, Gallery } from '../store/myGallery';
 import { sample, sample2, sample3 } from '../constants/images';
 
 interface ImageResponse {
@@ -35,7 +34,9 @@ function MyPage() {
   const [email, setEmail] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
   const [currPage, setCurrPage] = useState<number>(0);
-  const [pageCount, setPageCount] = useState<number>(5);
+  const [pageCount, setPageCount] = useState<number>(0);
+  const [currGallery, setCurrGallery] = useState<Array<Gallery>>([]);
+  const [galleryState, setGalleryState] = useState<string>('Running');
 
   useEffect(() => {
     dispatch(getUser(userId));
@@ -85,12 +86,39 @@ function MyPage() {
         `/api/uploadImage`,
         formData,
       );
-      console.log(response.data);
       setProfileURL(response.data.url);
     } catch (error) {
       const err = error as AxiosError;
       throw new Error(err.response?.data);
     }
+  };
+
+  const handleClick = () => {
+    let filteredGalleries: Array<Gallery> = [];
+    if (galleryState === 'Running') {
+      filteredGalleries = myGalleries.filter(
+        (g) =>
+          Date.parse(g.startDate) < Date.now() &&
+          Date.parse(g.endDate) > Date.now(),
+      );
+    } else if (galleryState === 'Coming') {
+      filteredGalleries = myGalleries.filter(
+        (g) => Date.parse(g.startDate) > Date.now(),
+      );
+    } else if (galleryState === 'Closed') {
+      filteredGalleries = myGalleries.filter(
+        (g) => Date.parse(g.startDate) < Date.now(),
+      );
+    }
+
+    setPageCount(filteredGalleries.length);
+
+    const currentGalleries = [];
+
+    for (let i = 8 * currPage; i < 8; i += 1) {
+      if (filteredGalleries[i]) currentGalleries.push(filteredGalleries[i]);
+    }
+    setCurrGallery(currentGalleries);
   };
 
   return (
@@ -143,17 +171,27 @@ function MyPage() {
       <MyGalleryBox>
         <GalleryWrapper>
           <ButtonWrapperLeft>
-            <ButtonNeumo value="운영중인 전시" handleClick={() => {}} />
-            <ButtonNeumo value="종료된 전시" handleClick={() => {}} />
+            <ButtonNeumo
+              value="운영중인 전시"
+              handleClick={setGalleryState('Running')}
+            />
+            <ButtonNeumo
+              value="예정된 전시"
+              handleClick={setGalleryState('Coming')}
+            />
+            <ButtonNeumo
+              value="종료된 전시"
+              handleClick={setGalleryState('Closed')}
+            />
           </ButtonWrapperLeft>
           <CardWrapper>
-            {mockData.map((cardInfo: any, idx) => (
+            {/* {currGallery.map((cardInfo: any, idx) => (
               <Card key={`${idx}`} cardInfo={cardInfo} />
-            ))}
+            ))} */}
           </CardWrapper>
           <Pagination
             currPage={currPage}
-            pageCount={pageCount}
+            pageCount={Math.floor(pageCount / 8) + 1}
             onClickPage={(num: number) => {
               setCurrPage(num);
             }}
@@ -163,61 +201,6 @@ function MyPage() {
     </>
   );
 }
-
-const mockData = [
-  {
-    title: '제주 특별전',
-    author: {
-      nickname: 'jiseong',
-      contact: '010-1234-5678',
-      email: 'example@gmail.com',
-    },
-    posterUrl: sample,
-    description: 'This is...',
-    startDate: new Date(2022, 0, 25),
-    endDate: new Date(),
-    isOpened: true,
-  },
-  {
-    title: '슈퍼 네이쳐',
-    author: {
-      nickname: 'jiseong2',
-      contact: '010-1234-5678',
-      email: 'example@gmail.com',
-    },
-    posterUrl: sample2,
-    description: 'This is...',
-    startDate: new Date(2022, 0, 25),
-    endDate: new Date(),
-    isOpened: false,
-  },
-  {
-    title: '엘리스를 찾아서',
-    author: {
-      nickname: 'jiseong3',
-      contact: '010-1234-5678',
-      email: 'example@gmail.com',
-    },
-    posterUrl: sample3,
-    description: 'This is...',
-    startDate: new Date(2022, 0, 25),
-    endDate: new Date(),
-    isOpened: false,
-  },
-  {
-    title: '제주 특별전',
-    author: {
-      nickname: 'jiseong4',
-      contact: '010-1234-5678',
-      email: 'example@gmail.com',
-    },
-    posterUrl: sample,
-    description: 'This is...',
-    startDate: new Date(2022, 0, 25),
-    endDate: new Date(),
-    isOpened: false,
-  },
-];
 
 export default MyPage;
 
@@ -280,7 +263,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-between;
-  gap: 50px 0px;
+  justify-content: flex-start;
+  gap: 50px 24px;
   margin-bottom: 48px;
 `;

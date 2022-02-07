@@ -4,11 +4,11 @@ import { isDoStatement } from 'typescript';
 import axiosInstance from '../api/api';
 import { SLICE } from '../constants/slice';
 
-interface Gallery {
+export interface Gallery {
   posterUrl: string;
   description: string;
-  endDate: Date;
-  startDate: Date;
+  endDate: string;
+  startDate: string;
   category: string;
   title: string;
   author: Author;
@@ -17,7 +17,7 @@ interface Gallery {
   isOpened: boolean;
 }
 
-type Galleries = Array<Gallery>;
+export type Galleries = Array<Gallery>;
 
 interface Author {
   email: string;

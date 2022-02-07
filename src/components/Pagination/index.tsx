@@ -13,6 +13,7 @@ function getPageNumbers(currPage: number, pageCount: number) {
     if (currPage + idx < pageCount) resultPages.push(currPage + idx);
     if (currPage - idx > -1) resultPages.unshift(currPage - idx);
     idx += 1;
+    if (idx > 5) break;
   }
   return resultPages;
 }
@@ -23,11 +24,7 @@ interface PaginationProps {
   onClickPage: (arg0: number) => void;
 }
 
-function Pagination({
-  currPage = 0,
-  pageCount = 5,
-  onClickPage,
-}: PaginationProps) {
+function Pagination({ currPage = 0, pageCount, onClickPage }: PaginationProps) {
   return (
     <Container>
       <ArrowButton
