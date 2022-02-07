@@ -61,9 +61,7 @@ function ThemeContainer() {
   const navigation = useNavigate();
 
   const handleClick = (category: string) =>
-    navigation(
-      `${PATH.GALLERY_SEARCH}?page=1&perPage=5&title=&nickname=&category=${category}`,
-    );
+    navigation(`${PATH.GALLERY_SEARCH}?title=&nickname=&category=${category}`);
 
   return (
     <CardLayout title="원하는 주제로 전시를 찾아보세요">

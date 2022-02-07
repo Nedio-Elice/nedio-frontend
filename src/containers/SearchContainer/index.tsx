@@ -22,17 +22,17 @@ function SearchContainer() {
 
     switch (selectOption) {
       case 'title': {
-        queryStr = `page=1&perPage=10&${selectOption}=${keyword}&nickname=&category=`;
+        queryStr = `${selectOption}=${keyword}&nickname=&category=`;
         break;
       }
 
       case 'nickname': {
-        queryStr = `page=1&perPage=10&title=&${selectOption}=${keyword}&category=`;
+        queryStr = `title=&${selectOption}=${keyword}&category=`;
         break;
       }
 
       default:
-        queryStr = `page=1&perPage=10&title=&nickname=&category=`;
+        queryStr = `title=&nickname=&category=`;
     }
     navigation(`${PATH.GALLERY_SEARCH}?${queryStr}`);
   };
