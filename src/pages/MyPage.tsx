@@ -10,7 +10,6 @@ import Pagination from '../components/Pagination';
 import Buttons from '../components/Buttons';
 import InputField from '../components/InputFields';
 import { getGalleries, Gallery } from '../store/myGallery';
-import { sample, sample2, sample3 } from '../constants/images';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 interface ImageResponse {
@@ -24,7 +23,6 @@ const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
 const { InputProfile, InputProfileLabel } = InputField;
 
 function MyPage() {
-  const { userId } = useParams();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.profile);
   const myGalleries = useAppSelector((state: RootState) => state.myGallery);
@@ -35,40 +33,28 @@ function MyPage() {
   const [introduce, setIntroduce] = useState<string>('');
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(0);
-  const [currGallery, setCurrGallery] = useState<Array<Gallery>>([]);
-  const [galleryState, setGalleryState] = useState<string>('Running');
+  // const [currGallery, setCurrGallery] = useState<Array<Gallery>>([]);
+  // const [galleryState, setGalleryState] = useState<string>('Running');
 
   useEffect(() => {
-    dispatch(getUser(userId));
+    dispatch(getUser());
     dispatch(getGalleries());
+    setProfileURL(user.profileURL);
     setNickname(user.nickname);
     setEmail(user.email);
     setIntroduce(user.introduce);
-    setProfileURL(user.profileURL);
-  }, [
-    dispatch,
-    userId,
-    user.nickname,
-    user.email,
-    user.introduce,
-    user.profileURL,
-  ]);
+  }, [dispatch, user.profileURL, user.nickname, user.email, user.introduce]);
 
-  if (user === null) {
-    return <h1>No such user</h1>;
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     const newUser = {
-      id: userId,
+      _id: user._id,
       introduce,
       contact: user.contact,
       profileURL,
       nickname,
       email,
     };
+
     dispatch(putUser(newUser));
   };
 
@@ -86,7 +72,15 @@ function MyPage() {
         `uploadImage`,
         formData,
       );
-      setProfileURL(response.data.url);
+      const newUser = {
+        _id: user._id,
+        introduce,
+        contact: user.contact,
+        profileURL: response.data.url,
+        nickname,
+        email,
+      };
+      dispatch(putUser(newUser));
     } catch (error) {
       const err = error as AxiosError;
       throw new Error(err.response?.data);
@@ -124,7 +118,7 @@ function MyPage() {
   return (
     <>
       <ProfileBox>
-        <ProfileForm onSubmit={handleSubmit}>
+        <ProfileForm>
           <UserImg src={profileURL} />
           <InputProfileLabel>
             사진 업로드
@@ -162,7 +156,7 @@ function MyPage() {
               <ButtonOrange
                 value="정보 변경"
                 type="submit"
-                handleClick={() => {}}
+                handleClick={handleSubmit}
               />
             </ButtonWrapperRight>
           </InfoWrapper>
@@ -171,18 +165,9 @@ function MyPage() {
       <MyGalleryBox>
         <GalleryWrapper>
           <ButtonWrapperLeft>
-            <ButtonNeumo
-              value="운영중인 전시"
-              handleClick={setGalleryState('Running')}
-            />
-            <ButtonNeumo
-              value="예정된 전시"
-              handleClick={setGalleryState('Coming')}
-            />
-            <ButtonNeumo
-              value="종료된 전시"
-              handleClick={setGalleryState('Closed')}
-            />
+            <ButtonNeumo value="운영중인 전시" handleClick={() => {}} />
+            <ButtonNeumo value="예정된 전시" handleClick={() => {}} />
+            <ButtonNeumo value="종료된 전시" handleClick={() => {}} />
           </ButtonWrapperLeft>
           <CardWrapper>
             {/* {currGallery.map((cardInfo: any, idx) => (
@@ -210,7 +195,7 @@ const ProfileBox = styled.div`
   background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 48.44%, #f2f3f5 100%);
 `;
 
-const ProfileForm = styled.form`
+const ProfileForm = styled.div`
   margin: 0 auto;
   padding: 72px;
   width: 1072px;

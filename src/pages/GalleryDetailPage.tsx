@@ -54,7 +54,8 @@ function GalleryDetailPage() {
 
   useEffect(() => {
     dispatch(getComments({ galleryId, currPage }));
-  }, [dispatch, galleryId, currPage]);
+    setPageCount(Math.floor(comments.count / 5) + 1);
+  }, [dispatch, galleryId, currPage, comments.count]);
 
   if (gallery === null) {
     return <h1>No data</h1>;

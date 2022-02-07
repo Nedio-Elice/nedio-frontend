@@ -115,6 +115,10 @@ const InputBox = styled.input<{
     font-family: 'Pretendard-Regular';
     opacity: 0.6;
   }
+  &:focus {
+    border: 1px solid #ff6e00;
+    outline: none;
+  }
 `;
 
 const InputTextBox = styled.textarea<{
@@ -146,6 +150,11 @@ const InputTextBox = styled.textarea<{
   &::placeholder {
     font-family: 'Pretendard-Regular';
     opacity: 0.6;
+  }
+
+  &:focus {
+    border: 1px solid #ff6e00;
+    outline: none;
   }
 `;
 

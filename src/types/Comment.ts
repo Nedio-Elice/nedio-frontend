@@ -27,6 +27,7 @@ export type Comments = {
   success: string;
   message: string;
   data: Array<CommentSingle>;
+  count: number;
 };
 
 export interface CommentState {

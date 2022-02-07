@@ -87,8 +87,8 @@ const commentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getComments.fulfilled, (state, { payload: { data } }) => {
-      return { ...state, data };
+    builder.addCase(getComments.fulfilled, (state, { payload }) => {
+      return { ...state, data: payload.data, count: payload.count };
     });
     builder.addCase(getComments.rejected, (state, action) => {});
     builder.addCase(putComment.fulfilled, (state, { payload }) => {});
