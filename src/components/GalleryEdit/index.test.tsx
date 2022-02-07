@@ -1,4 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
+import { GalleryData } from '../../types/GalleryEdit';
 
 import GalleryEdit from './index';
 
@@ -6,19 +7,46 @@ describe('GalleryEdit', () => {
   const handleClickAddHallButton = jest.fn();
   const handleChangeHallName = jest.fn();
   const handleClickDeleteButton = jest.fn();
+  const handleChangePieceField = jest.fn();
+  const handleChangeGalleryInputField = jest.fn();
+  const handleChangePosterUrl = jest.fn();
+  const handleClickUpdateGallery = jest.fn();
+  const handleChangeNotification = jest.fn();
 
-  interface HallProps {
-    id: number;
-    name: string;
-  }
+  const initialValue = {
+    title: '',
+    category: '',
+    startDate: '',
+    endDate: '',
+    description: '',
+    posterUrl: '',
+    halls: [
+      {
+        id: '1',
+        hallName: '',
+        imagesData: [],
+      },
+      {
+        id: '2',
+        hallName: '',
+        imagesData: [],
+      },
+    ],
+  };
 
-  function renderGalleryEdit(halls: HallProps[] = []) {
+  function renderGalleryEdit(gallery: GalleryData = initialValue) {
     return render(
       <GalleryEdit
-        halls={halls}
+        gallery={gallery}
+        notification=""
+        onChangeNotification={handleChangeNotification}
         onClickAddHallButton={handleClickAddHallButton}
         onChangeHallName={handleChangeHallName}
         onClickDeleteHallButton={handleClickDeleteButton}
+        onChangePieceField={handleChangePieceField}
+        onChangeGalleryInputField={handleChangeGalleryInputField}
+        onChangePosterUrl={handleChangePosterUrl}
+        onClickUpdateGallery={handleClickUpdateGallery}
       />,
     );
   }
@@ -61,18 +89,7 @@ describe('GalleryEdit', () => {
   });
 
   it('renders "작품등록" buttons', () => {
-    const mockHalls = [
-      {
-        id: 1,
-        name: '',
-      },
-      {
-        id: 2,
-        name: '',
-      },
-    ];
-
-    const { container } = renderGalleryEdit(mockHalls);
+    const { container } = renderGalleryEdit();
 
     expect(container).toHaveTextContent('작품등록');
   });

@@ -1,67 +1,39 @@
 import styled from 'styled-components';
+import {
+  greyButton,
+  hoverOrange,
+  inputArea,
+  placeholders,
+} from '../../styles/mixins';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 1em;
-  width: 100%;
-  input {
-    border: none;
-    border-bottom: 1px solid black;
-    margin-right: 1em;
-    width: 5em;
-  }
-`;
+import { ImagesData } from '../../types/GalleryEdit';
 
-const Wrapper = styled.div`
-  display: flex;
-  margin-bottom: 1em;
-
-  button {
-    background: none;
-    border: none;
-    background-color: tomato;
-    color: white;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
-`;
-
-const AddButtons = styled.div`
-  display: flex;
-  align-items: center;
-
-  button {
-    margin-right: 1em;
-    padding: 0.3em;
-    background: none;
-    border-radius: 0.5em;
-    cursor: pointer;
-  }
-`;
-
-interface HallProps {
-  id: number;
-  name: string;
-}
+import PieceField from './PieceField';
 
 interface Props {
-  id: number;
+  id: string;
   name: string;
-  onChangeHallName: (parameter: HallProps) => void;
-  onClickDeleteHallButton: (id: number) => void;
+  pieces: ImagesData[];
+  onChangeHallName: (id: string, value: string) => void;
+  onClickDeleteHallButton: (id: string) => void;
+  onChangePieceField: (piece: ImagesData) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  onChangeNotification: (text: string) => void;
 }
 
 function HallAddForm({
   id,
   name,
+  pieces,
   onChangeHallName,
   onClickDeleteHallButton,
+  onChangePieceField,
+  onChangePosterUrl,
+  onChangeNotification,
 }: Props) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    onChangeHallName({ id, name: value });
+    onChangeHallName(id, value);
   };
 
   const handleClick = () => {
@@ -82,12 +54,14 @@ function HallAddForm({
         </button>
       </Wrapper>
       <AddButtons>
-        {Array.from({ length: 10 }, (_, i) => (
-          <button key={i} type="button">
-            작품
-            <br />
-            등록
-          </button>
+        {pieces.map((piece) => (
+          <PieceField
+            key={piece.imageId}
+            piece={piece}
+            onChange={onChangePieceField}
+            onChangePosterUrl={onChangePosterUrl}
+            onChangeNotification={onChangeNotification}
+          />
         ))}
       </AddButtons>
     </Container>
@@ -95,3 +69,46 @@ function HallAddForm({
 }
 
 export default HallAddForm;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1em;
+  width: 100%;
+
+  & > input {
+    border: none;
+    border-bottom: 1px solid black;
+    margin-right: 1em;
+    width: 5em;
+  }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  margin-bottom: 1em;
+  & > button {
+    ${greyButton}
+    transition: all 1s;
+
+    ${hoverOrange}
+  }
+
+  & > input {
+    ${inputArea}
+    ${placeholders}
+    margin-right: 1em;
+    width: 5em;
+  }
+`;
+
+const AddButtons = styled.div`
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(10, 1fr);
+  width: 100%;
+  @media only screen and (max-width: 720px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+`;

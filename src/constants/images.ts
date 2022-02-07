@@ -9,6 +9,7 @@ import fashion from '../assets/images/fashion.png';
 import journalism from '../assets/images/journalism.png';
 import nature from '../assets/images/nature.png';
 import person from '../assets/images/person.png';
+import defaultPoster from '../assets/images/defaultPoster.jpeg';
 
 export {
   sample,
@@ -22,4 +23,5 @@ export {
   journalism,
   nature,
   person,
+  defaultPoster,
 };

@@ -1,33 +1,40 @@
 import styled from 'styled-components';
+import { Hall, ImagesData } from '../../types/GalleryEdit';
+
 import HallAddForm from './HallAddForm';
 
-const Container = styled.div`
-  width: 100%;
-`;
-
-interface HallProps {
-  id: number;
-  name: string;
-}
-
 interface Props {
-  halls: HallProps[];
-  onChangeHallName: (prameter: HallProps) => void;
-  onClickDeleteHallButton: (id: number) => void;
+  halls: Hall[];
+  onChangeHallName: (id: string, value: string) => void;
+  onClickDeleteHallButton: (id: string) => void;
+  onChangePieceField: (piece: ImagesData) => void;
+  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  onChangeNotification: (text: string) => void;
 }
 
-function Halls({ halls, onChangeHallName, onClickDeleteHallButton }: Props) {
+function Halls({
+  halls,
+  onChangeHallName,
+  onClickDeleteHallButton,
+  onChangePieceField,
+  onChangePosterUrl,
+  onChangeNotification,
+}: Props) {
   return (
     <Container>
       {halls
-        ? halls.map(({ id, name }) => {
+        ? halls.map(({ id, hallName, imagesData }) => {
             return (
               <HallAddForm
                 key={id}
                 id={id}
-                name={name}
+                name={hallName}
+                pieces={imagesData}
                 onChangeHallName={onChangeHallName}
                 onClickDeleteHallButton={onClickDeleteHallButton}
+                onChangePieceField={onChangePieceField}
+                onChangePosterUrl={onChangePosterUrl}
+                onChangeNotification={onChangeNotification}
               />
             );
           })
@@ -37,3 +44,10 @@ function Halls({ halls, onChangeHallName, onClickDeleteHallButton }: Props) {
 }
 
 export default Halls;
+
+const Container = styled.div`
+  width: 680px;
+  @media only screen and (max-width: 720px) {
+    width: 340px;
+  }
+`;
