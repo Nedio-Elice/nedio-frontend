@@ -3,8 +3,8 @@ import { SearchIcon, XIcon } from '../../constants/icons';
 
 interface Props {
   keyword: string;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleKeyword: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: () => void;
+  handleKeyword: (keyword: string) => void;
   resetKeyword: () => void;
 }
 
@@ -14,15 +14,25 @@ function SearchBar({
   resetKeyword,
   handleSubmit,
 }: Props) {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    handleKeyword(value);
+  };
+
+  const onSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit();
+  };
+
   return (
-    <Container onSubmit={handleSubmit}>
+    <Container onSubmit={onSumbit}>
       <SearchIcon />
       <SearchInput
         type="text"
         maxLength={20}
         placeholder="검색어를 입력해주세요"
         value={keyword}
-        onChange={handleKeyword}
+        onChange={onChange}
       />
       {keyword && <XIcon onClick={resetKeyword} />}
     </Container>
