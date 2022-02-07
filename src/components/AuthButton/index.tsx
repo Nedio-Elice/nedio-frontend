@@ -1,26 +1,21 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   tapMenu: string;
-  to: string;
+  handleClick: () => void;
 }
 
-function TapButton({ tapMenu, to }: Props) {
-  const navigate = useNavigate();
-
-  const handleClick = () => navigate(to);
-
+function AuthButton({ tapMenu, handleClick }: Props) {
   return <Button onClick={handleClick}>{tapMenu}</Button>;
 }
 
-export default TapButton;
+export default AuthButton;
 
 const Button = styled.button`
   outline: none;
   border: none;
+  width: 80px;
   height: 35px;
-  width: 100px;
   border-radius: 25px;
   background: #f2f3f5;
   box-shadow: 5px 5px 10px #e1e2e4, -5px -5px 10px #ffffff;

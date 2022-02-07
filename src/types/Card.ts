@@ -4,16 +4,26 @@ export interface Author {
   contact?: string;
 }
 
+export type Category =
+  | '자연'
+  | '인물'
+  | '동물'
+  | '예술'
+  | '문화'
+  | '건축'
+  | '저널리즘'
+  | '패션'
+  | '미정'
+  | '';
+
 export interface CardData {
-  title: string;
-  author: Author;
+  _id: string;
   posterUrl: string;
   description: string;
   startDate: Date;
   endDate: Date;
-  isOpened: boolean;
-}
-
-export interface ThemeCardData extends CardData {
-  theme: string;
+  title: string;
+  nickname: string;
+  authorId: string;
+  category: Category;
 }

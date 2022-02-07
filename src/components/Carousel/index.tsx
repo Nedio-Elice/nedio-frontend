@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import CarouselButton from './CarouselButton';
 import useWindowSize from '../../hooks/useWindowSize';
 import { CAROUSEL } from '../../constants/carousel';
 import { calcWidth, paddingToItem } from '../../utils/carousel';
-import { ThemeCardData } from '../../types/Card';
+import { CardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
 import DetatilButton from './DetatilButton';
 
 export type HANDLETYPE = keyof typeof CAROUSEL.HANDLE_TYPE;
 
 interface Props {
-  cardInfo: Array<ThemeCardData>;
+  cardInfo: Array<CardData>;
 }
 
 function Carousel({ cardInfo }: Props) {
@@ -24,14 +24,17 @@ function Carousel({ cardInfo }: Props) {
       CAROUSEL.ITEM_MAX_WIDTH,
     ),
   );
-  const [paddedItems] = useState(() =>
-    paddingToItem(cardInfo, CAROUSEL.PADDING_DATA),
-  );
+  const [paddedItems, setPaddedItems] = useState<CardData[]>([]);
   const transitionStyle = `transform ${CAROUSEL.TRANSITION_TIME}ms ease-in-out 0s`;
-  const [transitionEffect, setTransitionEffect] = useState(transitionStyle);
+  const [transitionEffect, setTransitionEffect] = useState('');
+  // const [transitionEffect, setTransitionEffect] = useState(transitionStyle);
   const [curIdx, setCurIdx] = useState(CAROUSEL.PADDING_DATA);
   const [isClicked, setIsClicked] = useState(false);
   const itemSize = cardInfo.length;
+
+  useEffect(() => {
+    setPaddedItems(paddingToItem(cardInfo, CAROUSEL.PADDING_DATA));
+  }, [cardInfo]);
 
   useEffect(() => {
     const nextWidth = calcWidth(
@@ -45,6 +48,9 @@ function Carousel({ cardInfo }: Props) {
 
   const isMinMaxCarousel = (idx: number) =>
     idx - CAROUSEL.PADDING_DATA < 0 || idx - CAROUSEL.PADDING_DATA >= itemSize;
+
+  const isShowImg = (url: string) =>
+    url && windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 3;
 
   function changeCarousel(index: number) {
     setTimeout(() => {
@@ -82,19 +88,24 @@ function Carousel({ cardInfo }: Props) {
             isCurrent={curIdx === idx}
           >
             <ItemContainer>
-              <ThemeTag />
-              <ThemeTagTitle>{item.theme}</ThemeTagTitle>
-              <Content>
-                <Title>{item.title}</Title>
-                <Period>{`${dateToString(item.startDate)} ~ ${dateToString(
-                  item.endDate,
-                )}`}</Period>
-                <Author>{item.author.nickname}</Author>
-                {/* TODO: item URL (백엔드와 이야기) */}
-                <DetatilButton linkURL="tempURL" isCurrent={curIdx === idx} />
-              </Content>
-              {windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 3 && (
-                <CarouselColImg src={item.posterUrl} alt={item.title} />
+              {item._id && (
+                <>
+                  <ThemeTag />
+                  <ThemeTagTitle>{item.category}</ThemeTagTitle>
+                  <Content>
+                    <Title>{item.title}</Title>
+                    <Period>{`${dateToString(item.startDate)} ~ ${dateToString(
+                      item.endDate,
+                    )}`}</Period>
+                    <Author>{item.nickname}</Author>
+                    <DetatilButton id={item._id} isCurrent={curIdx === idx} />
+                  </Content>
+                  {isShowImg(item.posterUrl) && (
+                    <ImgWrapper isCurrent={curIdx === idx}>
+                      <Img src={item.posterUrl} alt="이미지" />
+                    </ImgWrapper>
+                  )}
+                </>
               )}
             </ItemContainer>
           </CarouselCol>
@@ -147,18 +158,36 @@ const ItemContainer = styled.div`
   height: 100%;
   display: flex;
   background: #1f3e5a;
-  /* background: #142029; */
+  /* background-color: rgba(255, 110, 0, 0.8); */
   color: white;
   box-shadow: 8px 8px 16px rgba(174, 174, 174, 0.75);
 `;
 
-const CarouselColImg = styled.img`
+const ImgWrapper = styled.div<{ isCurrent: boolean }>`
   position: absolute;
   width: 220px;
   height: 260px;
   bottom: -25px;
   right: 6%;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  overflow: hidden;
+
+  ${({ isCurrent }) =>
+    isCurrent &&
+    css`
+      &:hover {
+        img {
+          transform: scale(1.2);
+        }
+      }
+    `}
+`;
+
+const Img = styled.img`
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 `;
 
 const ThemeTag = styled.div`
