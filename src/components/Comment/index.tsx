@@ -1,24 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { VoidExpression } from 'typescript';
 import { putComment } from '../../store/comment';
 import Buttons from '../Buttons';
+import { useAppDispatch } from '../../store/hooks';
+import { CommentPost, CommentProps } from '../../types/Comment';
 
 const { ButtonMini } = Buttons;
-
-interface CommentProps {
-  commentId: string;
-  username: string;
-  profileImgURL: string;
-  content: string;
-  handleClickDelete: (value: string) => void;
-}
-
-interface CommentPost {
-  commentId: string;
-  content: string;
-}
 
 function Comment({
   commentId,
@@ -27,7 +15,7 @@ function Comment({
   content,
   handleClickDelete,
 }: CommentProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [text, setText] = useState<string>(content);
   const [update, setUpdate] = useState<boolean>(false);
 

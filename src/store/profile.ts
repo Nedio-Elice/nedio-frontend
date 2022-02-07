@@ -26,7 +26,7 @@ export const getUser = createAsyncThunk(
   'GET/USER',
   async (userId: string | undefined) => {
     try {
-      const response = await axiosInstance.get<User>(`api/users/${userId}`);
+      const response = await axiosInstance.get<User>(`users/${userId}`);
       return response.data;
     } catch (error) {
       const err = error as AxiosError;
@@ -37,7 +37,7 @@ export const getUser = createAsyncThunk(
 
 export const putUser = createAsyncThunk('PUT/USER', async (user: User) => {
   try {
-    const response = await axiosInstance.put<User>(`api/users/${user.id}`, {
+    const response = await axiosInstance.put<User>(`users/${user.id}`, {
       nickname: user.nickname,
       email: user.email,
       introduce: user.introduce,

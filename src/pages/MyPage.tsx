@@ -12,6 +12,7 @@ import Buttons from '../components/Buttons';
 import InputField from '../components/InputFields';
 import { getGalleries, Gallery } from '../store/myGallery';
 import { sample, sample2, sample3 } from '../constants/images';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 interface ImageResponse {
   success: boolean;
@@ -25,8 +26,8 @@ const { InputProfile, InputProfileLabel } = InputField;
 
 function MyPage() {
   const { userId } = useParams();
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.profile);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.profile);
   const myGalleries = useSelector((state: RootState) => state.myGallery);
 
   const [profileURL, setProfileURL] = useState<string>('');
@@ -83,7 +84,7 @@ function MyPage() {
 
     try {
       const response = await axiosInstance.post<ImageResponse>(
-        `/api/uploadImage`,
+        `uploadImage`,
         formData,
       );
       setProfileURL(response.data.url);

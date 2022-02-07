@@ -3,6 +3,7 @@ import { AxiosResponse, AxiosError } from 'axios';
 import { isDoStatement } from 'typescript';
 import axiosInstance from '../api/api';
 import { SLICE } from '../constants/slice';
+import { Author, Galleries, Halls } from '../types/GalleryDetail';
 
 export interface Gallery {
   posterUrl: string;
@@ -17,26 +18,11 @@ export interface Gallery {
   isOpened: boolean;
 }
 
-export type Galleries = Array<Gallery>;
-
-interface Author {
-  email: string;
-  nickname: string;
-  contact: string;
-}
-
-interface Hall {
-  hallId: string;
-  hallName: string;
-}
-
-type Halls = Array<Hall>;
-
 const initialState = [] as Galleries;
 
 export const getGalleries = createAsyncThunk('GET/GELLERIES', async () => {
   try {
-    const response = await axiosInstance.get<Galleries>(`api/galleries/`);
+    const response = await axiosInstance.get<Galleries>(`galleries/`);
     return response.data;
   } catch (error) {
     const err = error as AxiosError;

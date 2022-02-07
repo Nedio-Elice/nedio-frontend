@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
 import { getComments, postComment, deleteComment } from '../store/comment';
@@ -12,41 +11,12 @@ import InputFields from '../components/InputFields';
 import Comment from '../components/Comment';
 import CommentInput from '../components/CommentInput';
 import Pagination from '../components/Pagination';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { CommentSingle } from '../types/Comment';
+import { Gallery } from '../types/GalleryDetail';
 
 const { ButtonBasic, ButtonOrange } = Buttons;
 const { InputField } = InputFields;
-
-interface Gallery {
-  posterUrl: string;
-  description: string;
-  endDate: string;
-  startDate: string;
-  category: string;
-  title: string;
-  author: Author;
-  authorId: string;
-  halls: Halls;
-}
-
-interface Author {
-  email: string;
-  nickname: string;
-  contact: string;
-}
-
-interface Hall {
-  hallId: string;
-  hallName: string;
-}
-
-type Halls = Array<Hall>;
-
-interface CommentSingle {
-  _id: string;
-  content: string;
-  authorId: string;
-  galleryId: string;
-}
 
 type Comments = { data: Array<CommentSingle> };
 
@@ -59,8 +29,8 @@ function formatDateString(date: string): string {
 }
 
 function GalleryDetailPage() {
-  const dispatch = useDispatch();
-  const comments = useSelector((state: RootState) => state.comment);
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector((state: RootState) => state.comment);
 
   const [gallery, setGallery] = useState<Gallery | null>(null);
   const [currPage, setCurrPage] = useState<number>(0);
@@ -72,7 +42,7 @@ function GalleryDetailPage() {
     const fetchGallery = async () => {
       try {
         await axiosInstance
-          .get<Gallery>(`api/galleries/${galleryId}`)
+          .get<Gallery>(`galleries/${galleryId}`)
           .then((response: AxiosResponse) => setGallery(response.data.data));
       } catch (error) {
         const err = error as AxiosError;

@@ -3,34 +3,12 @@ import { AxiosResponse, AxiosError } from 'axios';
 import { isDoStatement } from 'typescript';
 import axiosInstance from '../api/api';
 import { SLICE } from '../constants/slice';
-
-interface CommentSingle {
-  _id: string;
-  content: string;
-  authorId: string;
-  galleryId: string;
-}
-
-interface CommentPut {
-  commentId: string;
-  content: string;
-}
-
-export type Comments = {
-  success: string;
-  message: string;
-  data: Array<CommentSingle>;
-};
-
-interface CommentState {
-  galleryId: string | undefined;
-  currPage: number;
-}
-
-interface NewComment {
-  galleryId: string | undefined;
-  content: string;
-}
+import {
+  CommentPut,
+  Comments,
+  CommentState,
+  NewComment,
+} from '../types/Comment';
 
 const initialState = {} as Comments;
 
@@ -39,7 +17,7 @@ export const getComments = createAsyncThunk(
   async (state: CommentState) => {
     try {
       const response = await axiosInstance.get<Comments>(
-        `api/comments/${state.galleryId}?page=${state.currPage + 1}&perPage=5`,
+        `comments/${state.galleryId}?page=${state.currPage + 1}&perPage=5`,
       );
       return response.data;
     } catch (error) {
@@ -55,7 +33,7 @@ export const putComment = createAsyncThunk(
     try {
       const response = await axiosInstance.put<CommentPut>(
         // eslint-disable-next-line no-underscore-dangle
-        `api/comments/${comment.commentId}`,
+        `comments/${comment.commentId}`,
         {
           content: comment.content,
         },
@@ -74,7 +52,7 @@ export const postComment = createAsyncThunk(
     try {
       const response = await axiosInstance.post<NewComment>(
         // eslint-disable-next-line no-underscore-dangle
-        `api/comments`,
+        `comments`,
         {
           galleryId: comment.galleryId,
           content: comment.content,
@@ -94,7 +72,7 @@ export const deleteComment = createAsyncThunk(
     try {
       const response = await axiosInstance.delete<string>(
         // eslint-disable-next-line no-underscore-dangle
-        `api/comments/${commentId}`,
+        `comments/${commentId}`,
       );
       return response;
     } catch (error) {

@@ -8,12 +8,14 @@ function getPageNumbers(currPage: number, pageCount: number) {
   const resultPages = [];
   resultPages.push(currPage);
 
+  const MAX_PAGE = 5;
+
   let idx = 1;
-  while (resultPages.length < 5) {
+  while (resultPages.length < MAX_PAGE) {
     if (currPage + idx < pageCount) resultPages.push(currPage + idx);
     if (currPage - idx > -1) resultPages.unshift(currPage - idx);
     idx += 1;
-    if (idx > 5) break;
+    if (idx > MAX_PAGE) break;
   }
   return resultPages;
 }
