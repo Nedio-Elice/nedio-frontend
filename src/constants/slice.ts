@@ -3,6 +3,7 @@ const SLICE = {
   PROFILE: 'profile',
   MYGALLERY: 'mygallery',
   COMMENT: 'comment',
+  GALLERY: 'gallery',
 };
 
 // eslint-disable-next-line import/prefer-default-export
