@@ -6,36 +6,26 @@ import { flexCenter, posterShadow } from '../../styles/mixins';
 import { axiosInstanceFormData } from '../../api/api';
 
 import { defaultPoster } from '../../constants/images';
-import { ImageInfo } from '../../types/GalleryEdit';
+import { PosterProps } from '../../types/GalleryEdit';
 
-interface Props {
-  label: string;
-  width: string;
-  height: string;
-  thumbnail: string;
-  hallIndex: number | null;
-  pieceIndex: number | null;
-  piece: ImageInfo | null;
-  onChangePosterUrl: (
-    formData: FormData,
-    hallIndex?: number,
-    pieceIndex?: number,
-    piece?: ImageInfo,
-  ) => void;
-  onChangePieceImageUrl: ((value: string, name: string) => void) | null;
-}
+Poster.defaultProps = {
+  hallIndex: null,
+  pieceIndex: null,
+  piece: null,
+  onChangePieceImageUrl: null,
+};
 
 function Poster({
   label,
   thumbnail,
   width,
   height,
-  hallIndex = null,
-  pieceIndex = null,
-  piece = null,
+  hallIndex,
+  pieceIndex,
+  piece,
   onChangePosterUrl,
-  onChangePieceImageUrl = null,
-}: Props) {
+  onChangePieceImageUrl,
+}: PosterProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const dragRef = useRef<HTMLDivElement | null>(null);
@@ -64,8 +54,8 @@ function Poster({
           await axiosInstanceFormData
             .post('uploadImage', formData)
             .then((res) => {
-              const { url: imageUrl } = res.data;
-              onChangePieceImageUrl(imageUrl, 'url');
+              const { url: value } = res.data;
+              onChangePieceImageUrl({ value, name: 'url' });
             })
             .catch((err) => {
               // error handling

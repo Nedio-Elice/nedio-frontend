@@ -6,24 +6,9 @@ import {
   placeholders,
 } from '../../styles/mixins';
 
-import { ImageInfo } from '../../types/GalleryEdit';
+import { HallFieldProps } from '../../types/GalleryEdit';
 
 import PieceField from './PieceField';
-
-interface Props {
-  name: string;
-  hallIndex: number;
-  pieces: ImageInfo[];
-  onChangeHallName: (index: number, value: string) => void;
-  onClickDeleteHallButton: (index: number) => void;
-  onChangePieceField: (
-    hallIndex: number,
-    pieceIndex: number,
-    piece: ImageInfo,
-  ) => void;
-  onChangePosterUrl: (formData: FormData) => void;
-  onChangeNotification: (text: string) => void;
-}
 
 function HallAddForm({
   name,
@@ -34,15 +19,13 @@ function HallAddForm({
   onChangePieceField,
   onChangePosterUrl,
   onChangeNotification,
-}: Props) {
+}: HallFieldProps) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    console.log(hallIndex);
-    onChangeHallName(hallIndex, value);
+    onChangeHallName({ index: hallIndex, value });
   };
 
   const handleClick = () => {
-    console.log(hallIndex);
     onClickDeleteHallButton(hallIndex);
   };
 

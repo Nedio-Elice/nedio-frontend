@@ -4,24 +4,16 @@ import styled, { keyframes } from 'styled-components';
 import { backgroundGradient, flexCenter } from '../../styles/mixins';
 
 import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
-import { ImageInfo } from '../../types/GalleryEdit';
+import {
+  ChangeValueWithName,
+  ImageInfo,
+  ModalProps,
+} from '../../types/GalleryEdit';
 import { MESSAGE } from '../../constants/messages';
 
 import Description from './Description';
 import Poster from './Poster';
 import Title from './Title';
-
-interface Props {
-  modalOn: boolean;
-  piece: ImageInfo;
-  hallIndex: number;
-  pieceIndex: number;
-  isUpdated: boolean;
-  closeModal: () => void;
-  onChange: (hallIndex: number, pieceIndex: number, piece: ImageInfo) => void;
-  onChangeNotification: (text: string) => void;
-  onChangePosterUrl: (formData: FormData) => void;
-}
 
 function Modal({
   piece,
@@ -33,44 +25,42 @@ function Modal({
   closeModal,
   onChangePosterUrl,
   onChangeNotification,
-}: Props) {
+}: ModalProps) {
   const [inputValues, setInputValues] = useState<ImageInfo>(piece);
 
   const prevValues = useRef<ImageInfo>(piece);
 
   const handleClickCloseButton = () => {
-    onChange(hallIndex, pieceIndex, prevValues.current);
+    onChange({ hallIndex, pieceIndex, piece: prevValues.current });
 
     setInputValues(prevValues.current);
 
     closeModal();
   };
 
-  const handleChange = (value: string, name: string) => {
+  const handleChange = ({ value, name }: ChangeValueWithName) => {
     const transformName = `image${capitalizeString(name)}`;
 
-    const newPiece = {
+    const updated = {
       ...inputValues,
       [transformName]: value,
     };
 
-    console.log(newPiece);
-
-    setInputValues(newPiece);
+    setInputValues(updated);
   };
 
   const handleClickDeleteButton = () => {
-    const cleanForm = {
+    const emptyForm = {
       imageTitle: '',
       imageDescription: '',
       imageUrl: '',
     };
 
-    setInputValues(cleanForm);
+    setInputValues(emptyForm);
 
-    prevValues.current = cleanForm;
+    prevValues.current = emptyForm;
 
-    onChange(hallIndex, pieceIndex, cleanForm);
+    onChange({ hallIndex, pieceIndex, piece: emptyForm });
 
     closeModal();
   };
@@ -85,7 +75,7 @@ function Modal({
 
     prevValues.current = inputValues;
 
-    onChange(hallIndex, pieceIndex, inputValues);
+    onChange({ hallIndex, pieceIndex, piece: inputValues });
 
     closeModal();
   };

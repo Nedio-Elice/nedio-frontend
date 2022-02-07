@@ -4,17 +4,16 @@ import styled from 'styled-components';
 import { inputArea } from '../../styles/mixins';
 
 import categories from '../../constants/categories';
+import { InputProps } from '../../types/GalleryEdit';
 
-interface Props {
-  onChange: (value: string, name: string) => void;
-  category: string;
-}
-
-function Categories({ onChange, category }: Props) {
+function Categories({
+  onChange,
+  category,
+}: Pick<InputProps, 'category' | 'onChange'>) {
   const handleChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const { value, name } = e.currentTarget;
 
-    onChange(value, name);
+    onChange({ value, name });
   };
   return (
     <Container>

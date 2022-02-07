@@ -1,11 +1,10 @@
 import styled from 'styled-components';
+import { GalleryButtonsProps } from '../../types/GalleryEdit';
 
-interface Props {
-  onClickAddHallButton: () => void;
-  onClickUpdateGallery: () => void;
-}
-
-function Buttons({ onClickAddHallButton, onClickUpdateGallery }: Props) {
+function Buttons({
+  onClickAddHallButton,
+  onClickUpdateGallery,
+}: GalleryButtonsProps) {
   const handleClickAddHallButton = () => {
     onClickAddHallButton();
   };

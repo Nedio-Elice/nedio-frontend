@@ -2,20 +2,11 @@ import { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { ImageInfo } from '../../types/GalleryEdit';
+import { PieceFieldProps } from '../../types/GalleryEdit';
 import { isEmpty } from '../../utils/galleryEdit';
 
 import PieceButton from './PieceButton';
 import Modal from './Modal';
-
-interface Props {
-  piece: ImageInfo;
-  hallIndex: number;
-  pieceIndex: number;
-  onChange: (hallIndex: number, pieceIndex: number, piece: ImageInfo) => void;
-  onChangePosterUrl: (formData: FormData) => void;
-  onChangeNotification: (text: string) => void;
-}
 
 function PieceField({
   piece,
@@ -24,7 +15,7 @@ function PieceField({
   onChange,
   onChangePosterUrl,
   onChangeNotification,
-}: Props) {
+}: PieceFieldProps) {
   const [modalOn, setModalOn] = useState(false);
 
   const isUpdated = !isEmpty(piece);

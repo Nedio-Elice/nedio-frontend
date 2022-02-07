@@ -14,9 +14,12 @@ import {
   claerAllState,
 } from '../../store/gallery';
 
-import { ImageInfo } from '../../types/GalleryEdit';
-
 import GalleryEdit from '../../components/GalleryEdit';
+import {
+  ChangeValueWithIndex,
+  ChangeValueWithName,
+  OnChangePieceFieldArgs,
+} from '../../types/GalleryEdit';
 
 function GalleryEditContainer() {
   const dispatch = useAppDispatch();
@@ -31,7 +34,7 @@ function GalleryEditContainer() {
     dispatch(addHall());
   };
 
-  const handleChangeHallName = (index: number, value: string) => {
+  const handleChangeHallName = ({ index, value }: ChangeValueWithIndex) => {
     dispatch(changeHallName({ index, value }));
   };
 
@@ -39,15 +42,18 @@ function GalleryEditContainer() {
     dispatch(deleteHall(index));
   };
 
-  const handleChangePieceField = (
-    hallIndex: number,
-    pieceIndex: number,
-    piece: ImageInfo,
-  ) => {
+  const handleChangePieceField = ({
+    hallIndex,
+    pieceIndex,
+    piece,
+  }: OnChangePieceFieldArgs) => {
     dispatch(updatePiece({ hallIndex, pieceIndex, piece }));
   };
 
-  const handleChangeGalleryInputField = (value: string, name: string) => {
+  const handleChangeGalleryInputField = ({
+    value,
+    name,
+  }: ChangeValueWithName) => {
     dispatch(changeGalleryInput({ name, value }));
   };
 

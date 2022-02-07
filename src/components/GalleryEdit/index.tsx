@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { backgroundGradient, greyButton } from '../../styles/mixins';
 
-import { GalleryInfo, HallInfo, ImageInfo } from '../../types/GalleryEdit';
+import { GalleryProps } from '../../types/GalleryEdit';
 
 import Description from './Description';
 import Categories from './Categories';
@@ -11,24 +11,6 @@ import Flash from '../Flash';
 import Title from './Title';
 import Halls from './Halls';
 import Date from './Date';
-
-interface Props {
-  gallery: GalleryInfo;
-  notification: string;
-  halls: HallInfo[];
-  onClickAddHallButton: () => void;
-  onClickUpdateGallery: () => void;
-  onChangeNotification: (text: string) => void;
-  onClickDeleteHallButton: (index: number) => void;
-  onChangePieceField: (
-    phallIndex: number,
-    pieceIndex: number,
-    piece: ImageInfo,
-  ) => void;
-  onChangeHallName: (index: number, value: string) => void;
-  onChangeGalleryInputField: (value: string, name: string) => void;
-  onChangePosterUrl: (formData: FormData) => void;
-}
 
 function GalleryEdit({
   halls,
@@ -42,7 +24,7 @@ function GalleryEdit({
   onClickAddHallButton,
   onClickDeleteHallButton,
   onChangeGalleryInputField,
-}: Props) {
+}: GalleryProps) {
   const { title, category, startDate, endDate, description, posterUrl } =
     gallery;
 
@@ -56,10 +38,6 @@ function GalleryEdit({
           width="15em"
           height="20em"
           onChangePosterUrl={onChangePosterUrl}
-          onChangePieceImageUrl={null}
-          piece={null}
-          hallIndex={null}
-          pieceIndex={null}
         />
         <Inputs>
           <Title
