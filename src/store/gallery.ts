@@ -1,5 +1,6 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
+import { NavigateFunction } from 'react-router-dom';
 import axiosInstance, { axiosInstanceFormData } from '../api/api';
 
 import {
@@ -9,7 +10,7 @@ import {
   isValidDate,
 } from '../utils/galleryEdit';
 
-import { Gallery, ImageInfo } from '../types/GalleryEdit';
+import { Gallery } from '../types/GalleryEdit';
 import { MESSAGE } from '../constants/messages';
 import { SLICE } from '../constants/slice';
 
@@ -154,7 +155,7 @@ export function refreshNotification(text: string) {
   };
 }
 
-export function updateGallery() {
+export function updateGallery(navigate: NavigateFunction) {
   return async (dispatch: Dispatch, getState: any) => {
     const {
       gallery: { galleryInfo, halls },
@@ -179,15 +180,14 @@ export function updateGallery() {
       return;
     }
 
-    // TODO: 실제 데이터 전송
+    const data = { ...galleryInfo, halls };
 
-    console.log(galleryInfo, halls);
+    const response = await axiosInstance.post('galleries', data);
 
-    // const response = await axiosInstance.post('galleries', data);
+    console.log(response);
 
-    // console.log(response);
-
-    // 리다이렉트는 언제? 어디서?
+    // id 값 받아오면 상세 페이지로 리다이렉트
+    navigate('/');
   };
 }
 

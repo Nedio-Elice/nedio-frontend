@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 import {
@@ -23,6 +25,8 @@ import {
 
 function GalleryEditContainer() {
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const {
     galleryInfo: gallery,
@@ -62,7 +66,7 @@ function GalleryEditContainer() {
   };
 
   const handleClickUpdateGallery = () => {
-    dispatch(updateGallery());
+    dispatch(updateGallery(navigate));
   };
 
   const handleChangeNotification = (text: string) => {
