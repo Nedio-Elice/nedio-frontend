@@ -1,34 +1,24 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useParams, Link } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import { RootState } from '../store/root';
+import { getComments, postComment, deleteComment } from '../store/comment';
+import axiosInstance from '../api/api';
 import Buttons from '../components/Buttons';
-import InputField from '../components/InputField';
+import InputFields from '../components/InputFields';
 import Comment from '../components/Comment';
+import CommentInput from '../components/CommentInput';
 import Pagination from '../components/Pagination';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { CommentSingle } from '../types/Comment';
+import { Gallery } from '../types/GalleryDetail';
 
 const { ButtonBasic, ButtonOrange } = Buttons;
+const { InputField } = InputFields;
 
-interface Gallery {
-  _id: string;
-  posterUrl: string;
-  description: string;
-  closeDate: string;
-  openDate: string;
-  category: string;
-  title: string;
-  authorId: string;
-}
-
-interface CommentSingle {
-  _id: string;
-  profileURL: string;
-  content: string;
-  authorId: string;
-  galleryId: string;
-}
-
-type Comments = Array<CommentSingle>;
+type Comments = { data: Array<CommentSingle> };
 
 function formatDateString(date: string): string {
   const year = date.slice(0, 4);
@@ -39,28 +29,45 @@ function formatDateString(date: string): string {
 }
 
 function GalleryDetailPage() {
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector((state: RootState) => state.comment);
+
   const [gallery, setGallery] = useState<Gallery | null>(null);
-  const [comments, setComments] = useState<Comments | null>(null);
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(5);
+  const [newComment, setNewComment] = useState<string>('');
   const { galleryId } = useParams();
-  const dataUrl = `http://localhost:5000/api/galleries/${galleryId}`;
-  const commentsUrl = `http://localhost:5000/api/comments`;
 
   useEffect(() => {
-    axios
-      .get<Gallery>(dataUrl)
-      .then((response: AxiosResponse) => setGallery(response.data));
-  }, [dataUrl, gallery]);
+    const fetchGallery = async () => {
+      try {
+        await axiosInstance
+          .get<Gallery>(`galleries/${galleryId}`)
+          .then((response: AxiosResponse) => setGallery(response.data.data));
+      } catch (error) {
+        const err = error as AxiosError;
+        throw new Error(err.response?.data);
+      }
+    };
+    fetchGallery();
+  }, [galleryId]);
 
   useEffect(() => {
-    axios
-      .get<Comments>(commentsUrl)
-      .then((response: AxiosResponse) => setComments(response.data));
-  }, [commentsUrl, comments]);
+    dispatch(getComments({ galleryId, currPage }));
+  }, [dispatch, galleryId, currPage]);
 
   if (gallery === null) {
     return <h1>No data</h1>;
+  }
+
+  function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    dispatch(postComment({ galleryId, content: newComment }));
+    setNewComment('');
+  }
+
+  function handleDelete(commentId: string) {
+    dispatch(deleteComment(commentId));
   }
 
   return (
@@ -70,15 +77,15 @@ function GalleryDetailPage() {
         <GalleryInfo>
           <GalleryTitle>{gallery.title}</GalleryTitle>
           <GalleryPeriod>
-            기간: {formatDateString(gallery.openDate)} -{' '}
-            {formatDateString(gallery.closeDate)}
+            기간: {formatDateString(gallery.startDate)} -{' '}
+            {formatDateString(gallery.endDate)}
           </GalleryPeriod>
           <GalleryDescription>{gallery.description}</GalleryDescription>
           <AuthorProfile>
             <AuthorImg />
             <AuthorInfo>
-              <AuthorName>이삭</AuthorName>
-              <AuthorEmail>issac@toast.com</AuthorEmail>
+              <AuthorName>{gallery.author.nickname}</AuthorName>
+              <AuthorEmail>{gallery.author.email}</AuthorEmail>
             </AuthorInfo>
           </AuthorProfile>
         </GalleryInfo>
@@ -94,21 +101,29 @@ function GalleryDetailPage() {
           <ButtonBasic value="3관" handleClick={() => {}} />
         </Link>
       </ButtonWrapper>
-      <CommentsWrapper>
-        <UserImg />
-        <InputField defaultText="방명록을 입력해 주세요." />
-        <ButtonOrange value="입력" type="submit" handleClick={() => {}} />
-      </CommentsWrapper>
+      <CommentInput
+        defaultText="방명록을 입력해 주세요."
+        value={newComment}
+        galleryId={galleryId}
+        onChange={setNewComment}
+        handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+          handleSubmit(event)
+        }
+      />
       {comments !== null &&
-        comments.map((c) => (
-          <Comment
-            username={c.authorId}
-            profileImgURL={c.profileURL}
-            content={c.content}
-            handleClickUpdate={() => {}}
-            handleClickDelete={() => {}}
-          />
-        ))}
+        comments.data.map((c) => {
+          // eslint-disable-next-line no-underscore-dangle
+          return (
+            <Comment
+              key={c._id}
+              commentId={c._id}
+              username={c.authorId}
+              profileImgURL="/"
+              content={c.content}
+              handleClickDelete={() => handleDelete(c._id)}
+            />
+          );
+        })}
       <Pagination
         currPage={currPage}
         pageCount={pageCount}
@@ -228,18 +243,4 @@ const ButtonWrapper = styled.div`
   margin: 12px auto;
   display: flex;
   gap: 36px;
-`;
-
-const CommentsWrapper = styled.form`
-  margin: 24px auto;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-`;
-
-const UserImg = styled.img`
-  display: inline-block;
-  height: 72px;
-  width: 72px;
-  border-radius: 50%;
 `;

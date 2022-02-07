@@ -8,11 +8,14 @@ function getPageNumbers(currPage: number, pageCount: number) {
   const resultPages = [];
   resultPages.push(currPage);
 
+  const MAX_PAGE = 5;
+
   let idx = 1;
-  while (resultPages.length < 5) {
+  while (resultPages.length < MAX_PAGE) {
     if (currPage + idx < pageCount) resultPages.push(currPage + idx);
     if (currPage - idx > -1) resultPages.unshift(currPage - idx);
     idx += 1;
+    if (idx > MAX_PAGE) break;
   }
   return resultPages;
 }
@@ -23,11 +26,7 @@ interface PaginationProps {
   onClickPage: (arg0: number) => void;
 }
 
-function Pagination({
-  currPage = 0,
-  pageCount = 5,
-  onClickPage,
-}: PaginationProps) {
+function Pagination({ currPage = 0, pageCount, onClickPage }: PaginationProps) {
   return (
     <Container>
       <ArrowButton
@@ -41,6 +40,7 @@ function Pagination({
           <NumberButton
             key={`pagination-button-${page}`}
             active={currPage === page}
+            onClick={() => onClickPage(page)}
           >
             {page + 1}
           </NumberButton>
@@ -61,6 +61,7 @@ export default Pagination;
 const Container = styled.div`
   display: flex;
   margin: 24px auto;
+  justify-content: center;
 `;
 
 const ArrowImg = styled.img<{ flip: boolean }>`
@@ -84,6 +85,7 @@ const NumberButton = styled.button<{ active: boolean }>`
   font-weight: 500;
   text-align: center;
   background-color: transparent;
+  cursor: pointer;
   ${(props) =>
     props.active &&
     css`
@@ -98,4 +100,5 @@ const ArrowButton = styled.button`
   height: 16px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 `;
