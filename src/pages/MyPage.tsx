@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { useParams, Link, useLinkClickHandler } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
 import { getUser, putUser } from '../store/profile';
@@ -28,7 +27,7 @@ function MyPage() {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.profile);
-  const myGalleries = useSelector((state: RootState) => state.myGallery);
+  const myGalleries = useAppSelector((state: RootState) => state.myGallery);
 
   const [profileURL, setProfileURL] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
@@ -94,33 +93,33 @@ function MyPage() {
     }
   };
 
-  const handleClick = () => {
-    let filteredGalleries: Array<Gallery> = [];
-    if (galleryState === 'Running') {
-      filteredGalleries = myGalleries.filter(
-        (g) =>
-          Date.parse(g.startDate) < Date.now() &&
-          Date.parse(g.endDate) > Date.now(),
-      );
-    } else if (galleryState === 'Coming') {
-      filteredGalleries = myGalleries.filter(
-        (g) => Date.parse(g.startDate) > Date.now(),
-      );
-    } else if (galleryState === 'Closed') {
-      filteredGalleries = myGalleries.filter(
-        (g) => Date.parse(g.startDate) < Date.now(),
-      );
-    }
+  // const handleClick = () => {
+  //   let filteredGalleries: Array<Gallery> = [];
+  //   if (galleryState === 'Running') {
+  //     filteredGalleries = myGalleries.filter(
+  //       (g: any) =>
+  //         Date.parse(g.startDate) < Date.now() &&
+  //         Date.parse(g.endDate) > Date.now(),
+  //     );
+  //   } else if (galleryState === 'Coming') {
+  //     filteredGalleries = myGalleries.filter(
+  //       (g: any) => Date.parse(g.startDate) > Date.now(),
+  //     );
+  //   } else if (galleryState === 'Closed') {
+  //     filteredGalleries = myGalleries.filter(
+  //       (g: any) => Date.parse(g.startDate) < Date.now(),
+  //     );
+  //   }
 
-    setPageCount(filteredGalleries.length);
+  //   setPageCount(filteredGalleries.length);
 
-    const currentGalleries = [];
+  //   const currentGalleries = [];
 
-    for (let i = 8 * currPage; i < 8; i += 1) {
-      if (filteredGalleries[i]) currentGalleries.push(filteredGalleries[i]);
-    }
-    setCurrGallery(currentGalleries);
-  };
+  //   for (let i = 8 * currPage; i < 8; i += 1) {
+  //     if (filteredGalleries[i]) currentGalleries.push(filteredGalleries[i]);
+  //   }
+  //   setCurrGallery(currentGalleries);
+  // };
 
   return (
     <>
