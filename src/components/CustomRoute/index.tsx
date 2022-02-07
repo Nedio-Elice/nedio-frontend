@@ -1,4 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
+import { useAppSelector } from '../../store/hooks';
 
 interface Props {
   auth: boolean;
@@ -6,8 +7,9 @@ interface Props {
 }
 
 function CustomRoute({ auth, redirectTo }: Props) {
-  // TODO: 로그인 관련 차단
-  return auth ? <Navigate replace to={redirectTo} /> : <Outlet />;
+  const isSignIn = useAppSelector((state) => state.user.isSignIn);
+
+  return auth && !isSignIn ? <Navigate replace to={redirectTo} /> : <Outlet />;
 }
 
 export default CustomRoute;

@@ -4,15 +4,18 @@ import { dateToString } from '../../utils/date';
 
 interface Props {
   cardInfo: CardData;
+  handleClick: (id: string) => void;
 }
 
-function Card({ cardInfo }: Props) {
+function Card({ cardInfo, handleClick }: Props) {
   return (
-    <Container>
-      <CardImg src={cardInfo.posterUrl} alt={cardInfo.title} />
+    <Container onClick={() => handleClick(cardInfo._id)}>
+      <CardImgWrapper>
+        <CardImg src={cardInfo.posterUrl} alt={cardInfo.title} />
+      </CardImgWrapper>
       <CardTitle>{cardInfo.title}</CardTitle>
       <CardContent>
-        <CardAuthor>{cardInfo.author.nickname}</CardAuthor>
+        <CardAuthor>{cardInfo.nickname}</CardAuthor>
         <CardPeriod>{`${dateToString(cardInfo.startDate)} ~ ${dateToString(
           cardInfo.endDate,
         )}`}</CardPeriod>
@@ -39,14 +42,24 @@ const Container = styled.div`
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.1, 1.1);
+
+    img {
+      transform: scale(1.2);
+    }
   }
 `;
 
-const CardImg = styled.img`
+const CardImgWrapper = styled.div`
   width: 100%;
   height: 75%;
   border-radius: 15px;
+  overflow: hidden;
+`;
+
+const CardImg = styled.img`
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
 `;
 
 const CardTitle = styled.h5`

@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface DefaultTheme {
@@ -9,17 +8,16 @@ interface DefaultTheme {
 
 interface Props {
   item: DefaultTheme;
+  handleClick: (category: string) => void;
 }
 
-function ThemeCard({ item }: Props) {
-  const navigate = useNavigate();
-
-  const handleClick = () => navigate(`/galleries?category=${item.category}`);
-
+function ThemeCard({ item, handleClick }: Props) {
   return (
     <Container link={`${item.imageURL}`}>
       <ThemeCardTitle>{item.title}</ThemeCardTitle>
-      <ThemeCardBtn onClick={handleClick}>찾아보기</ThemeCardBtn>
+      <ThemeCardBtn onClick={() => handleClick(item.category)}>
+        찾아보기
+      </ThemeCardBtn>
     </Container>
   );
 }
