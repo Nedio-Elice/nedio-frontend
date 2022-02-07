@@ -11,15 +11,11 @@ function SearchContainer() {
 
   const resetKeyword = () => setKeyword('');
 
-  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setKeyword(e.target.value);
+  const handleKeyword = (value: string) => setKeyword(value);
 
-  const handleSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectOption(e.target.value);
-  };
+  const handleSelectOption = (value: string) => setSelectOption(value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (keyword.length < 1) return;
 
     let queryStr;

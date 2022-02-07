@@ -20,7 +20,10 @@ function RecommendContainer({ title }: Props) {
 
     axiosInstance
       .get(`${PATH.GALLERY_SEARCH}/${subPath}`)
-      .then((res) => setCards(res.data.data));
+      .then((res) => setCards(res.data.data))
+      .catch((e) => {
+        // console.log(e)
+      });
   }, [title]);
 
   const handleClick = (id: string) =>
