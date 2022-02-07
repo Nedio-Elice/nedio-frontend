@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { backgroundGradient, flexCenter } from '../../styles/mixins';
 
 import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
-import { ImagesData } from '../../types/GalleryEdit';
+import { ImageInfo } from '../../types/GalleryEdit';
 import { MESSAGE } from '../../constants/messages';
 
 import Description from './Description';
@@ -13,16 +13,20 @@ import Title from './Title';
 
 interface Props {
   modalOn: boolean;
-  piece: ImagesData;
+  piece: ImageInfo;
+  hallIndex: number;
+  pieceIndex: number;
   isUpdated: boolean;
   closeModal: () => void;
-  onChange: (piece: ImagesData) => void;
+  onChange: (hallIndex: number, pieceIndex: number, piece: ImageInfo) => void;
   onChangeNotification: (text: string) => void;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  onChangePosterUrl: (formData: FormData) => void;
 }
 
 function Modal({
   piece,
+  hallIndex,
+  pieceIndex,
   modalOn,
   isUpdated,
   onChange,
@@ -30,12 +34,12 @@ function Modal({
   onChangePosterUrl,
   onChangeNotification,
 }: Props) {
-  const [inputValues, setInputValues] = useState<ImagesData>(piece);
+  const [inputValues, setInputValues] = useState<ImageInfo>(piece);
 
-  const prevValues = useRef<ImagesData>(piece);
+  const prevValues = useRef<ImageInfo>(piece);
 
   const handleClickCloseButton = () => {
-    onChange(prevValues.current);
+    onChange(hallIndex, pieceIndex, prevValues.current);
 
     setInputValues(prevValues.current);
 
@@ -50,12 +54,13 @@ function Modal({
       [transformName]: value,
     };
 
+    console.log(newPiece);
+
     setInputValues(newPiece);
   };
 
   const handleClickDeleteButton = () => {
     const cleanForm = {
-      ...inputValues,
       imageTitle: '',
       imageDescription: '',
       imageUrl: '',
@@ -65,7 +70,7 @@ function Modal({
 
     prevValues.current = cleanForm;
 
-    onChange(cleanForm);
+    onChange(hallIndex, pieceIndex, cleanForm);
 
     closeModal();
   };
@@ -80,7 +85,7 @@ function Modal({
 
     prevValues.current = inputValues;
 
-    onChange(inputValues);
+    onChange(hallIndex, pieceIndex, inputValues);
 
     closeModal();
   };
@@ -93,8 +98,10 @@ function Modal({
           label="작품 이미지 끌어서 놓기"
           width="100%"
           height="100%"
-          thumbnail={piece.imageUrl}
+          thumbnail={inputValues.imageUrl}
           piece={piece}
+          hallIndex={hallIndex}
+          pieceIndex={pieceIndex}
           onChangePieceImageUrl={handleChange}
           onChangePosterUrl={onChangePosterUrl}
         />

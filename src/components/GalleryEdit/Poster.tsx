@@ -6,15 +6,22 @@ import { flexCenter, posterShadow } from '../../styles/mixins';
 import { axiosInstanceFormData } from '../../api/api';
 
 import { defaultPoster } from '../../constants/images';
-import { ImagesData } from '../../types/GalleryEdit';
+import { ImageInfo } from '../../types/GalleryEdit';
 
 interface Props {
   label: string;
   width: string;
   height: string;
   thumbnail: string;
-  piece: ImagesData | null;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  hallIndex: number | null;
+  pieceIndex: number | null;
+  piece: ImageInfo | null;
+  onChangePosterUrl: (
+    formData: FormData,
+    hallIndex?: number,
+    pieceIndex?: number,
+    piece?: ImageInfo,
+  ) => void;
   onChangePieceImageUrl: ((value: string, name: string) => void) | null;
 }
 
@@ -23,6 +30,8 @@ function Poster({
   thumbnail,
   width,
   height,
+  hallIndex = null,
+  pieceIndex = null,
   piece = null,
   onChangePosterUrl,
   onChangePieceImageUrl = null,
@@ -33,6 +42,8 @@ function Poster({
 
   const onChangeFiles = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement> | any): Promise<void> => {
+      // console.log(hallIndex, pieceIndex);
+
       const selectFile: File = e.dataTransfer.files[0];
 
       const isValid = selectFile.type.indexOf('image') >= 0;
@@ -43,9 +54,12 @@ function Poster({
 
       formData.append('upload', selectFile);
 
-      if (piece && onChangePieceImageUrl) {
-        onChangePosterUrl(formData, piece);
-
+      if (
+        piece &&
+        onChangePieceImageUrl &&
+        hallIndex !== null &&
+        pieceIndex !== null
+      ) {
         (async () => {
           await axiosInstanceFormData
             .post('uploadImage', formData)
@@ -65,7 +79,7 @@ function Poster({
       onChangePosterUrl(formData);
     },
 
-    [piece, onChangePosterUrl, onChangePieceImageUrl],
+    [piece, hallIndex, pieceIndex, onChangePosterUrl, onChangePieceImageUrl],
   );
 
   const handleDragIn = useCallback((e: DragEvent): void => {

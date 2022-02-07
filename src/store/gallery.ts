@@ -7,101 +7,110 @@ import {
   isEmpty,
   isEmptyHalls,
   isValidDate,
-  getId,
 } from '../utils/galleryEdit';
 
-import { Gallery, ImagesData } from '../types/GalleryEdit';
+import { Gallery, ImageInfo } from '../types/GalleryEdit';
 import { MESSAGE } from '../constants/messages';
 import { SLICE } from '../constants/slice';
 
 const initialState = {
-  data: {
+  galleryInfo: {
     title: '',
     category: '',
     startDate: '',
     endDate: '',
     description: '',
     posterUrl: '',
-    halls: [],
   },
+  halls: [],
   notification: '',
 } as Gallery;
+
+// 갤러리, 홀을 구분하는게 어떨지
+// 홀을 생성하면 10개짜리 작품 배열을 만들어주고, 작품을 추가하거나 수정할 땐 인덱스를 참조하여 상태 관리
+
+// const fetchData = {
+//   ...galleryInfo,
+//   halls,
+// }
 
 const { actions, reducer } = createSlice({
   name: SLICE.GALLERY,
   initialState,
   reducers: {
     addHall(state) {
-      const id = getId();
+      return {
+        ...state,
+        halls: [
+          ...state.halls,
+          {
+            hallName: '',
+            imagesData: setDefaultPieces(),
+          },
+        ],
+      };
+    },
+    deleteHall(state, { payload: index }) {
+      return {
+        ...state,
+        halls: [
+          ...state.halls.slice(0, index),
+          ...state.halls.slice(index + 1),
+        ],
+      };
+    },
+    changeHallName(state, { payload: { index, value } }) {
+      const updated = [
+        ...state.halls.slice(0, index),
+        {
+          hallName: value,
+          imagesData: state.halls[index].imagesData,
+        },
+        ...state.halls.slice(index + 1),
+      ];
 
       return {
         ...state,
-        data: {
-          ...state.data,
-          halls: [
-            ...state.data.halls,
-            {
-              id,
-              hallName: '',
-              imagesData: setDefaultPieces(id),
-            },
+        halls: updated,
+      };
+    },
+    updatePiece(state, { payload: { hallIndex, pieceIndex, piece } }) {
+      // const updated = state.data.halls.map((hall) => {
+      //   if (hall.id === hallId) {
+      //     const imagesData = hall.imagesData.map((prev) =>
+      //       prev.imageId === imageId ? piece : prev,
+      //     );
+      //     return {
+      //       ...hall,
+      //       imagesData,
+      //     };
+      //   }
+      //   return hall;
+      // });
+
+      const updated = [
+        ...state.halls.slice(0, hallIndex),
+        {
+          ...state.halls[hallIndex],
+          imagesData: [
+            ...state.halls[hallIndex].imagesData.slice(0, pieceIndex),
+            piece,
+            ...state.halls[hallIndex].imagesData.slice(pieceIndex + 1),
           ],
         },
-      };
-    },
-    deleteHall(state, { payload: id }) {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          halls: state.data.halls.filter((hall) => hall.id !== id),
-        },
-      };
-    },
-    changeHallName(state, { payload: { id, value } }) {
-      const updated = state.data.halls.map((hall) =>
-        hall.id === id ? { ...hall, hallName: value } : hall,
-      );
+        ...state.halls.slice(hallIndex + 1),
+      ];
 
       return {
         ...state,
-        data: {
-          ...state.data,
-          halls: updated,
-        },
-      };
-    },
-    updatePiece(state, { payload: piece }) {
-      const { imageId } = piece;
-
-      const hallId = imageId.split('-')[0];
-
-      const updated = state.data.halls.map((hall) => {
-        if (hall.id === hallId) {
-          const imagesData = hall.imagesData.map((prev) =>
-            prev.imageId === imageId ? piece : prev,
-          );
-          return {
-            ...hall,
-            imagesData,
-          };
-        }
-        return hall;
-      });
-
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          halls: updated,
-        },
+        halls: updated,
       };
     },
     changeGalleryInput(state, { payload: { name, value } }) {
       return {
         ...state,
-        data: {
-          ...state.data,
+        galleryInfo: {
+          ...state.galleryInfo,
           [name]: value,
         },
       };
@@ -128,20 +137,11 @@ export const {
   claerAllState,
 } = actions;
 
-export function changePosterUrl(formData: FormData, piece?: ImagesData) {
+export function changePosterUrl(formData: FormData) {
   return async (dispatch: Dispatch) => {
     const response = await axiosInstanceFormData.post('uploadImage', formData);
 
     const { url: imageUrl } = response.data;
-
-    if (piece) {
-      const newPiece = {
-        ...piece,
-        imageUrl,
-      };
-      dispatch(updatePiece(newPiece));
-      return;
-    }
 
     dispatch(changeGalleryInput({ name: 'posterUrl', value: imageUrl }));
   };
@@ -157,14 +157,14 @@ export function refreshNotification(text: string) {
 export function updateGallery() {
   return async (dispatch: Dispatch, getState: any) => {
     const {
-      gallery: { data },
+      gallery: { galleryInfo, halls },
     } = getState();
 
     await dispatch(setNotification(''));
 
-    const { startDate, endDate, halls } = data;
+    const { startDate, endDate } = galleryInfo;
 
-    if (isEmpty(data)) {
+    if (isEmpty(galleryInfo)) {
       dispatch(setNotification(MESSAGE.INVALID_FORM));
       return;
     }
@@ -181,9 +181,11 @@ export function updateGallery() {
 
     // TODO: 실제 데이터 전송
 
-    const response = await axiosInstance.post('galleries', data);
+    console.log(galleryInfo, halls);
 
-    console.log(response);
+    // const response = await axiosInstance.post('galleries', data);
+
+    // console.log(response);
 
     // 리다이렉트는 언제? 어디서?
   };

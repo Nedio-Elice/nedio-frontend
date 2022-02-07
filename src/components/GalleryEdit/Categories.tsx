@@ -26,8 +26,10 @@ function Categories({ onChange, category }: Props) {
         onChange={handleChange}
       >
         <option value="">select</option>
-        {categories.map((value) => (
-          <option value={value}>{value}</option>
+        {categories.map((value, i) => (
+          <option key={i} value={value}>
+            {value}
+          </option>
         ))}
       </select>
     </Container>

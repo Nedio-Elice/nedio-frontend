@@ -6,25 +6,29 @@ import {
   placeholders,
 } from '../../styles/mixins';
 
-import { ImagesData } from '../../types/GalleryEdit';
+import { ImageInfo } from '../../types/GalleryEdit';
 
 import PieceField from './PieceField';
 
 interface Props {
-  id: string;
   name: string;
-  pieces: ImagesData[];
-  onChangeHallName: (id: string, value: string) => void;
-  onClickDeleteHallButton: (id: string) => void;
-  onChangePieceField: (piece: ImagesData) => void;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  hallIndex: number;
+  pieces: ImageInfo[];
+  onChangeHallName: (index: number, value: string) => void;
+  onClickDeleteHallButton: (index: number) => void;
+  onChangePieceField: (
+    hallIndex: number,
+    pieceIndex: number,
+    piece: ImageInfo,
+  ) => void;
+  onChangePosterUrl: (formData: FormData) => void;
   onChangeNotification: (text: string) => void;
 }
 
 function HallAddForm({
-  id,
   name,
   pieces,
+  hallIndex,
   onChangeHallName,
   onClickDeleteHallButton,
   onChangePieceField,
@@ -33,15 +37,17 @@ function HallAddForm({
 }: Props) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    onChangeHallName(id, value);
+    console.log(hallIndex);
+    onChangeHallName(hallIndex, value);
   };
 
   const handleClick = () => {
-    onClickDeleteHallButton(id);
+    console.log(hallIndex);
+    onClickDeleteHallButton(hallIndex);
   };
 
   return (
-    <Container key={id}>
+    <Container>
       <Wrapper>
         <input
           type="text"
@@ -54,10 +60,12 @@ function HallAddForm({
         </button>
       </Wrapper>
       <AddButtons>
-        {pieces.map((piece) => (
+        {pieces.map((piece, index) => (
           <PieceField
-            key={piece.imageId}
+            key={index}
             piece={piece}
+            pieceIndex={index}
+            hallIndex={hallIndex}
             onChange={onChangePieceField}
             onChangePosterUrl={onChangePosterUrl}
             onChangeNotification={onChangeNotification}

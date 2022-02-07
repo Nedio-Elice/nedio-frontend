@@ -1,27 +1,25 @@
-export interface ImagesData {
-  imageId: string;
+export interface ImageInfo {
   imageTitle: string;
   imageDescription: string;
   imageUrl: string;
 }
 
-export interface Hall {
-  id: string;
+export interface HallInfo {
   hallName: string;
-  imagesData: ImagesData[];
+  imagesData: ImageInfo[];
 }
 
-export interface GalleryData {
+export interface GalleryInfo {
   title: string;
   category: string;
   startDate: string;
   endDate: string;
   description: string;
   posterUrl: string;
-  halls: Hall[];
 }
 
 export interface Gallery {
-  data: GalleryData;
+  galleryInfo: GalleryInfo;
+  halls: HallInfo[];
   notification: string;
 }

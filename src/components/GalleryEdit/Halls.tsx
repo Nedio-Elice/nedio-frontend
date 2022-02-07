@@ -1,14 +1,18 @@
 import styled from 'styled-components';
-import { Hall, ImagesData } from '../../types/GalleryEdit';
+import { HallInfo, ImageInfo } from '../../types/GalleryEdit';
 
 import HallAddForm from './HallAddForm';
 
 interface Props {
-  halls: Hall[];
-  onChangeHallName: (id: string, value: string) => void;
-  onClickDeleteHallButton: (id: string) => void;
-  onChangePieceField: (piece: ImagesData) => void;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
+  halls: HallInfo[];
+  onChangeHallName: (index: number, value: string) => void;
+  onClickDeleteHallButton: (index: number) => void;
+  onChangePieceField: (
+    hallIndex: number,
+    pieceIndex: number,
+    piece: ImageInfo,
+  ) => void;
+  onChangePosterUrl: (formData: FormData) => void;
   onChangeNotification: (text: string) => void;
 }
 
@@ -23,11 +27,11 @@ function Halls({
   return (
     <Container>
       {halls
-        ? halls.map(({ id, hallName, imagesData }) => {
+        ? halls.map(({ hallName, imagesData }, index) => {
             return (
               <HallAddForm
-                key={id}
-                id={id}
+                key={`hall-${index}`}
+                hallIndex={index}
                 name={hallName}
                 pieces={imagesData}
                 onChangeHallName={onChangeHallName}

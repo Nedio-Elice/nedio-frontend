@@ -14,42 +14,44 @@ import {
   claerAllState,
 } from '../../store/gallery';
 
-import { ImagesData } from '../../types/GalleryEdit';
+import { ImageInfo } from '../../types/GalleryEdit';
 
 import GalleryEdit from '../../components/GalleryEdit';
 
 function GalleryEditContainer() {
   const dispatch = useAppDispatch();
 
-  const { data: gallery, notification } = useAppSelector(
-    (state: RootState) => state.gallery,
-  );
+  const {
+    galleryInfo: gallery,
+    halls,
+    notification,
+  } = useAppSelector((state: RootState) => state.gallery);
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());
   };
 
-  const handleChangeHallName = (id: string, value: string) => {
-    dispatch(changeHallName({ id, value }));
+  const handleChangeHallName = (index: number, value: string) => {
+    dispatch(changeHallName({ index, value }));
   };
 
-  const handleClickDeleteHallButton = (id: string) => {
-    dispatch(deleteHall(id));
+  const handleClickDeleteHallButton = (index: number) => {
+    dispatch(deleteHall(index));
   };
 
-  const handleChangePieceField = (piece: ImagesData) => {
-    dispatch(updatePiece(piece));
+  const handleChangePieceField = (
+    hallIndex: number,
+    pieceIndex: number,
+    piece: ImageInfo,
+  ) => {
+    dispatch(updatePiece({ hallIndex, pieceIndex, piece }));
   };
 
   const handleChangeGalleryInputField = (value: string, name: string) => {
     dispatch(changeGalleryInput({ name, value }));
   };
 
-  const handleChangePosterUrl = (formData: FormData, piece?: ImagesData) => {
-    if (piece) {
-      dispatch(changePosterUrl(formData, piece));
-      return;
-    }
+  const handleChangePosterUrl = (formData: FormData) => {
     dispatch(changePosterUrl(formData));
   };
 
@@ -71,6 +73,7 @@ function GalleryEditContainer() {
     <div>
       <GalleryEdit
         gallery={gallery}
+        halls={halls}
         notification={notification}
         onClickAddHallButton={handleClickAddHallButton}
         onClickDeleteHallButton={handleClickDeleteHallButton}

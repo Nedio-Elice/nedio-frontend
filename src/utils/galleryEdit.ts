@@ -1,6 +1,7 @@
-import { Hall, ImagesData } from '../types/GalleryEdit';
+import { HallInfo, ImageInfo } from '../types/GalleryEdit';
 
 export const isEmpty = (obj: any) => {
+  if (obj === null || obj === undefined) return true;
   return Object.values(obj).some((e) => {
     if (typeof e === 'string') return e === '';
     if (Array.isArray(e)) return e.length === 0;
@@ -8,7 +9,7 @@ export const isEmpty = (obj: any) => {
   });
 };
 
-export const isEmptyHalls = (halls: Hall[]) => {
+export const isEmptyHalls = (halls: HallInfo[]) => {
   return halls.some((hall) => {
     return hall.imagesData.every((piece) => {
       return isEmpty(piece);
@@ -33,10 +34,9 @@ export const capitalizeString = (s: string): string => {
   return s[0].toUpperCase() + s.slice(1);
 };
 
-export const setDefaultPieces = (id: string) => {
-  return Array.from({ length: 10 }, (_, i): ImagesData => {
+export const setDefaultPieces = () => {
+  return Array.from({ length: 10 }, (): ImageInfo => {
     return {
-      imageId: `${id}-${i + 1}`,
       imageTitle: '',
       imageDescription: '',
       imageUrl: '',
