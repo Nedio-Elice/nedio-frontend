@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SLICE } from '../constants/slice';
 
+type OptionType = 'title' | 'nickname';
+
 export interface Search {
   keyword: string;
+  option: OptionType;
 }
 
 const initialState = {
   keyword: '',
+  option: 'title',
 } as Search;
 
 const { actions, reducer } = createSlice({
@@ -19,6 +23,12 @@ const { actions, reducer } = createSlice({
         keyword,
       };
     },
+    setOption(state, { payload: option }) {
+      return {
+        ...state,
+        option,
+      };
+    },
     resetKeyword(state) {
       return {
         ...initialState,
@@ -28,7 +38,7 @@ const { actions, reducer } = createSlice({
 });
 
 // actions
-export const { setKeyword, resetKeyword } = actions;
+export const { setKeyword, setOption, resetKeyword } = actions;
 
 const searchReducer = reducer;
 

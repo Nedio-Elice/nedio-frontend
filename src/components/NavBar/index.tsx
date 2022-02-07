@@ -6,6 +6,7 @@ import { PATH } from '../../constants/path';
 import SignInContainer from '../../containers/SignInContainer';
 import AuthButton from '../AuthButton';
 import SearchContainer from '../../containers/SearchContainer';
+import logo from '../../assets/icons/logo.png';
 
 interface Props {
   isSignIn: boolean;
@@ -20,6 +21,7 @@ function NavBar({ isSignIn, signOut }: Props) {
   return (
     <NavBarContainer>
       <NavBarLeft>
+        {/* <MobileIcon src={logo} /> */}
         <Logo onClick={handleNavMain}>Nedio</Logo>
       </NavBarLeft>
 
@@ -55,6 +57,11 @@ function NavBar({ isSignIn, signOut }: Props) {
 }
 
 export default NavBar;
+
+const MobileIcon = styled.img`
+  width: 56px;
+  height: 56px;
+`;
 
 const NavBarContainer = styled.div`
   position: sticky;

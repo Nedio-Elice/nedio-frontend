@@ -1,40 +1,42 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar';
 import SearchSelect from '../../components/SearchSelect';
 import { PATH } from '../../constants/path';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { resetKeyword, setKeyword, setOption } from '../../store/search';
 
 function SearchContainer() {
-  const [keyword, setKeyword] = useState('');
-  const [selectOption, setSelectOption] = useState('title');
+  const keyword = useAppSelector((state) => state.search.keyword);
+  const selectedOption = useAppSelector((state) => state.search.option);
+  const dispatch = useAppDispatch();
   const navigation = useNavigate();
 
-  const resetKeyword = () => setKeyword('');
+  const initKeyword = () => dispatch(resetKeyword());
 
-  const handleKeyword = (value: string) => setKeyword(value);
+  const handleKeyword = (value: string) => dispatch(setKeyword(value));
 
-  const handleSelectOption = (value: string) => setSelectOption(value);
+  const handleSelectOption = (value: string) => dispatch(setOption(value));
 
   const handleSubmit = () => {
     if (keyword.length < 1) return;
 
-    let queryStr;
+    // let queryStr;
 
-    switch (selectOption) {
-      case 'title': {
-        queryStr = `${selectOption}=${keyword}&nickname=&category=`;
-        break;
-      }
+    // switch (selectedOption) {
+    //   case 'title': {
+    //     queryStr = `${selectedOption}=${keyword}&nickname=&category=`;
+    //     break;
+    //   }
 
-      case 'nickname': {
-        queryStr = `title=&${selectOption}=${keyword}&category=`;
-        break;
-      }
+    //   case 'nickname': {
+    //     queryStr = `title=&${selectedOption}=${keyword}&category=`;
+    //     break;
+    //   }
 
-      default:
-        queryStr = `title=&nickname=&category=`;
-    }
-    navigation(`${PATH.GALLERY_SEARCH}?${queryStr}`);
+    //   default:
+    //     queryStr = `title=&nickname=&category=`;
+    // }
+    navigation(`${PATH.GALLERY_SEARCH}?${selectedOption}=${keyword}`);
   };
 
   return (
@@ -42,11 +44,11 @@ function SearchContainer() {
       <SearchBar
         keyword={keyword}
         handleKeyword={handleKeyword}
-        resetKeyword={resetKeyword}
+        resetKeyword={initKeyword}
         handleSubmit={handleSubmit}
       />
       <SearchSelect
-        selectOption={selectOption}
+        option={selectedOption}
         handleSelectOption={handleSelectOption}
       />
     </>

@@ -1,48 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axiosInstance from '../api/api';
-import Card from '../components/Card';
-import CardLayout from '../components/CardLayout';
-import { PATH } from '../constants/path';
-import { SEARCH } from '../constants/search';
-import useQueryString from '../hooks/useQueryString';
-import { CardData } from '../types/Card';
+import SearchResultContainer from '../containers/SearchResultContainer';
 
 function GallerySearchPage() {
-  const query = useQueryString();
-  const [page, setPage] = useState(SEARCH.INIT_PAGE);
-  const [perPage, setPerPage] = useState(SEARCH.PER_PAGE);
-  const [cards, setCards] = useState<CardData[]>([]);
-  const navigation = useNavigate();
-
-  useEffect(() => {
-    axiosInstance
-      .get(
-        `/galleries/filtering?page=${page}&perPage=${perPage}&${decodeURIComponent(
-          query.toString(),
-        )}`,
-      )
-      .then((res) => {
-        console.log('check filtering', res.data.data);
-        setCards(res.data.data);
-      })
-      .catch((e) => {
-        // console.log(e);
-      });
-  }, [page, perPage, query]);
-
-  const handleClick = (id: string) =>
-    navigation(`${PATH.GALLERY_SEARCH}/${id}`);
-
   return (
     <Container>
       <ContentsPadding>
-        <CardLayout title="검색결과">
-          {cards.map((card) => (
-            <Card key={card._id} cardInfo={card} handleClick={handleClick} />
-          ))}
-        </CardLayout>
+        <SearchResultContainer />
       </ContentsPadding>
     </Container>
   );

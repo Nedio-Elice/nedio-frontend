@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
 interface Props {
-  selectOption: string;
+  option: string;
   handleSelectOption: (option: string) => void;
 }
 
-function SearchSelect({ selectOption, handleSelectOption }: Props) {
+function SearchSelect({ option, handleSelectOption }: Props) {
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     handleSelectOption(value);
   };
 
   return (
-    <Container onChange={onChange} value={selectOption}>
+    <Container onChange={onChange} value={option}>
       <option value="title">제목 검색</option>
       <option value="nickname">작가 검색</option>
     </Container>
