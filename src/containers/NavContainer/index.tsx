@@ -4,7 +4,7 @@ import { RootState } from '../../store/root';
 import { signOutUser } from '../../store/user';
 
 function NavContainer() {
-  const isSignIn = useAppSelector((state: RootState) => state.user.isSignIn);
+  const isSignIn = useAppSelector((state: RootState) => state.users.isSignIn);
   const dispatch = useAppDispatch();
 
   const handleSignOut = () => dispatch(signOutUser());
