@@ -19,23 +19,6 @@ function SearchContainer() {
 
   const handleSubmit = () => {
     if (keyword.length < 1) return;
-
-    // let queryStr;
-
-    // switch (selectedOption) {
-    //   case 'title': {
-    //     queryStr = `${selectedOption}=${keyword}&nickname=&category=`;
-    //     break;
-    //   }
-
-    //   case 'nickname': {
-    //     queryStr = `title=&${selectedOption}=${keyword}&category=`;
-    //     break;
-    //   }
-
-    //   default:
-    //     queryStr = `title=&nickname=&category=`;
-    // }
     navigation(`${PATH.GALLERY_SEARCH}?${selectedOption}=${keyword}`);
   };
 
