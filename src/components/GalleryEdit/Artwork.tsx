@@ -7,6 +7,7 @@ import { axiosInstanceFormData } from '../../api/api';
 
 import { ArtWorkProps } from '../../types/GalleryEdit';
 import { dragNdrop } from '../../constants/images';
+import { MESSAGE } from '../../constants/messages';
 
 function Artwork({
   label,
@@ -14,6 +15,7 @@ function Artwork({
   width,
   height,
   onChangePieceImageUrl,
+  onChangeNotification,
 }: ArtWorkProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
@@ -23,7 +25,10 @@ function Artwork({
     async (selectFile: File): Promise<void> => {
       const isImage = selectFile.type.indexOf('image') >= 0;
 
-      if (!isImage) return;
+      if (!isImage) {
+        onChangeNotification(MESSAGE.NOT_IMAGE);
+        return;
+      }
 
       const formData = new FormData();
 
@@ -36,13 +41,13 @@ function Artwork({
             const { url: value } = res.data;
             onChangePieceImageUrl({ value, name: 'url' });
           })
-          .catch((err) => {
-            // error handling
-            console.log(err);
+          .catch((e) => {
+            console.log(e);
+            onChangeNotification(MESSAGE.UPDATE_FAILED);
           });
       })();
     },
-    [onChangePieceImageUrl],
+    [onChangePieceImageUrl, onChangeNotification],
   );
 
   const handleChangeFiles = useCallback(

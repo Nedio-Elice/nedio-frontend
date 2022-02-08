@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import styled, { keyframes } from 'styled-components';
-import { backgroundGradient, flexCenter } from '../../styles/mixins';
+import { flexCenter } from '../../styles/mixins';
 
 import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
 import {
@@ -66,8 +66,6 @@ function Modal({
   };
 
   const handleClickAddButton = () => {
-    onChangeNotification('');
-
     if (isEmpty(inputValues)) {
       onChangeNotification(MESSAGE.INVALID_FORM);
       return;
@@ -100,6 +98,7 @@ function Modal({
           height="100%"
           thumbnail={inputValues?.imageUrl || ''}
           onChangePieceImageUrl={handleChange}
+          onChangeNotification={onChangeNotification}
         />
         <Title
           label=""

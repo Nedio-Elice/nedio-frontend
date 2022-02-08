@@ -43,6 +43,7 @@ function GalleryEdit({
           width="15em"
           height="20em"
           onChangePosterUrl={onChangePosterUrl}
+          onChangeNotification={onChangeNotification}
         />
         <Inputs>
           <Title

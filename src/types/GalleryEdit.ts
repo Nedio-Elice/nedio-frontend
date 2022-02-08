@@ -74,6 +74,7 @@ export interface PosterProps {
   height: string;
   thumbnail: string;
   onChangePosterUrl: (formData: FormData) => void;
+  onChangeNotification: (text: string) => void;
 }
 
 export interface ArtWorkProps {
@@ -86,6 +87,7 @@ export interface ArtWorkProps {
   piece?: ImageInfo;
   halls?: HallInfo[];
   onChangePieceImageUrl: ({ value, name }: ChangeValueWithName) => void;
+  onChangeNotification: (text: string) => void;
 }
 
 export interface PieceFieldProps {

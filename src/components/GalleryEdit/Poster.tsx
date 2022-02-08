@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { dragNdrop } from '../../constants/images';
+import { MESSAGE } from '../../constants/messages';
 
 import Container from '../../styles/poster';
 
@@ -11,6 +12,7 @@ function Poster({
   height,
   thumbnail,
   onChangePosterUrl,
+  onChangeNotification,
 }: PosterProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
@@ -20,7 +22,10 @@ function Poster({
     async (selectFile: File): Promise<void> => {
       const isImage = selectFile.type.indexOf('image') >= 0;
 
-      if (!isImage) return;
+      if (!isImage) {
+        onChangeNotification(MESSAGE.NOT_IMAGE);
+        return;
+      }
 
       const formData = new FormData();
 
@@ -28,7 +33,7 @@ function Poster({
 
       onChangePosterUrl(formData);
     },
-    [onChangePosterUrl],
+    [onChangePosterUrl, onChangeNotification],
   );
 
   const handleChangeFiles = useCallback(
