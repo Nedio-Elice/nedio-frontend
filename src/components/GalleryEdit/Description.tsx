@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { inputArea, placeholders } from '../../styles/mixins';
+import { inputArea, placeholders, transparentLabel } from '../../styles/mixins';
 import { InputProps } from '../../types/GalleryEdit';
 
 function Description({
@@ -44,4 +44,5 @@ const Container = styled.div`
     padding-top: 0.3em;
     overflow: auto;
   }
+  ${transparentLabel}
 `;

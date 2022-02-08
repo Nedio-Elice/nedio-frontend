@@ -26,6 +26,12 @@ export const greyButton = css`
   color: #e1e1e1;
 `;
 
+export const transparentLabel = css`
+  & > label {
+    opacity: 0.5;
+  }
+`;
+
 export const hoverOrange = css`
   &:hover {
     color: #ff6e00;
@@ -63,7 +69,7 @@ export const posterShadow = css`
 
 export const rightSideOrangeButton = css`
   margin-left: auto;
-  background-color: #1f3e5a;
+  background-color: #ff6e00;
   text-shadow: none;
   color: white;
 `;

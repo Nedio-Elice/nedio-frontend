@@ -25,6 +25,7 @@ export interface GalleryInfo {
 export interface Gallery {
   galleryInfo: GalleryInfo;
   halls: HallInfo[];
+  deletedHalls: string[];
   notification: string;
   mode: 'create' | 'modify';
 }

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import styled, { keyframes } from 'styled-components';
-import { flexCenter } from '../../styles/mixins';
+import { flexCenter, hoverOrange } from '../../styles/mixins';
 
 import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
 import {
@@ -203,12 +203,13 @@ const Buttons = styled.div<ButtonsStyle>`
 
   & > button {
     border-radius: 0.3em;
-    color: #ff6e00;
     transition: all 1s;
     padding: 0.5em;
 
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
       rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
+
+    ${hoverOrange}
 
     &:first-child {
       background-color: #ff6e00;

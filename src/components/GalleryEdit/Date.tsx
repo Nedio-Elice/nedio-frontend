@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { inputArea } from '../../styles/mixins';
+import { inputArea, transparentLabel } from '../../styles/mixins';
 import { InputProps } from '../../types/GalleryEdit';
 
 function Date({
@@ -42,10 +42,11 @@ const Container = styled.div`
   align-items: center;
   input {
     ${inputArea}
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: pointer;
     &::-webkit-calendar-picker-indicator {
       cursor: pointer;
     }
   }
+  ${transparentLabel}
 `;
