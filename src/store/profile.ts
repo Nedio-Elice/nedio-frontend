@@ -13,7 +13,7 @@ export type User = {
   email: string;
 };
 
-const initialState = {
+export const initialState = {
   _id: '',
   introduce: '',
   contact: '',

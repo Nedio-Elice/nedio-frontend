@@ -1,6 +1,10 @@
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import InputFields from '../InputFields';
 import Buttons from '../Buttons';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/root';
+import { getUser } from '../../store/profile';
 
 const { ButtonOrange } = Buttons;
 const { InputField } = InputFields;
@@ -8,21 +12,21 @@ const { InputField } = InputFields;
 interface Props {
   defaultText: string;
   value: string;
-  galleryId: string | undefined;
   onChange: React.Dispatch<React.SetStateAction<string>>;
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function CommentInput({
-  defaultText,
-  galleryId,
-  value,
-  onChange,
-  handleClick,
-}: Props) {
+function CommentInput({ defaultText, value, onChange, handleClick }: Props) {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.profile);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
   return (
     <CommentWrapper>
-      <UserImg />
+      <UserImg src={user.profileURL} />
       <InputField
         defaultText={defaultText}
         value={value}

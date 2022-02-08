@@ -1,8 +1,10 @@
 export interface CommentProps {
   commentId: string;
-  username: string;
   profileImgURL: string;
+  authorId: string;
   content: string;
+  galleryId: string | undefined;
+  currPage: number;
   handleClickDelete: (value: string) => void;
 }
 

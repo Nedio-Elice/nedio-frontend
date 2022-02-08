@@ -59,17 +59,19 @@ function GalleryDetailPage() {
   }, [dispatch, galleryId, currPage, comments.count]);
 
   if (gallery === null) {
-    return <h1>No data</h1>;
+    return <Background />;
   }
 
-  function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+  async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    dispatch(postComment({ galleryId, content: newComment }));
-    setNewComment('');
+    await dispatch(postComment({ galleryId, content: newComment }));
+    await setNewComment('');
+    await dispatch(getComments({ galleryId, currPage }));
   }
 
-  function handleDelete(commentId: string) {
-    dispatch(deleteComment(commentId));
+  async function handleDelete(commentId: string) {
+    await dispatch(deleteComment(commentId));
+    await dispatch(getComments({ galleryId, currPage }));
   }
 
   return (
@@ -106,7 +108,6 @@ function GalleryDetailPage() {
       <CommentInput
         defaultText="방명록을 입력해 주세요."
         value={newComment}
-        galleryId={galleryId}
         onChange={setNewComment}
         handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
           handleSubmit(event)
@@ -119,7 +120,9 @@ function GalleryDetailPage() {
             <Comment
               key={c._id}
               commentId={c._id}
-              username={c.authorId}
+              authorId={c.authorId}
+              galleryId={galleryId}
+              currPage={currPage}
               profileImgURL="/"
               content={c.content}
               handleClickDelete={() => handleDelete(c._id)}

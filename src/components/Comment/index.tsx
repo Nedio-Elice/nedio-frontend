@@ -1,41 +1,63 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { VoidExpression } from 'typescript';
-import { putComment } from '../../store/comment';
+import { AxiosError, AxiosResponse } from 'axios';
+import { getComments, putComment } from '../../store/comment';
 import Buttons from '../Buttons';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CommentPost, CommentProps } from '../../types/Comment';
+import { RootState } from '../../store/root';
+import axiosInstance from '../../api/api';
+import { initialState, User } from '../../store/profile';
 
 const { ButtonMini } = Buttons;
 
 function Comment({
   commentId,
-  username,
+  authorId,
   profileImgURL,
+  galleryId,
+  currPage,
   content,
   handleClickDelete,
 }: CommentProps) {
   const dispatch = useAppDispatch();
   const [text, setText] = useState<string>(content);
   const [update, setUpdate] = useState<boolean>(false);
+  const [author, setAuthor] = useState<User>(initialState);
+
+  useEffect(() => {
+    const fetchAuthor = async () => {
+      try {
+        await axiosInstance
+          .get<User>(`users/${authorId}`)
+          .then((response: AxiosResponse) => setAuthor(response.data));
+      } catch (error) {
+        const err = error as AxiosError;
+        throw new Error(err.response?.data);
+      }
+    };
+    fetchAuthor();
+  }, [authorId]);
 
   function handleChange(event: any) {
     event.preventDefault();
     setText(event.target.value);
   }
 
-  function handleUpdate(comment: CommentPost) {
-    dispatch(
+  async function handleUpdate(comment: CommentPost) {
+    await dispatch(
       putComment({ commentId: comment.commentId, content: comment.content }),
     );
-    setUpdate(!update);
+    await setUpdate(!update);
+    await dispatch(getComments({ galleryId, currPage }));
   }
 
   return (
     <CommentContainer>
-      <CommentImg src={profileImgURL} />
+      <CommentImg src={author.profileURL} />
       <CommentContent>
-        <CommentUsername>{username}</CommentUsername>
+        <CommentUsername>{author.nickname}</CommentUsername>
         {update === false ? (
           <CommentText>{content}</CommentText>
         ) : (
@@ -84,6 +106,7 @@ const CommentContent = styled.div`
 `;
 
 const CommentImg = styled.img`
+  display: inline-block;
   width: 48px;
   height: 48px;
   border-radius: 50%;
