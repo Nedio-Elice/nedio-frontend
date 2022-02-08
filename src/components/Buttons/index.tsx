@@ -8,6 +8,13 @@ interface ButtonProps {
   handleClick?: any;
 }
 
+interface TabButtonProps {
+  value: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
+  handleClick?: any;
+  stay: boolean;
+}
+
 function ButtonBasic({ value, type, handleClick }: ButtonProps) {
   return (
     <Button onClick={handleClick} type={type} orange={false}>
@@ -32,9 +39,9 @@ function ButtonMini({ value, type, handleClick }: ButtonProps) {
   );
 }
 
-function ButtonNeumo({ value, type, handleClick }: ButtonProps) {
+function ButtonNeumo({ value, type, handleClick, stay }: TabButtonProps) {
   return (
-    <ButtonLarge onClick={handleClick} type={type}>
+    <ButtonLarge onClick={handleClick} type={type} stay={stay}>
       {value}
     </ButtonLarge>
   );
@@ -77,7 +84,7 @@ export default {
   ButtonEdit,
 };
 
-const ButtonLarge = styled.button`
+const ButtonLarge = styled.button<{ stay: boolean }>`
   font-family: Pretendard;
   font-style: normal;
   font-weight: 500;
@@ -106,6 +113,12 @@ const ButtonLarge = styled.button`
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
   }
+
+  ${(props) =>
+    props.stay &&
+    css`
+      color: #ff6e00;
+    `}
 `;
 
 const Button = styled.button<{ orange: boolean }>`

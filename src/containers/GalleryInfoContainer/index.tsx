@@ -17,7 +17,6 @@ import {
 import Buttons from '../../components/Buttons';
 import { Gallery } from '../../types/GalleryDetail';
 import formatDateString from '../../utils/datestring';
-import { padding } from '../../utils/date';
 
 interface Props {
   gallery: Gallery;
