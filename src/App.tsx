@@ -5,19 +5,9 @@ import { PATH } from './constants/path';
 import ROUTE from './constants/route';
 import NotFoundPage from './pages/NotFoundPage';
 import NavContainer from './containers/NavContainer';
-import { signInUserByToken } from './store/user';
-import { useAppDispatch } from './store/hooks';
-import { getToken } from './utils/auth';
 import Spinner from './components/Spinner';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const token = getToken();
-    if (token) dispatch(signInUserByToken(token));
-  }, [dispatch]);
-
   return (
     <Router>
       <Routes>
