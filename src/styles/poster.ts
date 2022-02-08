@@ -22,6 +22,7 @@ const Poster = styled.div<PosterStyles>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   opacity: ${(props) => (props.thumbnail ? 1 : 0.5)};
+
   background-image: ${(props) =>
     props.thumbnail ? `url(${props.thumbnail})` : `url(${defaultPoster})`};
 

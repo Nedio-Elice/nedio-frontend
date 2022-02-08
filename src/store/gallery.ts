@@ -188,6 +188,7 @@ export function updateGallery({ navigate, galleryId }: UpdateGallery) {
     }
 
     if (mode === 'modify') {
+      console.log(data);
       const response = await axiosInstance.put(`galleries/${galleryId}`, data);
       if (response.status === 200) {
         navigate(`/galleries/${galleryId}`);
@@ -224,6 +225,21 @@ export function loadGallery(galleryId: string) {
     };
 
     dispatch(setGallery({ galleryInfo, halls }));
+  };
+}
+
+export function fetchDeleteHall(index: number) {
+  return async (dispatch: Dispatch, getState: any) => {
+    const {
+      gallery: { halls },
+    } = getState();
+
+    if (halls[index].hallObjectId) {
+      const { hallObjectId } = halls[index];
+      await axiosInstance.delete(`halls/${hallObjectId}`);
+    }
+
+    dispatch(deleteHall(index));
   };
 }
 
