@@ -31,6 +31,11 @@ const ROUTE = [
     auth: false,
   },
   {
+    path: PATH.GALLERY_EDIT_MODIFY,
+    Component: GalleryEdit,
+    auth: false,
+  },
+  {
     path: PATH.HALL,
     Component: Hall,
     auth: false,

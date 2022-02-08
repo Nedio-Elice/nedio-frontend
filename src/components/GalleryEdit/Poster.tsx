@@ -6,33 +6,34 @@ import { flexCenter, posterShadow } from '../../styles/mixins';
 import { axiosInstanceFormData } from '../../api/api';
 
 import { defaultPoster } from '../../constants/images';
-import { ImagesData } from '../../types/GalleryEdit';
+import { PosterProps } from '../../types/GalleryEdit';
 
-interface Props {
-  label: string;
-  width: string;
-  height: string;
-  thumbnail: string;
-  piece: ImagesData | null;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
-  onChangePieceImageUrl: ((value: string, name: string) => void) | null;
-}
+Poster.defaultProps = {
+  hallIndex: null,
+  pieceIndex: null,
+  piece: null,
+  onChangePieceImageUrl: null,
+};
 
 function Poster({
   label,
   thumbnail,
   width,
   height,
-  piece = null,
+  hallIndex,
+  pieceIndex,
+  piece,
   onChangePosterUrl,
-  onChangePieceImageUrl = null,
-}: Props) {
+  onChangePieceImageUrl,
+}: PosterProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const dragRef = useRef<HTMLDivElement | null>(null);
 
   const onChangeFiles = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement> | any): Promise<void> => {
+      // console.log(hallIndex, pieceIndex);
+
       const selectFile: File = e.dataTransfer.files[0];
 
       const isValid = selectFile.type.indexOf('image') >= 0;
@@ -43,15 +44,18 @@ function Poster({
 
       formData.append('upload', selectFile);
 
-      if (piece && onChangePieceImageUrl) {
-        onChangePosterUrl(formData, piece);
-
+      if (
+        piece &&
+        onChangePieceImageUrl &&
+        hallIndex !== null &&
+        pieceIndex !== null
+      ) {
         (async () => {
           await axiosInstanceFormData
             .post('uploadImage', formData)
             .then((res) => {
-              const { url: imageUrl } = res.data;
-              onChangePieceImageUrl(imageUrl, 'url');
+              const { url: value } = res.data;
+              onChangePieceImageUrl({ value, name: 'url' });
             })
             .catch((err) => {
               // error handling
@@ -65,7 +69,7 @@ function Poster({
       onChangePosterUrl(formData);
     },
 
-    [piece, onChangePosterUrl, onChangePieceImageUrl],
+    [piece, hallIndex, pieceIndex, onChangePosterUrl, onChangePieceImageUrl],
   );
 
   const handleDragIn = useCallback((e: DragEvent): void => {

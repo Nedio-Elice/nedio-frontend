@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 import {
@@ -12,49 +14,68 @@ import {
   updateGallery,
   refreshNotification,
   claerAllState,
+  loadGallery,
+  setMode,
 } from '../../store/gallery';
 
-import { ImagesData } from '../../types/GalleryEdit';
-
 import GalleryEdit from '../../components/GalleryEdit';
+import {
+  ChangeValueWithIndex,
+  ChangeValueWithName,
+  OnChangePieceFieldArgs,
+} from '../../types/GalleryEdit';
 
 function GalleryEditContainer() {
+  const navigate = useNavigate();
+
+  const { galleryId } = useParams();
+
   const dispatch = useAppDispatch();
 
-  const { data: gallery, notification } = useAppSelector(
-    (state: RootState) => state.gallery,
-  );
+  const {
+    galleryInfo: gallery,
+    halls,
+    notification,
+    mode,
+  } = useAppSelector((state: RootState) => state.gallery);
 
   const handleClickAddHallButton = () => {
     dispatch(addHall());
   };
 
-  const handleChangeHallName = (id: string, value: string) => {
-    dispatch(changeHallName({ id, value }));
+  const handleChangeHallName = ({ index, value }: ChangeValueWithIndex) => {
+    dispatch(changeHallName({ index, value }));
   };
 
-  const handleClickDeleteHallButton = (id: string) => {
-    dispatch(deleteHall(id));
+  const handleClickDeleteHallButton = (index: number) => {
+    dispatch(deleteHall(index));
   };
 
-  const handleChangePieceField = (piece: ImagesData) => {
-    dispatch(updatePiece(piece));
+  const handleChangePieceField = ({
+    hallIndex,
+    pieceIndex,
+    piece,
+  }: OnChangePieceFieldArgs) => {
+    dispatch(updatePiece({ hallIndex, pieceIndex, piece }));
   };
 
-  const handleChangeGalleryInputField = (value: string, name: string) => {
+  const handleChangeGalleryInputField = ({
+    value,
+    name,
+  }: ChangeValueWithName) => {
     dispatch(changeGalleryInput({ name, value }));
   };
 
-  const handleChangePosterUrl = (formData: FormData, piece?: ImagesData) => {
-    if (piece) {
-      dispatch(changePosterUrl(formData, piece));
-      return;
-    }
+  const handleChangePosterUrl = (formData: FormData) => {
     dispatch(changePosterUrl(formData));
   };
 
   const handleClickUpdateGallery = () => {
-    dispatch(updateGallery());
+    if (galleryId) {
+      dispatch(updateGallery({ navigate, galleryId }));
+      return;
+    }
+    dispatch(updateGallery({ navigate }));
   };
 
   const handleChangeNotification = (text: string) => {
@@ -62,15 +83,22 @@ function GalleryEditContainer() {
   };
 
   useEffect(() => {
+    if (galleryId) {
+      dispatch(setMode('modify'));
+      dispatch(loadGallery(galleryId));
+    }
+
     return () => {
       dispatch(claerAllState());
     };
-  }, [dispatch]);
+  }, [dispatch, galleryId]);
 
   return (
     <div>
       <GalleryEdit
         gallery={gallery}
+        halls={halls}
+        mode={mode}
         notification={notification}
         onClickAddHallButton={handleClickAddHallButton}
         onClickDeleteHallButton={handleClickDeleteHallButton}

@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 import { inputArea, placeholders } from '../../styles/mixins';
+import { InputProps } from '../../types/GalleryEdit';
 
-interface Props {
-  label: string;
-  title: string;
-  placeholder: string;
-  onChange: (value: string, name: string) => void;
-}
-
-function Title({ label, title, placeholder, onChange }: Props) {
+function Title({
+  label,
+  title,
+  placeholder,
+  onChange,
+}: Pick<InputProps, 'label' | 'title' | 'placeholder' | 'onChange'>) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value, name } = e.currentTarget;
 
-    onChange(value, name);
+    onChange({ value, name });
   };
 
   return (

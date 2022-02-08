@@ -2,13 +2,9 @@ import styled from 'styled-components';
 import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
 
 import { defaultPoster } from '../../constants/images';
+import { PieceButtonProps } from '../../types/GalleryEdit';
 
-interface Props {
-  thumbnail: string | null;
-  openModal: () => void;
-}
-
-function PieceButton({ openModal, thumbnail }: Props) {
+function PieceButton({ openModal, thumbnail }: PieceButtonProps) {
   return (
     <Button type="button" onClick={openModal} thumbnail={thumbnail}>
       {thumbnail ? '' : '작품\n등록'}

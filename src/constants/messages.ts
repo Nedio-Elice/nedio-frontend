@@ -4,6 +4,7 @@ const MESSAGE = {
   INVALID_FORM: '모든 항목을 입력해주세요.',
   INVALID_DATE: '유효하지 않은 날짜 입력입니다.',
   MINIMUM_PIECE: '각 전시관에 최소 한 개 이상의 작품을 등록해주세요.',
+  UPDATE_FAILED: '업데이트에 실패했습니다.',
 };
 
 // eslint-disable-next-line import/prefer-default-export

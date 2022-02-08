@@ -6,42 +6,31 @@ import {
   placeholders,
 } from '../../styles/mixins';
 
-import { ImagesData } from '../../types/GalleryEdit';
+import { HallFieldProps } from '../../types/GalleryEdit';
 
 import PieceField from './PieceField';
 
-interface Props {
-  id: string;
-  name: string;
-  pieces: ImagesData[];
-  onChangeHallName: (id: string, value: string) => void;
-  onClickDeleteHallButton: (id: string) => void;
-  onChangePieceField: (piece: ImagesData) => void;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
-  onChangeNotification: (text: string) => void;
-}
-
 function HallAddForm({
-  id,
   name,
   pieces,
+  hallIndex,
   onChangeHallName,
   onClickDeleteHallButton,
   onChangePieceField,
   onChangePosterUrl,
   onChangeNotification,
-}: Props) {
+}: HallFieldProps) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    onChangeHallName(id, value);
+    onChangeHallName({ index: hallIndex, value });
   };
 
   const handleClick = () => {
-    onClickDeleteHallButton(id);
+    onClickDeleteHallButton(hallIndex);
   };
 
   return (
-    <Container key={id}>
+    <Container>
       <Wrapper>
         <input
           type="text"
@@ -54,10 +43,12 @@ function HallAddForm({
         </button>
       </Wrapper>
       <AddButtons>
-        {pieces.map((piece) => (
+        {pieces.map((piece, index) => (
           <PieceField
-            key={piece.imageId}
+            key={index}
             piece={piece}
+            pieceIndex={index}
+            hallIndex={hallIndex}
             onChange={onChangePieceField}
             onChangePosterUrl={onChangePosterUrl}
             onChangeNotification={onChangeNotification}
