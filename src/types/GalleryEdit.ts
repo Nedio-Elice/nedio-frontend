@@ -1,5 +1,7 @@
 // state
 
+import { NavigateFunction } from 'react-router-dom';
+
 export interface ImageInfo {
   imageTitle: string;
   imageDescription: string;
@@ -24,6 +26,7 @@ export interface Gallery {
   galleryInfo: GalleryInfo;
   halls: HallInfo[];
   notification: string;
+  mode: 'create' | 'modify';
 }
 
 // props
@@ -32,6 +35,7 @@ export interface GalleryProps {
   gallery: GalleryInfo;
   notification: string;
   halls: HallInfo[];
+  mode: 'create' | 'modify';
   onClickAddHallButton: () => void;
   onClickUpdateGallery: () => void;
   onChangeNotification: (text: string) => void;
@@ -95,6 +99,7 @@ export interface InputProps {
 }
 
 export interface GalleryButtonsProps {
+  mode: 'create' | 'modify';
   onClickAddHallButton: () => void;
   onClickUpdateGallery: () => void;
 }
@@ -132,4 +137,9 @@ export interface OnChangePieceFieldArgs {
   hallIndex: number;
   pieceIndex: number;
   piece: ImageInfo;
+}
+
+export interface UpdateGallery {
+  navigate: NavigateFunction;
+  galleryId?: string;
 }

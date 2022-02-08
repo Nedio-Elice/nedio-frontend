@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
@@ -14,6 +14,8 @@ import {
   updateGallery,
   refreshNotification,
   claerAllState,
+  loadGallery,
+  setMode,
 } from '../../store/gallery';
 
 import GalleryEdit from '../../components/GalleryEdit';
@@ -24,14 +26,17 @@ import {
 } from '../../types/GalleryEdit';
 
 function GalleryEditContainer() {
-  const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
+
+  const { galleryId } = useParams();
+
+  const dispatch = useAppDispatch();
 
   const {
     galleryInfo: gallery,
     halls,
     notification,
+    mode,
   } = useAppSelector((state: RootState) => state.gallery);
 
   const handleClickAddHallButton = () => {
@@ -66,7 +71,11 @@ function GalleryEditContainer() {
   };
 
   const handleClickUpdateGallery = () => {
-    dispatch(updateGallery(navigate));
+    if (galleryId) {
+      dispatch(updateGallery({ navigate, galleryId }));
+      return;
+    }
+    dispatch(updateGallery({ navigate }));
   };
 
   const handleChangeNotification = (text: string) => {
@@ -74,16 +83,22 @@ function GalleryEditContainer() {
   };
 
   useEffect(() => {
+    if (galleryId) {
+      dispatch(setMode('modify'));
+      dispatch(loadGallery(galleryId));
+    }
+
     return () => {
       dispatch(claerAllState());
     };
-  }, [dispatch]);
+  }, [dispatch, galleryId]);
 
   return (
     <div>
       <GalleryEdit
         gallery={gallery}
         halls={halls}
+        mode={mode}
         notification={notification}
         onClickAddHallButton={handleClickAddHallButton}
         onClickDeleteHallButton={handleClickDeleteHallButton}

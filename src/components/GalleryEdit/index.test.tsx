@@ -44,6 +44,7 @@ describe('GalleryEdit', () => {
         gallery={gallery}
         halls={halls}
         notification=""
+        mode="create"
         onChangeNotification={handleChangeNotification}
         onClickAddHallButton={handleClickAddHallButton}
         onChangeHallName={handleChangeHallName}

@@ -1,6 +1,5 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
-import { NavigateFunction } from 'react-router-dom';
 import axiosInstance, { axiosInstanceFormData } from '../api/api';
 
 import {
@@ -8,9 +7,10 @@ import {
   isEmpty,
   isEmptyHalls,
   isValidDate,
+  updateArrayByIndex,
 } from '../utils/galleryEdit';
 
-import { Gallery } from '../types/GalleryEdit';
+import { Gallery, UpdateGallery } from '../types/GalleryEdit';
 import { MESSAGE } from '../constants/messages';
 import { SLICE } from '../constants/slice';
 
@@ -25,15 +25,8 @@ const initialState = {
   },
   halls: [],
   notification: '',
+  mode: 'create',
 } as Gallery;
-
-// 갤러리, 홀을 구분하는게 어떨지
-// 홀을 생성하면 10개짜리 작품 배열을 만들어주고, 작품을 추가하거나 수정할 땐 인덱스를 참조하여 상태 관리
-
-// const fetchData = {
-//   ...galleryInfo,
-//   halls,
-// }
 
 const { actions, reducer } = createSlice({
   name: SLICE.GALLERY,
@@ -61,14 +54,14 @@ const { actions, reducer } = createSlice({
       };
     },
     changeHallName(state, { payload: { index, value } }) {
-      const updated = [
-        ...state.halls.slice(0, index),
-        {
-          hallName: value,
-          imagesData: state.halls[index].imagesData,
-        },
-        ...state.halls.slice(index + 1),
-      ];
+      const { halls } = state;
+
+      const updateHall = {
+        hallName: value,
+        imagesData: state.halls[index].imagesData,
+      };
+
+      const updated = updateArrayByIndex(halls, index, updateHall);
 
       return {
         ...state,
@@ -76,35 +69,22 @@ const { actions, reducer } = createSlice({
       };
     },
     updatePiece(state, { payload: { hallIndex, pieceIndex, piece } }) {
-      // const updated = state.data.halls.map((hall) => {
-      //   if (hall.id === hallId) {
-      //     const imagesData = hall.imagesData.map((prev) =>
-      //       prev.imageId === imageId ? piece : prev,
-      //     );
-      //     return {
-      //       ...hall,
-      //       imagesData,
-      //     };
-      //   }
-      //   return hall;
-      // });
+      const { halls } = state;
 
-      const updated = [
-        ...state.halls.slice(0, hallIndex),
-        {
-          ...state.halls[hallIndex],
-          imagesData: [
-            ...state.halls[hallIndex].imagesData.slice(0, pieceIndex),
-            piece,
-            ...state.halls[hallIndex].imagesData.slice(pieceIndex + 1),
-          ],
-        },
-        ...state.halls.slice(hallIndex + 1),
-      ];
+      const updatedHall = {
+        ...halls[hallIndex],
+        imagesData: updateArrayByIndex(
+          halls[hallIndex].imagesData,
+          pieceIndex,
+          piece,
+        ),
+      };
+
+      const updatedHalls = updateArrayByIndex(halls, hallIndex, updatedHall);
 
       return {
         ...state,
-        halls: updated,
+        halls: updatedHalls,
       };
     },
     changeGalleryInput(state, { payload: { name, value } }) {
@@ -122,6 +102,19 @@ const { actions, reducer } = createSlice({
         notification,
       };
     },
+    setGallery(state, { payload: { galleryInfo, halls } }) {
+      return {
+        ...state,
+        galleryInfo,
+        halls,
+      };
+    },
+    setMode(state, { payload: mode }) {
+      return {
+        ...state,
+        mode,
+      };
+    },
     claerAllState() {
       return initialState;
     },
@@ -135,6 +128,8 @@ export const {
   updatePiece,
   changeGalleryInput,
   setNotification,
+  setGallery,
+  setMode,
   claerAllState,
 } = actions;
 
@@ -155,10 +150,10 @@ export function refreshNotification(text: string) {
   };
 }
 
-export function updateGallery(navigate: NavigateFunction) {
+export function updateGallery({ navigate, galleryId }: UpdateGallery) {
   return async (dispatch: Dispatch, getState: any) => {
     const {
-      gallery: { galleryInfo, halls },
+      gallery: { galleryInfo, halls, mode },
     } = getState();
 
     await dispatch(setNotification(''));
@@ -182,12 +177,53 @@ export function updateGallery(navigate: NavigateFunction) {
 
     const data = { ...galleryInfo, halls };
 
-    const response = await axiosInstance.post('galleries', data);
+    if (mode === 'create') {
+      const response = await axiosInstance.post('galleries', data);
+      if (response.status === 200) {
+        // id 값 받아오면 상세 페이지로 리다이렉트
+        navigate('/');
+      } else {
+        dispatch(setNotification(MESSAGE.UPDATE_FAILED));
+      }
+    }
 
-    console.log(response);
+    if (mode === 'modify') {
+      const response = await axiosInstance.put(`galleries/${galleryId}`, data);
+      if (response.status === 200) {
+        navigate(`/galleries/${galleryId}`);
+      } else {
+        dispatch(setNotification(MESSAGE.UPDATE_FAILED));
+      }
+    }
+  };
+}
 
-    // id 값 받아오면 상세 페이지로 리다이렉트
-    navigate('/');
+export function loadGallery(galleryId: string) {
+  return async (dispatch: Dispatch) => {
+    const response = await axiosInstance.get(`galleries/${galleryId}`);
+
+    const {
+      data: {
+        title,
+        category,
+        posterUrl,
+        description,
+        startDate,
+        endDate,
+        halls,
+      },
+    } = response.data;
+
+    const galleryInfo = {
+      title,
+      category,
+      description,
+      posterUrl,
+      startDate: startDate.split('T')[0],
+      endDate: endDate.split('T')[0],
+    };
+
+    dispatch(setGallery({ galleryInfo, halls }));
   };
 }
 

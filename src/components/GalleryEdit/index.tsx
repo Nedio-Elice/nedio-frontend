@@ -13,6 +13,7 @@ import Halls from './Halls';
 import Date from './Date';
 
 function GalleryEdit({
+  mode,
   halls,
   gallery,
   notification,
@@ -64,6 +65,7 @@ function GalleryEdit({
         </Inputs>
       </Wrapper>
       <Buttons
+        mode={mode}
         onClickAddHallButton={onClickAddHallButton}
         onClickUpdateGallery={onClickUpdateGallery}
       />

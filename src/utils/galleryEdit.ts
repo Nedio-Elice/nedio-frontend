@@ -1,5 +1,9 @@
 import { HallInfo, ImageInfo } from '../types/GalleryEdit';
 
+export const updateArrayByIndex = (array: any, index: number, obj: any) => {
+  return [...array.slice(0, index), obj, ...array.slice(index + 1)];
+};
+
 export const isEmpty = (obj: any) => {
   if (obj === null || obj === undefined) return true;
   return Object.values(obj).some((e) => {
