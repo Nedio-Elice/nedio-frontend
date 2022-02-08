@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { DEVICE } from '../constants/device';
 import { notFound } from '../constants/images';
 import { PATH } from '../constants/path';
 
@@ -38,7 +39,7 @@ const NotFound = styled.img`
   width: 650px;
   height: 650px;
 
-  @media only screen and (max-width: 768px) {
+  @media ${DEVICE.TABLET} {
     width: 350px;
     height: 350px;
   }
@@ -51,7 +52,7 @@ const NotFoundTitle = styled.h2`
   font-size: 2.5rem;
   margin-bottom: 10px;
 
-  @media only screen and (max-width: 768px) {
+  @media ${DEVICE.TABLET} {
     font-size: 1rem;
     margin-bottom: -10px;
   }

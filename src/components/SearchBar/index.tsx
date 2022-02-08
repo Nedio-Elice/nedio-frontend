@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DEVICE } from '../../constants/device';
 import { SearchIcon, XIcon } from '../../constants/icons';
 
 interface Props {
@@ -71,7 +72,7 @@ const Container = styled.form`
     }
   }
 
-  @media only screen and (max-width: 768px) {
+  @media ${DEVICE.TABLET} {
     width: 200px;
   }
 `;

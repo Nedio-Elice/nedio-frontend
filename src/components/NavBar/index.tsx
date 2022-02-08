@@ -10,6 +10,7 @@ import SearchContainer from '../../containers/SearchContainer';
 import logo from '../../assets/icons/logo.png';
 import { menu } from '../../constants/icons';
 import useOutOfRange from '../../hooks/useOutOfRange';
+import { DEVICE } from '../../constants/device';
 
 interface Props {
   isSignIn: boolean;
@@ -82,7 +83,7 @@ const NavBarContainer = styled.div`
   padding: 0 5%;
   user-select: none;
 
-  @media only screen and (max-width: 1000px) {
+  @media ${DEVICE.DESKTOP} {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -102,7 +103,7 @@ const Logo = styled.span`
   font-size: 40px;
   color: #000000;
 
-  @media only screen and (max-width: 1000px) {
+  @media ${DEVICE.DESKTOP} {
     display: none;
   }
 `;
@@ -112,7 +113,7 @@ const MobileLogo = styled.img`
   width: 56px;
   height: 56px;
 
-  @media only screen and (max-width: 1000px) {
+  @media ${DEVICE.DESKTOP} {
     display: block;
   }
 `;
@@ -131,7 +132,7 @@ const NavMenu = styled.div<{ isActive: boolean }>`
     margin-left: 10px;
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media ${DEVICE.DESKTOP} {
     display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
     flex-direction: column;
     width: 100%;
@@ -166,7 +167,7 @@ const Hamberger = styled.img`
   height: 25px;
   cursor: pointer;
 
-  @media only screen and (max-width: 1000px) {
+  @media ${DEVICE.DESKTOP} {
     display: block;
   }
 `;
