@@ -33,7 +33,7 @@ const Poster = styled.div<PosterStyles>`
     transform: translate(-50%, -30%);
     width: 100px;
     height: 100px;
-    opacity: 0.5;
+    opacity: 0.3;
   }
 
   label {

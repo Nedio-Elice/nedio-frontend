@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { backgroundGradient, greyButton } from '../../styles/mixins';
+import {
+  backgroundGradient,
+  greyButton,
+  hoverOrange,
+} from '../../styles/mixins';
 
 import { GalleryProps } from '../../types/GalleryEdit';
 
@@ -102,7 +106,7 @@ const Container = styled.div`
   }
 
   & > div > button {
-    color: #ff6e00;
+    ${hoverOrange}
   }
 `;
 

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import styled from 'styled-components';
 import Container from '../../styles/poster';
 
 import { axiosInstanceFormData } from '../../api/api';
@@ -125,7 +126,9 @@ function Artwork({
       thumbnail={thumbnail}
     >
       <img src={dragNdrop} alt="drag-drop" />
-      <label htmlFor="artworkUpload">{label}</label>
+      <Label htmlFor="artworkUpload">
+        <span>{label}</span>
+      </Label>
       <input
         type="file"
         accept=".png, .jpg, .jpeg"
@@ -137,3 +140,10 @@ function Artwork({
 }
 
 export default Artwork;
+
+const Label = styled.label`
+  & > span {
+    font-size: 0.5em;
+    margin-top: 4em;
+  }
+`;

@@ -63,7 +63,7 @@ export const posterShadow = css`
 
 export const rightSideOrangeButton = css`
   margin-left: auto;
-  background-color: #ff6e00;
+  background-color: #1f3e5a;
   text-shadow: none;
   color: white;
 `;
