@@ -97,6 +97,7 @@ const Container = styled.div`
   align-items: center;
   padding: 5%;
   width: 100vw;
+  min-width: 365px;
   min-height: 100vh;
   height: fit-content;
 
