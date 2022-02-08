@@ -24,7 +24,7 @@ export default SearchSelect;
 const Container = styled.select`
   width: 80px;
   height: 25px;
-  padding-left: 12px;
+  padding-left: 2px;
   margin-left: 10px;
   outline: none;
   border: none;

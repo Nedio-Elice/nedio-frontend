@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogout } from 'react-google-login';
@@ -7,6 +8,8 @@ import SignInContainer from '../../containers/SignInContainer';
 import AuthButton from '../AuthButton';
 import SearchContainer from '../../containers/SearchContainer';
 import logo from '../../assets/icons/logo.png';
+import { menu } from '../../constants/icons';
+import useOutOfRange from '../../hooks/useOutOfRange';
 
 interface Props {
   isSignIn: boolean;
@@ -15,59 +18,56 @@ interface Props {
 
 function NavBar({ isSignIn, signOut }: Props) {
   const navigate = useNavigate();
+  const containerRef = useRef(null);
+  const [isActive, setIsActive] = useOutOfRange(containerRef, false);
 
+  const handleMenu = () => setIsActive((prevActive) => !prevActive);
   const handleNavMain = () => navigate(`${PATH.MAIN}`);
 
   return (
-    <NavBarContainer>
-      <NavBarLeft>
-        {/* <MobileIcon src={logo} /> */}
-        <Logo onClick={handleNavMain}>Nedio</Logo>
-      </NavBarLeft>
+    <NavBarContainer ref={containerRef}>
+      <NavTop>
+        <LogoWrapper>
+          <MobileLogo src={logo} onClick={handleNavMain} />
+          <Logo onClick={handleNavMain}>Nedio</Logo>
+        </LogoWrapper>
 
-      <NavBarCenter>
-        <SearchContainer />
-      </NavBarCenter>
+        <SearchWrapper>
+          <SearchContainer />
+        </SearchWrapper>
+      </NavTop>
 
-      <NavBarRight>
-        <NavBarLinks>
-          {isSignIn ? (
-            <>
-              <TapButton tapMenu="갤러리 생성" to={PATH.GALLERY_EDIT} />
-              <TapButton tapMenu="마이 갤러리" to={PATH.MY_PAGE} />
-              <GoogleLogout
-                clientId={process.env.REACT_APP_GOOGLE_API_KEY}
-                buttonText="Logout"
-                onLogoutSuccess={signOut}
-                render={(renderProps) => (
-                  <AuthButton
-                    handleClick={renderProps.onClick}
-                    tapMenu="로그아웃"
-                  />
-                )}
-              />
-            </>
-          ) : (
-            <SignInContainer />
-          )}
-        </NavBarLinks>
-      </NavBarRight>
+      <Hamberger src={menu} onClick={handleMenu} />
+      <NavMenu isActive={isActive}>
+        {isSignIn ? (
+          <>
+            <TapButton tapMenu="갤러리 생성" to={PATH.GALLERY_EDIT} />
+            <TapButton tapMenu="마이 갤러리" to={PATH.MY_PAGE} />
+            <GoogleLogout
+              clientId={process.env.REACT_APP_GOOGLE_API_KEY}
+              buttonText="Logout"
+              onLogoutSuccess={signOut}
+              render={(renderProps) => (
+                <AuthButton
+                  handleClick={renderProps.onClick}
+                  tapMenu="로그아웃"
+                />
+              )}
+            />
+          </>
+        ) : (
+          <SignInContainer />
+        )}
+      </NavMenu>
     </NavBarContainer>
   );
 }
 
 export default NavBar;
 
-const MobileIcon = styled.img`
-  width: 56px;
-  height: 56px;
-`;
-
 const NavBarContainer = styled.div`
   position: sticky;
   top: 0;
-  width: 100vw;
-  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,29 +81,92 @@ const NavBarContainer = styled.div`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 0 5%;
   user-select: none;
+
+  @media only screen and (max-width: 1000px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
-const NavBarLeft = styled.div``;
-
-const Logo = styled.span`
-  font-family: 'Julius Sans One', sans-serif;
-  font-size: 40px;
-  cursor: pointer;
-  color: #000000;
-`;
-
-const NavBarCenter = styled.div`
+const NavTop = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const NavBarRight = styled.div``;
+const LogoWrapper = styled.div`
+  cursor: pointer;
+`;
 
-const NavBarLinks = styled.div`
+const Logo = styled.span`
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 40px;
+  color: #000000;
+
+  @media only screen and (max-width: 1000px) {
+    display: none;
+  }
+`;
+
+const MobileLogo = styled.img`
+  display: none;
+  width: 56px;
+  height: 56px;
+
+  @media only screen and (max-width: 1000px) {
+    display: block;
+  }
+`;
+
+const SearchWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 0;
+  margin-left: 10%;
+`;
+
+const NavMenu = styled.div<{ isActive: boolean }>`
+  display: flex;
 
   > button:not(:first-child) {
     margin-left: 10px;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+
+    > button {
+      background-color: transparent;
+      box-shadow: none;
+      border-radius: 8px;
+      width: fit-content;
+
+      margin: 5px 0;
+      padding: 0 10px;
+
+      &:hover {
+        background: #f2f3f5;
+        box-shadow: none;
+      }
+      &:not(:first-child) {
+        margin-left: 0px;
+      }
+    }
+  }
+`;
+
+const Hamberger = styled.img`
+  display: none;
+  position: absolute;
+  top: 22px;
+  right: 5%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+
+  @media only screen and (max-width: 1000px) {
+    display: block;
   }
 `;
