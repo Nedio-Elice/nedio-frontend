@@ -4,7 +4,7 @@ import InputFields from '../InputFields';
 import Buttons from '../Buttons';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
-import { getUser } from '../../store/profile';
+import { getUser, User } from '../../store/profile';
 
 const { ButtonOrange } = Buttons;
 const { InputField } = InputFields;
@@ -12,18 +12,18 @@ const { InputField } = InputFields;
 interface Props {
   defaultText: string;
   value: string;
+  user: User;
   onChange: React.Dispatch<React.SetStateAction<string>>;
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function CommentInput({ defaultText, value, onChange, handleClick }: Props) {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.profile);
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
-
+function CommentInput({
+  defaultText,
+  value,
+  onChange,
+  handleClick,
+  user,
+}: Props) {
   return (
     <CommentWrapper>
       <UserImg src={user.profileURL} />
@@ -53,4 +53,5 @@ const UserImg = styled.img`
   height: 72px;
   width: 72px;
   border-radius: 50%;
+  box-shadow: -4px -4px 16px rgb(255 255 255 / 25%), 4px 4px 12px #bbbbbb;
 `;

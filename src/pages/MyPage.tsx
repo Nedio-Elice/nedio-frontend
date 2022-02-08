@@ -227,7 +227,12 @@ export default MyPage;
 const ProfileBox = styled.div`
   width: 100%;
   min-height: 50vh;
-  background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 48.44%, #f2f3f5 100%);
+  background: linear-gradient(
+    90deg,
+    #f2f3f5 0.59%,
+    #ffffff 49.78%,
+    #f2f3f5 100%
+  );
 `;
 
 const ProfileForm = styled.div`
@@ -241,6 +246,7 @@ const UserImg = styled.img`
   height: 192px;
   width: 192px;
   border-radius: 50%;
+  box-shadow: -8px -8px 16px rgb(255 255 255 / 25%), 4px 12px 16px #bbbbbb;
 `;
 
 const InfoWrapper = styled.div`
@@ -270,7 +276,12 @@ const ButtonWrapperLeft = styled.div`
 const MyGalleryBox = styled.div`
   width: 100%;
   min-height: 50vh;
-  background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 48.44%, #f2f3f5 100%);
+  background: linear-gradient(
+    90deg,
+    #f2f3f5 0.59%,
+    #ffffff 49.78%,
+    #f2f3f5 100%
+  );
 `;
 
 const GalleryWrapper = styled.div`

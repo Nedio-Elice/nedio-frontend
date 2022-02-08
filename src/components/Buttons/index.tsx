@@ -40,6 +40,14 @@ function ButtonNeumo({ value, type, handleClick }: ButtonProps) {
   );
 }
 
+function ButtonEdit({ value, type, handleClick }: ButtonProps) {
+  return (
+    <ButtonMedium onClick={handleClick} type={type}>
+      {value}
+    </ButtonMedium>
+  );
+}
+
 ButtonBasic.defaultProps = {
   type: 'button',
   handleClick: () => {},
@@ -56,8 +64,18 @@ ButtonNeumo.defaultProps = {
   type: 'button',
   handleClick: () => {},
 };
+ButtonEdit.defaultProps = {
+  type: 'button',
+  handleClick: () => {},
+};
 
-export default { ButtonBasic, ButtonOrange, ButtonNeumo, ButtonMini };
+export default {
+  ButtonBasic,
+  ButtonOrange,
+  ButtonNeumo,
+  ButtonMini,
+  ButtonEdit,
+};
 
 const ButtonLarge = styled.button`
   font-family: Pretendard;
@@ -100,6 +118,7 @@ const Button = styled.button<{ orange: boolean }>`
   color: #777777;
   border: none;
   height: 40px;
+  min-width: 80px;
   padding: 2px 12px;
   text-align: center;
   background: linear-gradient(
@@ -158,7 +177,6 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   font-weight: normal;
   font-size: 12px;
   line-height: 12px;
-  text-align: center;
   color: #777777;
   border: none;
   height: 20px;
@@ -213,5 +231,27 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
         box-shadow: inset -3px -3px 7px #ff9545,
           inset 3px 3px 7px rgba(156, 156, 156, 0.78);
       `}
+  }
+`;
+
+const ButtonMedium = styled.button`
+  display: block;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #777777;
+  border: none;
+  background-color: transparent;
+  height: 24px;
+  width: 60px;
+  padding: 0px 12px;
+  text-align: center;
+  margin-left: auto;
+  &:hover {
+    color: #ff6e00;
   }
 `;
