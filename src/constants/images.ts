@@ -10,6 +10,7 @@ import journalism from '../assets/images/journalism.png';
 import nature from '../assets/images/nature.png';
 import person from '../assets/images/person.png';
 import defaultPoster from '../assets/images/defaultPoster.jpeg';
+import noResults from '../assets/images/noResults.svg';
 
 export {
   sample,
@@ -24,4 +25,5 @@ export {
   nature,
   person,
   defaultPoster,
+  noResults,
 };

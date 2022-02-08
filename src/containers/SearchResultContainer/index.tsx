@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import axiosInstance from '../../api/api';
 import Card from '../../components/Card';
 import CardLayout from '../../components/CardLayout';
+import { noResults } from '../../constants/images';
 import { PATH } from '../../constants/path';
 import { SEARCH } from '../../constants/search';
 import useQueryString from '../../hooks/useQueryString';
@@ -14,7 +16,7 @@ function SearchResultContainer() {
   const query = useQueryString();
   const [page, setPage] = useState(SEARCH.INIT_PAGE);
   const [perPage, setPerPage] = useState(SEARCH.PER_PAGE);
-  const [cards, setCards] = useState<CardData[]>([]);
+  const [cards, setCards] = useState<CardData[]>();
   const [resultKeyword, setResultKeyword] = useState('');
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
@@ -65,11 +67,37 @@ function SearchResultContainer() {
 
   return (
     <CardLayout title={`검색 결과: ${resultKeyword}`}>
-      {cards.map((card) => (
-        <Card key={card._id} cardInfo={card} handleClick={handleClick} />
-      ))}
+      {cards && cards.length > 0 ? (
+        <>
+          {cards.map((card) => (
+            <Card key={card._id} cardInfo={card} handleClick={handleClick} />
+          ))}
+        </>
+      ) : (
+        <NoResultsWrapper>
+          <NoResultsImg src={noResults} />
+          <NoResultsTitle>검색 결과가 없습니다</NoResultsTitle>
+        </NoResultsWrapper>
+      )}
     </CardLayout>
   );
 }
 
 export default SearchResultContainer;
+
+const NoResultsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const NoResultsImg = styled.img`
+  width: 450px;
+  height: 450px;
+`;
+
+const NoResultsTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+`;
