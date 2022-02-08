@@ -56,14 +56,16 @@ export type HallsProps = Pick<
   | 'onChangeHallName'
   | 'onClickDeleteHallButton'
   | 'onChangePieceField'
-  | 'onChangePosterUrl'
   | 'onChangeNotification'
 >;
 
-export interface HallFieldProps extends Omit<HallsProps, 'halls'> {
+export interface HallFieldProps
+  extends Pick<HallsProps, 'onChangeHallName' | 'onClickDeleteHallButton'> {
   name: string;
+  halls: HallInfo[];
   hallIndex: number;
   pieces: ImageInfo[];
+  openModal: ({ hallIndex, pieceIndex }: Index) => void;
 }
 
 export interface PosterProps {
@@ -71,11 +73,19 @@ export interface PosterProps {
   width: string;
   height: string;
   thumbnail: string;
+  onChangePosterUrl: (formData: FormData) => void;
+}
+
+export interface ArtWorkProps {
+  label: string;
+  width: string;
+  height: string;
+  thumbnail: string;
   hallIndex?: number;
   pieceIndex?: number;
   piece?: ImageInfo;
-  onChangePosterUrl: (formData: FormData) => void;
-  onChangePieceImageUrl?: ({ value, name }: ChangeValueWithName) => void;
+  halls?: HallInfo[];
+  onChangePieceImageUrl: ({ value, name }: ChangeValueWithName) => void;
 }
 
 export interface PieceFieldProps {
@@ -105,20 +115,20 @@ export interface GalleryButtonsProps {
 }
 
 export interface PieceButtonProps {
-  thumbnail: string;
-  openModal: () => void;
+  halls: HallInfo[];
+  hallIndex: number;
+  pieceIndex: number;
+  openModal: ({ hallIndex, pieceIndex }: Index) => void;
 }
 
 export interface ModalProps {
+  halls: HallInfo[];
   modalOn: boolean;
-  piece: ImageInfo;
   hallIndex: number;
   pieceIndex: number;
-  isUpdated: boolean;
   closeModal: () => void;
   onChange: ({ hallIndex, pieceIndex, piece }: OnChangePieceFieldArgs) => void;
   onChangeNotification: (text: string) => void;
-  onChangePosterUrl: (formData: FormData) => void;
 }
 
 // prameters
@@ -142,4 +152,9 @@ export interface OnChangePieceFieldArgs {
 export interface UpdateGallery {
   navigate: NavigateFunction;
   galleryId?: string;
+}
+
+export interface Index {
+  hallIndex: number;
+  pieceIndex: number;
 }

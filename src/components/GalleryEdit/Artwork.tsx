@@ -1,17 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { dragNdrop } from '../../constants/images';
 
 import Container from '../../styles/poster';
 
-import { PosterProps } from '../../types/GalleryEdit';
+import { axiosInstanceFormData } from '../../api/api';
 
-function Poster({
+import { ArtWorkProps } from '../../types/GalleryEdit';
+import { dragNdrop } from '../../constants/images';
+
+function Artwork({
   label,
+  thumbnail,
   width,
   height,
-  thumbnail,
-  onChangePosterUrl,
-}: PosterProps) {
+  onChangePieceImageUrl,
+}: ArtWorkProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const dragRef = useRef<HTMLDivElement | null>(null);
@@ -26,9 +28,20 @@ function Poster({
 
       formData.append('upload', selectFile);
 
-      onChangePosterUrl(formData);
+      (async () => {
+        await axiosInstanceFormData
+          .post('uploadImage', formData)
+          .then((res) => {
+            const { url: value } = res.data;
+            onChangePieceImageUrl({ value, name: 'url' });
+          })
+          .catch((err) => {
+            // error handling
+            console.log(err);
+          });
+      })();
     },
-    [onChangePosterUrl],
+    [onChangePieceImageUrl],
   );
 
   const handleChangeFiles = useCallback(
@@ -112,15 +125,15 @@ function Poster({
       thumbnail={thumbnail}
     >
       <img src={dragNdrop} alt="drag-drop" />
-      <label htmlFor="posterUpload">{label}</label>
+      <label htmlFor="artworkUpload">{label}</label>
       <input
         type="file"
         accept=".png, .jpg, .jpeg"
-        id="posterUpload"
+        id="artworkUpload"
         onChange={handleChangeFiles}
       />
     </Container>
   );
 }
 
-export default Poster;
+export default Artwork;

@@ -2,12 +2,25 @@ import styled from 'styled-components';
 import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
 
 import { defaultPoster } from '../../constants/images';
-import { PieceButtonProps } from '../../types/GalleryEdit';
+import { ImageInfo, PieceButtonProps } from '../../types/GalleryEdit';
 
-function PieceButton({ openModal, thumbnail }: PieceButtonProps) {
+function PieceButton({
+  openModal,
+  halls,
+  hallIndex,
+  pieceIndex,
+}: PieceButtonProps) {
+  const piece: ImageInfo = halls[hallIndex]?.imagesData[pieceIndex];
+
+  const thumbnail = piece.imageUrl;
+
   return (
-    <Button type="button" onClick={openModal} thumbnail={thumbnail}>
-      {thumbnail ? '' : '작품\n등록'}
+    <Button
+      type="button"
+      onClick={() => openModal({ hallIndex, pieceIndex })}
+      thumbnail={thumbnail}
+    >
+      {thumbnail ? '' : '작품 등록'}
     </Button>
   );
 }
@@ -26,11 +39,11 @@ const Button = styled.button<ButtonStyle>`
   height: 50px;
   white-space: pre-wrap;
 
+  ${posterShadow}
+
   background-size: 100% 100%;
   background-image: ${(props) =>
     props.thumbnail ? `url(${props.thumbnail})` : `url(${defaultPoster})`};
-
-  ${posterShadow}
 
   transition: transform 0.3s ease-in;
   &:hover {

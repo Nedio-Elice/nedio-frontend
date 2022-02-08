@@ -7,18 +7,16 @@ import {
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
-
-import PieceField from './PieceField';
+import PieceButton from './PieceButton';
 
 function HallAddForm({
   name,
   pieces,
+  halls,
   hallIndex,
+  openModal,
   onChangeHallName,
   onClickDeleteHallButton,
-  onChangePieceField,
-  onChangePosterUrl,
-  onChangeNotification,
 }: HallFieldProps) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -43,15 +41,13 @@ function HallAddForm({
         </button>
       </Wrapper>
       <AddButtons>
-        {pieces.map((piece, index) => (
-          <PieceField
+        {pieces.map((_, index) => (
+          <PieceButton
             key={index}
-            piece={piece}
+            halls={halls}
             pieceIndex={index}
             hallIndex={hallIndex}
-            onChange={onChangePieceField}
-            onChangePosterUrl={onChangePosterUrl}
-            onChangeNotification={onChangeNotification}
+            openModal={openModal}
           />
         ))}
       </AddButtons>

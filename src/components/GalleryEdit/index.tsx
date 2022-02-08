@@ -34,7 +34,7 @@ function GalleryEdit({
       <Flash notification={notification} />
       <Wrapper>
         <Poster
-          label="포스터 끌어서 놓기"
+          label="Drag&Drop your poster here"
           thumbnail={posterUrl}
           width="15em"
           height="20em"
@@ -74,7 +74,6 @@ function GalleryEdit({
         onChangeHallName={onChangeHallName}
         onClickDeleteHallButton={onClickDeleteHallButton}
         onChangePieceField={onChangePieceField}
-        onChangePosterUrl={onChangePosterUrl}
         onChangeNotification={onChangeNotification}
       />
     </Container>

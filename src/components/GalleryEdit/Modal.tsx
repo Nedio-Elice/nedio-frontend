@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import styled, { keyframes } from 'styled-components';
 import { backgroundGradient, flexCenter } from '../../styles/mixins';
@@ -12,23 +12,29 @@ import {
 import { MESSAGE } from '../../constants/messages';
 
 import Description from './Description';
-import Poster from './Poster';
 import Title from './Title';
+import Artwork from './Artwork';
 
 function Modal({
-  piece,
+  halls,
+  modalOn,
   hallIndex,
   pieceIndex,
-  modalOn,
-  isUpdated,
-  onChange,
-  closeModal,
-  onChangePosterUrl,
   onChangeNotification,
+  closeModal,
+  onChange,
 }: ModalProps) {
-  const [inputValues, setInputValues] = useState<ImageInfo>(piece);
+  const empty = {
+    imageTitle: '',
+    imageDescription: '',
+    imageUrl: '',
+  };
 
-  const prevValues = useRef<ImageInfo>(piece);
+  const [inputValues, setInputValues] = useState<ImageInfo>(empty);
+
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  const prevValues = useRef<ImageInfo>(empty);
 
   const handleClickCloseButton = () => {
     onChange({ hallIndex, pieceIndex, piece: prevValues.current });
@@ -50,17 +56,11 @@ function Modal({
   };
 
   const handleClickDeleteButton = () => {
-    const emptyForm = {
-      imageTitle: '',
-      imageDescription: '',
-      imageUrl: '',
-    };
+    setInputValues(empty);
 
-    setInputValues(emptyForm);
+    prevValues.current = empty;
 
-    prevValues.current = emptyForm;
-
-    onChange({ hallIndex, pieceIndex, piece: emptyForm });
+    onChange({ hallIndex, pieceIndex, piece: empty });
 
     closeModal();
   };
@@ -80,36 +80,42 @@ function Modal({
     closeModal();
   };
 
+  useEffect(() => {
+    const piece: ImageInfo = halls[hallIndex]?.imagesData[pieceIndex];
+
+    if (piece) {
+      setInputValues(piece);
+      prevValues.current = piece;
+      setIsUpdated(!isEmpty(piece));
+    }
+  }, [halls, hallIndex, pieceIndex]);
+
   return (
     <Container modalOn={modalOn}>
       <Wrapper>
         <Header>작품 등록</Header>
-        <Poster
-          label="작품 이미지 끌어서 놓기"
+        <Artwork
+          label=""
           width="100%"
           height="100%"
-          thumbnail={inputValues.imageUrl}
-          piece={piece}
-          hallIndex={hallIndex}
-          pieceIndex={pieceIndex}
+          thumbnail={inputValues?.imageUrl || ''}
           onChangePieceImageUrl={handleChange}
-          onChangePosterUrl={onChangePosterUrl}
         />
         <Title
           label=""
-          title={inputValues.imageTitle}
+          title={inputValues?.imageTitle || ''}
           placeholder="작품의 제목을 입력해주세요"
           onChange={handleChange}
         />
         <Description
           label=""
-          description={inputValues.imageDescription}
+          description={inputValues?.imageDescription || ''}
           placeholder="작품에 대해 소개해주세요"
           onChange={handleChange}
         />
         <Buttons isUpdated={isUpdated}>
           <button type="button" onClick={handleClickAddButton}>
-            {isUpdated ? '수 정' : '등 록'}
+            등 록
           </button>
           <button type="button" onClick={handleClickDeleteButton}>
             삭 제
