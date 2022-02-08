@@ -11,6 +11,7 @@ import nature from '../assets/images/nature.png';
 import person from '../assets/images/person.png';
 import defaultPoster from '../assets/images/defaultPoster.jpeg';
 import noResults from '../assets/images/noResults.svg';
+import notFound from '../assets/images/notFound.svg';
 
 export {
   sample,
@@ -26,4 +27,5 @@ export {
   person,
   defaultPoster,
   noResults,
+  notFound,
 };
