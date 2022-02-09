@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { memo } from 'react';
 import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
 
 import { defaultPoster } from '../../constants/images';
@@ -20,7 +21,7 @@ function Piece({ openModal, halls, hallIndex, pieceIndex }: PieceButtonProps) {
   );
 }
 
-export default Piece;
+export default memo(Piece);
 
 interface ButtonStyle {
   thumbnail: string | null;

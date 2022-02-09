@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -39,48 +39,59 @@ function GalleryEditContainer() {
     mode,
   } = useAppSelector((state: RootState) => state.gallery);
 
-  const handleClickAddHallButton = () => {
+  const handleClickAddHallButton = useCallback(() => {
     dispatch(addHall());
-  };
+  }, [dispatch]);
 
-  const handleChangeHallName = ({ index, value }: ChangeValueWithIndex) => {
-    dispatch(changeHallName({ index, value }));
-  };
+  const handleChangeHallName = useCallback(
+    ({ index, value }: ChangeValueWithIndex) => {
+      dispatch(changeHallName({ index, value }));
+    },
+    [dispatch],
+  );
 
-  const handleClickDeleteHallButton = (index: number) => {
-    dispatch(fetchDeleteHall(index));
-  };
+  const handleClickDeleteHallButton = useCallback(
+    (index: number) => {
+      dispatch(fetchDeleteHall(index));
+    },
+    [dispatch],
+  );
 
-  const handleChangePieceField = ({
-    hallIndex,
-    pieceIndex,
-    piece,
-  }: OnChangePieceFieldArgs) => {
-    dispatch(updatePiece({ hallIndex, pieceIndex, piece }));
-  };
+  const handleChangePieceField = useCallback(
+    ({ hallIndex, pieceIndex, piece }: OnChangePieceFieldArgs) => {
+      dispatch(updatePiece({ hallIndex, pieceIndex, piece }));
+    },
+    [dispatch],
+  );
 
-  const handleChangeGalleryInputField = ({
-    value,
-    name,
-  }: ChangeValueWithName) => {
-    dispatch(changeGalleryInput({ name, value }));
-  };
+  const handleChangeGalleryInputField = useCallback(
+    ({ value, name }: ChangeValueWithName) => {
+      dispatch(changeGalleryInput({ name, value }));
+    },
+    [dispatch],
+  );
 
-  const handleChangePosterUrl = (formData: FormData) => {
-    dispatch(changePosterUrl(formData));
-  };
+  const handleChangePosterUrl = useCallback(
+    (formData: FormData) => {
+      dispatch(changePosterUrl(formData));
+    },
+    [dispatch],
+  );
 
-  const handleClickUpdateGallery = () => {
+  const handleClickUpdateGallery = useCallback(() => {
     if (galleryId) {
       dispatch(updateGallery({ navigate, galleryId }));
       return;
     }
     dispatch(updateGallery({ navigate }));
-  };
+  }, [dispatch, navigate, galleryId]);
 
-  const handleChangeNotification = (text: string) => {
-    dispatch(refreshNotification(text));
-  };
+  const handleChangeNotification = useCallback(
+    (text: string) => {
+      dispatch(refreshNotification(text));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (galleryId) {

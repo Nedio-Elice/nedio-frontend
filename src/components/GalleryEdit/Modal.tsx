@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 
 import styled, { keyframes } from 'styled-components';
 import { flexCenter, gradientBlue, hoverOrange } from '../../styles/mixins';
@@ -47,16 +47,19 @@ function Modal({
     closeModal();
   };
 
-  const handleChange = ({ value, name }: ChangeValueWithName) => {
-    const transformName = `image${capitalizeString(name)}`;
+  const handleChange = useCallback(
+    ({ value, name }: ChangeValueWithName) => {
+      const transformName = `image${capitalizeString(name)}`;
 
-    const updated = {
-      ...inputValues,
-      [transformName]: value,
-    };
+      const updated = {
+        ...inputValues,
+        [transformName]: value,
+      };
 
-    setInputValues(updated);
-  };
+      setInputValues(updated);
+    },
+    [inputValues],
+  );
 
   const handleClickDeleteButton = () => {
     setInputValues(empty);
@@ -131,7 +134,7 @@ function Modal({
   );
 }
 
-export default Modal;
+export default memo(Modal);
 
 interface ButtonsStyle {
   isUpdated: boolean;

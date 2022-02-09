@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import {
   greyButton,
@@ -57,7 +59,7 @@ function HallField({
   );
 }
 
-export default HallField;
+export default memo(HallField);
 
 const Container = styled.div`
   display: flex;

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
+
 import styled from 'styled-components';
 
 import { HallsProps, Index } from '../../types/GalleryEdit';
@@ -19,17 +20,17 @@ function Halls({
     pieceIndex: 0,
   });
 
-  const openModal = async ({ hallIndex, pieceIndex }: Index) => {
+  const openModal = useCallback(async ({ hallIndex, pieceIndex }: Index) => {
     await setIndexNumbers({
       hallIndex,
       pieceIndex,
     });
     setModalOn(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModalOn(false);
-  };
+  }, []);
 
   const { hallIndex, pieceIndex } = indexNumbers;
 
@@ -67,7 +68,7 @@ function Halls({
   );
 }
 
-export default Halls;
+export default memo(Halls);
 
 const Container = styled.div`
   width: 680px;

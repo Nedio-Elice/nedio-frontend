@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import {
   leftSideSiverButton,
@@ -31,7 +33,7 @@ function Buttons({
   );
 }
 
-export default Buttons;
+export default memo(Buttons);
 
 interface ContainerStyles {
   mode: 'create' | 'modify';

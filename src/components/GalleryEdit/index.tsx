@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import {
   backgroundGradient,
@@ -85,7 +87,7 @@ function GalleryEdit({
   );
 }
 
-export default GalleryEdit;
+export default memo(GalleryEdit);
 
 const Container = styled.div`
   position: relative;

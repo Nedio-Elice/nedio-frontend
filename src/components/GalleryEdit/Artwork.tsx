@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
 import Container from '../../styles/poster';
@@ -145,7 +145,7 @@ function Artwork({
   );
 }
 
-export default Artwork;
+export default memo(Artwork);
 
 const Label = styled.label`
   & > span {
