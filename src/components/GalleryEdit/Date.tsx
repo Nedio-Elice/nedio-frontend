@@ -1,18 +1,17 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { inputArea } from '../../styles/mixins';
+import { inputArea, transparentLabel } from '../../styles/mixins';
+import { InputProps } from '../../types/GalleryEdit';
 
-interface Props {
-  onChange: (value: string, name: string) => void;
-  startDate: string;
-  endDate: string;
-}
-
-function Date({ onChange, startDate, endDate }: Props) {
+function Date({
+  onChange,
+  startDate,
+  endDate,
+}: Pick<InputProps, 'onChange' | 'startDate' | 'endDate'>) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    onChange(value, name);
+    onChange({ value, name });
   };
   return (
     <Container>
@@ -43,10 +42,11 @@ const Container = styled.div`
   align-items: center;
   input {
     ${inputArea}
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: pointer;
     &::-webkit-calendar-picker-indicator {
       cursor: pointer;
     }
   }
+  ${transparentLabel}
 `;

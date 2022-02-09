@@ -115,6 +115,10 @@ const InputBox = styled.input<{
     font-family: 'Pretendard-Regular';
     opacity: 0.6;
   }
+  &:focus {
+    border: 1px solid #ff6e00;
+    outline: none;
+  }
 `;
 
 const InputTextBox = styled.textarea<{
@@ -140,12 +144,18 @@ const InputTextBox = styled.textarea<{
   padding: 12px 16px;
   border: 1px solid #d1d1d1;
   box-sizing: border-box;
-  box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);
+  box-shadow: inset 2px 2px 0px #ffffff;
+  filter: drop-shadow(2px 8px 24px rgba(0, 0, 0, 0.12));
   border-radius: 5px;
 
   &::placeholder {
     font-family: 'Pretendard-Regular';
     opacity: 0.6;
+  }
+
+  &:focus {
+    border: 1px solid #ff6e00;
+    outline: none;
   }
 `;
 
@@ -154,14 +164,15 @@ const InputImage = styled.input`
 `;
 
 const Label = styled.label`
+  display: inline-block;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  text-align: center;
   color: #777777;
   border: none;
   height: 40px;
+  line-height: 40px;
   padding: 2px 12px;
   text-align: center;
   background: linear-gradient(

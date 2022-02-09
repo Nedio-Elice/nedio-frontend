@@ -1,20 +1,19 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { inputArea } from '../../styles/mixins';
+import { inputArea, transparentLabel } from '../../styles/mixins';
 
 import categories from '../../constants/categories';
+import { InputProps } from '../../types/GalleryEdit';
 
-interface Props {
-  onChange: (value: string, name: string) => void;
-  category: string;
-}
-
-function Categories({ onChange, category }: Props) {
+function Categories({
+  onChange,
+  category,
+}: Pick<InputProps, 'category' | 'onChange'>) {
   const handleChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const { value, name } = e.currentTarget;
 
-    onChange(value, name);
+    onChange({ value, name });
   };
   return (
     <Container>
@@ -26,8 +25,10 @@ function Categories({ onChange, category }: Props) {
         onChange={handleChange}
       >
         <option value="">select</option>
-        {categories.map((value) => (
-          <option value={value}>{value}</option>
+        {categories.map((value, i) => (
+          <option key={i} value={value}>
+            {value}
+          </option>
         ))}
       </select>
     </Container>
@@ -42,7 +43,8 @@ const Container = styled.div`
   select {
     ${inputArea}
     width: auto;
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: pointer;
   }
+  ${transparentLabel}
 `;

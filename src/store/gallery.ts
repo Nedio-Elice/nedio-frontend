@@ -7,24 +7,26 @@ import {
   isEmpty,
   isEmptyHalls,
   isValidDate,
-  getId,
+  updateArrayByIndex,
 } from '../utils/galleryEdit';
 
-import { Gallery, ImagesData } from '../types/GalleryEdit';
+import { Gallery, UpdateGallery } from '../types/GalleryEdit';
 import { MESSAGE } from '../constants/messages';
 import { SLICE } from '../constants/slice';
 
 const initialState = {
-  data: {
+  galleryInfo: {
     title: '',
     category: '',
     startDate: '',
     endDate: '',
     description: '',
     posterUrl: '',
-    halls: [],
   },
+  halls: [],
+  deletedHalls: [],
   notification: '',
+  mode: 'create',
 } as Gallery;
 
 const { actions, reducer } = createSlice({
@@ -32,76 +34,65 @@ const { actions, reducer } = createSlice({
   initialState,
   reducers: {
     addHall(state) {
-      const id = getId();
-
       return {
         ...state,
-        data: {
-          ...state.data,
-          halls: [
-            ...state.data.halls,
-            {
-              id,
-              hallName: '',
-              imagesData: setDefaultPieces(id),
-            },
-          ],
-        },
+        halls: [
+          ...state.halls,
+          {
+            hallName: '',
+            imagesData: setDefaultPieces(),
+          },
+        ],
       };
     },
-    deleteHall(state, { payload: id }) {
+    deleteHall(state, { payload: index }) {
       return {
         ...state,
-        data: {
-          ...state.data,
-          halls: state.data.halls.filter((hall) => hall.id !== id),
-        },
+        halls: [
+          ...state.halls.slice(0, index),
+          ...state.halls.slice(index + 1),
+        ],
       };
     },
-    changeHallName(state, { payload: { id, value } }) {
-      const updated = state.data.halls.map((hall) =>
-        hall.id === id ? { ...hall, hallName: value } : hall,
-      );
+    changeHallName(state, { payload: { index, value } }) {
+      const { halls } = state;
+
+      const updateHall = {
+        hallName: value,
+        imagesData: state.halls[index].imagesData,
+      };
+
+      const updated = updateArrayByIndex(halls, index, updateHall);
 
       return {
         ...state,
-        data: {
-          ...state.data,
-          halls: updated,
-        },
+        halls: updated,
       };
     },
-    updatePiece(state, { payload: piece }) {
-      const { imageId } = piece;
+    updatePiece(state, { payload: { hallIndex, pieceIndex, piece } }) {
+      const { halls } = state;
 
-      const hallId = imageId.split('-')[0];
+      const updatedHall = {
+        ...halls[hallIndex],
+        imagesData: updateArrayByIndex(
+          halls[hallIndex].imagesData,
+          pieceIndex,
+          piece,
+        ),
+      };
 
-      const updated = state.data.halls.map((hall) => {
-        if (hall.id === hallId) {
-          const imagesData = hall.imagesData.map((prev) =>
-            prev.imageId === imageId ? piece : prev,
-          );
-          return {
-            ...hall,
-            imagesData,
-          };
-        }
-        return hall;
-      });
+      const updatedHalls = updateArrayByIndex(halls, hallIndex, updatedHall);
 
       return {
         ...state,
-        data: {
-          ...state.data,
-          halls: updated,
-        },
+        halls: updatedHalls,
       };
     },
     changeGalleryInput(state, { payload: { name, value } }) {
       return {
         ...state,
-        data: {
-          ...state.data,
+        galleryInfo: {
+          ...state.galleryInfo,
           [name]: value,
         },
       };
@@ -110,6 +101,25 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         notification,
+      };
+    },
+    setGallery(state, { payload: { galleryInfo, halls } }) {
+      return {
+        ...state,
+        galleryInfo,
+        halls,
+      };
+    },
+    setMode(state, { payload: mode }) {
+      return {
+        ...state,
+        mode,
+      };
+    },
+    setDeleteHall(state, { payload: hallObjectId }) {
+      return {
+        ...state,
+        deletedHalls: [...state.deletedHalls, hallObjectId],
       };
     },
     claerAllState() {
@@ -125,23 +135,17 @@ export const {
   updatePiece,
   changeGalleryInput,
   setNotification,
+  setGallery,
+  setMode,
+  setDeleteHall,
   claerAllState,
 } = actions;
 
-export function changePosterUrl(formData: FormData, piece?: ImagesData) {
+export function changePosterUrl(formData: FormData) {
   return async (dispatch: Dispatch) => {
     const response = await axiosInstanceFormData.post('uploadImage', formData);
 
     const { url: imageUrl } = response.data;
-
-    if (piece) {
-      const newPiece = {
-        ...piece,
-        imageUrl,
-      };
-      dispatch(updatePiece(newPiece));
-      return;
-    }
 
     dispatch(changeGalleryInput({ name: 'posterUrl', value: imageUrl }));
   };
@@ -154,17 +158,17 @@ export function refreshNotification(text: string) {
   };
 }
 
-export function updateGallery() {
+export function updateGallery({ navigate, galleryId }: UpdateGallery) {
   return async (dispatch: Dispatch, getState: any) => {
     const {
-      gallery: { data },
+      gallery: { galleryInfo, halls, mode, deletedHalls },
     } = getState();
 
     await dispatch(setNotification(''));
 
-    const { startDate, endDate, halls } = data;
+    const { startDate, endDate } = galleryInfo;
 
-    if (isEmpty(data)) {
+    if (isEmpty(galleryInfo)) {
       dispatch(setNotification(MESSAGE.INVALID_FORM));
       return;
     }
@@ -179,13 +183,77 @@ export function updateGallery() {
       return;
     }
 
-    // TODO: 실제 데이터 전송
+    const data = { ...galleryInfo, halls };
 
-    const response = await axiosInstance.post('galleries', data);
+    if (mode === 'create') {
+      const response = await axiosInstance.post('galleries', data);
+      if (response.status === 200) {
+        const { data: id } = response.data;
+        navigate(`/galleries/${id}`);
+      } else {
+        dispatch(setNotification(MESSAGE.UPDATE_FAILED));
+      }
+    }
 
-    console.log(response);
+    if (mode === 'modify') {
+      if (deletedHalls.length) {
+        deletedHalls.forEach(async (hallObjectId: string) => {
+          await axiosInstance.delete(`halls/${hallObjectId}`);
+        });
+      }
 
-    // 리다이렉트는 언제? 어디서?
+      const response = await axiosInstance.put(`galleries/${galleryId}`, data);
+
+      if (response.status === 200) {
+        navigate(`/galleries/${galleryId}`);
+      } else {
+        dispatch(setNotification(MESSAGE.UPDATE_FAILED));
+      }
+    }
+  };
+}
+
+export function loadGallery(galleryId: string) {
+  return async (dispatch: Dispatch) => {
+    const response = await axiosInstance.get(`galleries/${galleryId}`);
+
+    const {
+      data: {
+        title,
+        category,
+        posterUrl,
+        description,
+        startDate,
+        endDate,
+        halls,
+      },
+    } = response.data;
+
+    const galleryInfo = {
+      title,
+      category,
+      description,
+      posterUrl,
+      startDate: startDate.split('T')[0],
+      endDate: endDate.split('T')[0],
+    };
+
+    dispatch(setGallery({ galleryInfo, halls }));
+  };
+}
+
+export function fetchDeleteHall(index: number) {
+  return async (dispatch: Dispatch, getState: any) => {
+    const {
+      gallery: { halls },
+    } = getState();
+
+    if (halls[index].hallObjectId) {
+      const { hallObjectId } = halls[index];
+      await dispatch(setDeleteHall(hallObjectId));
+    }
+
+    dispatch(deleteHall(index));
   };
 }
 

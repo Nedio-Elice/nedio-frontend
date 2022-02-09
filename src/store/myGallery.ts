@@ -6,39 +6,131 @@ import { SLICE } from '../constants/slice';
 import { Author, Galleries, Halls } from '../types/GalleryDetail';
 
 export interface Gallery {
+  _id: string;
   posterUrl: string;
   description: string;
   endDate: string;
   startDate: string;
   category: string;
   title: string;
-  author: Author;
+  nickname: string;
   authorId: string;
-  halls: Halls;
-  isOpened: boolean;
 }
 
-const initialState = [] as Galleries;
+export type GalleryResponse = {
+  success: string;
+  message: string;
+  data: Array<Gallery>;
+};
 
-export const getGalleries = createAsyncThunk('GET/GELLERIES', async () => {
-  try {
-    const response = await axiosInstance.get<Galleries>(`galleries/`);
-    return response.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    throw new Error(err.response?.data);
+interface GalleryState {
+  list: Array<Gallery>;
+  length: number;
+}
+
+const initialState = {} as GalleryState;
+
+function FilterGalRunning(data: Array<Gallery>) {
+  return data.filter(
+    (g: Gallery) =>
+      Date.parse(g.startDate) < Date.now() &&
+      Date.parse(g.endDate) > Date.now(),
+  );
+}
+function FilterGalComing(data: Array<Gallery>) {
+  return data.filter((g: Gallery) => Date.parse(g.startDate) > Date.now());
+}
+function FilterGalClosed(data: Array<Gallery>) {
+  return data.filter((g: Gallery) => Date.parse(g.endDate) < Date.now());
+}
+
+function TrimGalleries(data: Array<Gallery>, currPage: number) {
+  const TrimmedGalleries = [];
+  const CARDS_PER_PAGE = 8;
+  for (
+    let i = currPage * CARDS_PER_PAGE;
+    i < (currPage + 1) * CARDS_PER_PAGE;
+    i += 1
+  ) {
+    if (data[i]) TrimmedGalleries.push(data[i]);
   }
-});
+  return TrimmedGalleries;
+}
+
+export const getGalRunning = createAsyncThunk(
+  'GET/GALRUNNING',
+  async (currPage: number) => {
+    try {
+      const response = await axiosInstance.get<GalleryResponse>(
+        `galleries/myGallery`,
+      );
+      const FilteredGalleries = FilterGalRunning(response.data.data);
+      return {
+        list: TrimGalleries(FilteredGalleries, currPage),
+        length: FilteredGalleries.length,
+      };
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.response?.data);
+    }
+  },
+);
+
+export const getGalComing = createAsyncThunk(
+  'GET/GALCOMING',
+  async (currPage: number) => {
+    try {
+      const response = await axiosInstance.get<GalleryResponse>(
+        `galleries/myGallery`,
+      );
+      const FilteredGalleries = FilterGalComing(response.data.data);
+      return {
+        list: TrimGalleries(FilteredGalleries, currPage),
+        length: FilteredGalleries.length,
+      };
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.response?.data);
+    }
+  },
+);
+
+export const getGalClosed = createAsyncThunk(
+  'GET/GALCLOSED',
+  async (currPage: number) => {
+    try {
+      const response = await axiosInstance.get<GalleryResponse>(
+        `galleries/myGallery`,
+      );
+      const FilteredGalleries = FilterGalClosed(response.data.data);
+      return {
+        list: TrimGalleries(FilteredGalleries, currPage),
+        length: FilteredGalleries.length,
+      };
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.response?.data);
+    }
+  },
+);
 
 const myGallerySlice = createSlice({
-  name: SLICE.USER,
+  name: SLICE.MYGALLERY,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getGalleries.fulfilled, (state, { payload }) => {
-      return [...state, ...payload];
+    builder.addCase(getGalRunning.fulfilled, (state, { payload }) => {
+      return { list: payload.list, length: payload.length };
     });
-    builder.addCase(getGalleries.rejected, (state, action) => {});
+    builder.addCase(getGalRunning.rejected, (state, action) => {});
+    builder.addCase(getGalComing.fulfilled, (state, { payload }) => {
+      return { list: payload.list, length: payload.length };
+    });
+    builder.addCase(getGalComing.rejected, (state, action) => {});
+    builder.addCase(getGalClosed.fulfilled, (state, { payload }) => {
+      return { list: payload.list, length: payload.length };
+    });
+    builder.addCase(getGalClosed.rejected, (state, action) => {});
   },
 });
 

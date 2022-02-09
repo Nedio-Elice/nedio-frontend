@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-import { backgroundGradient, greyButton } from '../../styles/mixins';
+import {
+  backgroundGradient,
+  greyButton,
+  hoverOrange,
+} from '../../styles/mixins';
 
-import { GalleryData, ImagesData } from '../../types/GalleryEdit';
+import { GalleryProps } from '../../types/GalleryEdit';
 
 import Description from './Description';
 import Categories from './Categories';
@@ -12,20 +16,9 @@ import Title from './Title';
 import Halls from './Halls';
 import Date from './Date';
 
-interface Props {
-  gallery: GalleryData;
-  notification: string;
-  onClickAddHallButton: () => void;
-  onClickUpdateGallery: () => void;
-  onChangeNotification: (text: string) => void;
-  onClickDeleteHallButton: (id: string) => void;
-  onChangePieceField: (piece: ImagesData) => void;
-  onChangeHallName: (id: string, value: string) => void;
-  onChangeGalleryInputField: (value: string, name: string) => void;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
-}
-
 function GalleryEdit({
+  mode,
+  halls,
   gallery,
   notification,
   onChangeHallName,
@@ -36,8 +29,8 @@ function GalleryEdit({
   onClickAddHallButton,
   onClickDeleteHallButton,
   onChangeGalleryInputField,
-}: Props) {
-  const { title, category, startDate, endDate, description, halls, posterUrl } =
+}: GalleryProps) {
+  const { title, category, startDate, endDate, description, posterUrl } =
     gallery;
 
   return (
@@ -45,13 +38,12 @@ function GalleryEdit({
       <Flash notification={notification} />
       <Wrapper>
         <Poster
-          label="포스터 끌어서 놓기"
+          label="Drag&Drop your poster here"
           thumbnail={posterUrl}
           width="15em"
           height="20em"
           onChangePosterUrl={onChangePosterUrl}
-          onChangePieceImageUrl={null}
-          piece={null}
+          onChangeNotification={onChangeNotification}
         />
         <Inputs>
           <Title
@@ -78,6 +70,7 @@ function GalleryEdit({
         </Inputs>
       </Wrapper>
       <Buttons
+        mode={mode}
         onClickAddHallButton={onClickAddHallButton}
         onClickUpdateGallery={onClickUpdateGallery}
       />
@@ -86,7 +79,6 @@ function GalleryEdit({
         onChangeHallName={onChangeHallName}
         onClickDeleteHallButton={onClickDeleteHallButton}
         onChangePieceField={onChangePieceField}
-        onChangePosterUrl={onChangePosterUrl}
         onChangeNotification={onChangeNotification}
       />
     </Container>
@@ -105,6 +97,7 @@ const Container = styled.div`
   align-items: center;
   padding: 5%;
   width: 100vw;
+  min-width: 365px;
   min-height: 100vh;
   height: fit-content;
 
@@ -115,7 +108,7 @@ const Container = styled.div`
   }
 
   & > div > button {
-    color: #ff6e00;
+    ${hoverOrange}
   }
 `;
 

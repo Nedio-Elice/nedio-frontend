@@ -1,19 +1,22 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+
+import styled from 'styled-components';
+import Container from '../../styles/poster';
+
+import { axiosInstanceFormData } from '../../api/api';
+
+import { ArtWorkProps } from '../../types/GalleryEdit';
 import { dragNdrop } from '../../constants/images';
 import { MESSAGE } from '../../constants/messages';
 
-import Container from '../../styles/poster';
-
-import { PosterProps } from '../../types/GalleryEdit';
-
-function Poster({
+function Artwork({
   label,
+  thumbnail,
   width,
   height,
-  thumbnail,
-  onChangePosterUrl,
+  onChangePieceImageUrl,
   onChangeNotification,
-}: PosterProps) {
+}: ArtWorkProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const dragRef = useRef<HTMLDivElement | null>(null);
@@ -31,9 +34,20 @@ function Poster({
 
       formData.append('upload', selectFile);
 
-      onChangePosterUrl(formData);
+      (async () => {
+        await axiosInstanceFormData
+          .post('uploadImage', formData)
+          .then((res) => {
+            const { url: value } = res.data;
+            onChangePieceImageUrl({ value, name: 'url' });
+          })
+          .catch((e) => {
+            console.log(e);
+            onChangeNotification(MESSAGE.UPDATE_FAILED);
+          });
+      })();
     },
-    [onChangePosterUrl, onChangeNotification],
+    [onChangePieceImageUrl, onChangeNotification],
   );
 
   const handleChangeFiles = useCallback(
@@ -117,15 +131,24 @@ function Poster({
       thumbnail={thumbnail}
     >
       <img src={dragNdrop} alt="drag-drop" />
-      <label htmlFor="posterUpload">{label}</label>
+      <Label htmlFor="artworkUpload">
+        <span>{label}</span>
+      </Label>
       <input
         type="file"
         accept=".png, .jpg, .jpeg"
-        id="posterUpload"
+        id="artworkUpload"
         onChange={handleChangeFiles}
       />
     </Container>
   );
 }
 
-export default Poster;
+export default Artwork;
+
+const Label = styled.label`
+  & > span {
+    font-size: 0.5em;
+    margin-top: 4em;
+  }
+`;

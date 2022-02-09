@@ -12,6 +12,7 @@ import person from '../assets/images/person.png';
 import defaultPoster from '../assets/images/defaultPoster.jpeg';
 import noResults from '../assets/images/noResults.svg';
 import notFound from '../assets/images/notFound.svg';
+import dragNdrop from '../assets/icons/dragNdrop.png';
 
 export {
   sample,
@@ -28,4 +29,5 @@ export {
   defaultPoster,
   noResults,
   notFound,
+  dragNdrop,
 };

@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import { GalleryData } from '../../types/GalleryEdit';
+import { GalleryInfo, HallInfo } from '../../types/GalleryEdit';
 
 import GalleryEdit from './index';
 
@@ -13,32 +13,38 @@ describe('GalleryEdit', () => {
   const handleClickUpdateGallery = jest.fn();
   const handleChangeNotification = jest.fn();
 
-  const initialValue = {
+  const initialGallery = {
     title: '',
     category: '',
     startDate: '',
     endDate: '',
     description: '',
     posterUrl: '',
-    halls: [
-      {
-        id: '1',
-        hallName: '',
-        imagesData: [],
-      },
-      {
-        id: '2',
-        hallName: '',
-        imagesData: [],
-      },
-    ],
   };
 
-  function renderGalleryEdit(gallery: GalleryData = initialValue) {
+  const initialHalls = [
+    {
+      id: '1',
+      hallName: '',
+      imagesData: [],
+    },
+    {
+      id: '2',
+      hallName: '',
+      imagesData: [],
+    },
+  ];
+
+  function renderGalleryEdit(
+    gallery: GalleryInfo = initialGallery,
+    halls: HallInfo[] = initialHalls,
+  ) {
     return render(
       <GalleryEdit
         gallery={gallery}
+        halls={halls}
         notification=""
+        mode="create"
         onChangeNotification={handleChangeNotification}
         onClickAddHallButton={handleClickAddHallButton}
         onChangeHallName={handleChangeHallName}

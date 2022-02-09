@@ -5,7 +5,7 @@ import axiosInstance from '../api/api';
 import { SLICE } from '../constants/slice';
 
 export type User = {
-  id: string | undefined;
+  _id: string | undefined;
   introduce: string;
   contact: string;
   profileURL: string;
@@ -13,8 +13,8 @@ export type User = {
   email: string;
 };
 
-const initialState = {
-  id: '',
+export const initialState = {
+  _id: '',
   introduce: '',
   contact: '',
   profileURL: '',
@@ -22,22 +22,19 @@ const initialState = {
   email: '',
 } as User;
 
-export const getUser = createAsyncThunk(
-  'GET/USER',
-  async (userId: string | undefined) => {
-    try {
-      const response = await axiosInstance.get<User>(`users/${userId}`);
-      return response.data;
-    } catch (error) {
-      const err = error as AxiosError;
-      throw new Error(err.response?.data);
-    }
-  },
-);
+export const getUser = createAsyncThunk('GET/USER', async () => {
+  try {
+    const response = await axiosInstance.get<User>(`users/myInfo`);
+    return response.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    throw new Error(err.response?.data);
+  }
+});
 
 export const putUser = createAsyncThunk('PUT/USER', async (user: User) => {
   try {
-    const response = await axiosInstance.put<User>(`users/${user.id}`, {
+    const response = await axiosInstance.put<User>(`users/${user._id}`, {
       nickname: user.nickname,
       email: user.email,
       introduce: user.introduce,
@@ -60,9 +57,17 @@ const profileSlice = createSlice({
       getUser.fulfilled,
       (
         state,
-        { payload: { introduce, contact, profileURL, nickname, email } },
+        { payload: { _id, introduce, contact, profileURL, nickname, email } },
       ) => {
-        return { ...state, introduce, contact, profileURL, nickname, email };
+        return {
+          ...state,
+          _id,
+          introduce,
+          contact,
+          profileURL,
+          nickname,
+          email,
+        };
       },
     );
     builder.addCase(getUser.rejected, (state, action) => {});
@@ -70,7 +75,7 @@ const profileSlice = createSlice({
       putUser.fulfilled,
       (
         state,
-        { payload: { introduce, contact, profileURL, nickname, email } },
+        { payload: { _id, introduce, contact, profileURL, nickname, email } },
       ) => {
         return { ...state, introduce, contact, profileURL, nickname, email };
       },
