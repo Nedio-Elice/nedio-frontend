@@ -53,13 +53,39 @@ export const posterShadow = css`
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
+export const leftSideSiverButton = css`
+  background-image: linear-gradient(
+    to right,
+    #e1e1e1 0%,
+    #eef2f3 51%,
+    #e1e1e1 100%
+  );
+  background-size: 200% auto;
+  text-shadow: none;
+  transition: 0.5s;
+  color: #ff6e00;
+  opacity: 0.8;
+  &:hover {
+    background-position: right center;
+    opacity: 1;
+  }
+`;
+
 export const rightSideOrangeButton = css`
   margin-left: auto;
-  background-color: #ff6e00;
+  background-image: linear-gradient(
+    to right,
+    #ff6e00 0%,
+    #f0cb35 51%,
+    #ff6e00 100%
+  );
+  background-size: 200% auto;
   text-shadow: none;
+  transition: 0.5s;
   color: white;
   &:hover {
-    color: white;
+    background-position: right center;
+    color: #fff;
   }
 `;
 

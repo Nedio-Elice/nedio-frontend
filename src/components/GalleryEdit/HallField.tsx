@@ -42,7 +42,7 @@ function HallField({
           전시관 삭제
         </button>
       </Wrapper>
-      <AddButtons>
+      <PieceButtons>
         {pieces.map((_, index) => (
           <Piece
             key={index}
@@ -52,7 +52,7 @@ function HallField({
             openModal={openModal}
           />
         ))}
-      </AddButtons>
+      </PieceButtons>
     </Container>
   );
 }
@@ -76,26 +76,23 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 1em;
   & > button {
     ${greyButton}
     ${hoverOrange}
     padding: 0.3em;
-  }
-
-  button + button {
     margin-left: 1em;
   }
 
   & > input {
     ${inputArea}
     ${placeholders}
-    margin-right: 1em;
     width: 5em;
   }
 `;
 
-const AddButtons = styled.div`
+const PieceButtons = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: repeat(10, 1fr);

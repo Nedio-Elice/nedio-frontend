@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { rightSideOrangeButton } from '../../styles/mixins';
+import {
+  leftSideSiverButton,
+  rightSideOrangeButton,
+} from '../../styles/mixins';
 
 import { GalleryButtonsProps } from '../../types/GalleryEdit';
 
@@ -42,7 +45,10 @@ const Container = styled.div<ContainerStyles>`
 
   button {
     height: 2em;
-    color: #ff6e00;
+
+    &:first-child {
+      ${leftSideSiverButton}
+    }
 
     &:last-child {
       ${rightSideOrangeButton}
