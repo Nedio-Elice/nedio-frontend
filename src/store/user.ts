@@ -4,6 +4,7 @@ import { SLICE } from '../constants/slice';
 import { removeToken, setToken } from '../utils/auth';
 
 export interface MyInfo {
+  _id?: string;
   email: string;
   nickname: string;
   profileURL: string;
@@ -12,6 +13,7 @@ export interface MyInfo {
 const initialState = {
   isSignIn: false,
   userInfo: {
+    _id: '',
     email: '',
     nickname: '',
     profileURL: '',
