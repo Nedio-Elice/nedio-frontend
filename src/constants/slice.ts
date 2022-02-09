@@ -3,6 +3,7 @@ const SLICE = {
   GALLERY: 'gallery',
   COMMENT: 'comment',
   PROFILE: 'profile',
+  SEARCH: 'search',
   MYGALLERY: 'mygallery',
 };
 

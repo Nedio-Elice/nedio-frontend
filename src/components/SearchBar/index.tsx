@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DEVICE } from '../../constants/device';
 import { SearchIcon, XIcon } from '../../constants/icons';
 
 interface Props {
@@ -46,6 +47,7 @@ const Container = styled.form`
   align-items: center;
   border-radius: 50px;
   position: relative;
+  transition: width 0.8s;
 
   background: linear-gradient(
     90deg,
@@ -68,6 +70,10 @@ const Container = styled.form`
         opacity: 0.8;
       }
     }
+  }
+
+  @media ${DEVICE.TABLET} {
+    width: 200px;
   }
 `;
 
