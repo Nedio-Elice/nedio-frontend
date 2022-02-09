@@ -6,42 +6,29 @@ import {
   placeholders,
 } from '../../styles/mixins';
 
-import { ImagesData } from '../../types/GalleryEdit';
-
-import PieceField from './PieceField';
-
-interface Props {
-  id: string;
-  name: string;
-  pieces: ImagesData[];
-  onChangeHallName: (id: string, value: string) => void;
-  onClickDeleteHallButton: (id: string) => void;
-  onChangePieceField: (piece: ImagesData) => void;
-  onChangePosterUrl: (formData: FormData, piece?: ImagesData) => void;
-  onChangeNotification: (text: string) => void;
-}
+import { HallFieldProps } from '../../types/GalleryEdit';
+import PieceButton from './PieceButton';
 
 function HallAddForm({
-  id,
   name,
   pieces,
+  halls,
+  hallIndex,
+  openModal,
   onChangeHallName,
   onClickDeleteHallButton,
-  onChangePieceField,
-  onChangePosterUrl,
-  onChangeNotification,
-}: Props) {
+}: HallFieldProps) {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    onChangeHallName(id, value);
+    onChangeHallName({ index: hallIndex, value });
   };
 
   const handleClick = () => {
-    onClickDeleteHallButton(id);
+    onClickDeleteHallButton(hallIndex);
   };
 
   return (
-    <Container key={id}>
+    <Container>
       <Wrapper>
         <input
           type="text"
@@ -54,13 +41,13 @@ function HallAddForm({
         </button>
       </Wrapper>
       <AddButtons>
-        {pieces.map((piece) => (
-          <PieceField
-            key={piece.imageId}
-            piece={piece}
-            onChange={onChangePieceField}
-            onChangePosterUrl={onChangePosterUrl}
-            onChangeNotification={onChangeNotification}
+        {pieces.map((_, index) => (
+          <PieceButton
+            key={index}
+            halls={halls}
+            pieceIndex={index}
+            hallIndex={hallIndex}
+            openModal={openModal}
           />
         ))}
       </AddButtons>
@@ -110,5 +97,10 @@ const AddButtons = styled.div`
   width: 100%;
   @media only screen and (max-width: 720px) {
     grid-template-columns: repeat(5, 1fr);
+    button {
+      margin: 0.5em 0;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;

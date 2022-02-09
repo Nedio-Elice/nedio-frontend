@@ -1,11 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { flexCenter } from '../../styles/mixins';
+import { GalleryProps } from '../../types/GalleryEdit';
 
-interface Props {
-  notification: string;
-}
-
-function Flash({ notification }: Props) {
+function Flash({ notification }: Partial<GalleryProps>) {
   if (notification) {
     return <Container>{notification}</Container>;
   }

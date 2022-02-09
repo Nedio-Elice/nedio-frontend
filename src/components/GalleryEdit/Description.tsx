@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { inputArea, placeholders } from '../../styles/mixins';
+import { inputArea, placeholders, transparentLabel } from '../../styles/mixins';
+import { InputProps } from '../../types/GalleryEdit';
 
-interface Props {
-  label: string;
-  description: string;
-  placeholder: string;
-  onChange: (value: string, name: string) => void;
-}
-
-function Description({ label, description, placeholder, onChange }: Props) {
+function Description({
+  label,
+  description,
+  placeholder,
+  onChange,
+}: Pick<InputProps, 'label' | 'description' | 'placeholder' | 'onChange'>) {
   const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.currentTarget;
 
-    onChange(value, name);
+    onChange({ value, name });
   };
 
   return (
@@ -45,4 +44,5 @@ const Container = styled.div`
     padding-top: 0.3em;
     overflow: auto;
   }
+  ${transparentLabel}
 `;
