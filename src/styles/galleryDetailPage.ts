@@ -63,6 +63,7 @@ export const GalleryDescription = styled.p`
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
+  white-space: pre-wrap;
 `;
 
 export const AuthorProfile = styled.div`

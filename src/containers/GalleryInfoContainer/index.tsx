@@ -33,10 +33,7 @@ function GalleryInformation({ gallery, galleryId, user, author }: Props) {
       <GalleryPoster src={gallery.posterUrl} alt=" " />
       <GalleryInfo>
         {gallery.authorId === user._id ? (
-          <Link
-            to={`gallery/edit/${galleryId}`}
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to="edit" style={{ textDecoration: 'none' }}>
             <ButtonEdit value="수정" />
           </Link>
         ) : (
