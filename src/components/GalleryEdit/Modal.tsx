@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import styled, { keyframes } from 'styled-components';
 import { flexCenter, hoverOrange } from '../../styles/mixins';
@@ -17,7 +17,6 @@ import Artwork from './Artwork';
 
 function Modal({
   halls,
-  modalOn,
   hallIndex,
   pieceIndex,
   onChangeNotification,
@@ -36,7 +35,11 @@ function Modal({
 
   const prevValues = useRef<ImageInfo>(empty);
 
-  const handleClickCloseButton = () => {
+  const handleClickCloseButton = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLDivElement>,
+  ) => {
+    if (e.target !== e.currentTarget) return;
+
     onChange({ hallIndex, pieceIndex, piece: prevValues.current });
 
     setInputValues(prevValues.current);
@@ -89,7 +92,7 @@ function Modal({
   }, [halls, hallIndex, pieceIndex]);
 
   return (
-    <Container modalOn={modalOn}>
+    <Container onClick={handleClickCloseButton}>
       <Wrapper>
         <Header>작품 등록</Header>
         <Artwork
@@ -130,10 +133,6 @@ function Modal({
 
 export default Modal;
 
-interface ContainerStyles {
-  modalOn: boolean;
-}
-
 interface ButtonsStyle {
   isUpdated: boolean;
 }
@@ -141,19 +140,19 @@ interface ButtonsStyle {
 const modalUp = keyframes`
     0% {
         opacity: 0;
-        transform: translate(-50%, 100%);
+        transform: translateY(100%);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%);
+        transform: none;
     }
 `;
 
-const Container = styled.div<ContainerStyles>`
-  display: ${(props) => (props.modalOn ? 'flex' : 'none')};
+const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  ${flexCenter}
   width: 100vw;
   height: 100vh;
   min-height: fit-content;
@@ -162,9 +161,6 @@ const Container = styled.div<ContainerStyles>`
 `;
 
 const Wrapper = styled.div`
-  position: relative;
-  top: 50%;
-  left: 50%;
   ${flexCenter}
   flex-direction: column;
   padding: 1em;

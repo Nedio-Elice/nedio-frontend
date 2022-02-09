@@ -4,12 +4,7 @@ import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
 import { defaultPoster } from '../../constants/images';
 import { ImageInfo, PieceButtonProps } from '../../types/GalleryEdit';
 
-function PieceButton({
-  openModal,
-  halls,
-  hallIndex,
-  pieceIndex,
-}: PieceButtonProps) {
+function Piece({ openModal, halls, hallIndex, pieceIndex }: PieceButtonProps) {
   const piece: ImageInfo = halls[hallIndex]?.imagesData[pieceIndex];
 
   const thumbnail = piece.imageUrl;
@@ -25,7 +20,7 @@ function PieceButton({
   );
 }
 
-export default PieceButton;
+export default Piece;
 
 interface ButtonStyle {
   thumbnail: string | null;
@@ -37,7 +32,6 @@ const Button = styled.button<ButtonStyle>`
   padding: 0.3em;
   width: 50px;
   height: 50px;
-  white-space: pre-wrap;
 
   ${posterShadow}
 

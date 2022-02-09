@@ -89,9 +89,7 @@ export default GalleryEdit;
 
 const Container = styled.div`
   position: relative;
-
   font-size: 16px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,6 +139,7 @@ const Inputs = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 2em;
+  width: 100%;
 
   div + div {
     margin-top: 1em;

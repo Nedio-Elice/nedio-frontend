@@ -10,22 +10,6 @@ export const backgroundGradient = css`
   );
 `;
 
-export const defaultButton = css`
-  padding: 0.3em;
-  border: none;
-  cursor: pointer;
-`;
-
-export const greyButton = css`
-  ${defaultButton}
-  border-radius: 0.3em;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
-  background-color: rgba(242, 243, 245, 0.79);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
-    rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
-  color: #e1e1e1;
-`;
-
 export const transparentLabel = css`
   & > label {
     opacity: 0.5;
@@ -45,12 +29,14 @@ export const flexCenter = css`
 `;
 
 export const inputArea = css`
+  font-family: 'Pretendard-Regular';
   width: 100%;
   height: 2em;
   border: none;
   outline: none;
   padding-left: 0.3em;
   border-radius: 0.3em;
+  opacity: 0.8;
   box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
     rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
 `;
@@ -72,4 +58,24 @@ export const rightSideOrangeButton = css`
   background-color: #ff6e00;
   text-shadow: none;
   color: white;
+  &:hover {
+    color: white;
+  }
+`;
+
+export const defaultButton = css`
+  ${flexCenter};
+  padding: 0.5em 0.7em;
+  border: none;
+  cursor: pointer;
+`;
+
+export const greyButton = css`
+  ${defaultButton}
+  border-radius: 0.3em;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: rgba(242, 243, 245, 0.79);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
+    rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
+  color: #e1e1e1;
 `;

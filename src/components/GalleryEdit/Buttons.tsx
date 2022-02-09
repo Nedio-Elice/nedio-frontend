@@ -21,12 +21,8 @@ function Buttons({
       <button type="button" onClick={handleClickAddHallButton}>
         전시관 추가
       </button>
-      <button type="button">미리보기</button>
       <button type="button" onClick={handleClickUpdateGallery}>
-        갤러리 생성
-      </button>
-      <button type="button" onClick={handleClickUpdateGallery}>
-        갤러리 수정
+        {mode === 'create' ? '갤러리 생성' : '갤러리 수정'}
       </button>
     </Container>
   );
@@ -46,12 +42,9 @@ const Container = styled.div<ContainerStyles>`
 
   button {
     height: 2em;
-    &:nth-child(3) {
-      display: ${(props) => (props.mode === 'create' ? 'block' : 'none')};
-      ${rightSideOrangeButton}
-    }
+    color: #ff6e00;
+
     &:last-child {
-      display: ${(props) => (props.mode === 'modify' ? 'block' : 'none')};
       ${rightSideOrangeButton}
     }
   }

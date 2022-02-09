@@ -7,9 +7,10 @@ import {
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
-import PieceButton from './PieceButton';
 
-function HallAddForm({
+import Piece from './Piece';
+
+function HallField({
   name,
   pieces,
   halls,
@@ -36,13 +37,14 @@ function HallAddForm({
           placeholder="관명"
           onChange={handleChange}
         />
+        <button type="button">미리보기</button>
         <button type="button" onClick={handleClick}>
           전시관 삭제
         </button>
       </Wrapper>
       <AddButtons>
         {pieces.map((_, index) => (
-          <PieceButton
+          <Piece
             key={index}
             halls={halls}
             pieceIndex={index}
@@ -55,7 +57,7 @@ function HallAddForm({
   );
 }
 
-export default HallAddForm;
+export default HallField;
 
 const Container = styled.div`
   display: flex;
@@ -77,9 +79,12 @@ const Wrapper = styled.div`
   margin-bottom: 1em;
   & > button {
     ${greyButton}
-    transition: all 1s;
-
     ${hoverOrange}
+    padding: 0.3em;
+  }
+
+  button + button {
+    margin-left: 1em;
   }
 
   & > input {

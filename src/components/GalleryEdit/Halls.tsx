@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { HallsProps, Index } from '../../types/GalleryEdit';
 
-import HallAddForm from './HallAddForm';
+import HallField from './HallField';
 import Modal from './Modal';
 
 function Halls({
@@ -35,31 +35,34 @@ function Halls({
 
   return (
     <Container>
-      {halls
-        ? halls.map(({ hallName, imagesData }, index) => {
-            return (
-              <HallAddForm
-                key={`hall-${index}`}
-                halls={halls}
-                hallIndex={index}
-                name={hallName}
-                pieces={imagesData}
-                openModal={openModal}
-                onChangeHallName={onChangeHallName}
-                onClickDeleteHallButton={onClickDeleteHallButton}
-              />
-            );
-          })
-        : '전시관을 등록해주세요 :)'}
-      <Modal
-        halls={halls}
-        modalOn={modalOn}
-        hallIndex={hallIndex}
-        pieceIndex={pieceIndex}
-        closeModal={closeModal}
-        onChange={onChangePieceField}
-        onChangeNotification={onChangeNotification}
-      />
+      {halls.length ? (
+        halls.map(({ hallName, imagesData }, index) => {
+          return (
+            <HallField
+              key={`hall-${index}`}
+              halls={halls}
+              hallIndex={index}
+              name={hallName}
+              pieces={imagesData}
+              openModal={openModal}
+              onChangeHallName={onChangeHallName}
+              onClickDeleteHallButton={onClickDeleteHallButton}
+            />
+          );
+        })
+      ) : (
+        <span>전시관을 등록해주세요 :)</span>
+      )}
+      {modalOn && (
+        <Modal
+          halls={halls}
+          hallIndex={hallIndex}
+          pieceIndex={pieceIndex}
+          closeModal={closeModal}
+          onChange={onChangePieceField}
+          onChangeNotification={onChangeNotification}
+        />
+      )}
     </Container>
   );
 }
@@ -68,6 +71,10 @@ export default Halls;
 
 const Container = styled.div`
   width: 680px;
+  & > span {
+    opacity: 0.8;
+    color: #ff6e00;
+  }
   @media only screen and (max-width: 720px) {
     width: 340px;
   }
