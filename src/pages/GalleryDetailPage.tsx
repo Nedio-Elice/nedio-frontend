@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
 import { getComments, postComment, deleteComment } from '../store/comment';
@@ -15,11 +15,13 @@ import makePageCount from '../utils/makePageCount';
 import { getUser, initialState, User } from '../store/profile';
 import { Background, ButtonWrapper } from '../styles/galleryDetailPage';
 import GalleryInformation from '../containers/GalleryInfoContainer';
+import { PATH } from '../constants/path';
 
 const { ButtonBasic } = Buttons;
 
 function GalleryDetailPage() {
   const dispatch = useAppDispatch();
+  const navigation = useNavigate();
   const comments = useAppSelector((state: RootState) => state.comment);
   const user = useAppSelector((state: RootState) => state.profile);
 
@@ -79,6 +81,9 @@ function GalleryDetailPage() {
     await dispatch(getComments({ galleryId, currPage }));
   }
 
+  const handleHallButtonClick = (id: string) =>
+    navigation(`${PATH.HALL}/${id}`);
+
   if (gallery === null) {
     return <Background />;
   }
@@ -95,9 +100,10 @@ function GalleryDetailPage() {
         {gallery.halls !== null &&
           gallery.halls.map((hall, idx) => {
             return (
-              <Link to={hall.hallObjectId} key={Date.now()}>
-                <ButtonBasic value={`${idx + 1}관`} handleClick={() => {}} />
-              </Link>
+              <ButtonBasic
+                value={`${idx + 1}관`}
+                handleClick={() => handleHallButtonClick(hall.hallObjectId)}
+              />
             );
           })}
       </ButtonWrapper>

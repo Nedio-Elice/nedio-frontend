@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User } from '../../store/profile';
 import {
   AuthorEmail,
@@ -17,6 +17,7 @@ import {
 import Buttons from '../../components/Buttons';
 import { Gallery } from '../../types/GalleryDetail';
 import formatDateString from '../../utils/datestring';
+import { PATH } from '../../constants/path';
 
 interface Props {
   gallery: Gallery;
@@ -28,14 +29,19 @@ interface Props {
 const { ButtonEdit } = Buttons;
 
 function GalleryInformation({ gallery, galleryId, user, author }: Props) {
+  const navigation = useNavigate();
+  const handleEditClick = (id: string | undefined) =>
+    navigation(`${PATH.GALLERY_EDIT}/${id}`);
+
   return (
     <GalleryInfoWrapper>
       <GalleryPoster src={gallery.posterUrl} alt=" " />
       <GalleryInfo>
         {gallery.authorId === user._id ? (
-          <Link to="edit" style={{ textDecoration: 'none' }}>
-            <ButtonEdit value="수정" />
-          </Link>
+          <ButtonEdit
+            value="수정"
+            handleClick={() => handleEditClick(galleryId)}
+          />
         ) : (
           <EmptyDiv height="24px" />
         )}
