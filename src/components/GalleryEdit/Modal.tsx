@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import styled, { keyframes } from 'styled-components';
-import { flexCenter, hoverOrange } from '../../styles/mixins';
+import { flexCenter, gradientBlue, hoverOrange } from '../../styles/mixins';
 
 import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
 import {
@@ -186,7 +186,7 @@ const Header = styled.div`
   padding: 0 1em;
   width: 100%;
   height: 2.5em;
-  background-color: #1f3e5a;
+  ${gradientBlue}
   box-shadow: rgba(0, 0, 0, 0.45) 0px 0.5px 5px -1px;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 600;
