@@ -1,17 +1,38 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-import { HallsProps } from '../../types/GalleryEdit';
+import { HallsProps, Index } from '../../types/GalleryEdit';
 
 import HallAddForm from './HallAddForm';
+import Modal from './Modal';
 
 function Halls({
   halls,
   onChangeHallName,
   onClickDeleteHallButton,
   onChangePieceField,
-  onChangePosterUrl,
   onChangeNotification,
 }: HallsProps) {
+  const [modalOn, setModalOn] = useState(false);
+  const [indexNumbers, setIndexNumbers] = useState<Index>({
+    hallIndex: 0,
+    pieceIndex: 0,
+  });
+
+  const openModal = async ({ hallIndex, pieceIndex }: Index) => {
+    await setIndexNumbers({
+      hallIndex,
+      pieceIndex,
+    });
+    setModalOn(true);
+  };
+
+  const closeModal = () => {
+    setModalOn(false);
+  };
+
+  const { hallIndex, pieceIndex } = indexNumbers;
+
   return (
     <Container>
       {halls
@@ -19,18 +40,26 @@ function Halls({
             return (
               <HallAddForm
                 key={`hall-${index}`}
+                halls={halls}
                 hallIndex={index}
                 name={hallName}
                 pieces={imagesData}
+                openModal={openModal}
                 onChangeHallName={onChangeHallName}
                 onClickDeleteHallButton={onClickDeleteHallButton}
-                onChangePieceField={onChangePieceField}
-                onChangePosterUrl={onChangePosterUrl}
-                onChangeNotification={onChangeNotification}
               />
             );
           })
         : '전시관을 등록해주세요 :)'}
+      <Modal
+        halls={halls}
+        modalOn={modalOn}
+        hallIndex={hallIndex}
+        pieceIndex={pieceIndex}
+        closeModal={closeModal}
+        onChange={onChangePieceField}
+        onChangeNotification={onChangeNotification}
+      />
     </Container>
   );
 }

@@ -26,6 +26,12 @@ export const greyButton = css`
   color: #e1e1e1;
 `;
 
+export const transparentLabel = css`
+  & > label {
+    opacity: 0.5;
+  }
+`;
+
 export const hoverOrange = css`
   &:hover {
     color: #ff6e00;

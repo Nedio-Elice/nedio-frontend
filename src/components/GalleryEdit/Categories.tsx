@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { inputArea } from '../../styles/mixins';
+import { inputArea, transparentLabel } from '../../styles/mixins';
 
 import categories from '../../constants/categories';
 import { InputProps } from '../../types/GalleryEdit';
@@ -43,7 +43,8 @@ const Container = styled.div`
   select {
     ${inputArea}
     width: auto;
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: pointer;
   }
+  ${transparentLabel}
 `;

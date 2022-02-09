@@ -9,13 +9,13 @@ import {
   updatePiece,
   changeGalleryInput,
   changeHallName,
-  deleteHall,
   changePosterUrl,
   updateGallery,
   refreshNotification,
   claerAllState,
   loadGallery,
   setMode,
+  fetchDeleteHall,
 } from '../../store/gallery';
 
 import GalleryEdit from '../../components/GalleryEdit';
@@ -48,7 +48,7 @@ function GalleryEditContainer() {
   };
 
   const handleClickDeleteHallButton = (index: number) => {
-    dispatch(deleteHall(index));
+    dispatch(fetchDeleteHall(index));
   };
 
   const handleChangePieceField = ({

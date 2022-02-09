@@ -10,6 +10,7 @@ import journalism from '../assets/images/journalism.png';
 import nature from '../assets/images/nature.png';
 import person from '../assets/images/person.png';
 import defaultPoster from '../assets/images/defaultPoster.jpeg';
+import dragNdrop from '../assets/icons/dragNdrop.png';
 
 export {
   sample,
@@ -24,4 +25,5 @@ export {
   nature,
   person,
   defaultPoster,
+  dragNdrop,
 };

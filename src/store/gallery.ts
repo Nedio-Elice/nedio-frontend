@@ -24,6 +24,7 @@ const initialState = {
     posterUrl: '',
   },
   halls: [],
+  deletedHalls: [],
   notification: '',
   mode: 'create',
 } as Gallery;
@@ -115,6 +116,12 @@ const { actions, reducer } = createSlice({
         mode,
       };
     },
+    setDeleteHall(state, { payload: hallObjectId }) {
+      return {
+        ...state,
+        deletedHalls: [...state.deletedHalls, hallObjectId],
+      };
+    },
     claerAllState() {
       return initialState;
     },
@@ -130,6 +137,7 @@ export const {
   setNotification,
   setGallery,
   setMode,
+  setDeleteHall,
   claerAllState,
 } = actions;
 
@@ -153,7 +161,7 @@ export function refreshNotification(text: string) {
 export function updateGallery({ navigate, galleryId }: UpdateGallery) {
   return async (dispatch: Dispatch, getState: any) => {
     const {
-      gallery: { galleryInfo, halls, mode },
+      gallery: { galleryInfo, halls, mode, deletedHalls },
     } = getState();
 
     await dispatch(setNotification(''));
@@ -180,15 +188,22 @@ export function updateGallery({ navigate, galleryId }: UpdateGallery) {
     if (mode === 'create') {
       const response = await axiosInstance.post('galleries', data);
       if (response.status === 200) {
-        // id 값 받아오면 상세 페이지로 리다이렉트
-        navigate('/');
+        const { data: id } = response.data;
+        navigate(`/galleries/${id}`);
       } else {
         dispatch(setNotification(MESSAGE.UPDATE_FAILED));
       }
     }
 
     if (mode === 'modify') {
+      if (deletedHalls.length) {
+        deletedHalls.forEach(async (hallObjectId: string) => {
+          await axiosInstance.delete(`halls/${hallObjectId}`);
+        });
+      }
+
       const response = await axiosInstance.put(`galleries/${galleryId}`, data);
+
       if (response.status === 200) {
         navigate(`/galleries/${galleryId}`);
       } else {
@@ -224,6 +239,21 @@ export function loadGallery(galleryId: string) {
     };
 
     dispatch(setGallery({ galleryInfo, halls }));
+  };
+}
+
+export function fetchDeleteHall(index: number) {
+  return async (dispatch: Dispatch, getState: any) => {
+    const {
+      gallery: { halls },
+    } = getState();
+
+    if (halls[index].hallObjectId) {
+      const { hallObjectId } = halls[index];
+      await dispatch(setDeleteHall(hallObjectId));
+    }
+
+    dispatch(deleteHall(index));
   };
 }
 

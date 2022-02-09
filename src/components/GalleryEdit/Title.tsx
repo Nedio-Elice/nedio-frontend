@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { inputArea, placeholders } from '../../styles/mixins';
+import { inputArea, placeholders, transparentLabel } from '../../styles/mixins';
 import { InputProps } from '../../types/GalleryEdit';
 
 function Title({
@@ -39,4 +39,5 @@ const Container = styled.div`
     ${inputArea}
     ${placeholders}
   }
+  ${transparentLabel}
 `;

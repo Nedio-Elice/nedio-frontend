@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { backgroundGradient, greyButton } from '../../styles/mixins';
+import {
+  backgroundGradient,
+  greyButton,
+  hoverOrange,
+} from '../../styles/mixins';
 
 import { GalleryProps } from '../../types/GalleryEdit';
 
@@ -34,11 +38,12 @@ function GalleryEdit({
       <Flash notification={notification} />
       <Wrapper>
         <Poster
-          label="포스터 끌어서 놓기"
+          label="Drag&Drop your poster here"
           thumbnail={posterUrl}
           width="15em"
           height="20em"
           onChangePosterUrl={onChangePosterUrl}
+          onChangeNotification={onChangeNotification}
         />
         <Inputs>
           <Title
@@ -74,7 +79,6 @@ function GalleryEdit({
         onChangeHallName={onChangeHallName}
         onClickDeleteHallButton={onClickDeleteHallButton}
         onChangePieceField={onChangePieceField}
-        onChangePosterUrl={onChangePosterUrl}
         onChangeNotification={onChangeNotification}
       />
     </Container>
@@ -93,6 +97,7 @@ const Container = styled.div`
   align-items: center;
   padding: 5%;
   width: 100vw;
+  min-width: 365px;
   min-height: 100vh;
   height: fit-content;
 
@@ -103,7 +108,7 @@ const Container = styled.div`
   }
 
   & > div > button {
-    color: #ff6e00;
+    ${hoverOrange}
   }
 `;
 
