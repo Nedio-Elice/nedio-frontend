@@ -1,8 +1,10 @@
 export interface CommentProps {
   commentId: string;
-  username: string;
   profileImgURL: string;
+  authorId: string;
   content: string;
+  galleryId: string | undefined;
+  currPage: number;
   handleClickDelete: (value: string) => void;
 }
 
@@ -27,6 +29,7 @@ export type Comments = {
   success: string;
   message: string;
   data: Array<CommentSingle>;
+  count: number;
 };
 
 export interface CommentState {

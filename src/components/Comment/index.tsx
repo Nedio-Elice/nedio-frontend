@@ -1,41 +1,68 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { VoidExpression } from 'typescript';
-import { putComment } from '../../store/comment';
+import { AxiosError, AxiosResponse } from 'axios';
+import { getComments, putComment } from '../../store/comment';
 import Buttons from '../Buttons';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CommentPost, CommentProps } from '../../types/Comment';
+import { RootState } from '../../store/root';
+import axiosInstance from '../../api/api';
+import { getUser, initialState, User } from '../../store/profile';
 
 const { ButtonMini } = Buttons;
 
 function Comment({
   commentId,
-  username,
+  authorId,
   profileImgURL,
+  galleryId,
+  currPage,
   content,
   handleClickDelete,
 }: CommentProps) {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.profile);
   const [text, setText] = useState<string>(content);
   const [update, setUpdate] = useState<boolean>(false);
+  const [author, setAuthor] = useState<User>(initialState);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchAuthor = async () => {
+      try {
+        await axiosInstance
+          .get<User>(`users/${authorId}`)
+          .then((response: AxiosResponse) => setAuthor(response.data));
+      } catch (error) {
+        const err = error as AxiosError;
+        throw new Error(err.response?.data);
+      }
+    };
+    fetchAuthor();
+  }, [authorId]);
 
   function handleChange(event: any) {
     event.preventDefault();
     setText(event.target.value);
   }
 
-  function handleUpdate(comment: CommentPost) {
-    dispatch(
+  async function handleUpdate(comment: CommentPost) {
+    await dispatch(
       putComment({ commentId: comment.commentId, content: comment.content }),
     );
-    setUpdate(!update);
+    await setUpdate(!update);
+    await dispatch(getComments({ galleryId, currPage }));
   }
 
   return (
     <CommentContainer>
-      <CommentImg src={profileImgURL} />
+      <CommentImg src={author.profileURL} />
       <CommentContent>
-        <CommentUsername>{username}</CommentUsername>
+        <CommentUsername>{author.nickname}</CommentUsername>
         {update === false ? (
           <CommentText>{content}</CommentText>
         ) : (
@@ -58,12 +85,16 @@ function Comment({
           </UpdateWrapper>
         )}
       </CommentContent>
-      <CommentButton onClick={() => setUpdate(!update)}>
-        {update === false ? '수정' : '취소'}
-      </CommentButton>
-      <CommentButton onClick={() => handleClickDelete(commentId)}>
-        삭제
-      </CommentButton>
+      {authorId === user._id && (
+        <>
+          <CommentButton onClick={() => setUpdate(!update)}>
+            {update === false ? '수정' : '취소'}
+          </CommentButton>
+          <CommentButton onClick={() => handleClickDelete(commentId)}>
+            삭제
+          </CommentButton>
+        </>
+      )}
     </CommentContainer>
   );
 }
@@ -79,14 +110,16 @@ const CommentContainer = styled.div`
 `;
 
 const CommentContent = styled.div`
-  width: 90%;
+  width: 70%;
   margin-left: 24px;
 `;
 
 const CommentImg = styled.img`
+  display: inline-block;
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  box-shadow: 4px 4px 8px #bbbbbb;
 `;
 
 const CommentUsername = styled.p`
@@ -98,12 +131,12 @@ const CommentUsername = styled.p`
 `;
 
 const CommentText = styled.p`
-  width: 90%;
+  width: 100%;
   line-height: 18px;
   font-family: Pretendard;
   font-style: normal;
   font-size: 14px;
-  word-break: keep-all;
+  word-break: break-word;
 `;
 
 const UpdateWrapper = styled.p`
