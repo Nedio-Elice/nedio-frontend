@@ -1,49 +1,26 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { VoidExpression } from 'typescript';
-import { AxiosError, AxiosResponse } from 'axios';
 import { getComments, putComment } from '../../store/comment';
 import Buttons from '../Buttons';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CommentPost, CommentProps } from '../../types/Comment';
 import { RootState } from '../../store/root';
-import axiosInstance from '../../api/api';
-import { getUser, initialState, User } from '../../store/profile';
 
 const { ButtonMini } = Buttons;
 
 function Comment({
   commentId,
+  author,
   authorId,
-  profileImgURL,
   galleryId,
   currPage,
   content,
   handleClickDelete,
 }: CommentProps) {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.profile);
+  const userId = useAppSelector((state: RootState) => state.users.userInfo._id);
   const [text, setText] = useState<string>(content);
   const [update, setUpdate] = useState<boolean>(false);
-  const [author, setAuthor] = useState<User>(initialState);
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const fetchAuthor = async () => {
-      try {
-        await axiosInstance
-          .get<User>(`users/${authorId}`)
-          .then((response: AxiosResponse) => setAuthor(response.data));
-      } catch (error) {
-        const err = error as AxiosError;
-        throw new Error(err.response?.data);
-      }
-    };
-    fetchAuthor();
-  }, [authorId]);
 
   function handleChange(event: any) {
     event.preventDefault();
@@ -85,7 +62,7 @@ function Comment({
           </UpdateWrapper>
         )}
       </CommentContent>
-      {authorId === user._id && (
+      {authorId === userId && (
         <>
           <CommentButton onClick={() => setUpdate(!update)}>
             {update === false ? '수정' : '취소'}

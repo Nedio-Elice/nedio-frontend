@@ -1,6 +1,8 @@
+import { Author } from './GalleryDetail';
+
 export interface CommentProps {
   commentId: string;
-  profileImgURL: string;
+  author: Author;
   authorId: string;
   content: string;
   galleryId: string | undefined;

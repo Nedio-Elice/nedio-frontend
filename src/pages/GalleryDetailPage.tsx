@@ -95,7 +95,7 @@ function GalleryDetailPage() {
         {gallery.halls !== null &&
           gallery.halls.map((hall, idx) => {
             return (
-              <Link to={hall.hallId}>
+              <Link to={hall.hallObjectId} key={Date.now()}>
                 <ButtonBasic value={`${idx + 1}관`} handleClick={() => {}} />
               </Link>
             );
@@ -111,16 +111,16 @@ function GalleryDetailPage() {
         user={user}
       />
       {comments !== null &&
-        comments.data.map((c) => {
+        comments.data.map((c: any) => {
           // eslint-disable-next-line no-underscore-dangle
           return (
             <Comment
               key={c._id}
               commentId={c._id}
+              author={c.author}
               authorId={c.authorId}
               galleryId={galleryId}
               currPage={currPage}
-              profileImgURL="/"
               content={c.content}
               handleClickDelete={() => handleDelete(c._id)}
             />

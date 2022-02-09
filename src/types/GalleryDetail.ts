@@ -13,13 +13,23 @@ export interface Gallery {
 export interface Author {
   email: string;
   nickname: string;
-  contact: string;
+  contact?: string;
+  profileURL?: string;
 }
 
 export interface Hall {
-  hallId: string;
+  hallObjectId: string;
   hallName: string;
+  imagesData: HallImages;
 }
+
+export interface HallImageData {
+  imageTitle: string;
+  imageDescription: string;
+  imageUrl: string;
+}
+
+export type HallImages = Array<HallImageData>;
 
 export type Halls = Array<Hall>;
 
