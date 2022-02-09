@@ -25,7 +25,6 @@ function GalleryDetailPage() {
   const comments = useAppSelector((state: RootState) => state.comment);
   const user = useAppSelector((state: RootState) => state.profile);
 
-  const [author, setAuthor] = useState<User>(initialState);
   const [gallery, setGallery] = useState<Gallery | null>(null);
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(5);
@@ -41,7 +40,9 @@ function GalleryDetailPage() {
       try {
         await axiosInstance
           .get<Gallery>(`galleries/${galleryId}`)
-          .then((response: AxiosResponse) => setGallery(response.data.data));
+          .then((response: AxiosResponse) => {
+            setGallery(response.data.data);
+          });
       } catch (error) {
         const err = error as AxiosError;
         throw new Error(err.response?.data);
@@ -49,20 +50,6 @@ function GalleryDetailPage() {
     };
     fetchGallery();
   }, [galleryId]);
-
-  useEffect(() => {
-    const fetchAuthor = async () => {
-      try {
-        await axiosInstance
-          .get<User>(`users/${gallery?.authorId}`)
-          .then((response: AxiosResponse) => setAuthor(response.data));
-      } catch (error) {
-        const err = error as AxiosError;
-        throw new Error(err.response?.data);
-      }
-    };
-    fetchAuthor();
-  }, [gallery?.authorId]);
 
   useEffect(() => {
     dispatch(getComments({ galleryId, currPage }));
@@ -90,17 +77,13 @@ function GalleryDetailPage() {
 
   return (
     <Background>
-      <GalleryInformation
-        gallery={gallery}
-        galleryId={galleryId}
-        user={user}
-        author={author}
-      />
+      <GalleryInformation gallery={gallery} galleryId={galleryId} user={user} />
       <ButtonWrapper>
         {gallery.halls !== null &&
           gallery.halls.map((hall, idx) => {
             return (
               <ButtonBasic
+                key={hall.hallObjectId}
                 value={`${idx + 1}관`}
                 handleClick={() => handleHallButtonClick(hall.hallObjectId)}
               />
@@ -123,8 +106,8 @@ function GalleryDetailPage() {
             <Comment
               key={c._id}
               commentId={c._id}
+              userId={user._id}
               author={c.author}
-              authorId={c.authorId}
               galleryId={galleryId}
               currPage={currPage}
               content={c.content}
