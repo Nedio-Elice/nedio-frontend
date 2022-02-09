@@ -53,6 +53,7 @@ function Artwork({
   const handleChangeFiles = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement> | any): Promise<void> => {
       const selectFile: File = e.target.files[0];
+      e.target.value = '';
       await imageHandler(selectFile);
     },
     [imageHandler],

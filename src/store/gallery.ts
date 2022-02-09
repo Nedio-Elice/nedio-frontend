@@ -178,6 +178,11 @@ export function updateGallery({ navigate, galleryId }: UpdateGallery) {
       return;
     }
 
+    if (!halls.length) {
+      dispatch(setNotification(MESSAGE.MINIMUM_HALL));
+      return;
+    }
+
     if (isEmptyHalls(halls)) {
       dispatch(setNotification(MESSAGE.MINIMUM_PIECE));
       return;

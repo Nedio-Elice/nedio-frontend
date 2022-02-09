@@ -110,6 +110,10 @@ const Container = styled.div`
   & > div > button {
     ${hoverOrange}
   }
+
+  textarea {
+    resize: none;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -151,7 +155,7 @@ const Inputs = styled.div`
     width: 340px;
     margin-left: 0;
     textarea {
-      height: 8em;
+      height: 10em;
     }
   }
 `;
