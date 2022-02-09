@@ -82,6 +82,7 @@ const NavBarContainer = styled.div`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 0 5%;
   user-select: none;
+  min-width: 460px;
 
   @media ${DEVICE.DESKTOP} {
     flex-direction: column;
@@ -142,10 +143,9 @@ const NavMenu = styled.div<{ isActive: boolean }>`
       background-color: transparent;
       box-shadow: none;
       border-radius: 8px;
-      width: fit-content;
+      width: 100%;
 
       margin: 5px 0;
-      padding: 0 10px;
 
       &:hover {
         background: #f2f3f5;
