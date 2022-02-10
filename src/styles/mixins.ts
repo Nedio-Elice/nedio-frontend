@@ -96,6 +96,24 @@ export const defaultButton = css`
   cursor: pointer;
 `;
 
+export const gradientBlue = css`
+  background-image: linear-gradient(
+    to right,
+    #345471,
+    #3c5e7e,
+    #45688b,
+    #4e7398,
+    #577da5,
+    #6186ad,
+    #6b8fb5,
+    #7598bd,
+    #83a2c2,
+    #91abc6,
+    #9fb5cb,
+    #adbfd0
+  );
+`;
+
 export const greyButton = css`
   ${defaultButton}
   border-radius: 0.3em;
@@ -104,22 +122,4 @@ export const greyButton = css`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
     rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
   color: #e1e1e1;
-`;
-
-export const gradientBlue = css`
-  background-image: linear-gradient(
-    to right top,
-    #1f3e5a,
-    #294663,
-    #324f6c,
-    #3c5876,
-    #45617f,
-    #576d8a,
-    #687a96,
-    #7987a1,
-    #959cb1,
-    #b0b2c0,
-    #c9c9d0,
-    #e1e1e1
-  );
 `;
