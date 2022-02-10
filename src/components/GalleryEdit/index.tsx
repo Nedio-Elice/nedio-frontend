@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import {
   backgroundGradient,
@@ -85,13 +87,11 @@ function GalleryEdit({
   );
 }
 
-export default GalleryEdit;
+export default memo(GalleryEdit);
 
 const Container = styled.div`
   position: relative;
-
   font-size: 16px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,6 +141,7 @@ const Inputs = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 2em;
+  width: 100%;
 
   div + div {
     margin-top: 1em;

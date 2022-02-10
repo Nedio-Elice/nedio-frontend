@@ -1,8 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+
+import { MemoryRouter } from 'react-router-dom';
+
 import NotFoundPage from '../pages/NotFoundPage';
 
 test('renders learn react link', () => {
-  render(<NotFoundPage />);
-  const linkElement = screen.getByText(/NotFoundPage/i);
-  expect(linkElement).toBeInTheDocument();
+  const { container } = render(
+    <MemoryRouter>
+      <NotFoundPage />
+    </MemoryRouter>,
+  );
+  expect(container).toHaveTextContent('아무것도 없네요!');
 });

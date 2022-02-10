@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import {
   greyButton,
@@ -7,9 +9,10 @@ import {
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
-import PieceButton from './PieceButton';
 
-function HallAddForm({
+import Piece from './Piece';
+
+function HallField({
   name,
   pieces,
   halls,
@@ -36,13 +39,14 @@ function HallAddForm({
           placeholder="관명"
           onChange={handleChange}
         />
+        <button type="button">미리보기</button>
         <button type="button" onClick={handleClick}>
           전시관 삭제
         </button>
       </Wrapper>
-      <AddButtons>
+      <PieceButtons>
         {pieces.map((_, index) => (
-          <PieceButton
+          <Piece
             key={index}
             halls={halls}
             pieceIndex={index}
@@ -50,12 +54,12 @@ function HallAddForm({
             openModal={openModal}
           />
         ))}
-      </AddButtons>
+      </PieceButtons>
     </Container>
   );
 }
 
-export default HallAddForm;
+export default memo(HallField);
 
 const Container = styled.div`
   display: flex;
@@ -74,23 +78,23 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 1em;
   & > button {
     ${greyButton}
-    transition: all 1s;
-
     ${hoverOrange}
+    padding: 0.3em;
+    margin-left: 1em;
   }
 
   & > input {
     ${inputArea}
     ${placeholders}
-    margin-right: 1em;
     width: 5em;
   }
 `;
 
-const AddButtons = styled.div`
+const PieceButtons = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: repeat(10, 1fr);

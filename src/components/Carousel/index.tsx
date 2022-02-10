@@ -7,6 +7,7 @@ import { calcWidth, paddingToItem } from '../../utils/carousel';
 import { CardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
 import DetatilButton from './DetatilButton';
+import { gradientBlue } from '../../styles/mixins';
 
 export type HANDLETYPE = keyof typeof CAROUSEL.HANDLE_TYPE;
 
@@ -157,8 +158,7 @@ const ItemContainer = styled.div`
   padding: 7px;
   height: 100%;
   display: flex;
-  background: #1f3e5a;
-  /* background-color: rgba(255, 110, 0, 0.8); */
+  ${gradientBlue}
   color: white;
   box-shadow: 8px 8px 16px rgba(174, 174, 174, 0.75);
 `;
