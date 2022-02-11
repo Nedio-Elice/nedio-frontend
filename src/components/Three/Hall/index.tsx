@@ -8,6 +8,7 @@ import Ground from '../Ground';
 import Walls from '../Walls';
 import Celling from '../Celling';
 import Frame from '../Frame';
+import CHThemes from '../CHThemes';
 
 // TODO: 자신만의 방
 // TODO: click시 작품
@@ -25,9 +26,7 @@ function Hall() {
             <pointLight castShadow intensity={0.5} position={[0, 1, 0]} />
             <Physics gravity={[0, -300, 0]}>
               <Debug color="black" scale={1.1}>
-                <Scene>
-                  <Ground position={[0, 1, 0]} />
-                </Scene>
+                <CHThemes />
               </Debug>
               {/* <OrbitControls /> */}
               <Player position={[0, 2, 0]} />
