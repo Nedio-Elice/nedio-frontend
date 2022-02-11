@@ -5,7 +5,6 @@ const SLICE = {
   PROFILE: 'profile',
   SEARCH: 'search',
   MYGALLERY: 'mygallery',
-  CURRENTGALLERY: 'currentgallery',
 };
 
 // eslint-disable-next-line import/prefer-default-export

@@ -73,8 +73,7 @@ function GalleryDetailPage() {
     await dispatch(getComments({ galleryId, currPage }));
   }
 
-  const handleHallButtonClick = (id: string) =>
-    navigation(`${PATH.HALL}/${id}`);
+  const handleHallButtonClick = (id: string) => navigation(`/halls/${id}`);
 
   if (gallery === null) {
     return <Background />;
