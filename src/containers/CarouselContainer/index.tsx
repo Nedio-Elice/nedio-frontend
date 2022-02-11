@@ -9,7 +9,11 @@ function CarouselContainer() {
 
   useEffect(() => {
     axiosInstance
-      .get(`${PATH.GALLERY_SEARCH}/getOnesPerCategory`)
+      .get(`${PATH.GALLERY_SEARCH}/getOnesPerCategory`, {
+        cache: {
+          ignoreCache: false,
+        },
+      })
       .then((res) => {
         if (res?.data.data) setCards(res.data.data);
       })
