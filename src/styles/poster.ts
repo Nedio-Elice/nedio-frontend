@@ -16,6 +16,7 @@ const Poster = styled.div<PosterStyles>`
   border-radius: 1em;
   min-width: 230px;
   background-size: 100% 100%;
+  transition: all 1s ease;
   ${posterShadow}
   cursor: pointer;
 
@@ -25,6 +26,11 @@ const Poster = styled.div<PosterStyles>`
 
   background-image: ${(props) =>
     props.thumbnail ? `url(${props.thumbnail})` : `url(${defaultPoster})`};
+
+  &:hover {
+    background-size: 120% 120%;
+    background-position: 30% 30%;
+  }
 
   img {
     position: absolute;

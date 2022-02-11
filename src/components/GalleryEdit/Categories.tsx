@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import styled from 'styled-components';
 import { inputArea, transparentLabel } from '../../styles/mixins';
@@ -35,7 +35,7 @@ function Categories({
   );
 }
 
-export default Categories;
+export default memo(Categories);
 
 const Container = styled.div`
   display: flex;
@@ -43,6 +43,7 @@ const Container = styled.div`
   select {
     ${inputArea}
     width: auto;
+    height: 2.3em;
     opacity: 0.5;
     cursor: pointer;
   }

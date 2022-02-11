@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import { inputArea, placeholders, transparentLabel } from '../../styles/mixins';
 import { InputProps } from '../../types/GalleryEdit';
@@ -29,7 +31,7 @@ function Title({
   );
 }
 
-export default Title;
+export default memo(Title);
 
 const Container = styled.div`
   width: 100%;

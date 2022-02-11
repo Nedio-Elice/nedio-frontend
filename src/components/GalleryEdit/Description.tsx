@@ -1,5 +1,13 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
-import { inputArea, placeholders, transparentLabel } from '../../styles/mixins';
+import {
+  inputArea,
+  inputPadding,
+  placeholders,
+  transparentLabel,
+} from '../../styles/mixins';
+
 import { InputProps } from '../../types/GalleryEdit';
 
 function Description({
@@ -29,7 +37,7 @@ function Description({
   );
 }
 
-export default Description;
+export default memo(Description);
 
 const Container = styled.div`
   display: flex;
@@ -41,7 +49,7 @@ const Container = styled.div`
     ${placeholders}
     width: 100%;
     height: 100%;
-    padding-top: 0.3em;
+    padding: 0.5em;
     overflow: auto;
   }
   ${transparentLabel}

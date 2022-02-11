@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled, { keyframes } from 'styled-components';
 import { flexCenter } from '../../styles/mixins';
 import { GalleryProps } from '../../types/GalleryEdit';
@@ -10,7 +12,7 @@ function Flash({ notification }: Partial<GalleryProps>) {
   return <div />;
 }
 
-export default Flash;
+export default memo(Flash);
 
 const popUp = keyframes`
     0% {

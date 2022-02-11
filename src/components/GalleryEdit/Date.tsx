@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import styled from 'styled-components';
 import { inputArea, transparentLabel } from '../../styles/mixins';
+
 import { InputProps } from '../../types/GalleryEdit';
 
 function Date({
@@ -35,7 +36,7 @@ function Date({
   );
 }
 
-export default Date;
+export default memo(Date);
 
 const Container = styled.div`
   display: flex;

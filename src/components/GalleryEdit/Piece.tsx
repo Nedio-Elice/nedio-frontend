@@ -1,15 +1,11 @@
 import styled from 'styled-components';
+import { memo } from 'react';
 import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
 
 import { defaultPoster } from '../../constants/images';
 import { ImageInfo, PieceButtonProps } from '../../types/GalleryEdit';
 
-function PieceButton({
-  openModal,
-  halls,
-  hallIndex,
-  pieceIndex,
-}: PieceButtonProps) {
+function Piece({ openModal, halls, hallIndex, pieceIndex }: PieceButtonProps) {
   const piece: ImageInfo = halls[hallIndex]?.imagesData[pieceIndex];
 
   const thumbnail = piece.imageUrl;
@@ -25,7 +21,7 @@ function PieceButton({
   );
 }
 
-export default PieceButton;
+export default memo(Piece);
 
 interface ButtonStyle {
   thumbnail: string | null;
@@ -34,10 +30,10 @@ interface ButtonStyle {
 const Button = styled.button<ButtonStyle>`
   ${flexCenter}
   margin-right: 1em;
+
   padding: 0.3em;
   width: 50px;
   height: 50px;
-  white-space: pre-wrap;
 
   ${posterShadow}
 
@@ -50,4 +46,6 @@ const Button = styled.button<ButtonStyle>`
     transform: scale(1.1);
   }
   ${hoverOrange}
+
+  padding: 0.5em;
 `;
