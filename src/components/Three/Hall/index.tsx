@@ -26,10 +26,6 @@ function Hall() {
             <Physics gravity={[0, -300, 0]}>
               <Debug color="black" scale={1.1}>
                 <Scene>
-                  <Frame />
-                  <Celling />
-                  <Walls />
-
                   <Ground position={[0, 1, 0]} />
                 </Scene>
               </Debug>

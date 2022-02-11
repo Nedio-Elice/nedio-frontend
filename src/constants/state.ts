@@ -46,6 +46,11 @@ export const MOCK_STATE = {
     keyword: '',
     option: 'title',
   },
+  controls: {
+    movement: {
+      isLocked: false,
+    },
+  },
   _persist: {
     version: -1,
     rehydrated: true,
