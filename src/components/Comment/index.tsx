@@ -38,7 +38,7 @@ function Comment({
     <CommentContainer>
       <CommentImg src={author.profileURL} />
       <CommentContent>
-        <CommentUsername>{userId}</CommentUsername>
+        <CommentUsername>{author.nickname}</CommentUsername>
         {update === false ? (
           <CommentText>{content}</CommentText>
         ) : (

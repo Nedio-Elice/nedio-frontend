@@ -17,6 +17,7 @@ import commentReducer from './comment';
 import profileReducer from './profile';
 import myGalleryReducer from './myGallery';
 import searchReducer from './search';
+import currentGalleryReducer from './currentGallery';
 
 const persistConfig = {
   key: 'root',
@@ -31,6 +32,7 @@ const combinedReducer = combineReducers({
   profile: profileReducer,
   myGallery: myGalleryReducer,
   search: searchReducer,
+  currGallery: currentGalleryReducer,
 });
 
 const rootReducer = persistReducer(persistConfig, combinedReducer);

@@ -32,8 +32,18 @@ function GalleryDetailPage() {
   const { galleryId } = useParams();
 
   useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
+    const fetchInfo = async () => {
+      try {
+        dispatch(getUser());
+        dispatch(getComments({ galleryId, currPage }));
+        setPageCount(makePageCount(comments.count));
+      } catch (error) {
+        const err = error as AxiosError;
+        throw new Error(err.response?.data);
+      }
+    };
+    fetchInfo();
+  }, [dispatch, galleryId, currPage, comments.count]);
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -50,11 +60,6 @@ function GalleryDetailPage() {
     };
     fetchGallery();
   }, [galleryId]);
-
-  useEffect(() => {
-    dispatch(getComments({ galleryId, currPage }));
-    setPageCount(makePageCount(comments.count));
-  }, [dispatch, galleryId, currPage, comments.count]);
 
   async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -99,7 +104,7 @@ function GalleryDetailPage() {
         }
         user={user}
       />
-      {comments !== null &&
+      {comments.data !== undefined &&
         comments.data.map((c: any) => {
           // eslint-disable-next-line no-underscore-dangle
           return (
