@@ -5,6 +5,7 @@ import {
   backgroundGradient,
   greyButton,
   hoverOrange,
+  inputPadding,
 } from '../../styles/mixins';
 
 import { GalleryProps } from '../../types/GalleryEdit';
@@ -108,6 +109,8 @@ const Container = styled.div`
   }
 
   & > div > button {
+    font-size: 1em;
+    padding: 1.2em 0.8em;
     ${hoverOrange}
   }
 
@@ -142,9 +145,12 @@ const Inputs = styled.div`
   flex-direction: column;
   margin-left: 2em;
   width: 100%;
+  input {
+    ${inputPadding}
+  }
 
   div + div {
-    margin-top: 1em;
+    margin-top: 0.5em;
   }
 
   div > label {

@@ -30,6 +30,7 @@ interface ButtonStyle {
 const Button = styled.button<ButtonStyle>`
   ${flexCenter}
   margin-right: 1em;
+
   padding: 0.3em;
   width: 50px;
   height: 50px;
@@ -45,4 +46,6 @@ const Button = styled.button<ButtonStyle>`
     transform: scale(1.1);
   }
   ${hoverOrange}
+
+  padding: 0.5em;
 `;

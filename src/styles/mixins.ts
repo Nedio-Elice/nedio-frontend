@@ -28,6 +28,10 @@ export const flexCenter = css`
   align-items: center;
 `;
 
+export const inputPadding = css`
+  padding: 1.2em 0.5em;
+`;
+
 export const inputArea = css`
   font-family: 'Pretendard-Regular';
   width: 100%;
@@ -91,7 +95,6 @@ export const rightSideOrangeButton = css`
 
 export const defaultButton = css`
   ${flexCenter};
-  padding: 0.5em 0.7em;
   border: none;
   cursor: pointer;
 `;

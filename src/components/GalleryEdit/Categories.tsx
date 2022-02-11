@@ -43,6 +43,7 @@ const Container = styled.div`
   select {
     ${inputArea}
     width: auto;
+    height: 2.3em;
     opacity: 0.5;
     cursor: pointer;
   }
