@@ -14,7 +14,7 @@ function Frames({ imgURL, content }: any) {
         position={[
           FAR_FROM_DEFAULT_POSITION - 47.75,
           WALL_HEIGHT / 3,
-          FAR_FROM_DEFAULT_POSITION - 135,
+          FAR_FROM_DEFAULT_POSITION - 134,
         ]}
         scale={[25, 25, 50]}
       >
@@ -22,7 +22,7 @@ function Frames({ imgURL, content }: any) {
           position={[
             FAR_FROM_DEFAULT_POSITION - 47.75,
             WALL_HEIGHT / 3,
-            FAR_FROM_DEFAULT_POSITION - 135,
+            FAR_FROM_DEFAULT_POSITION - 134,
           ]}
           size={[12, 8, 0.1]}
           spotPos={[FAR_FROM_DEFAULT_POSITION - 47.75, 35, -110]}
@@ -33,7 +33,7 @@ function Frames({ imgURL, content }: any) {
         position={[
           FAR_FROM_DEFAULT_POSITION - 18.25,
           WALL_HEIGHT / 3,
-          FAR_FROM_DEFAULT_POSITION - 135,
+          FAR_FROM_DEFAULT_POSITION - 134,
         ]}
         scale={[25, 25, 50]}
       >
@@ -41,7 +41,7 @@ function Frames({ imgURL, content }: any) {
           position={[
             FAR_FROM_DEFAULT_POSITION - 18.25,
             WALL_HEIGHT / 3,
-            FAR_FROM_DEFAULT_POSITION - 135,
+            FAR_FROM_DEFAULT_POSITION - 134,
           ]}
           size={[12, 8, 0.1]}
           spotPos={[FAR_FROM_DEFAULT_POSITION - 18.25, 35, -110]}
@@ -50,9 +50,9 @@ function Frames({ imgURL, content }: any) {
       </Frame>
       <Frame
         position={[
-          -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION,
+          FAR_FROM_DEFAULT_POSITION + 12.25,
           WALL_HEIGHT / 3,
-          -WALL_WIDTH - 29.5,
+          FAR_FROM_DEFAULT_POSITION - 134,
         ]}
         scale={[25, 25, 50]}
       >
@@ -60,7 +60,7 @@ function Frames({ imgURL, content }: any) {
           position={[
             FAR_FROM_DEFAULT_POSITION + 12.25,
             WALL_HEIGHT / 3,
-            FAR_FROM_DEFAULT_POSITION - 135,
+            FAR_FROM_DEFAULT_POSITION - 134,
           ]}
           size={[12, 8, 0.1]}
           spotPos={[FAR_FROM_DEFAULT_POSITION + 12.25, 35, -110]}
@@ -75,6 +75,7 @@ function Frames({ imgURL, content }: any) {
           -WALL_WIDTH + 24.5,
         ]}
         scale={[25, 25, 50]}
+        rotation={[0, Math.PI / 2, 0]}
       >
         <Picture
           position={[
@@ -95,6 +96,7 @@ function Frames({ imgURL, content }: any) {
           -WALL_WIDTH - 3.5,
         ]}
         scale={[25, 25, 50]}
+        rotation={[0, Math.PI / 2, 0]}
       >
         <Picture
           position={[
@@ -115,6 +117,7 @@ function Frames({ imgURL, content }: any) {
           -WALL_WIDTH - 29.5,
         ]}
         scale={[25, 25, 50]}
+        rotation={[0, Math.PI / 2, 0]}
       >
         <Picture
           position={[
@@ -131,11 +134,12 @@ function Frames({ imgURL, content }: any) {
       {/* 오른쪽 벽 */}
       <Frame
         position={[
-          WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
-          WALL_HEIGHT / 2,
-          -FAR_FROM_DEFAULT_POSITION + 35,
+          WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION - 0.5,
+          WALL_HEIGHT / 3,
+          5,
         ]}
         scale={[25, 25, 50]}
+        rotation={[0, -Math.PI / 2, 0]}
       >
         <Picture
           position={[
@@ -154,11 +158,12 @@ function Frames({ imgURL, content }: any) {
       </Frame>
       <Frame
         position={[
-          WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
-          WALL_HEIGHT / 2,
-          -FAR_FROM_DEFAULT_POSITION,
+          WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION - 0.5,
+          WALL_HEIGHT / 3,
+          -22,
         ]}
         scale={[25, 25, 50]}
+        rotation={[0, -Math.PI / 2, 0]}
       >
         <Picture
           position={[
@@ -177,11 +182,12 @@ function Frames({ imgURL, content }: any) {
       </Frame>
       <Frame
         position={[
-          WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
-          WALL_HEIGHT / 2,
-          -FAR_FROM_DEFAULT_POSITION,
+          WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION - 0.5,
+          WALL_HEIGHT / 3,
+          -49,
         ]}
         scale={[25, 25, 50]}
+        rotation={[0, -Math.PI / 2, 0]}
       >
         <Picture
           position={[
