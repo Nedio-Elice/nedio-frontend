@@ -111,9 +111,17 @@ function Walls() {
       <FrontWall
         wallMap={texture}
         position={[
-          0 + FAR_FROM_DEFAULT_POSITION,
+          FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
-          -105 - FAR_FROM_DEFAULT_POSITION,
+          FAR_FROM_DEFAULT_POSITION - 135,
+        ]}
+      />
+      <FrontWall
+        wallMap={texture}
+        position={[
+          -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION,
+          WALL_HEIGHT / 2,
+          FAR_FROM_DEFAULT_POSITION - 135,
         ]}
       />
       <IntervalWall
@@ -121,7 +129,7 @@ function Walls() {
         position={[
           WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
-          -50 - FAR_FROM_DEFAULT_POSITION,
+          FAR_FROM_DEFAULT_POSITION + 5 - 84,
         ]}
       />
       <IntervalWall
@@ -137,15 +145,23 @@ function Walls() {
         position={[
           -WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
-          -FAR_FROM_DEFAULT_POSITION,
+          10,
         ]}
       />
       <LeftWall
         wallMap={texture}
         position={[
-          -WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
+          -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION - 0.5,
           WALL_HEIGHT / 2,
-          -WALL_WIDTH - FAR_FROM_DEFAULT_POSITION,
+          -WALL_WIDTH + 10,
+        ]}
+      />
+      <LeftWall
+        wallMap={texture}
+        position={[
+          -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION - 0.5,
+          WALL_HEIGHT / 2,
+          -WALL_WIDTH * 2 + 10,
         ]}
       />
       <RightWall
@@ -169,7 +185,7 @@ function Walls() {
         position={[
           FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
-          FAR_FROM_DEFAULT_POSITION / 2 + 10,
+          FAR_FROM_DEFAULT_POSITION + 5,
         ]}
       />
     </>

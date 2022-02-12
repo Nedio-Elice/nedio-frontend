@@ -1,7 +1,3 @@
-import { useHelper } from '@react-three/drei';
-import { useEffect, useRef } from 'react';
-import { SpotLightHelper } from 'three';
-
 function Spotlight({
   position,
   intensity,
@@ -12,15 +8,6 @@ function Spotlight({
   decay,
   target,
 }: any) {
-  const spotLight = useRef<any>();
-
-  // DELETE: DEBUG HELPER
-  useHelper(spotLight, SpotLightHelper, 'teal');
-
-  // useEffect(() => {
-  //   spotLight?.current?.lookAt(...target);
-  // }, [target]);
-
   return (
     <spotLight
       castShadow
