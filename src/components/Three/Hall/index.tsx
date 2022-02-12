@@ -1,13 +1,8 @@
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { Debug, Physics } from '@react-three/cannon';
 import { OrbitControls, Sky } from '@react-three/drei';
-import Scene from '../scene';
 import Player from '../Player';
-import Ground from '../Ground';
-import Walls from '../Walls';
-import Celling from '../Celling';
-import Frame from '../Frame';
 import CHThemes from '../CHThemes';
 
 // TODO: 자신만의 방
@@ -22,14 +17,14 @@ function Hall() {
         <Canvas>
           <Provider store={store}>
             <Sky sunPosition={[100, 20, 100]} />
-            <ambientLight intensity={0.25} />
-            <pointLight castShadow intensity={0.5} position={[0, 1, 0]} />
-            <Physics gravity={[0, -300, 0]}>
+            <ambientLight intensity={0.5} />
+            {/* <spotLight castShadow intensity={3} position={[10, 30, 10]} /> */}
+            <Physics gravity={[0, 0, 0]}>
               <Debug color="black" scale={1.1}>
                 <CHThemes />
               </Debug>
               {/* <OrbitControls /> */}
-              <Player position={[0, 2, 0]} />
+              <Player position={[0, 25, 0]} />
             </Physics>
           </Provider>
         </Canvas>

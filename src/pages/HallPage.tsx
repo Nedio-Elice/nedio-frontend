@@ -5,7 +5,7 @@ import Landing from '../components/Three/Landing';
 function HallPage() {
   return (
     <Container>
-      <Landing />
+      {/* <Landing /> */}
       <Hall />
     </Container>
   );
