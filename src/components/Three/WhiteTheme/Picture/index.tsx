@@ -15,7 +15,7 @@ import {
 import Spotlight from '../SpotLight';
 import { DETECT_FROM_DISTANCE } from '../Constants';
 
-function Picture({ position, spotPos, rotation, imgURL, pickItem }: any) {
+function Picture({ position, spotPos, rotation, data, pickItem }: any) {
   // TODO: ratio 관련 scale 조절
   const [x, y, z] = [12, 8, 0.1];
   // Defence Close to IMG
@@ -26,7 +26,7 @@ function Picture({ position, spotPos, rotation, imgURL, pickItem }: any) {
     rotation,
   }));
 
-  const img = useLoader<Texture, string>(TextureLoader, imgURL);
+  const img = useLoader<Texture, string>(TextureLoader, data.imageUrl);
   const light = useRef<any>();
   const { camera } = useThree();
 
@@ -57,7 +57,7 @@ function Picture({ position, spotPos, rotation, imgURL, pickItem }: any) {
         intersects.length > 0 &&
         intersects[0].distance < DETECT_FROM_DISTANCE
       ) {
-        pickItem({ title: 'hello Title', content: 'hello content' });
+        pickItem(data);
       }
     };
 
@@ -65,7 +65,7 @@ function Picture({ position, spotPos, rotation, imgURL, pickItem }: any) {
     return () => {
       document.removeEventListener('mousedown', onDocumentMouseDown);
     };
-  }, [camera, ref, pickItem]);
+  }, [camera, ref, pickItem, data]);
 
   return (
     <>

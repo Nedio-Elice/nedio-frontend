@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Modal from '../components/Modal';
 import Hall from '../components/Three/Hall';
 import Landing from '../components/Three/Landing';
@@ -27,7 +27,12 @@ function HallPage() {
       <Hall pickItem={handlePictureClick} />
 
       <Modal ref={modalRef} width={400} height={480} isHall>
-        {selectedItem && <div>${selectedItem.title}</div>}
+        {selectedItem && (
+          <>
+            <TempImg src={selectedItem.imageUrl} />
+            <div>${selectedItem.imageDescription}</div>
+          </>
+        )}
       </Modal>
     </Container>
   );
@@ -39,4 +44,9 @@ const Container = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
+`;
+
+const TempImg = styled.img`
+  width: 150px;
+  height: 150px;
 `;
