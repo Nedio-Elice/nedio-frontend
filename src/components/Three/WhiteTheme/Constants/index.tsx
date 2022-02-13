@@ -14,3 +14,5 @@ export const GROUND_SIZE: [number, number] = [250, 250];
 export const WALL_REPEAT_SIZE = 5;
 export const GROUND_REPEAT_SIZE = 10;
 export const CEILING_REPEAT_SIZE = 25;
+
+export const DETECT_FROM_DISTANCE = 15;

@@ -1,14 +1,23 @@
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useBox } from '@react-three/cannon';
-import { useLoader } from '@react-three/fiber';
-import { useLayoutEffect, useRef } from 'react';
+import { useLoader, useThree } from '@react-three/fiber';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useHelper } from '@react-three/drei';
-import { SpotLightHelper, Texture, TextureLoader } from 'three';
+import {
+  Object3D,
+  Raycaster,
+  SpotLightHelper,
+  Texture,
+  TextureLoader,
+  Vector3,
+} from 'three';
 import Spotlight from '../SpotLight';
+import { DETECT_FROM_DISTANCE } from '../Constants';
 
-function Picture({ position, spotPos, rotation, imgURL }: any) {
+function Picture({ position, spotPos, rotation, imgURL, pickItem }: any) {
   // TODO: ratio 관련 scale 조절
   const [x, y, z] = [12, 8, 0.1];
-
   // Defence Close to IMG
   const [ref] = useBox(() => ({
     type: 'Static',
@@ -19,6 +28,7 @@ function Picture({ position, spotPos, rotation, imgURL }: any) {
 
   const img = useLoader<Texture, string>(TextureLoader, imgURL);
   const light = useRef<any>();
+  const { camera } = useThree();
 
   // DELETE: DEBUG HELPER
   useHelper(light, SpotLightHelper, 'red');
@@ -27,10 +37,35 @@ function Picture({ position, spotPos, rotation, imgURL }: any) {
     if (light.current) light.current.target = ref.current;
   }, [ref]);
 
-  // TODO: modal 관련
-  const handleClick = () => {
-    console.log('hello');
-  };
+  useEffect(() => {
+    if (!ref) return;
+
+    const onDocumentMouseDown = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const obj = ref.current as Object3D;
+
+      const cameraDir = new Vector3();
+      camera.getWorldDirection(cameraDir);
+
+      const raycaster = new Raycaster(camera.position, cameraDir);
+
+      const intersects = raycaster.intersectObject(obj);
+
+      if (
+        intersects.length > 0 &&
+        intersects[0].distance < DETECT_FROM_DISTANCE
+      ) {
+        pickItem({ title: 'hello Title', content: 'hello content' });
+      }
+    };
+
+    document.addEventListener('mousedown', onDocumentMouseDown);
+    return () => {
+      document.removeEventListener('mousedown', onDocumentMouseDown);
+    };
+  }, [camera, ref, pickItem]);
 
   return (
     <>
@@ -44,7 +79,7 @@ function Picture({ position, spotPos, rotation, imgURL }: any) {
         angle={Math.PI / 8}
         decay={3}
       />
-      <mesh ref={ref} onClick={() => handleClick()}>
+      <mesh ref={ref}>
         <boxGeometry args={[x, y, z + 1]} />
         <meshBasicMaterial map={img} />
       </mesh>

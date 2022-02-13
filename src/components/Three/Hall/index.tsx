@@ -9,8 +9,11 @@ import WhiteTheme from '../WhiteTheme';
 // TODO: click시 작품
 // TODO: 적절한 조명
 // TODO: 이미지 비율 고려
+interface Props {
+  pickItem: (item: any) => void;
+}
 
-function Hall() {
+function Hall({ pickItem }: Props) {
   return (
     <ReactReduxContext.Consumer>
       {({ store }) => (
@@ -20,7 +23,7 @@ function Hall() {
             <ambientLight intensity={0.1} />
             {/* <spotLight castShadow intensity={0.5} position={[10, 250, 0]} /> */}
             <Physics gravity={[0, 0, 0]}>
-              <WhiteTheme />
+              <WhiteTheme pickItem={pickItem} />
               {/* <Debug color="black" scale={1}>
                 <WhiteTheme />
               </Debug> */}
