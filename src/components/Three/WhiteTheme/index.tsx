@@ -15,7 +15,6 @@ function WhiteTheme() {
       <Frames />
       <Walls />
       <Lights />
-
       <Bench position={[-10, 0, -70]} scale={[10, 10, 10]} />
       <Ground position={[0, 0, 0]} />
     </Scene>

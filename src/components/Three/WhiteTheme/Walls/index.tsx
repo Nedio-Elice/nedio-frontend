@@ -1,187 +1,106 @@
-import { useBox } from '@react-three/cannon';
 import { useLoader } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Texture, TextureLoader, MirroredRepeatWrapping } from 'three';
 import wallImg from '../../../../assets/textures/White_Wall.jpeg';
 import {
   FAR_FROM_DEFAULT_POSITION,
   WALL_HEIGHT,
-  WALL_SIZE,
-  WALL_THICKNESS,
+  WALL_REPEAT_SIZE,
   WALL_WIDTH,
 } from '../Constants';
-
-const SIZE = 5;
-
-interface Props {
-  wallMap: THREE.Texture;
-  position: [number, number, number];
-}
-
-function FrontWall({ wallMap, position }: Props) {
-  const [ref] = useBox(() => ({
-    type: 'Static',
-    args: WALL_SIZE,
-    position,
-  }));
-
-  return (
-    <mesh ref={ref} receiveShadow>
-      <boxGeometry attach="geometry" args={WALL_SIZE} />
-      <meshPhongMaterial map={wallMap} attach="material" />
-    </mesh>
-  );
-}
-
-function LeftWall({ wallMap, position }: Props) {
-  const [ref] = useBox(() => ({
-    type: 'Static',
-    args: WALL_SIZE,
-    rotation: [0, -Math.PI / 2, 0],
-    position,
-  }));
-
-  return (
-    <mesh ref={ref} receiveShadow>
-      <boxGeometry attach="geometry" args={WALL_SIZE} />
-      <meshPhongMaterial map={wallMap} attach="material" />
-    </mesh>
-  );
-}
-
-function BackWall({ wallMap, position }: Props) {
-  const [ref] = useBox(() => ({
-    type: 'Static',
-    args: [WALL_WIDTH, WALL_HEIGHT, WALL_THICKNESS],
-    position,
-  }));
-  return (
-    <mesh ref={ref} receiveShadow>
-      <boxGeometry
-        attach="geometry"
-        args={[WALL_WIDTH, WALL_HEIGHT, WALL_THICKNESS]}
-      />
-      <meshPhongMaterial map={wallMap} attach="material" />
-    </mesh>
-  );
-}
-
-function RightWall({ wallMap, position }: Props) {
-  const [ref] = useBox(() => ({
-    type: 'Static',
-    args: WALL_SIZE,
-    rotation: [0, Math.PI / 2, 0],
-    position,
-  }));
-
-  return (
-    <mesh ref={ref} receiveShadow>
-      <boxGeometry attach="geometry" args={WALL_SIZE} />
-      <meshPhongMaterial map={wallMap} attach="material" />
-    </mesh>
-  );
-}
-
-function IntervalWall({ wallMap, position }: Props) {
-  const [ref] = useBox(() => ({
-    type: 'Static',
-    args: WALL_SIZE,
-    position,
-  }));
-
-  return (
-    <mesh ref={ref}>
-      <boxGeometry attach="geometry" args={WALL_SIZE} />
-      <meshPhongMaterial map={wallMap} attach="material" />
-    </mesh>
-  );
-}
+import Wall from '../Wall';
 
 function Walls() {
-  const texture = useLoader<THREE.Texture, string>(
-    THREE.TextureLoader,
-    wallImg,
-  );
-
-  texture.wrapS = THREE.MirroredRepeatWrapping;
-  texture.wrapT = THREE.MirroredRepeatWrapping;
-  texture.repeat.set(SIZE * 2, SIZE);
+  const wall = useLoader<Texture, string>(TextureLoader, wallImg);
+  wall.wrapS = MirroredRepeatWrapping;
+  wall.wrapT = MirroredRepeatWrapping;
+  wall.repeat.set(WALL_REPEAT_SIZE * 2, WALL_REPEAT_SIZE);
 
   return (
     <>
-      <FrontWall
-        wallMap={texture}
+      {/* 앞쪽 벽 */}
+      <Wall
+        wallMap={wall}
         position={[
           FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           FAR_FROM_DEFAULT_POSITION - 135,
         ]}
       />
-      <FrontWall
-        wallMap={texture}
+      <Wall
+        wallMap={wall}
         position={[
           -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           FAR_FROM_DEFAULT_POSITION - 135,
         ]}
       />
-      <IntervalWall
-        wallMap={texture}
+      {/* 사이 벽 */}
+      <Wall
+        wallMap={wall}
         position={[
           WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           FAR_FROM_DEFAULT_POSITION + 5 - 84,
         ]}
       />
-      <IntervalWall
-        wallMap={texture}
+      <Wall
+        wallMap={wall}
         position={[
           -WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           -10 - FAR_FROM_DEFAULT_POSITION,
         ]}
       />
-      <LeftWall
-        wallMap={texture}
+      {/* 왼쪽 벽 */}
+      <Wall
+        wallMap={wall}
         position={[
           -WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           10,
         ]}
+        rotation={[0, -Math.PI / 2, 0]}
       />
-      <LeftWall
-        wallMap={texture}
+      <Wall
+        wallMap={wall}
         position={[
           -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION - 0.5,
           WALL_HEIGHT / 2,
           -WALL_WIDTH + 10,
         ]}
+        rotation={[0, -Math.PI / 2, 0]}
       />
-      <LeftWall
-        wallMap={texture}
+      <Wall
+        wallMap={wall}
         position={[
           -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION - 0.5,
           WALL_HEIGHT / 2,
           -WALL_WIDTH * 2 + 10,
         ]}
+        rotation={[0, -Math.PI / 2, 0]}
       />
-      <RightWall
-        wallMap={texture}
+      {/* 오른쪽 벽 */}
+      <Wall
+        wallMap={wall}
         position={[
           WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           -FAR_FROM_DEFAULT_POSITION,
         ]}
+        rotation={[0, Math.PI / 2, 0]}
       />
-      <RightWall
-        wallMap={texture}
+      <Wall
+        wallMap={wall}
         position={[
           WALL_WIDTH / 2 + FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,
           -WALL_WIDTH - FAR_FROM_DEFAULT_POSITION,
         ]}
+        rotation={[0, Math.PI / 2, 0]}
       />
-      <BackWall
-        wallMap={texture}
+      {/* 뒷 벽 */}
+      <Wall
+        wallMap={wall}
         position={[
           FAR_FROM_DEFAULT_POSITION,
           WALL_HEIGHT / 2,

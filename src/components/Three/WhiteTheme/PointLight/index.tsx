@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
-import * as THREE from 'three';
+import { PointLight as Light, PointLightHelper } from 'three';
 
 function PointLight({ position, intensity }: any) {
-  const light = useMemo(() => new THREE.PointLight(0xffffff), []);
+  const light = useMemo(() => new Light(0xffffff), []);
 
   return (
     <>
       <primitive object={light} position={position} intensity={intensity} />
-      {/* <primitive object={new THREE.PointLightHelper(light)} /> */}
+      <primitive object={new PointLightHelper(light)} />
     </>
   );
 }

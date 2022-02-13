@@ -1,10 +1,8 @@
-import * as THREE from 'three';
 import { usePlane } from '@react-three/cannon';
-import { useTexture } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
+import { MirroredRepeatWrapping, TextureLoader } from 'three';
+import { CEILING_REPEAT_SIZE, GROUND_SIZE, WALL_HEIGHT } from '../Constants';
 import wallImg from '../../../../assets/textures/ceiling6/white.jpeg';
-import { GROUND_SIZE, WALL_HEIGHT } from '../Constants';
-
-const SIZE = 25;
 
 function Ceiling() {
   const [ref] = usePlane(() => ({
@@ -12,24 +10,17 @@ function Ceiling() {
     rotation: [Math.PI / 2, 0, 0],
     position: [0, WALL_HEIGHT, 0],
   }));
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] =
-    useTexture([wallImg]);
 
-  colorMap.wrapS = THREE.MirroredRepeatWrapping;
-  colorMap.wrapT = THREE.MirroredRepeatWrapping;
-  colorMap.repeat.set(SIZE, SIZE);
+  const ceiling = useLoader<THREE.Texture, string>(TextureLoader, wallImg);
+
+  ceiling.wrapS = MirroredRepeatWrapping;
+  ceiling.wrapT = MirroredRepeatWrapping;
+  ceiling.repeat.set(CEILING_REPEAT_SIZE, CEILING_REPEAT_SIZE);
 
   return (
     <mesh ref={ref} receiveShadow>
       <planeBufferGeometry args={GROUND_SIZE} />
-      <meshStandardMaterial
-        displacementScale={0.1}
-        map={colorMap}
-        displacementMap={displacementMap}
-        normalMap={normalMap}
-        roughnessMap={roughnessMap}
-        aoMap={aoMap}
-      />
+      <meshStandardMaterial displacementScale={0.1} map={ceiling} />
     </mesh>
   );
 }

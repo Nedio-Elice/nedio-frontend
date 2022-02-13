@@ -23,8 +23,6 @@ function Bench({ position, scale }: any) {
       />
     </>
   );
-
-  //   return <primitive object={obj} position={position} scale={scale} />;
 }
 
 export default Bench;

@@ -1,10 +1,8 @@
-import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { usePlane } from '@react-three/cannon';
-import { GROUND_SIZE } from '../Constants';
-import mable from '../../../../assets/textures/marble6/Marble006_1K_Color.jpg';
-
-const SIZE = 10;
+import { Texture, TextureLoader, MirroredRepeatWrapping } from 'three';
+import { GROUND_SIZE, GROUND_REPEAT_SIZE } from '../Constants';
+import mable from '../../../../assets/textures/marble6/Marble006_1K_Roughness.jpg';
 
 function Ground(props: any) {
   const [ref] = usePlane(() => ({
@@ -12,15 +10,15 @@ function Ground(props: any) {
     ...props,
   }));
 
-  const floor = useLoader<THREE.Texture, string>(THREE.TextureLoader, mable);
+  const ground = useLoader<Texture, string>(TextureLoader, mable);
+  ground.wrapS = MirroredRepeatWrapping;
+  ground.wrapT = MirroredRepeatWrapping;
+  ground.repeat.set(GROUND_REPEAT_SIZE, GROUND_REPEAT_SIZE);
 
-  floor.wrapS = THREE.MirroredRepeatWrapping;
-  floor.wrapT = THREE.MirroredRepeatWrapping;
-  floor.repeat.set(SIZE, SIZE);
   return (
     <mesh ref={ref} receiveShadow>
       <planeBufferGeometry args={GROUND_SIZE} />
-      <meshPhongMaterial displacementScale={0.2} map={floor} />
+      <meshPhongMaterial displacementScale={0.2} map={ground} />
     </mesh>
   );
 }
