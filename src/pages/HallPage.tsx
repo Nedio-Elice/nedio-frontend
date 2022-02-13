@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Modal from '../components/Modal';
 import Hall from '../components/Three/Hall';
 import Landing from '../components/Three/Landing';
+import { useAppSelector } from '../store/hooks';
 import { gradientBlue } from '../styles/mixins';
 
 interface Props {
@@ -32,7 +33,7 @@ function HallPage() {
 
   return (
     <Container>
-      <Landing />
+      {/* <Landing /> */}
       <Hall openModal={openModal} />
       <Modal ref={modalRef} width={500} height={740}>
         <Wrapper>

@@ -1,16 +1,22 @@
 import Scene from '../scene';
-import Roof from './Roof';
 import Frames from './Frames';
-import Walls from './Walls';
 import Ground from './Ground';
+import Cylinder from './Cylinder';
+import Roof from './Roof';
+import Boundaries from './Boundaries';
+import Walls from './Walls';
+import Pillar from './Pillar';
 
 function CHThemes({ openModal }: any) {
   return (
     <Scene>
       <Roof />
-      <Frames openModal={openModal} />
+      <Cylinder />
+      <Boundaries />
+      {/* <Pillar /> */}
       <Walls />
       <Ground />
+      <Frames openModal={openModal} />
     </Scene>
   );
 }

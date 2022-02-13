@@ -1,23 +1,25 @@
 import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
-import { usePlane } from '@react-three/cannon';
+import { useSphere } from '@react-three/cannon';
 
-import textureImage from '../../../assets/textures/solar.jpg';
+import textureImage from '../../../assets/textures/facade.jpg';
 
 type Args = [
-  width?: number | undefined,
-  height?: number | undefined,
+  radius?: number | undefined,
   widthSegments?: number | undefined,
   heightSegments?: number | undefined,
+  phiStart?: number | undefined,
+  phiLength?: number | undefined,
+  thetaStart?: number | undefined,
+  thetaLength?: number | undefined,
 ];
 
 function Roof(props: any) {
-  const roofSize: Args = [150, 100];
+  const roofSize: Args = [155, 30, 15, 2, 6.3, 0.2, 1.13];
 
-  const [ref] = usePlane(() => ({
+  const [ref] = useSphere(() => ({
     args: roofSize,
-    rotation: [Math.PI / 2, 0, 0],
-    position: [0, 70, 0],
+    position: [0, 37.5, 0],
     ...props,
   }));
 
@@ -26,18 +28,17 @@ function Roof(props: any) {
     textureImage,
   );
 
-  const textureSize = 5;
-
   texture.wrapS = THREE.MirroredRepeatWrapping;
   texture.wrapT = THREE.MirroredRepeatWrapping;
-  texture.repeat.set(textureSize, textureSize);
+  texture.repeat.set(3, 1);
 
   return (
     <mesh ref={ref} receiveShadow>
-      <planeBufferGeometry attach="geometry" args={roofSize} />
-      <meshBasicMaterial
+      <sphereGeometry attach="geometry" args={roofSize} />
+      <meshStandardMaterial
         map={texture}
         attach="material"
+        roughness={0.4}
         side={THREE.DoubleSide}
         transparent
         opacity={0.1}

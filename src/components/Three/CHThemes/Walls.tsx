@@ -1,27 +1,28 @@
 import Wall from './Wall';
 
-function Walls() {
-  const rotationY = [0, -Math.PI / 2, 0];
+import whiteWall from '../../../assets/textures/terrazzo2.jpg';
+import blackWall from '../../../assets/textures/marble2.jpg';
 
+function Walls() {
   return (
     <>
-      <Wall wallSize={[150, 70, 1]} position={[0, 35, 50]} />
-      <Wall wallSize={[150, 70, 1]} position={[0, 35, -50]} />
       <Wall
-        wallSize={[100, 70, 1]}
-        position={[-75, 35, 0]}
-        rotation={rotationY}
+        wallSize={[100, 75, 100]}
+        position={[0, 37.5, 0]}
+        rotation={[0, Math.PI / 4, 0]}
+        textureImage={whiteWall}
       />
       <Wall
-        wallSize={[100, 70, 1]}
-        position={[75, 35, 0]}
-        rotation={rotationY}
+        wallSize={[75, 75, 3]}
+        position={[-90, 37.5, -90]}
+        rotation={[0, Math.PI / 4, 0]}
+        textureImage={blackWall}
       />
-      <Wall wallSize={[50, 70, 3]} position={[1.5, 35, -21.5]} />
       <Wall
-        wallSize={[70, 70, 3]}
-        position={[25, 35, 15]}
-        rotation={rotationY}
+        wallSize={[75, 75, 3]}
+        position={[90, 37.5, 90]}
+        rotation={[0, Math.PI / 4, 0]}
+        textureImage={blackWall}
       />
     </>
   );

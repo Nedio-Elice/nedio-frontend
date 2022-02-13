@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SLICE } from '../constants/slice';
 
+interface State {
+  movement: any;
+}
+
 const initialState = {
-  movement: {
-    isLocked: false,
-  },
-};
+  movement: '',
+} as State;
 
 const { actions, reducer } = createSlice({
   name: SLICE.CONTROLS,

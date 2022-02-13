@@ -2,21 +2,21 @@ import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { usePlane } from '@react-three/cannon';
 
-import textureImage from '../../../assets/textures/tile2.jpg';
+import textureImage from '../../../assets/textures/terrazzo.jpg';
 
 type Args = [
-  width?: number | undefined,
-  height?: number | undefined,
-  widthSegments?: number | undefined,
-  heightSegments?: number | undefined,
+  radius?: number | undefined,
+  segments?: number | undefined,
+  thetaStart?: number | undefined,
+  thetaLength?: number | undefined,
 ];
 
 function Ground(props: any) {
-  const groundSize: Args = [150, 100];
+  const groundSize: Args = [150, 30];
 
   const [ref] = usePlane(() => ({
     args: groundSize,
-    rotation: [-Math.PI / 2, 0, 0],
+    rotation: [-Math.PI / 2, 0, 29],
     position: [0, 0, 0],
     ...props,
   }));
@@ -34,8 +34,13 @@ function Ground(props: any) {
 
   return (
     <mesh ref={ref} receiveShadow>
-      <planeBufferGeometry attach="geometry" args={groundSize} />
-      <meshStandardMaterial map={texture} attach="material" roughness={0.4} />
+      <circleBufferGeometry attach="geometry" args={groundSize} />
+      <meshStandardMaterial
+        map={texture}
+        attach="material"
+        roughness={0.1}
+        side={THREE.DoubleSide}
+      />
     </mesh>
   );
 }

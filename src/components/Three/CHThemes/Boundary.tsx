@@ -1,9 +1,6 @@
-import * as THREE from 'three';
-
 import { useBox } from '@react-three/cannon';
-import { useLoader } from '@react-three/fiber';
 
-function Boundary({ wallSize, textureImage, ...props }: any) {
+function Boundary({ wallSize, ...props }: any) {
   const [ref] = useBox(() => ({
     args: wallSize,
     mass: 1,
@@ -11,15 +8,10 @@ function Boundary({ wallSize, textureImage, ...props }: any) {
     ...props,
   }));
 
-  const texture = useLoader<THREE.Texture, string>(
-    THREE.TextureLoader,
-    textureImage,
-  );
-
   return (
     <mesh ref={ref} receiveShadow>
       <boxBufferGeometry attach="geometry" args={wallSize} />
-      <meshLambertMaterial map={texture} attach="material" />
+      <meshLambertMaterial attach="material" transparent opacity={0} />
     </mesh>
   );
 }
