@@ -8,6 +8,7 @@ import Ground from '../Ground';
 import Walls from '../Walls';
 import Celling from '../Celling';
 import Frame from '../Frame';
+import HallJazz from '../HallJazz';
 
 // TODO: 자신만의 방
 // TODO: click시 작품
@@ -21,16 +22,12 @@ function Hall() {
         <Canvas>
           <Provider store={store}>
             <Sky sunPosition={[100, 20, 100]} />
-            <ambientLight intensity={0.25} />
-            <pointLight castShadow intensity={0.5} position={[0, 1, 0]} />
-            <Physics gravity={[0, -300, 0]}>
-              <Debug color="black" scale={1.1}>
-                <Scene>
-                  <Ground position={[0, 1, 0]} />
-                </Scene>
-              </Debug>
-              {/* <OrbitControls /> */}
-              <Player position={[0, 2, 0]} />
+            <ambientLight intensity={0.5} />
+            <Physics gravity={[0, 0, 0]}>
+              <Scene>
+                <HallJazz />
+              </Scene>
+              <Player position={[0, 2.9, -3]} />
             </Physics>
           </Provider>
         </Canvas>
