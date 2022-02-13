@@ -1,3 +1,5 @@
+import { useRef, useState } from 'react';
+
 import { Canvas } from '@react-three/fiber';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { Debug, Physics } from '@react-three/cannon';
@@ -10,7 +12,7 @@ import CHThemes from '../CHThemes';
 // TODO: 적절한 조명
 // TODO: 이미지 비율 고려
 
-function Hall() {
+function Hall({ openModal }: any) {
   return (
     <ReactReduxContext.Consumer>
       {({ store }) => (
@@ -18,10 +20,10 @@ function Hall() {
           <Provider store={store}>
             <Sky sunPosition={[100, 20, 100]} />
             <ambientLight intensity={0.5} />
-            {/* <spotLight castShadow intensity={3} position={[10, 30, 10]} /> */}
+            <pointLight castShadow intensity={0.3} position={[0, 100, 0]} />
             <Physics gravity={[0, 0, 0]}>
               <Debug color="black" scale={1.1}>
-                <CHThemes />
+                <CHThemes openModal={openModal} />
               </Debug>
               {/* <OrbitControls /> */}
               <Player position={[0, 25, 0]} />

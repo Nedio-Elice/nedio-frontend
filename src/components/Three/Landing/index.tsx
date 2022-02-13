@@ -50,7 +50,7 @@ const Container = styled.div`
   font-size: 1.1rem;
   line-height: 26px;
   cursor: pointer;
-  z-index: 9990;
+  z-index: 100;
 `;
 
 const Title = styled.h3`

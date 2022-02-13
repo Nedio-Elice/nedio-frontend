@@ -39,6 +39,8 @@ function Roof(props: any) {
         map={texture}
         attach="material"
         side={THREE.DoubleSide}
+        transparent
+        opacity={0.1}
       />
     </mesh>
   );

@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { useBox } from '@react-three/cannon';
 import { useLoader } from '@react-three/fiber';
 
-// import textureImage from '../../../assets/textures/fabric.jpg';
 import textureImage from '../../../assets/textures/fabric.jpg';
 
 function Wall({ wallSize, ...props }: any) {

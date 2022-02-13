@@ -4,11 +4,11 @@ import Frames from './Frames';
 import Walls from './Walls';
 import Ground from './Ground';
 
-function CHThemes() {
+function CHThemes({ openModal }: any) {
   return (
     <Scene>
       <Roof />
-      <Frames />
+      <Frames openModal={openModal} />
       <Walls />
       <Ground />
     </Scene>
