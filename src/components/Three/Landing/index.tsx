@@ -10,7 +10,11 @@ function Landing() {
 
   const navigation = useNavigate();
 
-  const handleClick = () => navigation(-1);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    navigation(-1);
+  };
+
   useEffect(() => {
     setIsShow(!isPointerLock);
   }, [isPointerLock]);
@@ -50,7 +54,7 @@ const Container = styled.div`
   font-size: 1.1rem;
   line-height: 26px;
   cursor: pointer;
-  z-index: 9990;
+  z-index: 100;
 `;
 
 const Title = styled.h3`
@@ -97,7 +101,7 @@ const CloseBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 5001;
 
   &:hover {
     background: rgba(133, 133, 133, 0.1);

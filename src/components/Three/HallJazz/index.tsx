@@ -16,18 +16,27 @@ import Lamp from './Lamp';
 import Sound from './Sound';
 import Piano from './Piano';
 
-function HallJazz() {
-  const dispatch = useDispatch();
-  const { hallId } = useParams();
-  const [hall, setHall] = useState<Hall | null>(null);
+interface Props {
+  pickItem: (item: any) => void;
+}
 
+function HallJazz({ pickItem }: Props) {
+  const dispatch = useDispatch();
+  const { hallId, id } = useParams();
+  const [hall, setHall] = useState<Hall | null>(null);
+  console.log(id);
   useEffect(() => {
     const fetchHall = async () => {
       try {
         await axiosInstance
-          .get<Halls>(`galleries/62066a3a6271469c0a8f770a`)
+          .get<Halls>(`galleries/6209e28c49d9097ef94e0de7`)
           .then((response: AxiosResponse) => {
-            setHall(response.data.data.halls[0]);
+            const halls = response.data.data;
+
+            const currentHall = halls.find(
+              (h: Hall) => h.hallObjectId === hallId,
+            );
+            setHall(currentHall);
           });
       } catch (error) {
         const err = error as AxiosError;
@@ -35,7 +44,7 @@ function HallJazz() {
       }
     };
     fetchHall();
-  }, []);
+  }, [hallId]);
   return (
     <>
       <Stage intensity={0.001} />
@@ -52,7 +61,7 @@ function HallJazz() {
       <Chandelier position={[3, -1.5, 3]} scale={2.5} />
       <Lamp position={[6.5, 1, 6.5]} scale={4} />
       <Piano position={[0, 1, 0]} scale={1.8} />
-      {hall && <Frames data={hall.imagesData} />}
+      {hall && <Frames data={hall.imagesData} pickItem={pickItem} />}
       <Ground position={[0, 1, 0]} wireframe={false} />
       <Sound />
     </>

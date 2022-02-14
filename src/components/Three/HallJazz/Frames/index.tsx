@@ -1,30 +1,85 @@
 import * as THREE from 'three';
-import { useLoader } from '@react-three/fiber';
+import { useLoader, useThree } from '@react-three/fiber';
 import { Box, RoundedBox, Extrude } from '@react-three/drei';
 import { Triplet, useBox, usePlane } from '@react-three/cannon';
 import React, { useEffect, useState, Suspense } from 'react';
-import { TextureLoader } from 'three';
-import { HallImages } from '../../../../types/GalleryDetail';
+import {
+  Object3D,
+  Raycaster,
+  SpotLightHelper,
+  Texture,
+  TextureLoader,
+  Vector3,
+} from 'three';
+import { HallImageData, HallImages } from '../../../../types/GalleryDetail';
+
 import Color from '../../../../assets/textures/FrameTexture/Color.jpg';
 import Displacement from '../../../../assets/textures/FrameTexture/Displacement.jpg';
 import Normal from '../../../../assets/textures/FrameTexture/Normal.jpg';
 import AO from '../../../../assets/textures/FrameTexture/AO.jpg';
 import Roughness from '../../../../assets/textures/FrameTexture/Roughness.jpg';
 import Metalic from '../../../../assets/textures/FrameTexture/Metalic.jpg';
-import Edges, { TopEdge } from '../Edges';
 
 interface Props {
   data: HallImages;
+  pickItem: any;
 }
 
-interface PadProp {
+interface FrameProp {
   position: Triplet;
   rotation: Triplet;
-  url: string;
+  image: HallImageData;
+  pickItem: any;
 }
 
-function Frame({ position, rotation, url }: PadProp) {
+function Frame({ position, rotation, image, pickItem }: FrameProp) {
+  const DETECT_FROM_DISTANCE = 15;
+  const url = image.imageUrl;
+  const title = image.imageTitle;
+  const description = image.imageDescription;
+  const { camera } = useThree();
   const [proportion, setProportion] = useState<number>(1); // height / width
+
+  const [ref] = useBox(() => ({
+    type: 'Static',
+    args: [1, proportion, 0.1],
+    rotation,
+    position,
+  }));
+
+  useEffect(() => {
+    if (!ref) return;
+
+    const onDocumentMouseDown = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const obj = ref.current as Object3D;
+
+      const cameraDir = new Vector3();
+      camera.getWorldDirection(cameraDir);
+
+      const raycaster = new Raycaster(camera.position, cameraDir);
+
+      const intersects = raycaster.intersectObject(obj);
+
+      if (
+        intersects.length > 0 &&
+        intersects[0].distance < DETECT_FROM_DISTANCE
+      ) {
+        pickItem({
+          title,
+          content: description,
+        });
+      }
+    };
+
+    document.addEventListener('mousedown', onDocumentMouseDown);
+    // eslint-disable-next-line consistent-return
+    return () => {
+      document.removeEventListener('mousedown', onDocumentMouseDown);
+    };
+  }, [camera, ref, pickItem, title, description]);
 
   useEffect(() => {
     async function getSize() {
@@ -40,13 +95,6 @@ function Frame({ position, rotation, url }: PadProp) {
 
     getSize();
   }, [proportion, url]);
-
-  const [ref] = useBox(() => ({
-    type: 'Static',
-    args: [1, proportion, 0.1],
-    rotation,
-    position,
-  }));
 
   const [color, displacement, normal, ao, roughness, metalic] = useLoader<
     any,
@@ -66,6 +114,8 @@ function Frame({ position, rotation, url }: PadProp) {
       map={color}
       normalMap={normal}
       aoMap={ao}
+      displacementMap={displacement}
+      displacementScale={0.0005}
       roughnessMap={roughness}
       metalnessMap={metalic}
       metalness={1.65}
@@ -115,61 +165,71 @@ function Frame({ position, rotation, url }: PadProp) {
   );
 }
 
-function Frames({ data }: Props) {
+function Frames({ data, pickItem }: Props) {
   const urls: string[] = [];
   data.forEach((d) => urls.push(d.imageUrl));
 
   return (
     <>
       <Frame
-        url="https://images.unsplash.com/photo-1557576146-047908becbb4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bnVtYmVyJTIwMXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[0]}
         position={[-2.5, 3.2, -6.9]}
         rotation={[0, 0, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1487022171932-100463e54b29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fG51bWJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[1]}
         position={[2.5, 3.2, -6.9]}
         rotation={[0, 0, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1556917452-890eed890648?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fG51bWJlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[2]}
         position={[6.9, 3.2, -4]}
         rotation={[0, Math.PI / 2, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1610072947120-8736bbfc56e1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bnVtYmVyJTIwNHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[3]}
         position={[6.9, 3.2, 0]}
         rotation={[0, Math.PI / 2, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1529239672822-1c8572f76b41?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bnVtYmVyJTIwNXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[4]}
         position={[6.9, 3.2, 4]}
         rotation={[0, Math.PI / 2, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1512412646187-ea209a3cd3a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bnVtYmVyJTIwNnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[5]}
         position={[2.5, 3.2, 6.9]}
         rotation={[0, 0, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1611757346987-12757bddff13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bnVtYmVyJTIwN3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[6]}
         position={[-2.5, 3.2, 6.9]}
         rotation={[0, 0, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1567360144960-526572cd6d72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bnVtYmVyJTIwOHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[7]}
         position={[-6.9, 3.2, 4]}
         rotation={[0, -Math.PI / 2, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1588942411963-f40f321ea7d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bnVtYmVyJTIwOXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        image={data[8]}
         position={[-6.9, 3.2, 0]}
         rotation={[0, -Math.PI / 2, 0]}
+        pickItem={pickItem}
       />
       <Frame
-        url="https://images.unsplash.com/photo-1584392282358-0334b7494872?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bnVtYmVyJTIwMTB8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+        image={data[9]}
         position={[-6.9, 3.2, -4]}
         rotation={[0, -Math.PI / 2, 0]}
+        pickItem={pickItem}
       />
     </>
   );

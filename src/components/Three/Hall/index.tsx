@@ -15,7 +15,11 @@ import HallJazz from '../HallJazz';
 // TODO: 적절한 조명
 // TODO: 이미지 비율 고려
 
-function Hall() {
+interface Props {
+  pickItem: (item: any) => void;
+}
+
+function Hall({ pickItem }: Props) {
   return (
     <ReactReduxContext.Consumer>
       {({ store }) => (
@@ -25,7 +29,7 @@ function Hall() {
             <ambientLight intensity={0.5} />
             <Physics gravity={[0, 0, 0]}>
               <Scene>
-                <HallJazz />
+                <HallJazz pickItem={pickItem} />
               </Scene>
               <Player position={[0, 2.9, -3]} />
             </Physics>

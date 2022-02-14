@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable react/require-default-props */
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import { useAppSelector } from '../../store/hooks';
 
 interface Props {
   width: number;
   height: number;
   children: React.ReactNode;
+  isHall?: boolean;
 }
 
 interface ModalHandle {
@@ -12,10 +16,11 @@ interface ModalHandle {
 }
 
 const Modal = React.forwardRef<ModalHandle, Props>(
-  ({ width, height, children }, ref) => {
+  ({ width, height, isHall = false, children }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [modalState, setModalState] = useState(false);
     const modal = useRef<HTMLInputElement>(null);
+    const control = useAppSelector((state) => state.controls.movement);
 
     useImperativeHandle(ref, () => ({
       show() {
@@ -38,14 +43,20 @@ const Modal = React.forwardRef<ModalHandle, Props>(
       };
     }, [modalState]);
 
-    const closeModal = () => {
+    const closeModal = (
+      e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+    ) => {
+      e.stopPropagation();
       document.body.style.overflow = 'auto';
       setModalState(false);
+
+      if (isHall) control?.lock && control.lock();
     };
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
       if (!modal.current?.contains(e.target as Node)) {
-        if (modalState) closeModal();
+        if (modalState) closeModal(e);
       }
     };
 
@@ -99,7 +110,7 @@ const Background = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  background: rgba(77, 77, 77, 0.5);
+  background: rgba(77, 77, 77, 0.8);
 `;
 
 const Container = styled.div<{

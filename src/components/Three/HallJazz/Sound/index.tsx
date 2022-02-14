@@ -7,14 +7,21 @@ function Sound() {
   const sound: any = useRef();
   const { camera } = useThree();
   const [listener] = useState(() => new THREE.AudioListener());
+
   const buffer = useLoader(THREE.AudioLoader, jazzmusic);
   useEffect(() => {
-    sound.current.setBuffer(buffer);
-    sound.current.setRefDistance(1);
-    sound.current.setLoop(true);
-    sound.current.play();
+    const music = sound.current;
+    music.setBuffer(buffer);
+    music.setRefDistance(1);
+    music.setLoop(true);
+    music.play();
     camera.add(listener);
+
+    return function soundOff() {
+      music.stop();
+    };
   }, [buffer, camera, listener]);
+
   return <positionalAudio ref={sound} args={[listener]} />;
 }
 
