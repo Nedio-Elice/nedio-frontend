@@ -12,7 +12,7 @@ import {
   TextureLoader,
   Vector3,
 } from 'three';
-import Spotlight from '../SpotLight';
+import Spotlight from '../Spotlight';
 import { DETECT_FROM_DISTANCE, PICTURE_RATIO } from '../Constants';
 
 function Picture({ position, spotPos, rotation, data, pickItem }: any) {

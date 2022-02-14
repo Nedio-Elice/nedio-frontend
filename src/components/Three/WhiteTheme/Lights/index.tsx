@@ -1,4 +1,4 @@
-import PointLight from '../PointLight';
+import PointLight from '../Pointlight';
 
 function Lights() {
   return (
