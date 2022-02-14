@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { keyboard, position, question } from '../../../constants/icons';
@@ -10,7 +10,10 @@ function Landing() {
 
   const navigation = useNavigate();
 
-  const handleClick = () => navigation(-1);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    navigation(-1);
+  };
   useEffect(() => {
     setIsShow(!isPointerLock);
   }, [isPointerLock]);
@@ -97,7 +100,7 @@ const CloseBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 5001;
 
   &:hover {
     background: rgba(133, 133, 133, 0.1);

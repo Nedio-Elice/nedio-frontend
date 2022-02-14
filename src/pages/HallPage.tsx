@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Modal from '../components/Modal';
 import Hall from '../components/Three/Hall';
 import Landing from '../components/Three/Landing';
-import MouseIcon from '../components/Three/CHThemes/MouseIcon';
+import MouseIcon from '../components/Three/WhiteTheme/MouseIcon';
 import { useAppSelector } from '../store/hooks';
 
 function HallPage() {
@@ -47,6 +47,7 @@ const Container = styled.div`
 `;
 
 const TempImg = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

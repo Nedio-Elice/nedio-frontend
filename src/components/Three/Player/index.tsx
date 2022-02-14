@@ -16,7 +16,7 @@ function Player(props: any) {
     useKeyboardControls();
 
   const [ref, api] = useSphere(() => ({
-    mass: 1,
+    mass: 5,
     type: 'Dynamic',
     ...props,
   }));
