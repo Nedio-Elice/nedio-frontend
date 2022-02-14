@@ -7,6 +7,7 @@ declare module '*.obj';
 declare module '*.gltf';
 declare module '*.glb';
 declare module '*.mp3';
+declare module '*.glb';
 declare module '*.ttf' {
   const content: any;
   export default content;
