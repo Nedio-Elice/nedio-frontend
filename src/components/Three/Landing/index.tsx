@@ -14,6 +14,7 @@ function Landing() {
     e.stopPropagation();
     navigation(-1);
   };
+
   useEffect(() => {
     setIsShow(!isPointerLock);
   }, [isPointerLock]);

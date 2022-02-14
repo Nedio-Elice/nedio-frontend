@@ -192,11 +192,12 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   line-height: 12px;
   color: #777777;
   border: none;
-  height: 20px;
+  height: 24px;
+  min-width: 80px;
   padding: 2px 12px;
   text-align: center;
   margin-top: 8px;
-  margin-left: 80%;
+  margin-left: 79%;
   background: linear-gradient(
     134.47deg,
     #ffffff 36.25%,
@@ -217,7 +218,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
     `}
 
   &:hover {
-    height: 20px;
+    height: 24px;
     border: 2px solid #ff6e00;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -260,7 +261,7 @@ const ButtonMedium = styled.button`
   border: none;
   background-color: transparent;
   height: 24px;
-  width: 60px;
+  min-width: 60px;
   padding: 0px 12px;
   text-align: center;
   margin-left: auto;
