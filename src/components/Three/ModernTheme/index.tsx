@@ -1,3 +1,4 @@
+import Player from '../Player';
 import Scene from '../Scene';
 import Bench from './Bench';
 import Ceiling from './Ceiling';
@@ -21,6 +22,7 @@ function ModernTheme({ pickItem }: Props) {
       <Lamp position={[-5, -26, -90]} scale={[15, 15, 15]} />
       <Bench position={[44, 0, -92]} scale={[8, 8, 8]} />
       <Ground position={[0, 0, -55]} />
+      <Player position={[0, 10, 0]} speed={30} />
     </Scene>
   );
 }
