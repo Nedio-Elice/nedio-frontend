@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -24,41 +25,33 @@ function SearchResultContainer() {
   // URL 관리
   useEffect(() => {
     const queryParam = decodeURIComponent(query.toString());
-    const [key, value] = queryParam.split('=');
-    let queryStr = `/galleries/filtering?page=${page}&perPage=${perPage}&`;
-
-    switch (key) {
-      case 'title': {
-        queryStr += `${key}=${value}&nickname=&category=`;
-        break;
-      }
-
-      case 'nickname': {
-        queryStr += `title=&${key}=${value}&category=`;
-        break;
-      }
-
-      case 'category': {
-        queryStr += `title=&nickname=&${key}=${value}`;
-        break;
-      }
-
-      default:
-        queryStr += `title=&nickname=&category=`;
-    }
+    const [queryKey, queryValue] = queryParam.split('=');
+    const customParams = {
+      page,
+      perPage,
+      title: '',
+      nickname: '',
+      category: '',
+    };
 
     axiosInstance
-      .get(queryStr)
+      .get<string, AxiosRequestConfig>('/galleries/filtering', {
+        params: customParams,
+        paramsSerializer: (params) => {
+          return Object.entries({ ...params, [queryKey]: queryValue })
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&');
+        },
+      })
       .then((res) => {
-        console.log('check filtering', res);
         setCards(res.data.data);
       })
       .catch((e) => {
         // console.log(e);
       })
       .finally(() => {
-        setResultKeyword(value);
-        dispatch(setKeyword(value));
+        setResultKeyword(queryValue);
+        dispatch(setKeyword(queryValue));
       });
   }, [page, perPage, query, dispatch]);
 
