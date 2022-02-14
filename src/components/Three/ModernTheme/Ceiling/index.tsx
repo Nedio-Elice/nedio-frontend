@@ -2,7 +2,7 @@ import { usePlane } from '@react-three/cannon';
 import { useLoader } from '@react-three/fiber';
 import { MirroredRepeatWrapping, TextureLoader } from 'three';
 import { CEILING_REPEAT_SIZE, GROUND_SIZE, WALL_HEIGHT } from '../Constants';
-import wallImg from '../../../../assets/textures/ceiling6/white.jpeg';
+import wallImg from '../../../../assets/textures/ModernThemeTexture/ceiling.jpeg';
 
 function Ceiling() {
   const [ref] = usePlane(() => ({

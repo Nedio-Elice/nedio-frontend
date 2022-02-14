@@ -1,7 +1,7 @@
 import { useBox } from '@react-three/cannon';
 import { useLoader } from '@react-three/fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import benchObj from '../../../../assets/3D/bench.obj';
+import benchObj from '../../../../assets/model/bench.obj';
 
 function Bench({ position, scale }: any) {
   const obj = useLoader(OBJLoader, benchObj);

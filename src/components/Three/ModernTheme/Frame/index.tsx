@@ -1,6 +1,6 @@
 import { useLoader } from '@react-three/fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import frameObj from '../../../../assets/3D/frame.obj';
+import frameObj from '../../../../assets/model/frame.obj';
 import { FRAME_RATIO } from '../Constants';
 
 function Frame({ position, rotation, ratio, children }: any) {

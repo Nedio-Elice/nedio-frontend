@@ -2,7 +2,7 @@ import { useLoader } from '@react-three/fiber';
 import { usePlane } from '@react-three/cannon';
 import { Texture, TextureLoader, MirroredRepeatWrapping } from 'three';
 import { GROUND_SIZE, GROUND_REPEAT_SIZE } from '../Constants';
-import mable from '../../../../assets/textures/marble6/Marble006_1K_Roughness.jpg';
+import mable from '../../../../assets/textures/ModernThemeTexture/ground.jpg';
 
 function Ground(props: any) {
   const [ref] = usePlane(() => ({

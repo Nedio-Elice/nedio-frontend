@@ -1,7 +1,7 @@
 import { useBox } from '@react-three/cannon';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import lamp from '../../../../assets/3D/white_lamp.glb';
+import lamp from '../../../../assets/model/white_lamp.glb';
 
 function Lamp({ position, scale }: any) {
   const [ref] = useBox(() => ({

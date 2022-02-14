@@ -1,6 +1,6 @@
 import { useLoader } from '@react-three/fiber';
 import { Texture, TextureLoader, MirroredRepeatWrapping } from 'three';
-import wallImg from '../../../../assets/textures/White_Wall.jpeg';
+import wallImg from '../../../../assets/textures/ModernThemeTexture/wall.jpeg';
 import {
   FAR_FROM_DEFAULT_POSITION,
   WALL_HEIGHT,
