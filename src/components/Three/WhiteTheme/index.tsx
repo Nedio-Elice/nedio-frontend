@@ -14,8 +14,6 @@ interface Props {
 function WhiteTheme({ pickItem }: Props) {
   return (
     <Scene>
-      {/* default Light */}
-      <spotLight castShadow intensity={0.7} position={[20, 250, 0]} />
       <Ceiling />
       <Frames pickItem={pickItem} />
       <Walls />
