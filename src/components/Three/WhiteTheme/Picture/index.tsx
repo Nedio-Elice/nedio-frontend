@@ -13,15 +13,13 @@ import {
   Vector3,
 } from 'three';
 import Spotlight from '../SpotLight';
-import { DETECT_FROM_DISTANCE } from '../Constants';
+import { DETECT_FROM_DISTANCE, PICTURE_RATIO } from '../Constants';
 
 function Picture({ position, spotPos, rotation, data, pickItem }: any) {
-  // TODO: ratio 관련 scale 조절
-  const [x, y, z] = [12, 8, 0.1];
-  // Defence Close to IMG
+  const [x, y, z] = PICTURE_RATIO[data.ratio];
   const [ref] = useBox(() => ({
     type: 'Static',
-    args: [x, y, z + 2],
+    args: [x + 4, y + 3, z + 2],
     position,
     rotation,
   }));
@@ -79,7 +77,7 @@ function Picture({ position, spotPos, rotation, data, pickItem }: any) {
         decay={3}
       />
       <mesh ref={ref}>
-        <boxGeometry args={[x, y, z + 1]} />
+        <boxGeometry args={[x + 4, y + 3, z + 1]} />
         <meshBasicMaterial map={img} />
       </mesh>
     </>

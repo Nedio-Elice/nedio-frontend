@@ -1,19 +1,19 @@
 import { useLoader } from '@react-three/fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import frameObj from '../../../../assets/3D/frame.obj';
+import { FRAME_RATIO } from '../Constants';
 
-function Frame({ position, rotation, children }: any) {
+function Frame({ position, rotation, ratio, children }: any) {
   const obj: any = useLoader(OBJLoader, frameObj);
   const frame = obj.clone();
 
-  // TODO: ratio 관련 scale 조절
-
+  const [x, y, z] = FRAME_RATIO[ratio];
   return (
     <>
       <primitive
         object={frame}
         position={position}
-        scale={[25, 25, 50]}
+        scale={[x, y, z]}
         rotation={rotation}
       />
       {children}

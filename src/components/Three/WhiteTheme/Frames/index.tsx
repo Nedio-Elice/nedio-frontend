@@ -87,15 +87,15 @@ const fixedFrame = [
     framePosition: [
       -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION + 0.4,
       WALL_HEIGHT / 3,
-      -WALL_WIDTH - 3.5,
+      -WALL_WIDTH - 3,
     ],
     picturePosition: [
       -WALL_WIDTH + FAR_FROM_DEFAULT_POSITION,
       WALL_HEIGHT / 3,
-      -WALL_WIDTH - 3.5,
+      -WALL_WIDTH - 3,
     ],
     rotation: [0, Math.PI / 2, 0],
-    spotPos: [-45, 35, -WALL_WIDTH - 3.5],
+    spotPos: [-45, 35, -WALL_WIDTH - 3],
   },
   {
     frame_id: 6,
@@ -162,53 +162,63 @@ const tempData = {
   imagesData: [
     {
       imageUrl:
-        'https://media.istockphoto.com/photos/funny-black-cat-looks-through-ripped-hole-in-yellow-paper-peekaboo-picture-id1150719858?b=1&k=20&m=1150719858&s=170667a&w=0&h=W-DqOjF0KPH0kilyBhbVwJBeK9teyKjma4diNgOyafw=',
+        'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2F0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=800&q=60',
       imageDescription: '설명1',
+      ratio: 'vertical',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1501743029101-21a00d6a3fb9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTA3fHxjYXR8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       imageDescription: '설명2',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1602519362498-a57e90340bca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjY0fHxjYXR8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       imageDescription: '설명3',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1503431128871-cd250803fa41?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
       imageDescription: '설명4',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1578258775864-4d2a10c74688?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzN8fGNhdHxlbnwwfDB8MHx8&auto=format&fit=crop&w=800&q=60',
       imageDescription: '설명5',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1601230202587-1b3f0286c1b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjU2fHxjYXR8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       imageDescription: '설명6',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://media.istockphoto.com/photos/british-shorthair-cat-on-red-desk-picture-id1308939962?b=1&k=20&m=1308939962&s=170667a&w=0&h=Kc_m38jPHF6ahmVA4J2mDUvmRHiG3bpt5TvvhI29aQM=',
       imageDescription: '설명7',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZG9nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60',
       imageDescription: '설명8',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1585937250791-efc81fc76e43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80',
       imageDescription: '설명9',
+      ratio: 'horizontal',
     },
     {
       imageUrl:
         'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
       imageDescription: '설명10',
+      ratio: 'horizontal',
     },
   ],
 };
@@ -223,6 +233,7 @@ function Frames({ imgURL, content, pickItem }: any) {
             position={fixedFrame[idx].framePosition}
             rotation={fixedFrame[idx].rotation}
             key={fixedFrame[idx].frame_id}
+            ratio={item.ratio}
           >
             <Picture
               position={fixedFrame[idx].picturePosition}

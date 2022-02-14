@@ -16,3 +16,18 @@ export const GROUND_REPEAT_SIZE = 10;
 export const CEILING_REPEAT_SIZE = 25;
 
 export const DETECT_FROM_DISTANCE = 20;
+
+interface Ratio {
+  horizontal: number[];
+  vertical: number[];
+}
+
+export const PICTURE_RATIO = {
+  horizontal: [12, 8, 0.1],
+  vertical: [8, 12, 0.1],
+} as any;
+
+export const FRAME_RATIO = {
+  horizontal: [35, 35, 50],
+  vertical: [25, 45, 50],
+} as any;
