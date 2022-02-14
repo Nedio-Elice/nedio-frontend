@@ -15,16 +15,18 @@ interface Props {
 
 function ModernTheme({ pickItem, hall }: Props) {
   return (
-    <Scene>
-      <Ceiling />
-      <Frames pickItem={pickItem} hall={hall} />
-      <Walls />
-      <Lights />
-      <Lamp position={[-5, -26, -90]} scale={[15, 15, 15]} />
-      <Bench position={[44, 0, -92]} scale={[8, 8, 8]} />
-      <Ground position={[0, 0, -55]} />
+    <>
+      <Scene>
+        <Ceiling />
+        <Frames pickItem={pickItem} hall={hall} />
+        <Walls />
+        <Lights />
+        <Lamp position={[-5, -26, -90]} scale={[15, 15, 15]} />
+        <Bench position={[44, 0, -92]} scale={[8, 8, 8]} />
+        <Ground position={[0, 0, -55]} />
+      </Scene>
       <Player position={[0, 10, 0]} speed={30} />
-    </Scene>
+    </>
   );
 }
 
