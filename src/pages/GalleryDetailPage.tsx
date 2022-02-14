@@ -73,8 +73,7 @@ function GalleryDetailPage() {
     await dispatch(getComments({ galleryId, currPage }));
   }
 
-  const handleHallButtonClick = (id: string) =>
-    navigation(`${PATH.HALL}/${id}`);
+  const handleHallButtonClick = (id: string) => navigation(`/halls/${id}`);
 
   if (gallery === null) {
     return <Background />;
@@ -95,15 +94,17 @@ function GalleryDetailPage() {
             );
           })}
       </ButtonWrapper>
-      <CommentInput
-        defaultText="방명록을 입력해 주세요."
-        value={newComment}
-        onChange={setNewComment}
-        handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
-          handleSubmit(event)
-        }
-        user={user}
-      />
+      {user._id && (
+        <CommentInput
+          defaultText="방명록을 입력해 주세요."
+          value={newComment}
+          onChange={setNewComment}
+          handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+            handleSubmit(event)
+          }
+          user={user}
+        />
+      )}
       {comments.data !== undefined &&
         comments.data.map((c: any) => {
           // eslint-disable-next-line no-underscore-dangle
@@ -120,7 +121,7 @@ function GalleryDetailPage() {
             />
           );
         })}
-      {comments.data !== null && (
+      {comments.data !== undefined && (
         <Pagination
           currPage={currPage}
           pageCount={pageCount}

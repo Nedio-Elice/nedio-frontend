@@ -1,5 +1,46 @@
+import { useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+import Modal from '../components/Modal';
+import Hall from '../components/Three/Hall';
+import Landing from '../components/Three/Landing';
+// import MouseIcon from '../components/Three/WhiteTheme/MouseIcon';
+import { useAppSelector } from '../store/hooks';
+
 function HallPage() {
-  return <div>HallPage</div>;
+  const [selectedItem, setSelectedItem] = useState<any>();
+  const modalRef = useRef<React.ElementRef<typeof Modal>>(null);
+  const control = useAppSelector((state) => state.controls.movement);
+
+  const handlePictureClick = (item: any) => {
+    // 자유롭게 마우스를 움직일 수 있을 때는 클릭방지
+    if (!control.isLocked) return;
+    modalRef.current?.show();
+    setSelectedItem(item);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    control?.unlock && control?.unlock();
+  };
+
+  return (
+    <Container>
+      <Landing />
+      <Hall pickItem={handlePictureClick} />
+
+      <Modal ref={modalRef} width={400} height={480} isHall>
+        {selectedItem && (
+          <>
+            <div>{selectedItem.title}</div>
+            <div>{selectedItem.content}</div>
+          </>
+        )}
+      </Modal>
+    </Container>
+  );
 }
 
 export default HallPage;
+
+const Container = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+`;

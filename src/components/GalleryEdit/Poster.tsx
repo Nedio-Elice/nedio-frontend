@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+
 import { dragNdrop } from '../../constants/images';
 import { MESSAGE } from '../../constants/messages';
 
@@ -128,4 +129,4 @@ function Poster({
   );
 }
 
-export default Poster;
+export default memo(Poster);

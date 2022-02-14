@@ -1,8 +1,11 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 import {
   backgroundGradient,
   greyButton,
   hoverOrange,
+  inputPadding,
 } from '../../styles/mixins';
 
 import { GalleryProps } from '../../types/GalleryEdit';
@@ -85,13 +88,11 @@ function GalleryEdit({
   );
 }
 
-export default GalleryEdit;
+export default memo(GalleryEdit);
 
 const Container = styled.div`
   position: relative;
-
   font-size: 16px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,6 +109,8 @@ const Container = styled.div`
   }
 
   & > div > button {
+    font-size: 1em;
+    padding: 1.2em 0.8em;
     ${hoverOrange}
   }
 
@@ -141,9 +144,13 @@ const Inputs = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 2em;
+  width: 100%;
+  input {
+    ${inputPadding}
+  }
 
   div + div {
-    margin-top: 1em;
+    margin-top: 0.5em;
   }
 
   div > label {

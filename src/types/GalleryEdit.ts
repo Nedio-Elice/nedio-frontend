@@ -126,7 +126,6 @@ export interface PieceButtonProps {
 
 export interface ModalProps {
   halls: HallInfo[];
-  modalOn: boolean;
   hallIndex: number;
   pieceIndex: number;
   closeModal: () => void;

@@ -20,7 +20,7 @@ function App() {
               path={path}
               element={
                 <Suspense fallback={<Spinner />}>
-                  <NavContainer />
+                  {path !== PATH.HALL && <NavContainer />}
                   <Component />
                 </Suspense>
               }

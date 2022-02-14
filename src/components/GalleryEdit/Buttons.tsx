@@ -1,5 +1,10 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
-import { rightSideOrangeButton } from '../../styles/mixins';
+import {
+  leftSideSiverButton,
+  rightSideOrangeButton,
+} from '../../styles/mixins';
 
 import { GalleryButtonsProps } from '../../types/GalleryEdit';
 
@@ -21,18 +26,14 @@ function Buttons({
       <button type="button" onClick={handleClickAddHallButton}>
         전시관 추가
       </button>
-      <button type="button">미리보기</button>
       <button type="button" onClick={handleClickUpdateGallery}>
-        갤러리 생성
-      </button>
-      <button type="button" onClick={handleClickUpdateGallery}>
-        갤러리 수정
+        {mode === 'create' ? '갤러리 생성' : '갤러리 수정'}
       </button>
     </Container>
   );
 }
 
-export default Buttons;
+export default memo(Buttons);
 
 interface ContainerStyles {
   mode: 'create' | 'modify';
@@ -46,12 +47,12 @@ const Container = styled.div<ContainerStyles>`
 
   button {
     height: 2em;
-    &:nth-child(3) {
-      display: ${(props) => (props.mode === 'create' ? 'block' : 'none')};
-      ${rightSideOrangeButton}
+
+    &:first-child {
+      ${leftSideSiverButton}
     }
+
     &:last-child {
-      display: ${(props) => (props.mode === 'modify' ? 'block' : 'none')};
       ${rightSideOrangeButton}
     }
   }

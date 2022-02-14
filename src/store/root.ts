@@ -17,7 +17,7 @@ import commentReducer from './comment';
 import profileReducer from './profile';
 import myGalleryReducer from './myGallery';
 import searchReducer from './search';
-import currentGalleryReducer from './currentGallery';
+import controlsReducer from './controls';
 
 const persistConfig = {
   key: 'root',
@@ -32,7 +32,7 @@ const combinedReducer = combineReducers({
   profile: profileReducer,
   myGallery: myGalleryReducer,
   search: searchReducer,
-  currGallery: currentGalleryReducer,
+  controls: controlsReducer,
 });
 
 const rootReducer = persistReducer(persistConfig, combinedReducer);
@@ -42,9 +42,10 @@ export const store = configureStore({
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
     }),
 });
 

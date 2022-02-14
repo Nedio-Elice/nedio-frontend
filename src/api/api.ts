@@ -1,4 +1,10 @@
 import axios from 'axios';
+import { setupCache } from 'axios-cache-adapter';
+
+const cache = setupCache({
+  maxAge: 15 * 60 * 1000,
+  ignoreCache: true,
+});
 
 export const url = process.env.SERVER_URL || 'http://localhost:4000/api';
 
@@ -12,6 +18,7 @@ const axiosInstance = axios.create({
   headers: {
     'Content-type': 'application/json',
   },
+  adapter: cache.adapter,
 });
 axiosInstance.defaults.withCredentials = true;
 
