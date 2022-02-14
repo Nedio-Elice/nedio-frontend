@@ -22,13 +22,12 @@ import { PATH } from '../../constants/path';
 interface Props {
   gallery: Gallery;
   galleryId: string | undefined;
-  author: User;
   user: User;
 }
 
 const { ButtonEdit } = Buttons;
 
-function GalleryInformation({ gallery, galleryId, user, author }: Props) {
+function GalleryInformation({ gallery, galleryId, user }: Props) {
   const navigation = useNavigate();
   const handleEditClick = (id: string | undefined) =>
     navigation(`${PATH.GALLERY_EDIT}/${id}`);
@@ -52,10 +51,10 @@ function GalleryInformation({ gallery, galleryId, user, author }: Props) {
         </GalleryPeriod>
         <GalleryDescription>{gallery.description}</GalleryDescription>
         <AuthorProfile>
-          <AuthorImg src={author.profileURL} alt=" " />
+          <AuthorImg src={gallery.author.profileURL} alt=" " />
           <AuthorInfo>
-            <AuthorName>{author.nickname}</AuthorName>
-            <AuthorEmail>{author.email}</AuthorEmail>
+            <AuthorName>{gallery.author.nickname}</AuthorName>
+            <AuthorEmail>{gallery.author.email}</AuthorEmail>
           </AuthorInfo>
         </AuthorProfile>
       </GalleryInfo>

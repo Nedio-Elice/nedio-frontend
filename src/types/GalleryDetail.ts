@@ -11,6 +11,7 @@ export interface Gallery {
 }
 
 export interface Author {
+  id: string;
   email: string;
   nickname: string;
   contact?: string;

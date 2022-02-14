@@ -3,7 +3,7 @@ import { Author } from './GalleryDetail';
 export interface CommentProps {
   commentId: string;
   author: Author;
-  authorId: string;
+  userId: string | undefined;
   content: string;
   galleryId: string | undefined;
   currPage: number;

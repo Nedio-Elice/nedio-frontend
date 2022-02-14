@@ -3,6 +3,11 @@ import { Provider, ReactReduxContext } from 'react-redux';
 import { Debug, Physics } from '@react-three/cannon';
 import { OrbitControls, Sky } from '@react-three/drei';
 import Player from '../Player';
+import Ground from '../Ground';
+import Walls from '../Walls';
+import Celling from '../Celling';
+import Frame from '../Frame';
+import HallJazz from '../HallJazz';
 import WhiteTheme from '../WhiteTheme';
 
 // TODO: 자신만의 방

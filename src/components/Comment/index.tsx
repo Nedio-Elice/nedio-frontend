@@ -11,14 +11,13 @@ const { ButtonMini } = Buttons;
 function Comment({
   commentId,
   author,
-  authorId,
+  userId,
   galleryId,
   currPage,
   content,
   handleClickDelete,
 }: CommentProps) {
   const dispatch = useAppDispatch();
-  const userId = useAppSelector((state: RootState) => state.users.userInfo._id);
   const [text, setText] = useState<string>(content);
   const [update, setUpdate] = useState<boolean>(false);
 
@@ -62,7 +61,7 @@ function Comment({
           </UpdateWrapper>
         )}
       </CommentContent>
-      {authorId === userId && (
+      {author.id === userId && (
         <>
           <CommentButton onClick={() => setUpdate(!update)}>
             {update === false ? '수정' : '취소'}
