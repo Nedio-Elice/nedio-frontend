@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -10,11 +9,11 @@ import Ceiling from './Ceiling';
 import Ground from './Ground';
 import Frames from './Frames';
 import Walls from './Walls';
-import Pillar from './Pillar';
 import Chandelier from './Chandelier';
 import Lamp from './Lamp';
 import Sound from './Sound';
 import Piano from './Piano';
+import Player from '../Player';
 
 interface Props {
   pickItem: (item: any) => void;
@@ -24,7 +23,6 @@ function JazzTheme({ pickItem }: Props) {
   const dispatch = useDispatch();
   const { hallId, id } = useParams();
   const [hall, setHall] = useState<Hall | null>(null);
-  console.log(id);
   useEffect(() => {
     const fetchHall = async () => {
       try {
@@ -49,6 +47,7 @@ function JazzTheme({ pickItem }: Props) {
     <>
       <Stage intensity={0.001} />
       <ambientLight intensity={0.3} />
+      <Player position={[0, 2.5, -2]} speed={[60]} />
       <pointLight castShadow intensity={0.3} position={[-4, 3.5, -4]} />
       <pointLight castShadow intensity={0.3} position={[4, 3.5, -4]} />
       <pointLight castShadow intensity={0.3} position={[4, 3.5, 4]} />

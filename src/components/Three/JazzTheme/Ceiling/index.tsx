@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { useBox, usePlane } from '@react-three/cannon';
-import Color from '../../../../assets/textures/CeilingTexture/Color.jpg';
-import Displacement from '../../../../assets/textures/CeilingTexture/Displacement.jpg';
-import Normal from '../../../../assets/textures/CeilingTexture/Normal.jpg';
-import AO from '../../../../assets/textures/CeilingTexture/AO.jpg';
+import Color from '../../../../assets/textures/JazzThemeTexture/CeilingTexture/Color.jpg';
+import Displacement from '../../../../assets/textures/JazzThemeTexture/CeilingTexture/Displacement.jpg';
+import Normal from '../../../../assets/textures/JazzThemeTexture/CeilingTexture/Normal.jpg';
+import AO from '../../../../assets/textures/JazzThemeTexture/CeilingTexture/AO.jpg';
 
 const SIZE = 5;
 
