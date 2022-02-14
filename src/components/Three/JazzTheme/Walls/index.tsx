@@ -2,10 +2,10 @@ import { useBox } from '@react-three/cannon';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import Color from '../../../../assets/textures/WallTexture/Color.jpg';
-import Displacement from '../../../../assets/textures/WallTexture/Displacement.png';
-import Normal from '../../../../assets/textures/WallTexture/Normal.jpg';
-import AO from '../../../../assets/textures/WallTexture/AO.jpg';
-import Roughness from '../../../../assets/textures/WallTexture/Roughness.jpg';
+import Displacement from '../../../../assets/textures/JazzThemeTexture/WallTexture/Displacement.png';
+import Normal from '../../../../assets/textures/JazzThemeTexture/WallTexture/Normal.jpg';
+import AO from '../../../../assets/textures/JazzThemeTexture/WallTexture/AO.jpg';
+import Roughness from '../../../../assets/textures/JazzThemeTexture/WallTexture/Roughness.jpg';
 
 const WALL_WIDTH = 14;
 const WALL_HEIGHT = 4;

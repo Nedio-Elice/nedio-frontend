@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { usePlane } from '@react-three/cannon';
-import Color from '../../../../assets/textures/GroundTexture/Color.jpg';
-import Displacement from '../../../../assets/textures/GroundTexture/Displacement.png';
-import Normal from '../../../../assets/textures/GroundTexture/Normal.jpg';
-import AO from '../../../../assets/textures/GroundTexture/AO.jpg';
-import Roughness from '../../../../assets/textures/GroundTexture/Roughness.jpg';
+import Color from '../../../../assets/textures/JazzThemeTexture/GroundTexture/Color.jpg';
+import Displacement from '../../../../assets/textures/JazzThemeTexture/GroundTexture/Displacement.png';
+import Normal from '../../../../assets/textures/JazzThemeTexture/GroundTexture/Normal.jpg';
+import AO from '../../../../assets/textures/JazzThemeTexture/GroundTexture/AO.jpg';
+import Roughness from '../../../../assets/textures/JazzThemeTexture/GroundTexture/Roughness.jpg';
 
 function Ground(props: any) {
   const [ref] = usePlane(() => ({

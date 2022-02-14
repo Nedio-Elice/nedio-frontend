@@ -13,12 +13,12 @@ import {
 } from 'three';
 import { HallImageData, HallImages } from '../../../../types/GalleryDetail';
 
-import Color from '../../../../assets/textures/FrameTexture/Color.jpg';
-import Displacement from '../../../../assets/textures/FrameTexture/Displacement.jpg';
-import Normal from '../../../../assets/textures/FrameTexture/Normal.jpg';
-import AO from '../../../../assets/textures/FrameTexture/AO.jpg';
-import Roughness from '../../../../assets/textures/FrameTexture/Roughness.jpg';
-import Metalic from '../../../../assets/textures/FrameTexture/Metalic.jpg';
+import Color from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Color.jpg';
+import Displacement from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Displacement.jpg';
+import Normal from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Normal.jpg';
+import AO from '../../../../assets/textures/JazzThemeTexture/FrameTexture/AO.jpg';
+import Roughness from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Roughness.jpg';
+import Metalic from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Metalic.jpg';
 
 interface Props {
   data: HallImages;
