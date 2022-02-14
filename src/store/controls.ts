@@ -1,11 +1,14 @@
+import { PointerLockControlsProps } from '@react-three/drei';
 import { createSlice } from '@reduxjs/toolkit';
 import { SLICE } from '../constants/slice';
 
+interface State {
+  movement: PointerLockControlsProps;
+}
+
 const initialState = {
-  movement: {
-    isLocked: false,
-  },
-};
+  movement: '',
+} as State;
 
 const { actions, reducer } = createSlice({
   name: SLICE.CONTROLS,
