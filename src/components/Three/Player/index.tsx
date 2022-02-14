@@ -6,9 +6,9 @@ import { useAppSelector } from '../../../store/hooks';
 import PointerLock from './PointerLock';
 import { useKeyboardControls } from './useKeyboardControls';
 
-const SPEED = 60;
+function Player({ speed, ...props }: any) {
+  const SPEED = speed;
 
-function Player(props: any) {
   const { camera } = useThree();
   const velocity = useRef([0, 0, 0]);
   const controlRef = useAppSelector((state) => state.controls.movement);

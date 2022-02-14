@@ -39,6 +39,21 @@ function Artwork({
           .post('uploadImage', formData)
           .then((res) => {
             const { url: value } = res.data;
+
+            const img = new Image();
+
+            console.log(1);
+
+            img.onload = function () {
+              console.log(img.width);
+              console.log(img.height);
+              console.log(2);
+            };
+
+            console.log(3);
+
+            img.src = value; // 이미지 주소 할당
+
             onChangePieceImageUrl({ value, name: 'url' });
           })
           .catch((e) => {
