@@ -27,10 +27,10 @@ interface ImageResponse {
 function MyInformation() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.profile);
-  const [profileURL, setProfileURL] = useState<string>('');
-  const [nickname, setNickname] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [introduce, setIntroduce] = useState<string>('');
+  const [profileURL, setProfileURL] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
+  const [introduce, setIntroduce] = useState('');
 
   useEffect(() => {
     dispatch(getUser());
@@ -49,24 +49,19 @@ function MyInformation() {
     const formData = new FormData();
     formData.append('upload', file);
 
-    try {
-      const response = await axiosInstance.post<ImageResponse>(
-        `uploadImage`,
-        formData,
-      );
-      const newUser = {
-        _id: user._id,
-        introduce,
-        contact: user.contact,
-        profileURL: response.data.url,
-        nickname,
-        email,
-      };
-      dispatch(putUser(newUser));
-    } catch (error) {
-      const err = error as AxiosError;
-      throw new Error(err.response?.data);
-    }
+    const response = await axiosInstance.post<ImageResponse>(
+      `uploadImage`,
+      formData,
+    );
+    const newUser = {
+      _id: user._id,
+      introduce,
+      contact: user.contact,
+      profileURL: response.data.url,
+      nickname,
+      email,
+    };
+    dispatch(putUser(newUser));
   };
 
   const handleSubmit = () => {

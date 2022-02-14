@@ -1,17 +1,11 @@
 import * as THREE from 'three';
 import { useLoader, useThree } from '@react-three/fiber';
-import { Box, RoundedBox, Extrude } from '@react-three/drei';
-import { Triplet, useBox, usePlane } from '@react-three/cannon';
-import React, { useEffect, useState, Suspense } from 'react';
-import {
-  Object3D,
-  Raycaster,
-  SpotLightHelper,
-  Texture,
-  TextureLoader,
-  Vector3,
-} from 'three';
+import { Box } from '@react-three/drei';
+import { Triplet, useBox } from '@react-three/cannon';
+import { useEffect, useState } from 'react';
+import { Object3D, Raycaster, Vector3 } from 'three';
 import { HallImageData, HallImages } from '../../../../types/GalleryDetail';
+import { positions, rotations } from './orientation';
 
 import Color from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Color.jpg';
 import Displacement from '../../../../assets/textures/JazzThemeTexture/FrameTexture/Displacement.jpg';
@@ -166,71 +160,22 @@ function Frame({ position, rotation, image, pickItem }: FrameProp) {
 }
 
 function Frames({ data, pickItem }: Props) {
-  const urls: string[] = [];
-  data.forEach((d) => urls.push(d.imageUrl));
-
   return (
     <>
-      <Frame
-        image={data[0]}
-        position={[-2.5, 3.2, -6.9]}
-        rotation={[0, 0, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[1]}
-        position={[2.5, 3.2, -6.9]}
-        rotation={[0, 0, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[2]}
-        position={[6.9, 3.2, -4]}
-        rotation={[0, Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[3]}
-        position={[6.9, 3.2, 0]}
-        rotation={[0, Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[4]}
-        position={[6.9, 3.2, 4]}
-        rotation={[0, Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[5]}
-        position={[2.5, 3.2, 6.9]}
-        rotation={[0, 0, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[6]}
-        position={[-2.5, 3.2, 6.9]}
-        rotation={[0, 0, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[7]}
-        position={[-6.9, 3.2, 4]}
-        rotation={[0, -Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[8]}
-        position={[-6.9, 3.2, 0]}
-        rotation={[0, -Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        image={data[9]}
-        position={[-6.9, 3.2, -4]}
-        rotation={[0, -Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
+      {data.map((image, idx) => {
+        if (image.imageUrl !== '') {
+          return (
+            <Frame
+              key={`${image.imageTitle}-image${idx}`}
+              image={image}
+              position={positions[idx]}
+              rotation={rotations[idx]}
+              pickItem={pickItem}
+            />
+          );
+        }
+        return <mesh key={`${image.imageTitle}-image${idx}`} />;
+      })}
     </>
   );
 }

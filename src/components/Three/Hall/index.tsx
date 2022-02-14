@@ -23,7 +23,8 @@ function Hall({ pickItem, hall }: Props) {
               <Physics gravity={[0, 0, 0]}>
                 {/* <Debug color="black" scale={1.1}> */}
                 {/* <DomTheme pickItem={pickItem} /> */}
-                <ModernTheme pickItem={pickItem} hall={hall} />
+                {/* <ModernTheme pickItem={pickItem} hall={hall} /> */}
+                <JazzTheme pickItem={pickItem} hall={hall} />
                 {/* </Debug>
                 <OrbitControls /> */}
               </Physics>
