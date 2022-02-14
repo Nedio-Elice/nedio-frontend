@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Modal from '../components/Modal';
 import Hall from '../components/Three/Hall';
 import Landing from '../components/Three/Landing';
-import MouseIcon from '../components/Three/WhiteTheme/MouseIcon';
+import MouseIcon from '../components/Three/MouseIcon';
 import { useAppSelector } from '../store/hooks';
 
 function HallPage() {

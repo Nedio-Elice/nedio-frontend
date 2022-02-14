@@ -1,18 +1,13 @@
 import styled from 'styled-components';
-
 import { Provider, ReactReduxContext } from 'react-redux';
-
-import { OrbitControls, Sky } from '@react-three/drei';
 import { Debug, Physics } from '@react-three/cannon';
+import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
-import CHThemes from '../CHThemes';
-import Player from '../Player';
+import DomTheme from '../DomTheme';
+import ModernTheme from '../ModernTheme';
+import JazzTheme from '../JazzTheme';
 
-// TODO: 자신만의 방
-// TODO: click시 작품
-// TODO: 적절한 조명
-// TODO: 이미지 비율 고려
 interface Props {
   pickItem: (item: any) => void;
 }
@@ -24,14 +19,11 @@ function Hall({ pickItem }: Props) {
         <Container>
           <Canvas>
             <Provider store={store}>
-              <Sky sunPosition={[100, 20, 100]} />
-              <ambientLight intensity={0.8} />
               <Physics gravity={[0, 0, 0]}>
                 {/* <Debug color="black" scale={1.1}> */}
-                <CHThemes pickItem={pickItem} />
-                {/* </Debug> */}
-                {/* <OrbitControls /> */}
-                <Player position={[50, 25, 50]} />
+                <DomTheme pickItem={pickItem} />
+                {/* </Debug>
+                <OrbitControls /> */}
               </Physics>
             </Provider>
           </Canvas>

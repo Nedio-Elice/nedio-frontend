@@ -5,7 +5,6 @@ function usePointerLock() {
 
   useEffect(() => {
     const onPointerlockchange = () => {
-      console.log('here');
       setIsPointerLock(!!document.pointerLockElement);
     };
 
