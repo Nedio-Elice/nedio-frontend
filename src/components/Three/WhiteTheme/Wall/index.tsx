@@ -17,4 +17,20 @@ function Wall({ wallMap, position, rotation }: any) {
   );
 }
 
+export function CustomWall({ size, wallMap, position, rotation }: any) {
+  const [ref] = useBox(() => ({
+    type: 'Static',
+    args: size,
+    position,
+    rotation,
+  }));
+
+  return (
+    <mesh ref={ref} receiveShadow>
+      <boxGeometry attach="geometry" args={size} />
+      <meshPhongMaterial map={wallMap} attach="material" />
+    </mesh>
+  );
+}
+
 export default Wall;

@@ -11,6 +11,7 @@ function Spotlight({
   return (
     <spotLight
       castShadow
+      receiveShadow
       ref={target}
       position={position}
       intensity={intensity}

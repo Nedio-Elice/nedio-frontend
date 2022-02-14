@@ -31,7 +31,7 @@ function Picture({ position, spotPos, rotation, data, pickItem }: any) {
   const { camera } = useThree();
 
   // DELETE: DEBUG HELPER
-  useHelper(light, SpotLightHelper, 'red');
+  // useHelper(light, SpotLightHelper, 'red');
 
   useLayoutEffect(() => {
     if (light.current) light.current.target = ref.current;
@@ -42,7 +42,6 @@ function Picture({ position, spotPos, rotation, data, pickItem }: any) {
 
     const onDocumentMouseDown = (e: MouseEvent) => {
       e.preventDefault();
-      e.stopPropagation();
 
       const obj = ref.current as Object3D;
 

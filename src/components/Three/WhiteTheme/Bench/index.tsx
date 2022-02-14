@@ -5,11 +5,12 @@ import benchObj from '../../../../assets/3D/bench.obj';
 
 function Bench({ position, scale }: any) {
   const obj = useLoader(OBJLoader, benchObj);
-
+  const [x, y, z] = position;
   const [ref] = useBox(() => ({
     type: 'Static',
-    args: [17, 8, 15],
-    position: [-10, 6, -70],
+    args: [15, 8, 8],
+    position: [x, y + 8, z],
+    rotation: [0, -Math.PI / 2, 0],
   }));
 
   return (
@@ -20,6 +21,7 @@ function Bench({ position, scale }: any) {
         position={position}
         object={obj}
         dispose={null}
+        rotation={[0, -Math.PI / 2, 0]}
       />
     </>
   );

@@ -7,7 +7,7 @@ function PointLight({ position, intensity }: any) {
   return (
     <>
       <primitive object={light} position={position} intensity={intensity} />
-      <primitive object={new PointLightHelper(light)} />
+      {/* <primitive object={new PointLightHelper(light)} /> */}
     </>
   );
 }

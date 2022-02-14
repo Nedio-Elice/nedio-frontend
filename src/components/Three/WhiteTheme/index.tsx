@@ -19,7 +19,7 @@ function WhiteTheme({ pickItem }: Props) {
       <Frames pickItem={pickItem} />
       <Walls />
       <Lights />
-      <Bench position={[-10, 0, -70]} scale={[10, 10, 10]} />
+      <Bench position={[44, 0, -92]} scale={[8, 8, 8]} />
       <Ground position={[0, 0, -55]} />
     </Scene>
   );
