@@ -26,17 +26,12 @@ function HallPage() {
       <MouseIcon />
       <Hall pickItem={handlePictureClick} />
 
-      <Modal ref={modalRef} width={700} height={480} isHall>
+      <Modal ref={modalRef} width={400} height={480} isHall>
         {selectedItem && (
-          <ModalContainer>
-            <Content>
-              <Title>작품 소개</Title>
-              <Description>{selectedItem.imageDescription}</Description>
-            </Content>
-            <ImgWrapper>
-              <TempImg src={selectedItem.imageUrl} />
-            </ImgWrapper>
-          </ModalContainer>
+          <>
+            <TempImg src={selectedItem.imageUrl} />
+            <div>{selectedItem.imageDescription}</div>
+          </>
         )}
       </Modal>
     </Container>
@@ -49,38 +44,6 @@ const Container = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
-`;
-
-const ModalContainer = styled.div`
-  padding: 65px 8%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: black;
-`;
-
-const Content = styled.div`
-  font-size: 1rem;
-  flex: 1;
-  height: 350px;
-  min-width: 200px;
-`;
-
-const Title = styled.h3`
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-`;
-
-const Description = styled.p`
-  font-size: 0.9rem;
-  font-weight: 300;
-`;
-
-const ImgWrapper = styled.div`
-  width: 350px;
-  height: 350px;
 `;
 
 const TempImg = styled.img`

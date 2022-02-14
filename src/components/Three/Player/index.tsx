@@ -6,7 +6,7 @@ import { useAppSelector } from '../../../store/hooks';
 import PointerLock from './PointerLock';
 import { useKeyboardControls } from './useKeyboardControls';
 
-const SPEED = 30;
+const SPEED = 60;
 
 function Player(props: any) {
   const { camera } = useThree();

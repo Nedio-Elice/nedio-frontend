@@ -1,14 +1,13 @@
-import { Canvas } from '@react-three/fiber';
+import styled from 'styled-components';
+
 import { Provider, ReactReduxContext } from 'react-redux';
-import { Debug, Physics } from '@react-three/cannon';
+
 import { OrbitControls, Sky } from '@react-three/drei';
+import { Debug, Physics } from '@react-three/cannon';
+import { Canvas } from '@react-three/fiber';
+
+import CHThemes from '../CHThemes';
 import Player from '../Player';
-import Ground from '../Ground';
-import Walls from '../Walls';
-import Celling from '../Celling';
-import Frame from '../Frame';
-import HallJazz from '../HallJazz';
-import WhiteTheme from '../WhiteTheme';
 
 // TODO: 자신만의 방
 // TODO: click시 작품
@@ -22,24 +21,31 @@ function Hall({ pickItem }: Props) {
   return (
     <ReactReduxContext.Consumer>
       {({ store }) => (
-        <Canvas>
-          <Provider store={store}>
-            {/* <Sky sunPosition={[100, 20, 100]} /> */}
-            <ambientLight intensity={0.1} />
-            {/* <spotLight castShadow intensity={0.5} position={[10, 250, 0]} /> */}
-            <Physics gravity={[0, 0, 0]}>
-              <WhiteTheme pickItem={pickItem} />
-              {/* <Debug color="black" scale={1}>
-                <WhiteTheme />
-              </Debug> */}
-              {/* <OrbitControls /> */}
-              <Player position={[0, 10, 0]} />
-            </Physics>
-          </Provider>
-        </Canvas>
+        <Container>
+          <Canvas>
+            <Provider store={store}>
+              <Sky sunPosition={[100, 20, 100]} />
+              <ambientLight intensity={0.8} />
+              <Physics gravity={[0, 0, 0]}>
+                {/* <Debug color="black" scale={1.1}> */}
+                <CHThemes pickItem={pickItem} />
+                {/* </Debug> */}
+                {/* <OrbitControls /> */}
+                <Player position={[50, 25, 50]} />
+              </Physics>
+            </Provider>
+          </Canvas>
+        </Container>
       )}
     </ReactReduxContext.Consumer>
   );
 }
 
 export default Hall;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`;
