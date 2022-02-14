@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { usePlane } from '@react-three/cannon';
 
-import textureImage from '../../../assets/textures/concrete2.jpg';
+import textureImage from '../../../assets/textures/DomThemeTexture/ground.jpg';
 
 type Args = [
   radius?: number | undefined,
