@@ -30,8 +30,8 @@ function Hall({ pickItem }: Props) {
                 {/* <Debug color="black" scale={1.1}> */}
                 <CHThemes pickItem={pickItem} />
                 {/* </Debug> */}
-                <OrbitControls />
-                {/* <Player position={[50, 25, 50]} /> */}
+                {/* <OrbitControls /> */}
+                <Player position={[50, 25, 50]} />
               </Physics>
             </Provider>
           </Canvas>

@@ -22,7 +22,7 @@ function HallPage() {
 
   return (
     <Container>
-      {/* <Landing /> */}
+      <Landing />
       <MouseIcon />
       <Hall pickItem={handlePictureClick} />
 
