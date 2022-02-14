@@ -223,17 +223,22 @@ const tempData = {
   ],
 };
 
-function Frames({ imgURL, content, pickItem }: any) {
+function Frames({ imgURL, content, pickItem, hall }: any) {
+  // console.log(hall);
+  console.log(hall.imagesData);
+
+  hall.imagesData.map((item: any) => console.log(item));
+
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {tempData &&
-        tempData.imagesData.map((item, idx) => (
+      {hall &&
+        hall.imagesData.map((item: any, idx: any) => (
           <Frame
             position={fixedFrame[idx].framePosition}
             rotation={fixedFrame[idx].rotation}
             key={fixedFrame[idx].frame_id}
-            ratio={item.ratio}
+            ratio="horizontal"
           >
             <Picture
               position={fixedFrame[idx].picturePosition}

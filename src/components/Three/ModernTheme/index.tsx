@@ -10,13 +10,14 @@ import Walls from './Walls';
 
 interface Props {
   pickItem: (item: any) => void;
+  hall: any;
 }
 
-function ModernTheme({ pickItem }: Props) {
+function ModernTheme({ pickItem, hall }: Props) {
   return (
     <Scene>
       <Ceiling />
-      <Frames pickItem={pickItem} />
+      <Frames pickItem={pickItem} hall={hall} />
       <Walls />
       <Lights />
       <Lamp position={[-5, -26, -90]} scale={[15, 15, 15]} />

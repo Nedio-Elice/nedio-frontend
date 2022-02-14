@@ -10,9 +10,10 @@ import JazzTheme from '../JazzTheme';
 
 interface Props {
   pickItem: (item: any) => void;
+  hall: any;
 }
 
-function Hall({ pickItem }: Props) {
+function Hall({ pickItem, hall }: Props) {
   return (
     <ReactReduxContext.Consumer>
       {({ store }) => (
@@ -21,7 +22,8 @@ function Hall({ pickItem }: Props) {
             <Provider store={store}>
               <Physics gravity={[0, 0, 0]}>
                 {/* <Debug color="black" scale={1.1}> */}
-                <DomTheme pickItem={pickItem} />
+                {/* <DomTheme pickItem={pickItem} /> */}
+                <ModernTheme pickItem={pickItem} hall={hall} />
                 {/* </Debug>
                 <OrbitControls /> */}
               </Physics>
