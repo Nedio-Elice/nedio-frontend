@@ -1,6 +1,6 @@
 import Wall from './Wall';
 
-import whiteWall from '../../../assets/textures/terrazzo2.jpg';
+import whiteWall from '../../../assets/textures/pav6.jpg';
 import blackWall from '../../../assets/textures/marble2.jpg';
 
 function Walls() {

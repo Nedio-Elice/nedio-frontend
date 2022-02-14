@@ -1,5 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
+
 import * as THREE from 'three';
+// import { useHelper } from '@react-three/drei';
 
 function Spotlight({
   position,
@@ -11,10 +13,14 @@ function Spotlight({
   angle,
   decay,
 }: any) {
+  // const spotLight = useRef();
+  // useHelper(spotLight, THREE.SpotLightHelper, 'teal');
+
   const light = useMemo(() => new THREE.SpotLight(0xffffff), []);
   return (
     <>
       <primitive
+        // ref={spotLight}
         object={light}
         castShadow
         position={position}

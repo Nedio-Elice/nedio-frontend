@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { usePlane } from '@react-three/cannon';
 
-import textureImage from '../../../assets/textures/terrazzo.jpg';
+import textureImage from '../../../assets/textures/concrete2.jpg';
 
 type Args = [
   radius?: number | undefined,
@@ -12,11 +12,11 @@ type Args = [
 ];
 
 function Ground(props: any) {
-  const groundSize: Args = [150, 30];
+  const groundSize: Args = [150, 50];
 
   const [ref] = usePlane(() => ({
     args: groundSize,
-    rotation: [-Math.PI / 2, 0, 29],
+    rotation: [-Math.PI / 2, 0, -Math.PI / 4],
     position: [0, 0, 0],
     ...props,
   }));
@@ -26,11 +26,9 @@ function Ground(props: any) {
     textureImage,
   );
 
-  const textureSize = 5;
-
   texture.wrapS = THREE.MirroredRepeatWrapping;
   texture.wrapT = THREE.MirroredRepeatWrapping;
-  texture.repeat.set(textureSize, textureSize);
+  texture.repeat.set(1, 1);
 
   return (
     <mesh ref={ref} receiveShadow>
@@ -39,6 +37,7 @@ function Ground(props: any) {
         map={texture}
         attach="material"
         roughness={0.1}
+        metalness={0.5}
         side={THREE.DoubleSide}
       />
     </mesh>

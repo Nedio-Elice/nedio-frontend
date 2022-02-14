@@ -16,6 +16,10 @@ function Boundary({ wallSize, textureImage, ...props }: any) {
     textureImage,
   );
 
+  texture.wrapS = THREE.MirroredRepeatWrapping;
+  texture.wrapT = THREE.MirroredRepeatWrapping;
+  texture.repeat.set(2, 1);
+
   return (
     <mesh ref={ref} receiveShadow>
       <boxBufferGeometry attach="geometry" args={wallSize} />
