@@ -11,6 +11,7 @@ interface InputProps {
 }
 
 interface InputTextProps {
+  className?: string;
   defaultText?: string;
   value?: string;
   width?: string;
@@ -42,6 +43,7 @@ function InputField({
 }
 
 function InputTextField({
+  className,
   defaultText,
   value,
   width,
@@ -50,6 +52,7 @@ function InputTextField({
 }: InputTextProps) {
   return (
     <InputTextBox
+      className={className}
       placeholder={defaultText}
       width={width}
       height={height}
@@ -76,6 +79,7 @@ InputField.defaultProps = {
 };
 
 InputTextField.defaultProps = {
+  className: '',
   defaultText: '',
   width: '576px',
   height: '40px',
@@ -100,7 +104,7 @@ const InputBox = styled.input<{
     css`
       height: ${props.height};
     `}
-
+  
   font-family: Pretendard;
   font-style: normal;
   font-size: 16px;

@@ -12,10 +12,8 @@ import Pagination from '../components/Pagination';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { Gallery } from '../types/GalleryDetail';
 import makePageCount from '../utils/makePageCount';
-import { getUser, initialState, User } from '../store/profile';
 import { Background, ButtonWrapper } from '../styles/galleryDetailPage';
 import GalleryInformation from '../containers/GalleryInfoContainer';
-import { PATH } from '../constants/path';
 
 const { ButtonBasic } = Buttons;
 
@@ -23,7 +21,7 @@ function GalleryDetailPage() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
   const comments = useAppSelector((state: RootState) => state.comment);
-  const user = useAppSelector((state: RootState) => state.profile);
+  const user = useAppSelector((state: RootState) => state.users);
 
   const [gallery, setGallery] = useState<Gallery | null>(null);
   const [currPage, setCurrPage] = useState<number>(0);
@@ -34,7 +32,6 @@ function GalleryDetailPage() {
   useEffect(() => {
     const fetchInfo = async () => {
       try {
-        dispatch(getUser());
         dispatch(getComments({ galleryId, currPage }));
         setPageCount(makePageCount(comments.count));
       } catch (error) {
@@ -75,15 +72,26 @@ function GalleryDetailPage() {
 
   const handleHallButtonClick = (id: string) => navigation(`/halls/${id}`);
 
+  function isOpen(startDate: string, endDate: string): boolean {
+    return (
+      Date.parse(startDate) < Date.now() && Date.parse(endDate) > Date.now()
+    );
+  }
+
   if (gallery === null) {
     return <Background />;
   }
 
   return (
     <Background>
-      <GalleryInformation gallery={gallery} galleryId={galleryId} user={user} />
+      <GalleryInformation
+        gallery={gallery}
+        galleryId={galleryId}
+        user={user.userInfo}
+      />
       <ButtonWrapper>
-        {gallery.halls !== null &&
+        {isOpen(gallery.startDate, gallery.endDate) &&
+          gallery.halls !== null &&
           gallery.halls.map((hall, idx) => {
             return (
               <ButtonBasic
@@ -94,7 +102,7 @@ function GalleryDetailPage() {
             );
           })}
       </ButtonWrapper>
-      {user._id && (
+      {isOpen(gallery.startDate, gallery.endDate) && user.isSignIn && (
         <CommentInput
           defaultText="방명록을 입력해 주세요."
           value={newComment}
@@ -102,7 +110,7 @@ function GalleryDetailPage() {
           handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
             handleSubmit(event)
           }
-          user={user}
+          user={user.userInfo}
         />
       )}
       {comments.data !== undefined &&
@@ -112,7 +120,7 @@ function GalleryDetailPage() {
             <Comment
               key={c._id}
               commentId={c._id}
-              userId={user._id}
+              userId={user.userInfo._id}
               author={c.author}
               galleryId={galleryId}
               currPage={currPage}

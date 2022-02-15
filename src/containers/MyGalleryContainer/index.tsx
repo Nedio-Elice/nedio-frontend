@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
-import {
-  ButtonWrapperLeft,
-  CardWrapper,
-  GalleryWrapper,
-} from '../../styles/myPage';
+import { CardWrapper, GalleryWrapper } from '../../styles/myPage';
 import Buttons from '../../components/Buttons';
 import {
   getGalClosed,
