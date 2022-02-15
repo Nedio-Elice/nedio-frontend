@@ -13,17 +13,20 @@ import {
 import { HallFieldProps } from '../../types/GalleryEdit';
 
 import Piece from './Piece';
+import Themes from './Themes';
 
 function HallField({
   name,
   pieces,
+  theme,
   halls,
   hallIndex,
   openModal,
   onChangeHallName,
+  onChangeHallTheme,
   onClickDeleteHallButton,
 }: HallFieldProps) {
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     onChangeHallName({ index: hallIndex, value });
   };
@@ -39,7 +42,13 @@ function HallField({
           type="text"
           value={name}
           placeholder="관명"
-          onChange={handleChange}
+          onChange={handleChangeName}
+        />
+        <Themes
+          label=""
+          theme={theme}
+          hallIndex={hallIndex}
+          onChangeHallTheme={onChangeHallTheme}
         />
         <button type="button">미리보기</button>
         <button type="button" onClick={handleClick}>
@@ -111,6 +120,9 @@ const Wrapper = styled.div`
     ${placeholders}
     ${inputPadding}
     width: 5em;
+    &:first-child {
+      margin-right: 1em;
+    }
   }
 `;
 

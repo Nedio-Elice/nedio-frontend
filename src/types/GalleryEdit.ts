@@ -6,10 +6,13 @@ export interface ImageInfo {
   imageTitle: string;
   imageDescription: string;
   imageUrl: string;
+  width: string;
+  height: string;
 }
 
 export interface HallInfo {
   hallName: string;
+  hallTheme: string;
   imagesData: ImageInfo[];
 }
 
@@ -43,6 +46,7 @@ export interface GalleryProps {
   onChangePosterUrl: (formData: FormData) => void;
   onClickDeleteHallButton: (index: number) => void;
   onChangeHallName: ({ index, value }: ChangeValueWithIndex) => void;
+  onChangeHallTheme: ({ index, value }: ChangeValueWithIndex) => void;
   onChangeGalleryInputField: ({ value, name }: ChangeValueWithName) => void;
   onChangePieceField: ({
     hallIndex,
@@ -55,18 +59,30 @@ export type HallsProps = Pick<
   GalleryProps,
   | 'halls'
   | 'onChangeHallName'
+  | 'onChangeHallTheme'
   | 'onClickDeleteHallButton'
   | 'onChangePieceField'
   | 'onChangeNotification'
 >;
 
 export interface HallFieldProps
-  extends Pick<HallsProps, 'onChangeHallName' | 'onClickDeleteHallButton'> {
+  extends Pick<
+    HallsProps,
+    'onChangeHallName' | 'onClickDeleteHallButton' | 'onChangeHallTheme'
+  > {
   name: string;
+  theme: string;
   halls: HallInfo[];
   hallIndex: number;
   pieces: ImageInfo[];
   openModal: ({ hallIndex, pieceIndex }: Index) => void;
+}
+
+export interface HallThemeSelect {
+  label: string;
+  theme: string;
+  hallIndex: number;
+  onChangeHallTheme: ({ index, value }: ChangeValueWithIndex) => void;
 }
 
 export interface PosterProps {
@@ -103,6 +119,7 @@ export interface PieceFieldProps {
 export interface InputProps {
   label: string;
   title: string;
+  theme: string;
   category: string;
   description: string;
   placeholder: string;

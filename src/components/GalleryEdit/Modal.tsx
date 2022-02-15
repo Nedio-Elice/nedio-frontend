@@ -27,6 +27,8 @@ function Modal({
     imageTitle: '',
     imageDescription: '',
     imageUrl: '',
+    width: '',
+    height: '',
   };
 
   const [inputValues, setInputValues] = useState<ImageInfo>(empty);

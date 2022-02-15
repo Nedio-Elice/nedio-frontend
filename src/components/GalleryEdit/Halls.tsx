@@ -10,6 +10,7 @@ import Modal from './Modal';
 function Halls({
   halls,
   onChangeHallName,
+  onChangeHallTheme,
   onClickDeleteHallButton,
   onChangePieceField,
   onChangeNotification,
@@ -37,16 +38,18 @@ function Halls({
   return (
     <Container>
       {halls.length ? (
-        halls.map(({ hallName, imagesData }, index) => {
+        halls.map(({ hallName, hallTheme, imagesData }, index) => {
           return (
             <HallField
               key={`hall-${index}`}
               halls={halls}
               hallIndex={index}
               name={hallName}
+              theme={hallTheme}
               pieces={imagesData}
               openModal={openModal}
               onChangeHallName={onChangeHallName}
+              onChangeHallTheme={onChangeHallTheme}
               onClickDeleteHallButton={onClickDeleteHallButton}
             />
           );

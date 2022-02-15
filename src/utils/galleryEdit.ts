@@ -45,6 +45,8 @@ export const setDefaultPieces = () => {
       imageTitle: '',
       imageDescription: '',
       imageUrl: '',
+      width: '',
+      height: '',
     };
   });
 };
