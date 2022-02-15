@@ -1,13 +1,21 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import video from '../assets/video/video.gif';
 import { DEVICE } from '../constants/device';
 import { PATH } from '../constants/path';
 
+const DELAY_TIME = 4000;
+
 function LandingPage() {
   const navigation = useNavigate();
+  const [btnDisplay, setBtnDisplay] = useState(false);
 
   const handleClick = () => navigation(PATH.MAIN);
+
+  useEffect(() => {
+    setTimeout(() => setBtnDisplay(true), DELAY_TIME);
+  }, []);
 
   return (
     <Container>
@@ -22,7 +30,9 @@ function LandingPage() {
           <span>오직 나만을 위한 스튜디오,</span>
           <span>Nedio</span>
           <span>
-            <Button onClick={handleClick}>시작하기</Button>
+            <Button onClick={handleClick} isDisplay={btnDisplay}>
+              시작하기
+            </Button>
           </span>
         </LastContent>
       </Content>
@@ -175,7 +185,8 @@ const Video = styled.img`
   animation-name: ${fadeIn};
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isDisplay: boolean }>`
+  display: ${({ isDisplay }) => (isDisplay ? 'inline-block' : 'none')};
   padding: 8px 15px;
   font-size: 1.2rem;
   background: transparent;
