@@ -11,7 +11,7 @@ function DomTheme({ pickItem }: any) {
   return (
     <Scene>
       <ambientLight intensity={0.8} />
-      <Player position={[50, 25, 50]} speed={40} />
+      {/* <Player position={[50, 25, 50]} speed={40} /> */}
       <Roof />
       <Cylinder />
       <Boundaries />

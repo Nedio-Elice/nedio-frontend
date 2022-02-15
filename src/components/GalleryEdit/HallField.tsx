@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 
 import styled from 'styled-components';
 import {
@@ -10,11 +10,13 @@ import {
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
+import themesImages from '../../constants/themesImages';
+import { MESSAGE } from '../../constants/messages';
 import { bin } from '../../constants/images';
 
 import Piece from './Piece';
 import Themes from './Themes';
-import { MESSAGE } from '../../constants/messages';
+import Modal from '../Modal';
 
 function HallField({
   name,
@@ -28,6 +30,8 @@ function HallField({
   onClickDeleteHallButton,
   onChangeNotification,
 }: HallFieldProps) {
+  const modalRef = useRef<React.ElementRef<typeof Modal>>(null);
+
   const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     onChangeHallName({ index: hallIndex, value });
@@ -44,7 +48,7 @@ function HallField({
       return;
     }
 
-    console.log('preview');
+    modalRef.current?.show();
   };
 
   return (
@@ -63,7 +67,7 @@ function HallField({
           onChangeHallTheme={onChangeHallTheme}
         />
         <button type="button" onClick={handleClickPreview}>
-          미리보기
+          배치도
         </button>
         <button type="button" onClick={handleClick}>
           <img src={bin} alt="bin" />
@@ -80,6 +84,12 @@ function HallField({
           />
         ))}
       </PieceButtons>
+      <Modal ref={modalRef} width={400} height={480} isHall={false}>
+        <Preview>
+          <PreviewTitle>전시관 배치도</PreviewTitle>
+          <PreviewImg src={themesImages[theme]} alt="theme" />
+        </Preview>
+      </Modal>
     </Container>
   );
 }
@@ -153,4 +163,28 @@ const PieceButtons = styled.div`
       justify-content: center;
     }
   }
+`;
+
+const Preview = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 25px;
+`;
+
+const PreviewTitle = styled.h1`
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  color: rgba(0, 0, 0, 0.7);
+`;
+
+const PreviewImg = styled.img`
+  height: 85%;
+  border-radius: 25px;
 `;

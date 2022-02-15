@@ -13,9 +13,31 @@ function Frames({ pickItem }: any) {
   return (
     <>
       <Frame
-        path={animal}
+        path={person}
+        frameSize={frameY}
+        wallSize={[75, 75, 3]}
+        position={[89, 37.5, 89]}
+        rotation={[0, Math.PI / 4, 0]}
+        pickItem={pickItem}
+      />
+      <Frame
+        path={person}
         frameSize={frameX}
         position={[0, 45, 146]}
+        pickItem={pickItem}
+      />
+      <Frame
+        path={person}
+        frameSize={frameY}
+        position={[-146, 45, 0]}
+        rotation={[0, -Math.PI / 2, 0]}
+        pickItem={pickItem}
+      />
+      <Frame
+        path={person}
+        frameSize={frameY}
+        position={[-89, 37.5, -89]}
+        rotation={[0, Math.PI / 4, 0]}
         pickItem={pickItem}
       />
       <Frame
@@ -32,14 +54,7 @@ function Frames({ pickItem }: any) {
         pickItem={pickItem}
       />
       <Frame
-        path={animal}
-        frameSize={frameY}
-        position={[-146, 45, 0]}
-        rotation={[0, -Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={animal}
+        path={person}
         frameSize={frameY}
         position={[36, 45, 36]}
         rotation={[0, Math.PI / 4, 0]}
@@ -47,7 +62,7 @@ function Frames({ pickItem }: any) {
         customLight={[80, 200, 80]}
       />
       <Frame
-        path={animal}
+        path={person}
         frameSize={frameY}
         position={[36, 45, -36]}
         rotation={[0, -Math.PI / 4, 0]}
@@ -55,7 +70,7 @@ function Frames({ pickItem }: any) {
         customLight={[80, 200, -80]}
       />
       <Frame
-        path={animal}
+        path={person}
         frameSize={frameY}
         position={[-36, 45, -36]}
         rotation={[0, Math.PI / 4, 0]}
@@ -69,21 +84,6 @@ function Frames({ pickItem }: any) {
         rotation={[0, -Math.PI / 4, 0]}
         pickItem={pickItem}
         customLight={[-80, 200, 80]}
-      />
-      <Frame
-        path={animal}
-        frameSize={frameY}
-        position={[-89, 37.5, -89]}
-        rotation={[0, Math.PI / 4, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={animal}
-        frameSize={frameY}
-        wallSize={[75, 75, 3]}
-        position={[89, 37.5, 89]}
-        rotation={[0, Math.PI / 4, 0]}
-        pickItem={pickItem}
       />
     </>
   );

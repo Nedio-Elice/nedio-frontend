@@ -41,7 +41,7 @@ function Roof(props: any) {
         roughness={0.4}
         side={THREE.DoubleSide}
         transparent
-        opacity={1}
+        opacity={0.1}
       />
     </mesh>
   );
