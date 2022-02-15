@@ -51,6 +51,7 @@ function Halls({
               onChangeHallName={onChangeHallName}
               onChangeHallTheme={onChangeHallTheme}
               onClickDeleteHallButton={onClickDeleteHallButton}
+              onChangeNotification={onChangeNotification}
             />
           );
         })

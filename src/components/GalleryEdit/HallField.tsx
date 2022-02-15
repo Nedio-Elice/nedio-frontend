@@ -14,6 +14,7 @@ import { bin } from '../../constants/images';
 
 import Piece from './Piece';
 import Themes from './Themes';
+import { MESSAGE } from '../../constants/messages';
 
 function HallField({
   name,
@@ -25,6 +26,7 @@ function HallField({
   onChangeHallName,
   onChangeHallTheme,
   onClickDeleteHallButton,
+  onChangeNotification,
 }: HallFieldProps) {
   const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -36,7 +38,12 @@ function HallField({
   };
 
   const handleClickPreview = () => {
-    // TODO: 테마를 선택하세요 예외 처리, 미리보기 기능 추가
+    // TODO: 미리보기 기능 추가
+    if (!theme) {
+      onChangeNotification(MESSAGE.NO_THEME);
+      return;
+    }
+
     console.log('preview');
   };
 
@@ -55,7 +62,7 @@ function HallField({
           hallIndex={hallIndex}
           onChangeHallTheme={onChangeHallTheme}
         />
-        <button type="button" disabled={!theme} onClick={handleClickPreview}>
+        <button type="button" onClick={handleClickPreview}>
           미리보기
         </button>
         <button type="button" onClick={handleClick}>

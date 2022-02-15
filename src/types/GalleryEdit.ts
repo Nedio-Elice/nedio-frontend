@@ -68,7 +68,10 @@ export type HallsProps = Pick<
 export interface HallFieldProps
   extends Pick<
     HallsProps,
-    'onChangeHallName' | 'onClickDeleteHallButton' | 'onChangeHallTheme'
+    | 'onChangeHallName'
+    | 'onClickDeleteHallButton'
+    | 'onChangeHallTheme'
+    | 'onChangeNotification'
   > {
   name: string;
   theme: string;

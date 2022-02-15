@@ -14,8 +14,8 @@ export const isEmpty = (obj: any) => {
 };
 
 export const isEmptyHalls = (halls: HallInfo[]) => {
-  return halls.some(({ hallName, imagesData }) => {
-    if (!hallName) return true;
+  return halls.some(({ hallName, hallTheme, imagesData }) => {
+    if (!hallName || !hallTheme) return true;
     return imagesData.every((piece) => {
       return isEmpty(piece);
     });
