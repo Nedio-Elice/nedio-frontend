@@ -167,10 +167,12 @@ const tempData = {
       ratio: 'vertical',
     },
     {
-      imageUrl:
-        'https://images.unsplash.com/photo-1501743029101-21a00d6a3fb9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTA3fHxjYXR8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-      imageDescription: '설명2',
-      ratio: 'horizontal',
+      imageUrl: '',
+      imageDescription: '',
+      // imageUrl:
+      //   'https://images.unsplash.com/photo-1501743029101-21a00d6a3fb9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTA3fHxjYXR8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+      // imageDescription: '설명2',
+      // ratio: 'horizontal',
     },
     {
       imageUrl:
@@ -223,30 +225,28 @@ const tempData = {
   ],
 };
 
-function Frames({ imgURL, content, pickItem, hall }: any) {
-  // console.log(hall);
-  console.log(hall.imagesData);
-
-  hall.imagesData.map((item: any) => console.log(item));
-
+function Frames({ pickItem, hall }: any) {
+  // TODO: hall data 정리 후 다시 원상복귀
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {hall &&
-        hall.imagesData.map((item: any, idx: any) => (
+      {tempData &&
+        tempData.imagesData.map((item: any, idx: any) => (
           <Frame
             position={fixedFrame[idx].framePosition}
             rotation={fixedFrame[idx].rotation}
             key={fixedFrame[idx].frame_id}
             ratio="horizontal"
           >
-            <Picture
-              position={fixedFrame[idx].picturePosition}
-              rotation={fixedFrame[idx].rotation}
-              spotPos={fixedFrame[idx].spotPos}
-              pickItem={pickItem}
-              data={item}
-            />
+            {item.imageUrl !== '' && (
+              <Picture
+                position={fixedFrame[idx].picturePosition}
+                rotation={fixedFrame[idx].rotation}
+                spotPos={fixedFrame[idx].spotPos}
+                pickItem={pickItem}
+                data={item}
+              />
+            )}
           </Frame>
         ))}
     </>

@@ -6,7 +6,7 @@ import { CAROUSEL } from '../../constants/carousel';
 import { calcWidth, paddingToItem } from '../../utils/carousel';
 import { CardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
-import DetatilButton from './DetatilButton';
+import DetailButton from './DetailButton';
 import { gradientBlue } from '../../styles/mixins';
 
 export type HANDLETYPE = keyof typeof CAROUSEL.HANDLE_TYPE;
@@ -99,7 +99,7 @@ function Carousel({ cardInfo }: Props) {
                       item.endDate,
                     )}`}</Period>
                     <Author>{item.nickname}</Author>
-                    <DetatilButton id={item._id} isCurrent={curIdx === idx} />
+                    <DetailButton id={item._id} isCurrent={curIdx === idx} />
                   </Content>
                   {isShowImg(item.posterUrl) && (
                     <ImgWrapper isCurrent={curIdx === idx}>
