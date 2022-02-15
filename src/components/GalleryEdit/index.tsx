@@ -106,13 +106,10 @@ const Container = styled.div`
 
   ${backgroundGradient}
 
-  button {
-    ${greyButton}
-  }
-
   & > div > button {
     font-size: 1em;
     padding: 1.2em 0.8em;
+    ${greyButton}
     ${hoverOrange}
   }
 
