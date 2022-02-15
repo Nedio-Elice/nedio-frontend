@@ -63,6 +63,22 @@ function Modal({
     [inputValues],
   );
 
+  const handleChangeImageData = useCallback(
+    ({ imageUrl, width, height }) => {
+      const updated = {
+        ...inputValues,
+        imageUrl,
+        width,
+        height,
+      };
+
+      setInputValues(updated);
+
+      console.log(inputValues);
+    },
+    [inputValues],
+  );
+
   const handleClickDeleteButton = () => {
     setInputValues(empty);
 
@@ -105,7 +121,7 @@ function Modal({
           width="100%"
           height="100%"
           thumbnail={inputValues?.imageUrl || ''}
-          onChangePieceImageUrl={handleChange}
+          onChangeImageData={handleChangeImageData}
           onChangeNotification={onChangeNotification}
         />
         <Title

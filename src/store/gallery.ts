@@ -187,6 +187,8 @@ export function updateGallery({ navigate, galleryId }: UpdateGallery) {
 
     const { startDate, endDate } = galleryInfo;
 
+    console.log(halls);
+
     if (isEmpty(galleryInfo)) {
       dispatch(setNotification(MESSAGE.INVALID_FORM));
       return;

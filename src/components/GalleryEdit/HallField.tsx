@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import styled from 'styled-components';
-import { bin } from '../../constants/images';
 import {
   greyButton,
   hoverOrange,
@@ -11,6 +10,7 @@ import {
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
+import { bin } from '../../constants/images';
 
 import Piece from './Piece';
 import Themes from './Themes';
@@ -35,6 +35,11 @@ function HallField({
     onClickDeleteHallButton(hallIndex);
   };
 
+  const handleClickPreview = () => {
+    // TODO: 테마를 선택하세요 예외 처리, 미리보기 기능 추가
+    console.log('preview');
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -50,7 +55,9 @@ function HallField({
           hallIndex={hallIndex}
           onChangeHallTheme={onChangeHallTheme}
         />
-        <button type="button">미리보기</button>
+        <button type="button" disabled={!theme} onClick={handleClickPreview}>
+          미리보기
+        </button>
         <button type="button" onClick={handleClick}>
           <img src={bin} alt="bin" />
         </button>

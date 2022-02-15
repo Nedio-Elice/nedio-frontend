@@ -103,7 +103,15 @@ export interface ArtWorkProps {
   pieceIndex?: number;
   piece?: ImageInfo;
   halls?: HallInfo[];
-  onChangePieceImageUrl: ({ value, name }: ChangeValueWithName) => void;
+  onChangeImageData: ({
+    imageUrl,
+    width,
+    height,
+  }: {
+    imageUrl: string;
+    width: string;
+    height: string;
+  }) => void;
   onChangeNotification: (text: string) => void;
 }
 
