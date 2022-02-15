@@ -10,7 +10,7 @@ import { PATH } from '../../constants/path';
 import { SEARCH } from '../../constants/search';
 import useQueryString from '../../hooks/useQueryString';
 import { useAppDispatch } from '../../store/hooks';
-import { setKeyword } from '../../store/search';
+import { setKeyword, setOption } from '../../store/search';
 import { CardData } from '../../types/Card';
 
 function SearchResultContainer() {
@@ -52,8 +52,16 @@ function SearchResultContainer() {
       .finally(() => {
         setResultKeyword(queryValue);
         dispatch(setKeyword(queryValue));
+        dispatch(setOption(queryKey));
       });
   }, [page, perPage, query, dispatch]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [resultKeyword]);
 
   const handleClick = (id: string) =>
     navigation(`${PATH.GALLERY_SEARCH}/${id}`);
