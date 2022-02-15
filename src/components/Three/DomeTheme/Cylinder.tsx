@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { useCylinder } from '@react-three/cannon';
 
-import textureImage from '../../../assets/textures/DomThemeTexture/cylinderWall.jpg';
+import textureImage from '../../../assets/textures/DomeThemeTexture/cylinderWall.jpg';
 
 type Args = [
   radiusTop?: number | undefined,

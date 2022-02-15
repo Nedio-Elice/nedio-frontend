@@ -1,7 +1,7 @@
 import Wall from './Wall';
 
-import whiteWall from '../../../assets/textures/DomThemeTexture/whiteWall.jpg';
-import blackWall from '../../../assets/textures/DomThemeTexture/blackWall.jpg';
+import whiteWall from '../../../assets/textures/DomeThemeTexture/whiteWall.jpg';
+import blackWall from '../../../assets/textures/DomeThemeTexture/blackWall.jpg';
 
 function Walls() {
   return (

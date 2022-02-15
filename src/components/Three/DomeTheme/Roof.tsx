@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useLoader } from '@react-three/fiber';
 import { useSphere } from '@react-three/cannon';
 
-import textureImage from '../../../assets/textures/DomThemeTexture/roof.jpg';
+import textureImage from '../../../assets/textures/DomeThemeTexture/roof.jpg';
 
 type Args = [
   radius?: number | undefined,
