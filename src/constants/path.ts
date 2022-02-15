@@ -1,5 +1,6 @@
 const PATH = {
-  MAIN: '/',
+  LANDING: '/',
+  MAIN: '/main',
   GALLERY_SEARCH: '/galleries',
   MY_PAGE: '/mypage/:userId',
   GALLERY_DETAIL: '/galleries/:galleryId',
