@@ -158,6 +158,7 @@ const PieceButtons = styled.div`
   @media only screen and (max-width: 720px) {
     grid-template-columns: repeat(5, 1fr);
     button {
+      ${greyButton}
       margin: 0.5em 0;
       align-items: center;
       justify-content: center;

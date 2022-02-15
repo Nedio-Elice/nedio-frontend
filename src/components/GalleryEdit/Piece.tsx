@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { memo } from 'react';
-import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
+import {
+  flexCenter,
+  greyButton,
+  hoverOrange,
+  posterShadow,
+} from '../../styles/mixins';
 
 import pieceNumbers from '../../constants/pieceNumbers';
 import { defaultPoster } from '../../constants/images';
@@ -37,6 +42,7 @@ interface ButtonStyle {
 
 const Button = styled.button<ButtonStyle>`
   ${flexCenter}
+  ${greyButton}
   margin-right: 1em;
 
   padding: 0.3em;

@@ -44,7 +44,8 @@ const Poster = styled.div<PosterStyles>`
   }
 
   label {
-    display: ${(props) => (props.thumbnail ? 'none' : 'flex')};
+    display: flex;
+    opacity: ${(props) => (props.thumbnail ? '0' : '1')};
     justify-content: center;
     align-items: center;
     width: 100%;
