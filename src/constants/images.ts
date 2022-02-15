@@ -14,6 +14,9 @@ import noResults from '../assets/images/noResults.svg';
 import notFound from '../assets/images/notFound.svg';
 import dragNdrop from '../assets/icons/dragNdrop.png';
 import bin from '../assets/icons/bin.png';
+import modernTheme from '../assets/images/modernTheme.png';
+import jazzTheme from '../assets/images/jazzTheme.png';
+import domeTheme from '../assets/images/domeTheme.png';
 
 export {
   sample,
@@ -32,4 +35,7 @@ export {
   notFound,
   dragNdrop,
   bin,
+  modernTheme,
+  jazzTheme,
+  domeTheme,
 };
