@@ -4,7 +4,7 @@ import { Debug, Physics } from '@react-three/cannon';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
-import DomTheme from '../DomTheme';
+import DomTheme from '../DomeTheme';
 import ModernTheme from '../ModernTheme';
 import JazzTheme from '../JazzTheme';
 
@@ -26,7 +26,8 @@ function Hall({ pickItem, hall }: Props) {
                 {/* <ModernTheme pickItem={pickItem} hall={hall} /> */}
                 <JazzTheme pickItem={pickItem} hall={hall} />
                 {/* </Debug>
-                <OrbitControls /> */}
+                 */}
+                {/* <OrbitControls /> */}
               </Physics>
             </Provider>
           </Canvas>

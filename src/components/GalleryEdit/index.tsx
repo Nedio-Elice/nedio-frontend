@@ -25,6 +25,7 @@ function GalleryEdit({
   gallery,
   notification,
   onChangeHallName,
+  onChangeHallTheme,
   onChangePosterUrl,
   onChangePieceField,
   onClickUpdateGallery,
@@ -80,6 +81,7 @@ function GalleryEdit({
       <Halls
         halls={halls}
         onChangeHallName={onChangeHallName}
+        onChangeHallTheme={onChangeHallTheme}
         onClickDeleteHallButton={onClickDeleteHallButton}
         onChangePieceField={onChangePieceField}
         onChangeNotification={onChangeNotification}

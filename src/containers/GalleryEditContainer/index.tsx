@@ -16,6 +16,7 @@ import {
   loadGallery,
   setMode,
   fetchDeleteHall,
+  changeHallTheme,
 } from '../../store/gallery';
 
 import GalleryEdit from '../../components/GalleryEdit';
@@ -46,6 +47,13 @@ function GalleryEditContainer() {
   const handleChangeHallName = useCallback(
     ({ index, value }: ChangeValueWithIndex) => {
       dispatch(changeHallName({ index, value }));
+    },
+    [dispatch],
+  );
+
+  const handleChangeHallTheme = useCallback(
+    ({ index, value }: ChangeValueWithIndex) => {
+      dispatch(changeHallTheme({ index, value }));
     },
     [dispatch],
   );
@@ -114,6 +122,7 @@ function GalleryEditContainer() {
         onClickAddHallButton={handleClickAddHallButton}
         onClickDeleteHallButton={handleClickDeleteHallButton}
         onChangeHallName={handleChangeHallName}
+        onChangeHallTheme={handleChangeHallTheme}
         onChangePieceField={handleChangePieceField}
         onChangeGalleryInputField={handleChangeGalleryInputField}
         onChangePosterUrl={handleChangePosterUrl}

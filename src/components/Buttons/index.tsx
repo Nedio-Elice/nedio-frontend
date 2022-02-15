@@ -3,19 +3,21 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
+  className?: string;
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   handleClick?: any;
 }
 
 interface TabButtonProps {
+  className?: string;
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   handleClick?: any;
   stay: boolean;
 }
 
-function ButtonBasic({ value, type, handleClick }: ButtonProps) {
+function ButtonBasic({ className, value, type, handleClick }: ButtonProps) {
   return (
     <Button onClick={handleClick} type={type} orange={false}>
       {value}
@@ -23,31 +25,42 @@ function ButtonBasic({ value, type, handleClick }: ButtonProps) {
   );
 }
 
-function ButtonOrange({ value, type, handleClick }: ButtonProps) {
+function ButtonOrange({ className, value, type, handleClick }: ButtonProps) {
   return (
-    <Button onClick={handleClick} type={type} orange>
+    <Button className={className} onClick={handleClick} type={type} orange>
       {value}
     </Button>
   );
 }
 
-function ButtonMini({ value, type, handleClick }: ButtonProps) {
+function ButtonMini({ className, value, type, handleClick }: ButtonProps) {
   return (
-    <ButtonSmall onClick={handleClick} type={type} orange>
+    <ButtonSmall className={className} onClick={handleClick} type={type} orange>
       {value}
     </ButtonSmall>
   );
 }
 
-function ButtonNeumo({ value, type, handleClick, stay }: TabButtonProps) {
+function ButtonNeumo({
+  className,
+  value,
+  type,
+  handleClick,
+  stay,
+}: TabButtonProps) {
   return (
-    <ButtonLarge onClick={handleClick} type={type} stay={stay}>
+    <ButtonLarge
+      className={className}
+      onClick={handleClick}
+      type={type}
+      stay={stay}
+    >
       {value}
     </ButtonLarge>
   );
 }
 
-function ButtonEdit({ value, type, handleClick }: ButtonProps) {
+function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   return (
     <ButtonMedium onClick={handleClick} type={type}>
       {value}
@@ -56,22 +69,27 @@ function ButtonEdit({ value, type, handleClick }: ButtonProps) {
 }
 
 ButtonBasic.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonOrange.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonMini.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonNeumo.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonEdit.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };

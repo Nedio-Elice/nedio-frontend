@@ -40,6 +40,7 @@ const { actions, reducer } = createSlice({
           ...state.halls,
           {
             hallName: '',
+            hallTheme: '',
             imagesData: setDefaultPieces(),
           },
         ],
@@ -59,6 +60,23 @@ const { actions, reducer } = createSlice({
 
       const updateHall = {
         hallName: value,
+        hallTheme: state.halls[index].hallTheme,
+        imagesData: state.halls[index].imagesData,
+      };
+
+      const updated = updateArrayByIndex(halls, index, updateHall);
+
+      return {
+        ...state,
+        halls: updated,
+      };
+    },
+    changeHallTheme(state, { payload: { index, value } }) {
+      const { halls } = state;
+
+      const updateHall = {
+        hallName: state.halls[index].hallName,
+        hallTheme: value,
         imagesData: state.halls[index].imagesData,
       };
 
@@ -139,6 +157,7 @@ export const {
   setMode,
   setDeleteHall,
   claerAllState,
+  changeHallTheme,
 } = actions;
 
 export function changePosterUrl(formData: FormData) {
@@ -167,6 +186,8 @@ export function updateGallery({ navigate, galleryId }: UpdateGallery) {
     await dispatch(setNotification(''));
 
     const { startDate, endDate } = galleryInfo;
+
+    console.log(halls);
 
     if (isEmpty(galleryInfo)) {
       dispatch(setNotification(MESSAGE.INVALID_FORM));
