@@ -104,7 +104,7 @@ const InputBox = styled.input<{
     css`
       height: ${props.height};
     `}
-
+  
   font-family: Pretendard;
   font-style: normal;
   font-size: 16px;

@@ -106,7 +106,7 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   font-family: Pretendard;
   font-style: normal;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 1.5em;
   line-height: 43px;
   display: flex;
   text-align: center;
@@ -114,7 +114,9 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
   align-items: center;
   justify-content: center;
-  width: 207px;
+  width: 15vw;
+  max-width: 200px;
+  min-width: 144px;
   height: 60px;
   background: rgba(242, 243, 245, 0.79);
   box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
@@ -125,11 +127,18 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   &:hover {
     color: #ff6e00;
   }
+  @media (max-width: 200px) {
+    font-size: 16px;
+  }
 
   &:active {
     color: #ff6e00;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
+  }
+
+  @media (max-width: 1100px) {
+    display: block;
   }
 
   ${(props) =>
