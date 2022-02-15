@@ -1,5 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { User } from '../../store/profile';
+import { useNavigate } from 'react-router-dom';
 import {
   AuthorEmail,
   AuthorImg,
@@ -18,11 +17,12 @@ import Buttons from '../../components/Buttons';
 import { Gallery } from '../../types/GalleryDetail';
 import formatDateString from '../../utils/datestring';
 import { PATH } from '../../constants/path';
+import { MyInfo } from '../../store/user';
 
 interface Props {
   gallery: Gallery;
   galleryId: string | undefined;
-  user: User;
+  user: MyInfo;
 }
 
 const { ButtonEdit } = Buttons;

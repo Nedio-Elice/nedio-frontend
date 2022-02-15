@@ -5,7 +5,7 @@ const { InputField, InputTextField } = InputFields;
 
 interface Props {
   name: string;
-  defaultText: string;
+  defaultText: string | undefined;
   value: string;
   width: string;
   height?: string;

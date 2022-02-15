@@ -6,6 +6,7 @@ import Player from '../Player';
 import Models from './Models';
 import Light from './Light';
 import Scene from '../Scene';
+import Sound from './Sound';
 
 interface Props {
   pickItem: (item: any) => void;
@@ -23,7 +24,7 @@ function JazzTheme({ pickItem, hall }: Props) {
         <Ceiling />
         {hall && <Frames data={hall.imagesData} pickItem={pickItem} />}
         <Ground position={[0, 1, 0]} wireframe={false} />
-        {/* <Sound /> */}
+        <Sound />
       </Scene>
     </>
   );

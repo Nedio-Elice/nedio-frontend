@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 import {
@@ -11,8 +11,8 @@ import {
 import InputField from '../../components/InputFields';
 import ProfileInfos from '../../components/ProfileInfos';
 import Buttons from '../../components/Buttons';
-import { getUser, putUser } from '../../store/profile';
 import axiosInstance from '../../api/api';
+import { updateUser } from '../../store/user';
 
 const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
 const { ButtonOrange } = Buttons;
@@ -26,19 +26,26 @@ interface ImageResponse {
 
 function MyInformation() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.profile);
+  const navigation = useNavigate();
+  const user = useAppSelector((state: RootState) => state.users);
   const [profileURL, setProfileURL] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [introduce, setIntroduce] = useState('');
 
   useEffect(() => {
-    dispatch(getUser());
-    setProfileURL(user.profileURL);
-    setNickname(user.nickname);
-    setEmail(user.email);
-    setIntroduce(user.introduce);
-  }, [dispatch, user.email, user.introduce, user.nickname, user.profileURL]);
+    setProfileURL(user.userInfo.profileURL);
+    setNickname(user.userInfo.nickname);
+    setEmail(user.userInfo.email);
+    setIntroduce(user.userInfo.introduce ? user.userInfo.introduce : '');
+  }, [
+    dispatch,
+    user.userInfo,
+    user.userInfo.email,
+    user.userInfo.introduce,
+    user.userInfo.nickname,
+    user.userInfo.profileURL,
+  ]);
 
   const handleImgUpdate = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -54,28 +61,34 @@ function MyInformation() {
       formData,
     );
     const newUser = {
-      _id: user._id,
+      _id: user.userInfo._id,
       introduce,
-      contact: user.contact,
+      contact: user.userInfo.contact,
       profileURL: response.data.url,
       nickname,
       email,
     };
-    dispatch(putUser(newUser));
+    dispatch(updateUser(newUser));
+    alert('프로필 사진이 업데이트 되었습니다.');
   };
 
   const handleSubmit = () => {
     const newUser = {
-      _id: user._id,
+      _id: user.userInfo._id,
       introduce,
-      contact: user.contact,
+      contact: user.userInfo.contact,
       profileURL,
       nickname,
       email,
     };
 
-    dispatch(putUser(newUser));
+    dispatch(updateUser(newUser));
+    alert('유저 정보 업데이트가 되었습니다.');
   };
+
+  if (!user.isSignIn) {
+    navigation('/');
+  }
 
   return (
     <>
@@ -88,7 +101,7 @@ function MyInformation() {
         <InfoSubWrapper>
           <ProfileInfo
             name="이름"
-            defaultText={user.nickname}
+            defaultText={user.userInfo.nickname}
             value={nickname}
             width="100%"
             onChange={setNickname}
@@ -96,7 +109,7 @@ function MyInformation() {
           <br />
           <ProfileInfo
             name="이메일"
-            defaultText={user.email}
+            defaultText={user.userInfo.email}
             value={email}
             width="100%"
             onChange={setEmail}
@@ -105,7 +118,7 @@ function MyInformation() {
         <InfoSubWrapper>
           <ProfileTextInfo
             name="소개"
-            defaultText={user.introduce}
+            defaultText={user.userInfo.introduce}
             value={introduce}
             width="100%"
             onChange={setIntroduce}

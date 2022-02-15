@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import InputFields from '../InputFields';
 import Buttons from '../Buttons';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { RootState } from '../../store/root';
-import { getUser, User } from '../../store/profile';
+import { MyInfo } from '../../store/user';
 
 const { ButtonOrange } = Buttons;
 const { InputField, InputTextField } = InputFields;
@@ -12,7 +10,7 @@ const { InputField, InputTextField } = InputFields;
 interface Props {
   defaultText: string;
   value: string;
-  user: User;
+  user: MyInfo;
   onChange: React.Dispatch<React.SetStateAction<string>>;
   handleClick: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -48,9 +46,9 @@ const CommentWrapper = styled.form`
   gap: 24px;
   align-items: center;
   @media (max-width: 850px) {
-    margin: 24px 0px;
-    min-width:
+    margin: 24px auto;
     width: 80%;
+    min-width: 500px;
   }
 `;
 

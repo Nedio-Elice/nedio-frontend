@@ -78,13 +78,14 @@ function Comment({
 export default Comment;
 
 const CommentContainer = styled.div`
-  max-width: 550px;
+  width: 550px;
   display: flex;
   flex-direction: row;
   align-items: top;
   margin: 16px auto;
   @media (max-width: 850px) {
     padding: 0px 48px;
+    width: 80%;
   }
 `;
 
