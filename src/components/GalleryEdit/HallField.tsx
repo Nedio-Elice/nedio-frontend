@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import styled from 'styled-components';
-import { bin } from '../../constants/images';
 import {
   greyButton,
   hoverOrange,
@@ -11,25 +10,41 @@ import {
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
+import { bin } from '../../constants/images';
 
 import Piece from './Piece';
+import Themes from './Themes';
+import { MESSAGE } from '../../constants/messages';
 
 function HallField({
   name,
   pieces,
+  theme,
   halls,
   hallIndex,
   openModal,
   onChangeHallName,
+  onChangeHallTheme,
   onClickDeleteHallButton,
+  onChangeNotification,
 }: HallFieldProps) {
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     onChangeHallName({ index: hallIndex, value });
   };
 
   const handleClick = () => {
     onClickDeleteHallButton(hallIndex);
+  };
+
+  const handleClickPreview = () => {
+    // TODO: 미리보기 기능 추가
+    if (!theme) {
+      onChangeNotification(MESSAGE.NO_THEME);
+      return;
+    }
+
+    console.log('preview');
   };
 
   return (
@@ -39,9 +54,17 @@ function HallField({
           type="text"
           value={name}
           placeholder="관명"
-          onChange={handleChange}
+          onChange={handleChangeName}
         />
-        <button type="button">미리보기</button>
+        <Themes
+          label=""
+          theme={theme}
+          hallIndex={hallIndex}
+          onChangeHallTheme={onChangeHallTheme}
+        />
+        <button type="button" onClick={handleClickPreview}>
+          미리보기
+        </button>
         <button type="button" onClick={handleClick}>
           <img src={bin} alt="bin" />
         </button>
@@ -111,6 +134,9 @@ const Wrapper = styled.div`
     ${placeholders}
     ${inputPadding}
     width: 5em;
+    &:first-child {
+      margin-right: 1em;
+    }
   }
 `;
 

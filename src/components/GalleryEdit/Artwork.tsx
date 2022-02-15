@@ -14,7 +14,7 @@ function Artwork({
   thumbnail,
   width,
   height,
-  onChangePieceImageUrl,
+  onChangeImageData,
   onChangeNotification,
 }: ArtWorkProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -38,23 +38,19 @@ function Artwork({
         await axiosInstanceFormData
           .post('uploadImage', formData)
           .then((res) => {
-            const { url: value } = res.data;
-
+            const { url: imageUrl } = res.data;
             const img = new Image();
 
-            console.log(1);
-
             img.onload = function () {
-              console.log(img.width);
-              console.log(img.height);
-              console.log(2);
+              const { width: w, height: h } = img;
+              onChangeImageData({
+                imageUrl,
+                width: w.toString(),
+                height: h.toString(),
+              });
             };
 
-            console.log(3);
-
-            img.src = value; // 이미지 주소 할당
-
-            onChangePieceImageUrl({ value, name: 'url' });
+            img.src = imageUrl;
           })
           .catch((e) => {
             console.log(e);
@@ -62,7 +58,7 @@ function Artwork({
           });
       })();
     },
-    [onChangePieceImageUrl, onChangeNotification],
+    [onChangeImageData, onChangeNotification],
   );
 
   const handleChangeFiles = useCallback(

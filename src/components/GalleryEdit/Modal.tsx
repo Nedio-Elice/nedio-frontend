@@ -27,6 +27,8 @@ function Modal({
     imageTitle: '',
     imageDescription: '',
     imageUrl: '',
+    width: '',
+    height: '',
   };
 
   const [inputValues, setInputValues] = useState<ImageInfo>(empty);
@@ -61,6 +63,22 @@ function Modal({
     [inputValues],
   );
 
+  const handleChangeImageData = useCallback(
+    ({ imageUrl, width, height }) => {
+      const updated = {
+        ...inputValues,
+        imageUrl,
+        width,
+        height,
+      };
+
+      setInputValues(updated);
+
+      console.log(inputValues);
+    },
+    [inputValues],
+  );
+
   const handleClickDeleteButton = () => {
     setInputValues(empty);
 
@@ -84,6 +102,30 @@ function Modal({
     closeModal();
   };
 
+  const setImageWidth = (piece: ImageInfo) => {
+    if (!piece) return '100%';
+
+    const { imageUrl, width, height } = piece;
+
+    if (!imageUrl) return '100%';
+
+    if (parseInt(width, 10) > parseInt(height, 10)) return '100%';
+
+    return '50%';
+  };
+
+  const setImageHeight = (piece: ImageInfo) => {
+    if (!piece) return '100%';
+
+    const { imageUrl, width, height } = piece;
+
+    if (!imageUrl) return '100%';
+
+    if (parseInt(width, 10) > parseInt(height, 10)) return '100%';
+
+    return '150%';
+  };
+
   useEffect(() => {
     const piece: ImageInfo = halls[hallIndex]?.imagesData[pieceIndex];
 
@@ -100,10 +142,10 @@ function Modal({
         <Header>작품 등록</Header>
         <Artwork
           label="Drag&Drop your artwork here"
-          width="100%"
-          height="100%"
+          width={setImageWidth(inputValues)}
+          height={setImageHeight(inputValues)}
           thumbnail={inputValues?.imageUrl || ''}
-          onChangePieceImageUrl={handleChange}
+          onChangeImageData={handleChangeImageData}
           onChangeNotification={onChangeNotification}
         />
         <Title
