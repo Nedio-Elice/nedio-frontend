@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { memo } from 'react';
 import { flexCenter, hoverOrange, posterShadow } from '../../styles/mixins';
 
+import pieceNumbers from '../../constants/pieceNumbers';
 import { defaultPoster } from '../../constants/images';
 import { ImageInfo, PieceButtonProps } from '../../types/GalleryEdit';
 
@@ -16,7 +17,14 @@ function Piece({ openModal, halls, hallIndex, pieceIndex }: PieceButtonProps) {
       onClick={() => openModal({ hallIndex, pieceIndex })}
       thumbnail={thumbnail}
     >
-      {thumbnail ? '' : '작품 등록'}
+      {thumbnail ? (
+        ''
+      ) : (
+        <div>
+          작품
+          <span>{pieceNumbers[pieceIndex + 1]}</span>
+        </div>
+      )}
     </Button>
   );
 }
@@ -48,4 +56,8 @@ const Button = styled.button<ButtonStyle>`
   ${hoverOrange}
 
   padding: 0.5em;
+
+  span {
+    font-size: 1.3em;
+  }
 `;
