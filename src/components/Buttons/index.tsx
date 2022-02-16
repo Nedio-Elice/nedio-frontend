@@ -118,21 +118,26 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   max-width: 200px;
   min-width: 144px;
   height: 60px;
-  background: rgba(242, 243, 245, 0.79);
+  background: linear-gradient(
+    60deg,
+    #f2f3f5 0.59%,
+    #ffffff 49.78%,
+    #f2f3f5 100%
+  );
   box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
     4px 4px 16px rgba(218, 218, 218, 0.75);
   border-radius: 20px;
   border: none;
 
   &:hover {
-    color: #ff6e00;
+    color: #f3643f;
   }
   @media (max-width: 200px) {
     font-size: 16px;
   }
 
   &:active {
-    color: #ff6e00;
+    color: ##f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
   }
@@ -144,7 +149,7 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   ${(props) =>
     props.stay &&
     css`
-      color: #ff6e00;
+      color: #f3643f;
     `}
 `;
 
@@ -157,7 +162,7 @@ const Button = styled.button<{ orange: boolean }>`
   text-align: center;
   color: #777777;
   border: none;
-  height: 40px;
+  height: 44px;
   min-width: 80px;
   padding: 2px 12px;
   text-align: center;
@@ -174,15 +179,15 @@ const Button = styled.button<{ orange: boolean }>`
   ${(props) =>
     props.orange &&
     css`
-      background: #ff6e00;
+      background: #f3643f;
       box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.73),
         2px 8px 24px rgba(0, 0, 0, 0.25);
       color: #ffffff;
     `}
 
   &:hover {
-    height: 40px;
-    border: 2px solid #ff6e00;
+    height: 44px;
+    border: 2px solid #f3643f;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
@@ -194,7 +199,7 @@ const Button = styled.button<{ orange: boolean }>`
   }
 
   &:active {
-    color: #ff6e00;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;
@@ -238,7 +243,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   ${(props) =>
     props.orange &&
     css`
-      background: #ff6e00;
+      background: #f3643f;
       box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.73),
         2px 8px 24px rgba(0, 0, 0, 0.25);
       color: #ffffff;
@@ -246,7 +251,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
 
   &:hover {
     height: 24px;
-    border: 2px solid #ff6e00;
+    border: 2px solid #f3643f;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
@@ -258,7 +263,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   }
 
   &:active {
-    color: #ff6e00;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;
@@ -293,6 +298,6 @@ const ButtonMedium = styled.button`
   text-align: center;
   margin-left: auto;
   &:hover {
-    color: #ff6e00;
+    color: #f3643f;
   }
 `;

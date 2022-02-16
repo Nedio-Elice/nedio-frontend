@@ -66,8 +66,9 @@ const UserImg = styled.img`
 `;
 
 const CommentInputField = styled(InputTextField)`
-  height: 46px;
+  height: 44px;
   resize: none;
+  line-height: 16px;
   @media (max-width: 850px) {
     height: auto;
     display: block;

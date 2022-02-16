@@ -120,7 +120,7 @@ const InputBox = styled.input<{
     opacity: 0.6;
   }
   &:focus {
-    border: 1px solid #ff6e00;
+    border: 1px solid #f3643f;
     outline: none;
   }
 `;
@@ -158,7 +158,7 @@ const InputTextBox = styled.textarea<{
   }
 
   &:focus {
-    border: 1px solid #ff6e00;
+    border: 1px solid #f3643f;
     outline: none;
   }
 `;
@@ -191,14 +191,14 @@ const Label = styled.label`
 
   &:hover {
     height: 40px;
-    border: 2px solid #ff6e00;
+    border: 2px solid #f3643f;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
   }
 
   &:active {
-    color: #ff6e00;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;
