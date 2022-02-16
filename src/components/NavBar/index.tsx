@@ -94,7 +94,7 @@ const NavBarContainer = styled.div`
     #f2f3f5 100%
   );
   z-index: 9999;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 0 5%;
   user-select: none;
   min-width: 460px;
