@@ -82,11 +82,8 @@ export function signOutUser() {
   };
 }
 
-// Argument of type '(dispatch: Dispatch) => Promise<void>' is not assignable to parameter of type 'Action<any>'.
-//   Property 'type' is missing in type '(dispatch: Dispatch) => Promise<void>' but required in type 'Action<any>'
-// TODO: 중요!!!! dispatch: any 제거
 export function signInUserByToken(token: string) {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     try {
       const result = await axiosInstance.get('/users/myInfo');
@@ -94,7 +91,7 @@ export function signInUserByToken(token: string) {
       dispatch(setUser(result.data));
     } catch (e) {
       // 만료또는 유효하지 않는 토큰일경우,
-      dispatch(signOutUser());
+      dispatch(signOutUser() as any);
     }
   };
 }
