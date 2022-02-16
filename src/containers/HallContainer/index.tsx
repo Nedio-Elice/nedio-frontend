@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axiosInstance from '../../api/api';
 import Modal from '../../components/Modal';
+import ErrorBoundary from '../../components/ErrorBoundary';
 import Hall from '../../components/Three/Hall';
 import Landing from '../../components/Three/Landing';
 import MouseIcon from '../../components/Three/MouseIcon';
@@ -38,20 +39,22 @@ function HallContainer() {
   }
 
   return (
-    <Container>
-      <Landing />
-      <MouseIcon />
-      <Hall pickItem={handlePictureClick} hall={hall} />
+    <ErrorBoundary>
+      <Container>
+        <Landing />
+        <MouseIcon />
+        <Hall pickItem={handlePictureClick} hall={hall} />
 
-      <Modal ref={modalRef} width={400} height={480} isHall>
-        {selectedItem && (
-          <>
-            <TempImg src={selectedItem.imageUrl} />
-            <div>{selectedItem.imageDescription}</div>
-          </>
-        )}
-      </Modal>
-    </Container>
+        <Modal ref={modalRef} width={400} height={480} isHall>
+          {selectedItem && (
+            <>
+              <TempImg src={selectedItem.imageUrl} />
+              <div>{selectedItem.imageDescription}</div>
+            </>
+          )}
+        </Modal>
+      </Container>
+    </ErrorBoundary>
   );
 }
 
