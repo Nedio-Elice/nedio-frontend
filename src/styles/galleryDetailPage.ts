@@ -17,7 +17,7 @@ export const Background = styled.div`
 `;
 
 export const GalleryInfoWrapper = styled.div`
-  margin: 48px auto 48px auto;
+  margin: 48px auto;
   padding: 72px 48px;
   box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
   border-radius: 20px;
@@ -25,11 +25,11 @@ export const GalleryInfoWrapper = styled.div`
 
   @media (max-width: 1100px) {
     padding: 72px 24px;
+    margin: 48px 48px;
   }
 
   @media (max-width: 800px) {
     display: block;
-    padding: 72px auto;
   }
 `;
 

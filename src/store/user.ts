@@ -60,15 +60,21 @@ export function signInUser(userData: MyInfo) {
 
 export function updateUser(userData: MyInfo) {
   return async (dispatch: Dispatch) => {
-    const result = await axiosInstance.put(`/users/${userData._id}`, {
-      introduce: userData.introduce,
-      contact: userData.contact,
-      profileURL: userData.profileURL,
-      nickname: userData.nickname,
-      email: userData.email,
-    });
-    dispatch(setUser(userData));
-    return result.data;
+    try {
+      const result = await axiosInstance.put(`/users/${userData._id}`, {
+        introduce: userData.introduce,
+        contact: userData.contact,
+        profileURL: userData.profileURL,
+        nickname: userData.nickname,
+        email: userData.email,
+      });
+      dispatch(setUser(userData));
+      alert('유저 정보 업데이트가 되었습니다.');
+      return result.data;
+    } catch (error) {
+      alert('유저 정보 업데이트에 실패하였습니다.');
+      return error;
+    }
   };
 }
 
@@ -79,6 +85,7 @@ export function signOutUser() {
     document.cookie = `${'token'}=; expires=Thu, 01 Jan 1999 00:00:00 GMT;`;
     removeToken();
     axiosInstance.defaults.headers.common.Authorization = ``;
+    alert('로그아웃 되었습니다.');
   };
 }
 

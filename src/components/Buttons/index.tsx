@@ -224,7 +224,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   padding: 2px 12px;
   text-align: center;
   margin-top: 8px;
-  margin-left: 79%;
+  margin-left: auto;
   background: linear-gradient(
     134.47deg,
     #ffffff 36.25%,

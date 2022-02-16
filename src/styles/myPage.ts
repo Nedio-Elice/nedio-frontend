@@ -14,10 +14,16 @@ export const ProfileBox = styled.div`
 export const ProfileForm = styled.div`
   margin: 0 auto;
   padding: 72px;
-  width: 80vw;
-  @media (max-width: 1024px) {
+  width: 50vw;
+  min-width: 840px;
+  @media (max-width: 1100px) {
+    width: 80vw;
+    min-width: 0px;
     display: block;
     align-items: center;
+    padding: 72px 20vw 72px 20vw;
+  }
+  @media (max-width: 800px) {
     padding: 72px 15vw 72px 15vw;
   }
 `;
@@ -34,19 +40,19 @@ export const InfoWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     display: block;
   }
 `;
 
 export const InfoSubWrapper = styled.div`
   width: 50%;
-  padding: 72px 48px 0 0;
+  padding: 64px 48px 0 0;
   display: flex;
   flex-direction: column;
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     display: block;
-    padding: 0px;
+    padding: 24px 0 0 0;
     width: 100%;
   }
 `;

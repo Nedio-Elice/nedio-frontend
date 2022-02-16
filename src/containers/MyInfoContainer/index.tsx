@@ -69,7 +69,6 @@ function MyInformation() {
       email,
     };
     dispatch(updateUser(newUser));
-    alert('프로필 사진이 업데이트 되었습니다.');
   };
 
   const handleSubmit = () => {
@@ -83,7 +82,6 @@ function MyInformation() {
     };
 
     dispatch(updateUser(newUser));
-    alert('유저 정보 업데이트가 되었습니다.');
   };
 
   if (!user.isSignIn) {
