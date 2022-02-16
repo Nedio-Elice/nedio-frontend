@@ -4,13 +4,17 @@ import { useNavigate } from 'react-router-dom';
 interface Props {
   tapMenu: string;
   to: string;
+  userId?: string | undefined;
 }
 
-function TapButton({ tapMenu, to }: Props) {
+function TapButton({ tapMenu, to, userId }: Props) {
   const navigate = useNavigate();
 
-  const handleClick = () => navigate(to);
-
+  const handleClick = () => {
+    if (tapMenu === '갤러리 생성') return navigate(to);
+    if (!userId) return false;
+    return navigate(`/mypage/${userId}`);
+  };
   return <Button onClick={handleClick}>{tapMenu}</Button>;
 }
 

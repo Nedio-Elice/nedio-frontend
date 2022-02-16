@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ButtonWrapperLeft } from '../../styles/myPage';
+import { ButtonWrapperTab } from '../../styles/myPage';
 import Buttons from '../Buttons';
 
 const { ButtonNeumo } = Buttons;
@@ -35,7 +35,7 @@ function GalleryTab({ changeState }: Props) {
   };
 
   return (
-    <ButtonWrapperLeft>
+    <ButtonWrapperTab>
       <ButtonNeumo
         value="운영중인 전시"
         handleClick={() => handleClick('Running')}
@@ -51,7 +51,7 @@ function GalleryTab({ changeState }: Props) {
         handleClick={() => handleClick('Closed')}
         stay={tabState[2]}
       />
-    </ButtonWrapperLeft>
+    </ButtonWrapperTab>
   );
 }
 

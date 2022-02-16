@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useLayoutEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axiosInstance from '../../api/api';
 import Modal from '../../components/Modal';
@@ -13,6 +14,7 @@ function HallContainer() {
   const [selectedItem, setSelectedItem] = useState<any>();
   const modalRef = useRef<React.ElementRef<typeof Modal>>(null);
   const control = useAppSelector((state) => state.controls.movement);
+  const { hallId } = useParams();
 
   const handlePictureClick = (item: any) => {
     // 자유롭게 마우스를 움직일 수 있을 때는 클릭방지
@@ -22,8 +24,6 @@ function HallContainer() {
     control?.unlock && control?.unlock();
   };
 
-  const hallId = '6209e28c49d9097ef94e0de9';
-
   useLayoutEffect(() => {
     // // TODO: hall 데이터 요청
     (async () => {
@@ -31,7 +31,7 @@ function HallContainer() {
         .get(`halls/${hallId}`)
         .then((res) => setHall(res.data.data));
     })();
-  }, []);
+  }, [hallId]);
 
   if (!hall) {
     return null;

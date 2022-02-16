@@ -14,7 +14,6 @@ import {
 import userReducer from './user';
 import galleryReducer from './gallery';
 import commentReducer from './comment';
-import profileReducer from './profile';
 import myGalleryReducer from './myGallery';
 import searchReducer from './search';
 import controlsReducer from './controls';
@@ -29,7 +28,6 @@ const combinedReducer = combineReducers({
   users: userReducer,
   gallery: galleryReducer,
   comment: commentReducer,
-  profile: profileReducer,
   myGallery: myGalleryReducer,
   search: searchReducer,
   controls: controlsReducer,

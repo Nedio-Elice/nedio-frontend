@@ -3,19 +3,21 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
+  className?: string;
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   handleClick?: any;
 }
 
 interface TabButtonProps {
+  className?: string;
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   handleClick?: any;
   stay: boolean;
 }
 
-function ButtonBasic({ value, type, handleClick }: ButtonProps) {
+function ButtonBasic({ className, value, type, handleClick }: ButtonProps) {
   return (
     <Button onClick={handleClick} type={type} orange={false}>
       {value}
@@ -23,31 +25,42 @@ function ButtonBasic({ value, type, handleClick }: ButtonProps) {
   );
 }
 
-function ButtonOrange({ value, type, handleClick }: ButtonProps) {
+function ButtonOrange({ className, value, type, handleClick }: ButtonProps) {
   return (
-    <Button onClick={handleClick} type={type} orange>
+    <Button className={className} onClick={handleClick} type={type} orange>
       {value}
     </Button>
   );
 }
 
-function ButtonMini({ value, type, handleClick }: ButtonProps) {
+function ButtonMini({ className, value, type, handleClick }: ButtonProps) {
   return (
-    <ButtonSmall onClick={handleClick} type={type} orange>
+    <ButtonSmall className={className} onClick={handleClick} type={type} orange>
       {value}
     </ButtonSmall>
   );
 }
 
-function ButtonNeumo({ value, type, handleClick, stay }: TabButtonProps) {
+function ButtonNeumo({
+  className,
+  value,
+  type,
+  handleClick,
+  stay,
+}: TabButtonProps) {
   return (
-    <ButtonLarge onClick={handleClick} type={type} stay={stay}>
+    <ButtonLarge
+      className={className}
+      onClick={handleClick}
+      type={type}
+      stay={stay}
+    >
       {value}
     </ButtonLarge>
   );
 }
 
-function ButtonEdit({ value, type, handleClick }: ButtonProps) {
+function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   return (
     <ButtonMedium onClick={handleClick} type={type}>
       {value}
@@ -56,22 +69,27 @@ function ButtonEdit({ value, type, handleClick }: ButtonProps) {
 }
 
 ButtonBasic.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonOrange.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonMini.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonNeumo.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
 ButtonEdit.defaultProps = {
+  className: '',
   type: 'button',
   handleClick: () => {},
 };
@@ -88,7 +106,7 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   font-family: Pretendard;
   font-style: normal;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 1.5em;
   line-height: 43px;
   display: flex;
   text-align: center;
@@ -96,7 +114,9 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
   align-items: center;
   justify-content: center;
-  width: 207px;
+  width: 15vw;
+  max-width: 200px;
+  min-width: 144px;
   height: 60px;
   background: rgba(242, 243, 245, 0.79);
   box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
@@ -107,11 +127,18 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   &:hover {
     color: #ff6e00;
   }
+  @media (max-width: 200px) {
+    font-size: 16px;
+  }
 
   &:active {
     color: #ff6e00;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
+  }
+
+  @media (max-width: 1100px) {
+    display: block;
   }
 
   ${(props) =>

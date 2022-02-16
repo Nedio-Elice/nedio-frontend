@@ -50,7 +50,7 @@ function Pagination({ currPage = 0, pageCount, onClickPage }: PaginationProps) {
         disabled={currPage === pageCount - 1}
         onClick={() => onClickPage(currPage + 1)}
       >
-        <ArrowImg src={Arrow} flip />
+        <ArrowImg src={Arrow} alt="/" flip />
       </ArrowButton>
     </Container>
   );
@@ -65,7 +65,6 @@ const Container = styled.div`
 `;
 
 const ArrowImg = styled.img<{ flip: boolean }>`
-  alt: '/';
   width: 16px;
   ${(props) =>
     props.flip &&

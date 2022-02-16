@@ -8,6 +8,8 @@ export interface MyInfo {
   email: string;
   nickname: string;
   profileURL: string;
+  introduce?: string;
+  contact?: string;
 }
 
 const initialState = {
@@ -17,6 +19,8 @@ const initialState = {
     email: '',
     nickname: '',
     profileURL: '',
+    introduce: '',
+    contact: '',
   } as MyInfo,
 };
 
@@ -54,6 +58,20 @@ export function signInUser(userData: MyInfo) {
   };
 }
 
+export function updateUser(userData: MyInfo) {
+  return async (dispatch: Dispatch) => {
+    const result = await axiosInstance.put(`/users/${userData._id}`, {
+      introduce: userData.introduce,
+      contact: userData.contact,
+      profileURL: userData.profileURL,
+      nickname: userData.nickname,
+      email: userData.email,
+    });
+    dispatch(setUser(userData));
+    return result.data;
+  };
+}
+
 export function signOutUser() {
   return async (dispatch: Dispatch) => {
     dispatch(resetUser());
@@ -73,7 +91,7 @@ export function signInUserByToken(token: string) {
     try {
       const result = await axiosInstance.get('/users/myInfo');
 
-      dispatch(setUser(result.data.data));
+      dispatch(setUser(result.data));
     } catch (e) {
       // 만료또는 유효하지 않는 토큰일경우,
       dispatch(signOutUser());
