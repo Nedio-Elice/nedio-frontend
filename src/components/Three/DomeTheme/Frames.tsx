@@ -21,6 +21,8 @@ function Frames({ pickItem, hall }: FramesProps) {
           { imageTitle, imageDescription, imageUrl, width, height }: ImageInfo,
           i: number,
         ) => {
+          if (!imageTitle || !imageDescription || !imageUrl) return null;
+
           const { position, rotation, customLight } = domeFrames[i];
 
           const frameSize =

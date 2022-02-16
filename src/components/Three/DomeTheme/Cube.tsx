@@ -20,7 +20,7 @@ function Cube({ position, ...props }: any) {
   return (
     <mesh ref={ref} castShadow receiveShadow>
       <boxBufferGeometry args={boxSize} />
-      <meshStandardMaterial color="grey" metalness={5} />
+      <meshStandardMaterial color="grey" metalness={8} roughness={0.3} />
     </mesh>
   );
 }

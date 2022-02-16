@@ -23,7 +23,7 @@ function Boundary({ wallSize, textureImage, ...props }: any) {
   return (
     <mesh ref={ref} receiveShadow>
       <boxBufferGeometry attach="geometry" args={wallSize} />
-      <meshLambertMaterial map={texture} attach="material" />
+      <meshStandardMaterial map={texture} attach="material" />
     </mesh>
   );
 }

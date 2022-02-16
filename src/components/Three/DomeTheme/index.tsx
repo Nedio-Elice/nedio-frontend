@@ -24,7 +24,7 @@ function DomTheme({ pickItem, hall }: Props) {
       <Sky />
       <Player position={[50, 33, 50]} speed={60} />
       <Scene>
-        <pointLight intensity={0.5} position={[0, 300, 0]} />
+        <pointLight intensity={1} position={[0, 200, 0]} />
         <pointLight intensity={0.7} position={[0, 300, 300]} />
         <pointLight intensity={0.7} position={[50, 300, -300]} />
         <Roof />
