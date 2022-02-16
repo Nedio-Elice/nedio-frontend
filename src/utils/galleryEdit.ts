@@ -59,7 +59,9 @@ export const getId = () => {
 
 export const listOfDisplayGalleries = (list: CardData[]): CardData[] => {
   return list.reduce((acc: CardData[], cur: CardData) => {
-    if (isOpen({ start: cur.startDate, end: cur.endDate })) acc.push(cur);
+    const { startDate, endDate } = cur;
+
+    if (isOpen({ startDate, endDate })) acc.push(cur);
 
     return acc;
   }, []);

@@ -1,6 +1,6 @@
 type Term = {
-  start: Date;
-  end: Date;
+  startDate: Date;
+  endDate: Date;
 };
 
 export const padding = (value: number) => `00${value}`.slice(-2);
@@ -21,10 +21,10 @@ export const addDaysFromToday = (days: number) => {
   return date;
 };
 
-export function isOpen(term: Term): boolean {
+export function isOpen({ startDate, endDate }: Term): boolean {
   const todayMidnight = new Date().setHours(0, 0, 0, 0);
-  const startDateToString = term.start.toString();
-  const endDateToString = term.end.toString();
+  const startDateToString = startDate.toString();
+  const endDateToString = endDate.toString();
 
   return (
     Date.parse(startDateToString) < todayMidnight &&
