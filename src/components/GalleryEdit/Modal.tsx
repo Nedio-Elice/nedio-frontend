@@ -259,7 +259,7 @@ const Buttons = styled.div<ButtonsStyle>`
     ${hoverOrange}
 
     &:first-child {
-      background-color: #ff6e00;
+      background-color: #f3643f;
       text-shadow: none;
       color: white;
       opacity: 1;
