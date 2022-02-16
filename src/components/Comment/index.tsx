@@ -84,7 +84,7 @@ const CommentContainer = styled.div`
   align-items: top;
   margin: 16px auto;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-image: linear-gradient(
     to right bottom,
     #ffffff,
@@ -102,13 +102,14 @@ const CommentContainer = styled.div`
   );
   box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
   @media (max-width: 850px) {
-    width: 60%;
+    width: 80%;
   }
 `;
 
 const CommentContent = styled.div`
   width: 70%;
   margin-left: 24px;
+  font-family: 'Pretendard-Regular';
 `;
 
 const CommentImg = styled.img`
@@ -130,7 +131,7 @@ const CommentUsername = styled.p`
 const CommentText = styled.p`
   width: 100%;
   line-height: 18px;
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-size: 14px;
   word-break: break-word;
@@ -150,10 +151,15 @@ const CommentUpdate = styled.textarea`
   font-size: 14px;
   word-break: keep-all;
   padding: 8px 8px;
-  border: 1px solid #d1d1d1;
+  resize: none;
+  border: 2px transparent;
   box-sizing: border-box;
-  box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);
+  box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
+    rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
   border-radius: 5px;
+  &:focus {
+    outline: 2px solid #f3643f;
+  }
 `;
 
 const CommentButton = styled.button`

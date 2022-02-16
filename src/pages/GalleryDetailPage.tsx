@@ -1,8 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios, { AxiosResponse, AxiosError } from 'axios';
-import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
+import { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
 import { getComments, postComment, deleteComment } from '../store/comment';
 import axiosInstance from '../api/api';
@@ -16,7 +15,9 @@ import makePageCount from '../utils/makePageCount';
 import {
   Background,
   ButtonWrapper,
-  GalleryInfoWrapper,
+  CommentTitle,
+  GalleryWrapper,
+  NoCommentTag,
 } from '../styles/galleryDetailPage';
 import GalleryInformation from '../containers/GalleryInfoContainer';
 
@@ -108,6 +109,7 @@ function GalleryDetailPage() {
               );
             })}
         </ButtonWrapper>
+        <CommentTitle>방명록</CommentTitle>
         {isOpen(gallery.startDate, gallery.endDate) && user.isSignIn && (
           <CommentInput
             defaultText="방명록을 입력해 주세요."
@@ -135,7 +137,7 @@ function GalleryDetailPage() {
               />
             );
           })}
-        {comments.data !== undefined && (
+        {comments.data !== undefined && comments.data.length > 0 ? (
           <Pagination
             currPage={currPage}
             pageCount={pageCount}
@@ -143,6 +145,8 @@ function GalleryDetailPage() {
               setCurrPage(num);
             }}
           />
+        ) : (
+          <NoCommentTag>등록된 방명록이 없습니다.</NoCommentTag>
         )}
       </GalleryWrapper>
     </Background>
@@ -150,31 +154,3 @@ function GalleryDetailPage() {
 }
 
 export default GalleryDetailPage;
-
-export const GalleryWrapper = styled.div`
-  margin: 48px auto;
-  padding: 72px 48px;
-  box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
-  border-radius: 20px;
-
-  background-image: linear-gradient(
-    to right bottom,
-    #ffffff,
-    #fdfdfd,
-    #fafafb,
-    #f8f8f9,
-    #f5f6f7,
-    #f5f6f7,
-    #f5f6f7,
-    #f5f6f7,
-    #f8f8f9,
-    #fafafb,
-    #fdfdfd,
-    #ffffff
-  );
-
-  @media (max-width: 1100px) {
-    padding: 72px 24px;
-    margin: 48px 48px;
-  }
-`;

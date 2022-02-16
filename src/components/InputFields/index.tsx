@@ -110,7 +110,7 @@ const InputBox = styled.input<{
   font-size: 16px;
   background: #ffffff;
   padding: 0px 20px 0px 20px;
-  border: 2px solid transparent;
+  border: 2px transparent;
   box-sizing: border-box;
   box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
     rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
@@ -121,8 +121,7 @@ const InputBox = styled.input<{
     opacity: 0.6;
   }
   &:focus {
-    border: 2px solid #f3643f;
-    outline: none;
+    outline: 2px solid #f3643f;
   }
 `;
 
@@ -147,8 +146,9 @@ const InputTextBox = styled.textarea<{
   font-size: 16px;
   background: #ffffff;
   padding: 12px 16px;
-  border: 2px solid transparent;
+  border: 2px transparent;
   box-sizing: border-box;
+  resize: none;
   box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
     rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
   border-radius: 5px;
@@ -159,8 +159,7 @@ const InputTextBox = styled.textarea<{
   }
 
   &:focus {
-    border: 2px solid #f3643f;
-    outline: none;
+    outline: 2px solid #f3643f;
   }
 `;
 
