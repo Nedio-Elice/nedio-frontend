@@ -2,17 +2,17 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import axiosInstance from '../../api/api';
 import Card from '../../components/Card';
 import CardLayout from '../../components/CardLayout';
-import { noResults } from '../../constants/images';
+import NoResult from '../../components/NoResult';
 import { PATH } from '../../constants/path';
 import { SEARCH } from '../../constants/search';
 import useQueryString from '../../hooks/useQueryString';
 import { useAppDispatch } from '../../store/hooks';
 import { setKeyword, setOption } from '../../store/search';
 import { CardData } from '../../types/Card';
+import { listOfDisplayGalleries } from '../../utils/galleryEdit';
 import { combineQuery, isValidQuery } from '../../utils/query';
 
 function SearchResultContainer() {
@@ -48,7 +48,8 @@ function SearchResultContainer() {
           combineQuery(params, queryKey, queryValue),
       })
       .then((res) => {
-        setCards(res.data.data);
+        const list = listOfDisplayGalleries(res.data.data);
+        setCards(list);
       })
       .catch((e) => {
         // console.log(e);
@@ -79,30 +80,10 @@ function SearchResultContainer() {
           ))}
         </>
       ) : (
-        <NoResultsWrapper>
-          <NoResultsImg src={noResults} />
-          <NoResultsTitle>검색 결과가 없습니다</NoResultsTitle>
-        </NoResultsWrapper>
+        <NoResult title="검색 결과가 없습니다" />
       )}
     </CardLayout>
   );
 }
 
 export default SearchResultContainer;
-
-const NoResultsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const NoResultsImg = styled.img`
-  width: 450px;
-  height: 450px;
-`;
-
-const NoResultsTitle = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 600;
-`;

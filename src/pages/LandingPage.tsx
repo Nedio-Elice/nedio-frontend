@@ -139,7 +139,7 @@ const FirstContent = styled.article`
   }
 
   span:last-child {
-    color: #ffe221;
+    color: #efa14b;
     animation-delay: 0.5s;
   }
 `;
@@ -167,7 +167,7 @@ const LastContent = styled.article`
 
   span:last-child {
     animation-delay: 4s;
-    color: #ffe221;
+    color: #efa14b;
   }
 `;
 
@@ -191,7 +191,7 @@ const Button = styled.button<{ isDisplay: boolean }>`
   font-size: 1.2rem;
   background: transparent;
   border: 1px solid rgb(194, 194, 194);
-  color: #ffe221;
+  color: #efa14b;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.6s;
