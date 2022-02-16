@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useBox } from '@react-three/cannon';
 import { useLoader, useThree } from '@react-three/fiber';
 import { useEffect, useLayoutEffect, useRef } from 'react';
@@ -16,6 +15,7 @@ import Spotlight from '../Spotlight';
 import { DETECT_FROM_DISTANCE, PICTURE_RATIO } from '../Constants';
 
 function Picture({ position, spotPos, rotation, data, pickItem }: any) {
+  // TODO: ratio 관련 수정
   const [x, y, z] = PICTURE_RATIO.horizontal;
   const [ref] = useBox(() => ({
     type: 'Static',
