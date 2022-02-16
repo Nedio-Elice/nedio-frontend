@@ -78,7 +78,7 @@ const Container = styled.div`
   width: 680px;
   & > span {
     opacity: 0.8;
-    color: #ff6e00;
+    color: #f3643f;
   }
   @media only screen and (max-width: 720px) {
     width: 340px;
