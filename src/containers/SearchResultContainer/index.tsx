@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +13,7 @@ import useQueryString from '../../hooks/useQueryString';
 import { useAppDispatch } from '../../store/hooks';
 import { setKeyword, setOption } from '../../store/search';
 import { CardData } from '../../types/Card';
+import { combineQuery, isValidQuery } from '../../utils/query';
 
 function SearchResultContainer() {
   const query = useQueryString();
@@ -25,7 +27,12 @@ function SearchResultContainer() {
   // URL 관리
   useEffect(() => {
     const queryParam = decodeURIComponent(query.toString());
-    const [queryKey, queryValue] = queryParam.split('=');
+    let [queryKey, queryValue] = queryParam.split('=');
+
+    if (!isValidQuery(queryKey, queryValue)) {
+      navigation('/NotFound');
+      return;
+    }
     const customParams = {
       page,
       perPage,
@@ -37,11 +44,8 @@ function SearchResultContainer() {
     axiosInstance
       .get<string, AxiosRequestConfig>('/galleries/filtering', {
         params: customParams,
-        paramsSerializer: (params) => {
-          return Object.entries({ ...params, [queryKey]: queryValue })
-            .map(([key, value]) => `${key}=${value}`)
-            .join('&');
-        },
+        paramsSerializer: (params) =>
+          combineQuery(params, queryKey, queryValue),
       })
       .then((res) => {
         setCards(res.data.data);
@@ -54,7 +58,7 @@ function SearchResultContainer() {
         dispatch(setKeyword(queryValue));
         dispatch(setOption(queryKey));
       });
-  }, [page, perPage, query, dispatch]);
+  }, [page, perPage, query, dispatch, navigation]);
 
   useEffect(() => {
     window.scrollTo({
