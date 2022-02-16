@@ -13,6 +13,7 @@ import useQueryString from '../../hooks/useQueryString';
 import { useAppDispatch } from '../../store/hooks';
 import { setKeyword, setOption } from '../../store/search';
 import { CardData } from '../../types/Card';
+import { listOfDisplayGalleries } from '../../utils/galleryEdit';
 import { combineQuery, isValidQuery } from '../../utils/query';
 
 function SearchResultContainer() {
@@ -48,7 +49,8 @@ function SearchResultContainer() {
           combineQuery(params, queryKey, queryValue),
       })
       .then((res) => {
-        setCards(res.data.data);
+        const list = listOfDisplayGalleries(res.data.data);
+        setCards(list);
       })
       .catch((e) => {
         // console.log(e);

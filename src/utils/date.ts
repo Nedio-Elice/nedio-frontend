@@ -15,3 +15,14 @@ export const addDaysFromToday = (days: number) => {
 
   return date;
 };
+
+export function isOpen(startDate: Date, endDate: Date): boolean {
+  const todayMidnight = new Date().setHours(0, 0, 0, 0);
+  const startDateToString = startDate.toString();
+  const endDateToString = endDate.toString();
+
+  return (
+    Date.parse(startDateToString) < todayMidnight &&
+    Date.parse(endDateToString) > todayMidnight
+  );
+}

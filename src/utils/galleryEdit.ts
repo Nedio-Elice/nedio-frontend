@@ -1,4 +1,6 @@
+import { CardData } from '../types/Card';
 import { HallInfo, ImageInfo } from '../types/GalleryEdit';
+import { isOpen } from './date';
 
 export const updateArrayByIndex = (array: any, index: number, obj: any) => {
   return [...array.slice(0, index), obj, ...array.slice(index + 1)];
@@ -53,4 +55,12 @@ export const setDefaultPieces = () => {
 
 export const getId = () => {
   return new Date().valueOf().toString();
+};
+
+export const listOfDisplayGalleries = (list: CardData[]): CardData[] => {
+  return list.reduce((acc: CardData[], cur: CardData) => {
+    if (isOpen(cur.startDate, cur.endDate)) acc.push(cur);
+
+    return acc;
+  }, []);
 };
