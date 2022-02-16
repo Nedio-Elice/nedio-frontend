@@ -158,7 +158,7 @@ const ItemContainer = styled.div`
   padding: 7px;
   height: 100%;
   display: flex;
-  ${gradientBlue}
+  background-color: #f3643f;
   color: white;
   box-shadow: 8px 8px 16px rgba(174, 174, 174, 0.75);
 `;

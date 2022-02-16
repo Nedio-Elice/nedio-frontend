@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { GoogleLogout } from 'react-google-login';
 import TapButton from '../TapButton';
 import { PATH } from '../../constants/path';
@@ -15,15 +15,26 @@ import { DEVICE } from '../../constants/device';
 interface Props {
   isSignIn: boolean;
   signOut: () => void;
+  userId: string | undefined;
 }
 
-function NavBar({ isSignIn, signOut }: Props) {
+function NavBar({ isSignIn, signOut, userId }: Props) {
   const navigate = useNavigate();
   const containerRef = useRef(null);
   const [isActive, setIsActive] = useOutOfRange(containerRef, false);
 
   const handleMenu = () => setIsActive((prevActive) => !prevActive);
   const handleNavMain = () => navigate(`${PATH.MAIN}`);
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsActive(false);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [pathname, setIsActive]);
 
   return (
     <NavBarContainer ref={containerRef}>
@@ -43,7 +54,11 @@ function NavBar({ isSignIn, signOut }: Props) {
         {isSignIn ? (
           <>
             <TapButton tapMenu="갤러리 생성" to={PATH.GALLERY_EDIT} />
-            <TapButton tapMenu="마이 갤러리" to={PATH.MY_PAGE} />
+            <TapButton
+              tapMenu="마이 갤러리"
+              to={PATH.MY_PAGE}
+              userId={userId}
+            />
             <GoogleLogout
               clientId={process.env.REACT_APP_GOOGLE_API_KEY}
               buttonText="Logout"

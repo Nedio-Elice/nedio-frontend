@@ -6,7 +6,8 @@ const cache = setupCache({
   ignoreCache: true,
 });
 
-export const url = process.env.SERVER_URL || 'http://localhost:4000/api';
+export const url =
+  process.env.REACT_APP_SERVER_URL || 'http://localhost:4000/api';
 
 export const axiosInstanceFormData = axios.create({
   baseURL: url,

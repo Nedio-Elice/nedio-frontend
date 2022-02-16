@@ -15,6 +15,7 @@ function SearchSelect({ option, handleSelectOption }: Props) {
     <Container onChange={onChange} value={option}>
       <option value="title">제목 검색</option>
       <option value="nickname">작가 검색</option>
+      <option value="category">테마 검색</option>
     </Container>
   );
 }
