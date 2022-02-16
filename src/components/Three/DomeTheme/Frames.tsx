@@ -1,90 +1,48 @@
 import Frame from './Frame';
 
-import animal from '../../../assets/images/animal.png';
-import person from '../../../assets/images/person.png';
+import { HallInfo, ImageInfo } from '../../../types/GalleryEdit';
+import domeFrames from '../../../constants/domeFrames';
 
-// 사진 받아와서 뿌려주기
-// imageTitle, imageDescription, imageUrl + (position, rotation, customLight, pickItem)
+interface FramesProps {
+  pickItem: any;
+  hall: HallInfo;
+}
 
-function Frames({ pickItem }: any) {
+function Frames({ pickItem, hall }: FramesProps) {
   const frameX = [50, 35, 2];
   const frameY = [35, 50, 2];
 
+  const { imagesData } = hall;
+
   return (
     <>
-      <Frame
-        path={person}
-        frameSize={frameY}
-        wallSize={[75, 75, 3]}
-        position={[89, 37.5, 89]}
-        rotation={[0, Math.PI / 4, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={person}
-        frameSize={frameX}
-        position={[0, 45, 146]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={person}
-        frameSize={frameY}
-        position={[-146, 45, 0]}
-        rotation={[0, -Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={person}
-        frameSize={frameY}
-        position={[-89, 37.5, -89]}
-        rotation={[0, Math.PI / 4, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={person}
-        frameSize={frameY}
-        position={[0, 45, -146]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={person}
-        frameSize={frameX}
-        position={[146, 45, 0]}
-        rotation={[0, -Math.PI / 2, 0]}
-        pickItem={pickItem}
-      />
-      <Frame
-        path={person}
-        frameSize={frameY}
-        position={[36, 45, 36]}
-        rotation={[0, Math.PI / 4, 0]}
-        pickItem={pickItem}
-        customLight={[80, 200, 80]}
-      />
-      <Frame
-        path={person}
-        frameSize={frameY}
-        position={[36, 45, -36]}
-        rotation={[0, -Math.PI / 4, 0]}
-        pickItem={pickItem}
-        customLight={[80, 200, -80]}
-      />
-      <Frame
-        path={person}
-        frameSize={frameY}
-        position={[-36, 45, -36]}
-        rotation={[0, Math.PI / 4, 0]}
-        pickItem={pickItem}
-        customLight={[-80, 200, -80]}
-      />
-      <Frame
-        path={animal}
-        frameSize={frameY}
-        position={[-36, 45, 36]}
-        rotation={[0, -Math.PI / 4, 0]}
-        pickItem={pickItem}
-        customLight={[-80, 200, 80]}
-      />
+      {imagesData.map(
+        (
+          { imageTitle, imageDescription, imageUrl, width, height }: ImageInfo,
+          i: number,
+        ) => {
+          if (!imageTitle || !imageDescription || !imageUrl) return null;
+
+          const { position, rotation, customLight } = domeFrames[i];
+
+          const frameSize =
+            parseInt(width, 10) > parseInt(height, 10) ? frameX : frameY;
+
+          return (
+            <Frame
+              key={`${imageTitle}-${i}`}
+              imageUrl={imageUrl}
+              pickItem={pickItem}
+              imageTitle={imageTitle}
+              imageDescription={imageDescription}
+              frameSize={frameSize}
+              position={position}
+              rotation={rotation}
+              customLight={customLight}
+            />
+          );
+        },
+      )}
     </>
   );
 }

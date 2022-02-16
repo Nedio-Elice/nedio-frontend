@@ -18,7 +18,7 @@ export const transparentLabel = css`
 
 export const hoverOrange = css`
   &:hover {
-    color: #ff6e00;
+    color: #f3643f;
   }
 `;
 
@@ -67,7 +67,7 @@ export const leftSideSiverButton = css`
   background-size: 200% auto;
   text-shadow: none;
   transition: 0.5s;
-  color: #ff6e00;
+  color: #f3643f;
   opacity: 0.8;
   &:hover {
     background-position: right center;
@@ -79,9 +79,9 @@ export const rightSideOrangeButton = css`
   margin-left: auto;
   background-image: linear-gradient(
     to right,
-    #ff6e00 0%,
+    #f3643f 0%,
     #f0cb35 51%,
-    #ff6e00 100%
+    #f3643f 100%
   );
   background-size: 200% auto;
   text-shadow: none;
