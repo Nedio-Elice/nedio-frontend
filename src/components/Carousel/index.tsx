@@ -7,7 +7,6 @@ import { calcWidth, paddingToItem } from '../../utils/carousel';
 import { CardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
 import DetailButton from './DetailButton';
-import { gradientBlue } from '../../styles/mixins';
 
 export type HANDLETYPE = keyof typeof CAROUSEL.HANDLE_TYPE;
 
@@ -28,7 +27,6 @@ function Carousel({ cardInfo }: Props) {
   const [paddedItems, setPaddedItems] = useState<CardData[]>([]);
   const transitionStyle = `transform ${CAROUSEL.TRANSITION_TIME}ms ease-in-out 0s`;
   const [transitionEffect, setTransitionEffect] = useState('');
-  // const [transitionEffect, setTransitionEffect] = useState(transitionStyle);
   const [curIdx, setCurIdx] = useState(CAROUSEL.PADDING_DATA);
   const [isClicked, setIsClicked] = useState(false);
   const itemSize = cardInfo.length;

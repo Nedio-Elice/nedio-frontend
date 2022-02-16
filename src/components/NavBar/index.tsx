@@ -137,8 +137,14 @@ const MobileLogo = styled.img`
 const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 15px 0;
+  padding: 25px 0;
   margin-left: 10%;
+
+  transition: padding 0.8s;
+
+  @media ${DEVICE.DESKTOP} {
+    padding: 15px 0;
+  }
 `;
 
 const NavMenu = styled.div<{ isActive: boolean }>`
