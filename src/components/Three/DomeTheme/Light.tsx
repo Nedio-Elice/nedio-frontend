@@ -9,7 +9,7 @@ function Light({ position, target }: any) {
       penumbra={0.8}
       sNormalBias={0.5}
       sBias={0}
-      angle={Math.PI / 20}
+      angle={Math.PI / 15}
       decay={3}
     />
   );

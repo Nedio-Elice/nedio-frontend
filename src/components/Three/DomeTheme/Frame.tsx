@@ -8,29 +8,33 @@ import { Object3D, Raycaster, Vector3 } from 'three';
 import { useBox } from '@react-three/cannon';
 
 import Light from './Light';
-import Edge from './Edge';
 
-function Frame({ path, frameSize, pickItem, customLight, ...props }: any) {
+import { defaultPoster } from '../../../constants/images';
+
+function Frame({
+  imageUrl,
+  frameSize,
+  pickItem,
+  customLight,
+  imageTitle,
+  imageDescription,
+  ...props
+}: any) {
   const [ref] = useBox(() => ({
     args: frameSize,
     mass: 1,
     type: 'Static',
     ...props,
   }));
+  const { camera } = useThree();
 
-  const lightPosition = customLight || [0, 200, 0];
-
-  const [dx, dy, dz] = frameSize;
-
-  const edgeSize = [dx + 2, dy + 2, dz - 1];
-
-  const [x, y, z] = props.position;
-
+  const path = imageUrl !== '' ? imageUrl : defaultPoster;
   const texture = useLoader<THREE.Texture, string>(THREE.TextureLoader, path);
 
   const light = useRef<any>();
+  const lightPosition = customLight || [0, 200, 0];
 
-  const { camera } = useThree();
+  const [x, y, z] = props.position;
 
   useLayoutEffect(() => {
     if (light.current) light.current.target = ref.current;
@@ -43,18 +47,17 @@ function Frame({ path, frameSize, pickItem, customLight, ...props }: any) {
       e.preventDefault();
 
       const obj = ref.current as Object3D;
-
       const cameraDir = new Vector3();
+
       camera.getWorldDirection(cameraDir);
 
       const raycaster = new Raycaster(camera.position, cameraDir);
-
       const intersects = raycaster.intersectObject(obj);
 
       if (intersects.length > 0 && intersects[0].distance < 30) {
         pickItem({
-          imageTitle: 'TITLE',
-          imageDescription: 'This is..',
+          imageTitle,
+          imageDescription,
           imageUrl: path,
         });
       }
@@ -64,7 +67,7 @@ function Frame({ path, frameSize, pickItem, customLight, ...props }: any) {
     return () => {
       document.removeEventListener('mousedown', onDocumentMouseDown);
     };
-  }, [camera, ref, pickItem, path]);
+  }, [camera, ref, pickItem, imageUrl, imageTitle, imageDescription, path]);
 
   return (
     <>
@@ -77,11 +80,6 @@ function Frame({ path, frameSize, pickItem, customLight, ...props }: any) {
           side={THREE.DoubleSide}
         />
       </mesh>
-      <Edge
-        position={[x, y, z]}
-        edgeSize={edgeSize}
-        rotation={props.rotation}
-      />
     </>
   );
 }

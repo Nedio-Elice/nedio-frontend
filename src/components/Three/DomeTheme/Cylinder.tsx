@@ -17,7 +17,7 @@ function Cylinder(props: any) {
   const wallSize: Args = [150, 150, 75, 30, 20, true];
 
   const [ref] = useCylinder(() => ({
-    mass: 1,
+    mass: 10,
     type: 'Static',
     args: wallSize,
     position: [0, 37.5, 0],

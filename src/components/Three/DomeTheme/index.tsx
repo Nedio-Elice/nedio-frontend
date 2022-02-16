@@ -1,3 +1,4 @@
+import { Sky } from '@react-three/drei';
 import Scene from '../Scene';
 import Roof from './Roof';
 import Cylinder from './Cylinder';
@@ -6,19 +7,37 @@ import Walls from './Walls';
 import Ground from './Ground';
 import Frames from './Frames';
 import Player from '../Player';
+import Cube from './Cube';
+import Sound from './Sound';
 
-function DomTheme({ pickItem }: any) {
+import { HallInfo } from '../../../types/GalleryEdit';
+import Funitures from './Funitures';
+
+interface Props {
+  pickItem: any;
+  hall: HallInfo;
+}
+
+function DomTheme({ pickItem, hall }: Props) {
   return (
-    <Scene>
-      <ambientLight intensity={0.8} />
-      {/* <Player position={[50, 25, 50]} speed={40} /> */}
-      <Roof />
-      <Cylinder />
-      <Boundaries />
-      <Walls />
-      <Ground />
-      <Frames pickItem={pickItem} />
-    </Scene>
+    <>
+      <Sky />
+      <Player position={[50, 33, 50]} speed={60} />
+      <Scene>
+        <pointLight intensity={0.5} position={[0, 300, 0]} />
+        <pointLight intensity={0.7} position={[0, 300, 300]} />
+        <pointLight intensity={0.7} position={[50, 300, -300]} />
+        <Roof />
+        <Cube position={[0, 140, 0]} rotation={[Math.PI / 4, 0, Math.PI / 4]} />
+        <Cylinder />
+        <Boundaries />
+        <Walls />
+        <Frames pickItem={pickItem} hall={hall} />
+        <Funitures />
+        <Ground />
+        <Sound />
+      </Scene>
+    </>
   );
 }
 
