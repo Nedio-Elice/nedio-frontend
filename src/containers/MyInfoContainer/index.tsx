@@ -90,12 +90,14 @@ function MyInformation() {
 
   return (
     <>
-      <UserImg src={profileURL} />
-      <InputProfileLabel>
-        사진 업로드
-        <InputProfile onChange={handleImgUpdate} />
-      </InputProfileLabel>
       <InfoWrapper>
+        <InfoSubWrapper>
+          <UserImg src={profileURL} />
+          <InputProfileLabel>
+            프로필 업로드
+            <InputProfile onChange={handleImgUpdate} />
+          </InputProfileLabel>
+        </InfoSubWrapper>
         <InfoSubWrapper>
           <ProfileInfo
             name="이름"
@@ -112,8 +114,6 @@ function MyInformation() {
             width="100%"
             onChange={setEmail}
           />
-        </InfoSubWrapper>
-        <InfoSubWrapper>
           <ProfileTextInfo
             name="소개"
             defaultText={user.userInfo.introduce}
@@ -121,14 +121,14 @@ function MyInformation() {
             width="100%"
             onChange={setIntroduce}
           />
+          <ButtonWrapperRight>
+            <ButtonOrange
+              value="정보 변경"
+              type="submit"
+              handleClick={handleSubmit}
+            />
+          </ButtonWrapperRight>
         </InfoSubWrapper>
-        <ButtonWrapperRight>
-          <ButtonOrange
-            value="정보 변경"
-            type="submit"
-            handleClick={handleSubmit}
-          />
-        </ButtonWrapperRight>
       </InfoWrapper>
     </>
   );

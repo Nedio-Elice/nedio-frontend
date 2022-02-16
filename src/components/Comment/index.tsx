@@ -83,9 +83,26 @@ const CommentContainer = styled.div`
   flex-direction: row;
   align-items: top;
   margin: 16px auto;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
+  box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
   @media (max-width: 850px) {
-    padding: 0px 48px;
-    width: 80%;
+    width: 60%;
   }
 `;
 
@@ -149,6 +166,7 @@ const CommentButton = styled.button`
   border: none;
 
   &:hover {
-    color: #ff6e00;
+    cursor: pointer;
+    color: #f3643f;
   }
 `;

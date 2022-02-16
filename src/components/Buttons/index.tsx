@@ -1,6 +1,7 @@
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
 
 interface ButtonProps {
   className?: string;
@@ -62,9 +63,9 @@ function ButtonNeumo({
 
 function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   return (
-    <ButtonMedium onClick={handleClick} type={type}>
-      {value}
-    </ButtonMedium>
+    <ButtonCog onClick={handleClick} type={type}>
+      <Cog width="24" height="24" opacity="0.6" />
+    </ButtonCog>
   );
 }
 
@@ -118,11 +119,20 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   max-width: 200px;
   min-width: 144px;
   height: 60px;
-  background: linear-gradient(
-    60deg,
-    #f2f3f5 0.59%,
-    #ffffff 49.78%,
-    #f2f3f5 100%
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
   );
   box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
     4px 4px 16px rgba(218, 218, 218, 0.75);
@@ -131,6 +141,7 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
 
   &:hover {
     color: #f3643f;
+    cursor: pointer;
   }
   @media (max-width: 200px) {
     font-size: 16px;
@@ -191,6 +202,7 @@ const Button = styled.button<{ orange: boolean }>`
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
+    cursor: pointer;
     ${(props) =>
       props.orange &&
       css`
@@ -255,6 +267,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
+    cursor: pointer;
     ${(props) =>
       props.orange &&
       css`
@@ -280,24 +293,25 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   }
 `;
 
-const ButtonMedium = styled.button`
+const ButtonCog = styled.button`
   display: block;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 24px;
+  line-height: 24px;
   letter-spacing: 1px;
   text-align: center;
   color: #777777;
   border: none;
   background-color: transparent;
   height: 24px;
-  min-width: 60px;
-  padding: 0px 12px;
+  width: 24px;
+
   text-align: center;
   margin-left: auto;
+  margin-right: 8px;
   &:hover {
-    color: #f3643f;
+    cursor: pointer;
   }
 `;

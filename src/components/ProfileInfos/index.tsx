@@ -77,4 +77,5 @@ const InfoType = styled.h2`
   line-height: 24px;
   text-align: left;
   margin: 12px 0;
+  color: #777777;
 `;

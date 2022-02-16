@@ -13,7 +13,7 @@ export const ProfileBox = styled.div`
 
 export const ProfileForm = styled.div`
   margin: 0 auto;
-  padding: 72px;
+  padding: 72px 36px;
   width: 50vw;
   min-width: 840px;
   @media (max-width: 1100px) {
@@ -21,48 +21,70 @@ export const ProfileForm = styled.div`
     min-width: 0px;
     display: block;
     align-items: center;
-    padding: 72px 20vw 72px 20vw;
+    padding: 72px 20vw;
   }
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     padding: 72px 15vw 72px 15vw;
   }
 `;
 
 export const UserImg = styled.img`
-  display: inline-block;
-  height: 192px;
-  width: 192px;
-  border-radius: 50%;
+  display: block;
+  height: 320px;
+  width: 240px;
+  margin: auto;
+  border-radius: 10px;
   box-shadow: -8px -8px 16px rgb(255 255 255 / 25%), 4px 12px 16px #bbbbbb;
+
+  @media (max-width: 1100px) {
+    margin: 0 auto 24px auto;
+  }
 `;
 
 export const InfoWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  gap: 48px;
   @media (max-width: 1100px) {
-    display: block;
+    flex-wrap: wrap;
   }
 `;
 
 export const InfoSubWrapper = styled.div`
   width: 50%;
-  padding: 64px 48px 0 0;
+  padding: 24px 48px;
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
   display: flex;
+  border-radius: 10px;
   flex-direction: column;
+  box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
+    4px 4px 16px rgba(218, 218, 218, 0.75);
   @media (max-width: 1100px) {
     display: block;
-    padding: 24px 0 0 0;
+    padding: 64px 48px 48px 48px;
     width: 100%;
   }
 `;
 
 export const ButtonWrapperRight = styled.div`
-  margin: 24px 48px 0 auto;
+  margin: 24px 0 0 auto;
   @media (max-width: 1100px) {
     display: flex;
     justify-content: flex-end;
-    margin-right: 0px;
   }
 `;
 

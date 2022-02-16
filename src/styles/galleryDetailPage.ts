@@ -22,6 +22,21 @@ export const GalleryInfoWrapper = styled.div`
   box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
   border-radius: 20px;
   display: flex;
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
 
   @media (max-width: 1100px) {
     padding: 72px 24px;
