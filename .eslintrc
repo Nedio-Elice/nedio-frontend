@@ -27,6 +27,8 @@
     "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
     "prettier/prettier": ["error", { "endOfLine": "auto"} ],
     "react/no-array-index-key": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react/require-default-props": "off",
+    "react/jsx-no-useless-fragment": "off"
   }
 }

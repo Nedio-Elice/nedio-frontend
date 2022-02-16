@@ -7,6 +7,7 @@ import { getToken } from '../../utils/auth';
 
 function NavContainer() {
   const isSignIn = useAppSelector((state: RootState) => state.users.isSignIn);
+  const userId = useAppSelector((state: RootState) => state.users.userInfo._id);
   const dispatch = useAppDispatch();
 
   const handleSignOut = () => dispatch(signOutUser());
@@ -18,7 +19,7 @@ function NavContainer() {
     }
   }, [dispatch]);
 
-  return <NavBar isSignIn={isSignIn} signOut={handleSignOut} />;
+  return <NavBar isSignIn={isSignIn} signOut={handleSignOut} userId={userId} />;
 }
 
 export default NavContainer;

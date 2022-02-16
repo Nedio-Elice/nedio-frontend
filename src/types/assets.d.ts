@@ -16,5 +16,6 @@ declare module '*.ttf' {
 declare namespace NodeJS {
   interface ProcessEnv {
     REACT_APP_GOOGLE_API_KEY: string;
+    REACT_APP_SERVER_URL: string;
   }
 }
