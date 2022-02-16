@@ -4,7 +4,7 @@ import { Debug, Physics } from '@react-three/cannon';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
-import DomTheme from '../DomeTheme';
+import DomeTheme from '../DomeTheme';
 import ModernTheme from '../ModernTheme';
 import JazzTheme from '../JazzTheme';
 
@@ -22,9 +22,9 @@ function Hall({ pickItem, hall }: Props) {
             <Provider store={store}>
               <Physics gravity={[0, 0, 0]}>
                 {/* <Debug color="black" scale={1.1}> */}
-                {/* <DomTheme pickItem={pickItem} /> */}
-                <ModernTheme pickItem={pickItem} hall={hall} />
-                {/* <JazzTheme pickItem={pickItem} hall={hall} /> */}
+                {/* <DomeTheme pickItem={pickItem} hall={hall} /> */}
+                {/* <ModernTheme pickItem={pickItem} hall={hall} /> */}
+                <JazzTheme pickItem={pickItem} hall={hall} />
                 {/* </Debug>
                  */}
                 {/* <OrbitControls /> */}
