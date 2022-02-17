@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DEVICE } from '../../constants/device';
 
 interface Props {
   title: string;
@@ -26,9 +27,14 @@ const Container = styled.section`
 
 const Title = styled.h3`
   font-weight: 500;
-  font-size: 30px;
+  font-size: 28px;
   line-height: 25px;
   margin-bottom: 2.5rem;
+
+  @media ${DEVICE.DESKTOP_LARGE} {
+    font-size: 25px;
+    margin-bottom: 2rem;
+  }
 `;
 
 const Grid = styled.div`
