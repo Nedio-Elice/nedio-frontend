@@ -7,6 +7,7 @@ import { calcWidth, paddingToItem } from '../../utils/carousel';
 import { CardData } from '../../types/Card';
 import { dateToString } from '../../utils/date';
 import DetailButton from './DetailButton';
+import { DEVICE } from '../../constants/device';
 
 export type HANDLETYPE = keyof typeof CAROUSEL.HANDLE_TYPE;
 
@@ -49,7 +50,7 @@ function Carousel({ cardInfo }: Props) {
     idx - CAROUSEL.PADDING_DATA < 0 || idx - CAROUSEL.PADDING_DATA >= itemSize;
 
   const isShowImg = (url: string) =>
-    url && windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 3;
+    url && windowWidth > CAROUSEL.ITEM_MIN_WIDTH + CAROUSEL.PADDING * 5;
 
   function changeCarousel(index: number) {
     setTimeout(() => {
@@ -232,6 +233,18 @@ const Content = styled.div`
 const Title = styled.h5`
   font-size: 1.5rem;
   margin-bottom: 15px;
+  width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media ${DEVICE.DESKTOP} {
+    width: 300px;
+  }
+
+  @media ${DEVICE.TABLET} {
+    width: 250px;
+  }
 `;
 
 const Author = styled.p`
