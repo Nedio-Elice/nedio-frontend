@@ -2,6 +2,7 @@ import { AsyncThunkAction } from '@reduxjs/toolkit';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
+import { ReactComponent as TrashCan } from '../../assets/icons/trashcan.svg';
 
 interface ButtonProps {
   className?: string;
@@ -69,6 +70,14 @@ function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   );
 }
 
+function ButtonDelete({ className, value, type, handleClick }: ButtonProps) {
+  return (
+    <ButtonBin onClick={handleClick} type={type}>
+      <TrashCan width="24" height="24" opacity="0.6" />
+    </ButtonBin>
+  );
+}
+
 ButtonBasic.defaultProps = {
   className: '',
   type: 'button',
@@ -94,6 +103,11 @@ ButtonEdit.defaultProps = {
   type: 'button',
   handleClick: () => {},
 };
+ButtonDelete.defaultProps = {
+  className: '',
+  type: 'button',
+  handleClick: () => {},
+};
 
 export default {
   ButtonBasic,
@@ -101,6 +115,7 @@ export default {
   ButtonNeumo,
   ButtonMini,
   ButtonEdit,
+  ButtonDelete,
 };
 
 const ButtonLarge = styled.button<{ stay: boolean }>`
@@ -294,7 +309,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
 `;
 
 const ButtonCog = styled.button`
-  display: block;
+  display: inline-block;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
@@ -310,6 +325,28 @@ const ButtonCog = styled.button`
 
   text-align: center;
   margin-left: auto;
+  margin-right: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ButtonBin = styled.button`
+  display: inline-block;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #777777;
+  border: none;
+  background-color: transparent;
+  height: 24px;
+  width: 24px;
+
+  text-align: center;
   margin-right: 8px;
   &:hover {
     cursor: pointer;

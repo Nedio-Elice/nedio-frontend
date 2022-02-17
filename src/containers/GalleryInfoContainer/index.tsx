@@ -5,6 +5,7 @@ import {
   AuthorInfo,
   AuthorName,
   AuthorProfile,
+  EditButtons,
   EmptyDiv,
   GalleryDescription,
   GalleryInfo,
@@ -18,6 +19,8 @@ import { Gallery } from '../../types/GalleryDetail';
 import formatDateString from '../../utils/date';
 import { PATH } from '../../constants/path';
 import { MyInfo } from '../../store/user';
+import { useAppDispatch } from '../../store/hooks';
+import { deleteGallery } from '../../store/myGallery';
 
 interface Props {
   gallery: Gallery;
@@ -25,22 +28,32 @@ interface Props {
   user: MyInfo;
 }
 
-const { ButtonEdit } = Buttons;
+const { ButtonEdit, ButtonDelete } = Buttons;
 
 function GalleryInformation({ gallery, galleryId, user }: Props) {
+  const dispatch = useAppDispatch();
   const navigation = useNavigate();
-  const handleEditClick = (id: string | undefined) =>
-    navigation(`${PATH.GALLERY_EDIT}/${id}`);
+  const handleEditClick = () => navigation(`${PATH.GALLERY_EDIT}/${galleryId}`);
+  const handleDeleteClick = () => {
+    // eslint-disable-next-line no-alert
+    if (window.confirm('해당 갤러리를 삭제하시겠습니까?')) {
+      dispatch(deleteGallery(galleryId));
+      navigation(PATH.MAIN);
+    }
+  };
 
   return (
     <GalleryInfoWrapper>
       <GalleryPoster src={gallery.posterUrl} alt=" " />
       <GalleryInfo>
         {gallery.authorId === user._id ? (
-          <ButtonEdit
-            value="수정"
-            handleClick={() => handleEditClick(galleryId)}
-          />
+          <EditButtons>
+            <ButtonEdit value="수정" handleClick={() => handleEditClick()} />
+            <ButtonDelete
+              value="삭제"
+              handleClick={() => handleDeleteClick()}
+            />
+          </EditButtons>
         ) : (
           <EmptyDiv height="24px" />
         )}

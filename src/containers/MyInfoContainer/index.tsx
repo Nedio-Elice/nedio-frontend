@@ -13,6 +13,7 @@ import ProfileInfos from '../../components/ProfileInfos';
 import Buttons from '../../components/Buttons';
 import axiosInstance from '../../api/api';
 import { updateUser } from '../../store/user';
+import { PATH } from '../../constants/path';
 
 const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
 const { ButtonOrange } = Buttons;
@@ -85,7 +86,7 @@ function MyInformation() {
   };
 
   if (!user.isSignIn) {
-    navigation('/');
+    navigation(PATH.MAIN);
   }
 
   return (

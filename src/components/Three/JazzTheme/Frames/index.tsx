@@ -32,7 +32,6 @@ function Frame({ position, rotation, image, pickItem }: FrameProp) {
 
   const { camera } = useThree();
   const proportion = Number(image.height) / Number(image.width);
-  // height / width
 
   const [ref] = useBox(() => ({
     type: 'Static',
@@ -71,21 +70,6 @@ function Frame({ position, rotation, image, pickItem }: FrameProp) {
       document.removeEventListener('mousedown', onDocumentMouseDown);
     };
   }, [camera, ref, pickItem, image]);
-
-  // useEffect(() => {
-  //   async function getSize() {
-  //     let img: any = new Image();
-  //     if (url !== undefined) {
-  //       img.onload = function callback() {
-  //         setProportion(img.height / img.width);
-  //         img = null;
-  //       };
-  //       img.src = url;
-  //     }
-  //   }
-
-  //   getSize();
-  // }, [proportion, url]);
 
   const [color, displacement, normal, ao, roughness, metalic] = useLoader<
     any,

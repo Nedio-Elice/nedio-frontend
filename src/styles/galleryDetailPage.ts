@@ -163,6 +163,11 @@ export const AuthorEmail = styled.p`
   text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;
 
+export const EditButtons = styled.div`
+  display: flex;
+  align-items: end;
+`;
+
 export const ButtonWrapper = styled.div`
   position: relative;
   margin: 12px auto;

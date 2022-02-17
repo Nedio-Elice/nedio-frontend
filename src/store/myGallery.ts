@@ -114,6 +114,21 @@ export const getGalClosed = createAsyncThunk(
   },
 );
 
+export const deleteGallery = createAsyncThunk(
+  'DELETE/GALLERY',
+  async (galleryId: string | undefined) => {
+    try {
+      const response = await axiosInstance.delete<GalleryResponse>(
+        `galleries/${galleryId}`,
+      );
+      return response;
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.response?.data);
+    }
+  },
+);
+
 const myGallerySlice = createSlice({
   name: SLICE.MYGALLERY,
   initialState,
@@ -131,6 +146,8 @@ const myGallerySlice = createSlice({
       return { list: payload.list, length: payload.length };
     });
     builder.addCase(getGalClosed.rejected, (state, action) => {});
+    builder.addCase(deleteGallery.fulfilled, (state, { payload }) => {});
+    builder.addCase(deleteGallery.rejected, (state, action) => {});
   },
 });
 
