@@ -26,13 +26,16 @@ export const ProfileForm = styled.div`
   @media (max-width: 1000px) {
     padding: 72px 15vw 72px 15vw;
   }
+  @media (max-width: 600px) {
+    padding: 48px 48px;
+  }
 `;
 
 export const UserImg = styled.img`
   display: block;
   height: 320px;
   width: 240px;
-  margin: auto;
+  margin: 80px auto;
   border-radius: 10px;
   box-shadow: -8px -8px 16px rgb(255 255 255 / 25%), 4px 12px 16px #bbbbbb;
 
@@ -77,11 +80,12 @@ export const InfoSubWrapper = styled.div`
     display: block;
     padding: 64px 48px 48px 48px;
     width: 100%;
+    min-width: 360px;
   }
 `;
 
 export const ButtonWrapperRight = styled.div`
-  margin: 24px 0 0 auto;
+  margin: 0 0 0 auto;
   @media (max-width: 1200px) {
     display: flex;
     justify-content: flex-end;

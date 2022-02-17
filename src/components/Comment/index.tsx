@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { getComments, putComment } from '../../store/comment';
 import Buttons from '../Buttons';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import { CommentPost, CommentProps } from '../../types/Comment';
 import { MESSAGE } from '../../constants/messages';
 import useToast from '../../hooks/useToast';

@@ -10,6 +10,7 @@ interface Props {
   width: string;
   height?: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
+  edit: boolean;
 }
 
 function ProfileInfo({
@@ -19,18 +20,23 @@ function ProfileInfo({
   width,
   height,
   onChange,
+  edit,
 }: Props) {
   return (
     <>
       <InfoType>{name}</InfoType>
-      <InputField
-        defaultText={defaultText}
-        value={value}
-        width={width}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          onChange(event.target.value)
-        }
-      />
+      {edit ? (
+        <InputField
+          defaultText={defaultText}
+          value={value}
+          width={width}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange(event.target.value)
+          }
+        />
+      ) : (
+        <InfoDiv>{value}</InfoDiv>
+      )}
     </>
   );
 }
@@ -42,19 +48,24 @@ function ProfileTextInfo({
   width,
   height,
   onChange,
+  edit,
 }: Props) {
   return (
     <>
       <InfoType>{name}</InfoType>
-      <InputTextField
-        defaultText={defaultText}
-        value={value}
-        width={width}
-        height={height}
-        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-          onChange(event.target.value)
-        }
-      />
+      {edit ? (
+        <InputTextField
+          defaultText={defaultText}
+          value={value}
+          width={width}
+          height={height}
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+            onChange(event.target.value)
+          }
+        />
+      ) : (
+        <InfoDiv>{value}</InfoDiv>
+      )}
     </>
   );
 }
@@ -72,10 +83,24 @@ export default { ProfileInfo, ProfileTextInfo };
 const InfoType = styled.h2`
   font-family: Pretendard-Regular;
   font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 20px;
   line-height: 24px;
   text-align: left;
   margin: 12px 0;
-  color: #777777;
+  color: transparent;
+  background: #bbbbbb;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+`;
+
+const InfoDiv = styled.div`
+  font-family: Pretendard-Regular;
+  font-style: normal;
+  font-size: 18px;
+  padding: 0 16px;
+  margin-bottom: 24px;
+  color: #666666;
 `;

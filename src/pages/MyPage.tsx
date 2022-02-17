@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MyGalleryBox, ProfileBox, ProfileForm } from '../styles/myPage';
+import { ProfileForm } from '../styles/myPage';
 import MyInformation from '../containers/MyInfoContainer';
 import MyGallery from '../containers/MyGalleryContainer';
 import { Background } from '../styles/galleryDetailPage';

@@ -1,5 +1,3 @@
-import { AsyncThunkAction } from '@reduxjs/toolkit';
-import React from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
 import { ReactComponent as TrashCan } from '../../assets/icons/trashcan.svg';

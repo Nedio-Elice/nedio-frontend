@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useLoader, useThree } from '@react-three/fiber';
 import { Box } from '@react-three/drei';
 import { Triplet, useBox } from '@react-three/cannon';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { Object3D, Raycaster, Vector3 } from 'three';
 import { HallImageData, HallImages } from '../../../../types/GalleryDetail';
 import { positions, rotations } from './orientation';

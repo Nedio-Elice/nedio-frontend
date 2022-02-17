@@ -18,7 +18,7 @@ import useToast from '../../hooks/useToast';
 import { MESSAGE } from '../../constants/messages';
 
 const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
-const { ButtonOrange } = Buttons;
+const { ButtonOrange, ButtonEdit } = Buttons;
 const { InputProfile, InputProfileLabel } = InputField;
 
 interface ImageResponse {
@@ -37,6 +37,7 @@ function MyInformation() {
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [introduce, setIntroduce] = useState('');
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     setProfileURL(user.userInfo.profileURL);
@@ -132,20 +133,24 @@ function MyInformation() {
           </InputProfileLabel>
         </InfoSubWrapper>
         <InfoSubWrapper>
+          <ButtonWrapperRight>
+            <ButtonEdit value="수정" handleClick={() => setEdit(!edit)} />
+          </ButtonWrapperRight>
           <ProfileInfo
             name="이름"
             defaultText={user.userInfo.nickname}
             value={nickname}
             width="100%"
             onChange={setNickname}
+            edit={edit}
           />
-          <br />
           <ProfileInfo
             name="이메일"
             defaultText={user.userInfo.email}
             value={email}
             width="100%"
             onChange={setEmail}
+            edit={edit}
           />
           <ProfileTextInfo
             name="소개"
@@ -153,13 +158,17 @@ function MyInformation() {
             value={introduce}
             width="100%"
             onChange={setIntroduce}
+            edit={edit}
           />
+          <div style={{ marginTop: '24px' }} />
           <ButtonWrapperRight>
-            <ButtonOrange
-              value="정보 변경"
-              type="submit"
-              handleClick={handleSubmit}
-            />
+            {edit && (
+              <ButtonOrange
+                value="정보 변경"
+                type="submit"
+                handleClick={handleSubmit}
+              />
+            )}
           </ButtonWrapperRight>
         </InfoSubWrapper>
       </InfoWrapper>
