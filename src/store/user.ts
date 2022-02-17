@@ -55,6 +55,8 @@ export function signInUser(userData: MyInfo) {
     dispatch(setUser(result.data.data));
     setToken(accessToken);
     axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+    return 'success';
   };
 }
 
@@ -85,7 +87,8 @@ export function signOutUser() {
     document.cookie = `${'token'}=; expires=Thu, 01 Jan 1999 00:00:00 GMT;`;
     removeToken();
     axiosInstance.defaults.headers.common.Authorization = ``;
-    alert('로그아웃 되었습니다.');
+
+    return 'success';
   };
 }
 
