@@ -94,14 +94,16 @@ const NavBarContainer = styled.div`
     #f2f3f5 100%
   );
   z-index: 9999;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 0 5%;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
   user-select: none;
   min-width: 460px;
+  padding: 20px 5%;
 
   @media ${DEVICE.DESKTOP} {
     flex-direction: column;
     align-items: flex-start;
+    padding: 5px 5%;
   }
 `;
 
@@ -137,8 +139,10 @@ const MobileLogo = styled.img`
 const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 15px 0;
-  margin-left: 10%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: padding 0.8s;
 `;
 
 const NavMenu = styled.div<{ isActive: boolean }>`
@@ -176,7 +180,7 @@ const NavMenu = styled.div<{ isActive: boolean }>`
 const Hamberger = styled.img`
   display: none;
   position: absolute;
-  top: 22px;
+  top: 20px;
   right: 5%;
   width: 25px;
   height: 25px;
