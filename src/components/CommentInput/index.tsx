@@ -45,10 +45,14 @@ const CommentWrapper = styled.form`
   display: flex;
   gap: 24px;
   align-items: center;
+
+  @media (max-width: 1100px) {
+    width: 90%;
+  }
   @media (max-width: 850px) {
     margin: 24px auto;
-    width: 80%;
-    min-width: 500px;
+    width: 100%;
+    min-width: 0px;
   }
 `;
 
@@ -66,8 +70,11 @@ const UserImg = styled.img`
 `;
 
 const CommentInputField = styled(InputTextField)`
-  height: 46px;
+  height: 44px;
+  line-height: 16px;
   resize: none;
+  font-family: 'Pretendard-Regular';
+
   @media (max-width: 850px) {
     height: auto;
     display: block;

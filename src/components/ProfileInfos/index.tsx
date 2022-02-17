@@ -76,5 +76,6 @@ const InfoType = styled.h2`
   font-size: 18px;
   line-height: 24px;
   text-align: left;
-  margin-bottom: 8px;
+  margin: 12px 0;
+  color: #777777;
 `;

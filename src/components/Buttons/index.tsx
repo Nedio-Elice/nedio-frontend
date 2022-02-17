@@ -1,6 +1,7 @@
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
 
 interface ButtonProps {
   className?: string;
@@ -62,9 +63,9 @@ function ButtonNeumo({
 
 function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   return (
-    <ButtonMedium onClick={handleClick} type={type}>
-      {value}
-    </ButtonMedium>
+    <ButtonCog onClick={handleClick} type={type}>
+      <Cog width="24" height="24" opacity="0.6" />
+    </ButtonCog>
   );
 }
 
@@ -118,21 +119,36 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   max-width: 200px;
   min-width: 144px;
   height: 60px;
-  background: rgba(242, 243, 245, 0.79);
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
   box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25),
     4px 4px 16px rgba(218, 218, 218, 0.75);
   border-radius: 20px;
   border: none;
 
   &:hover {
-    color: #ff6e00;
+    color: #f3643f;
+    cursor: pointer;
   }
   @media (max-width: 200px) {
     font-size: 16px;
   }
 
   &:active {
-    color: #ff6e00;
+    color: ##f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
   }
@@ -144,7 +160,7 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   ${(props) =>
     props.stay &&
     css`
-      color: #ff6e00;
+      color: #f3643f;
     `}
 `;
 
@@ -157,7 +173,7 @@ const Button = styled.button<{ orange: boolean }>`
   text-align: center;
   color: #777777;
   border: none;
-  height: 40px;
+  height: 44px;
   min-width: 80px;
   padding: 2px 12px;
   text-align: center;
@@ -174,18 +190,19 @@ const Button = styled.button<{ orange: boolean }>`
   ${(props) =>
     props.orange &&
     css`
-      background: #ff6e00;
+      background: #f3643f;
       box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.73),
         2px 8px 24px rgba(0, 0, 0, 0.25);
       color: #ffffff;
     `}
 
   &:hover {
-    height: 40px;
-    border: 2px solid #ff6e00;
+    height: 44px;
+    border: 2px solid #f3643f;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
+    cursor: pointer;
     ${(props) =>
       props.orange &&
       css`
@@ -194,7 +211,7 @@ const Button = styled.button<{ orange: boolean }>`
   }
 
   &:active {
-    color: #ff6e00;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;
@@ -224,7 +241,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   padding: 2px 12px;
   text-align: center;
   margin-top: 8px;
-  margin-left: 79%;
+  margin-left: auto;
   background: linear-gradient(
     134.47deg,
     #ffffff 36.25%,
@@ -238,7 +255,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   ${(props) =>
     props.orange &&
     css`
-      background: #ff6e00;
+      background: #f3643f;
       box-shadow: -4px -4px 8px rgba(255, 255, 255, 0.73),
         2px 8px 24px rgba(0, 0, 0, 0.25);
       color: #ffffff;
@@ -246,10 +263,11 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
 
   &:hover {
     height: 24px;
-    border: 2px solid #ff6e00;
+    border: 2px solid #f3643f;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
+    cursor: pointer;
     ${(props) =>
       props.orange &&
       css`
@@ -258,7 +276,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   }
 
   &:active {
-    color: #ff6e00;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;
@@ -275,24 +293,25 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
   }
 `;
 
-const ButtonMedium = styled.button`
+const ButtonCog = styled.button`
   display: block;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 24px;
+  line-height: 24px;
   letter-spacing: 1px;
   text-align: center;
   color: #777777;
   border: none;
   background-color: transparent;
   height: 24px;
-  min-width: 60px;
-  padding: 0px 12px;
+  width: 24px;
+
   text-align: center;
   margin-left: auto;
+  margin-right: 8px;
   &:hover {
-    color: #ff6e00;
+    cursor: pointer;
   }
 `;

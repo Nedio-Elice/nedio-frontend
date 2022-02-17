@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { AxiosResponse, AxiosError } from 'axios';
 import { RootState } from '../store/root';
 import { getComments, postComment, deleteComment } from '../store/comment';
 import axiosInstance from '../api/api';
@@ -12,7 +12,13 @@ import Pagination from '../components/Pagination';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { Gallery } from '../types/GalleryDetail';
 import makePageCount from '../utils/makePageCount';
-import { Background, ButtonWrapper } from '../styles/galleryDetailPage';
+import {
+  Background,
+  ButtonWrapper,
+  CommentTitle,
+  GalleryWrapper,
+  NoCommentTag,
+} from '../styles/galleryDetailPage';
 import GalleryInformation from '../containers/GalleryInfoContainer';
 
 const { ButtonBasic } = Buttons;
@@ -84,60 +90,65 @@ function GalleryDetailPage() {
 
   return (
     <Background>
-      <GalleryInformation
-        gallery={gallery}
-        galleryId={galleryId}
-        user={user.userInfo}
-      />
-      <ButtonWrapper>
-        {isOpen(gallery.startDate, gallery.endDate) &&
-          gallery.halls !== null &&
-          gallery.halls.map((hall, idx) => {
+      <GalleryWrapper>
+        <GalleryInformation
+          gallery={gallery}
+          galleryId={galleryId}
+          user={user.userInfo}
+        />
+        <ButtonWrapper>
+          {isOpen(gallery.startDate, gallery.endDate) &&
+            gallery.halls !== null &&
+            gallery.halls.map((hall, idx) => {
+              return (
+                <ButtonBasic
+                  key={hall.hallObjectId}
+                  value={`${idx + 1}관`}
+                  handleClick={() => handleHallButtonClick(hall.hallObjectId)}
+                />
+              );
+            })}
+        </ButtonWrapper>
+        <CommentTitle>방명록</CommentTitle>
+        {isOpen(gallery.startDate, gallery.endDate) && user.isSignIn && (
+          <CommentInput
+            defaultText="방명록을 입력해 주세요."
+            value={newComment}
+            onChange={setNewComment}
+            handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+              handleSubmit(event)
+            }
+            user={user.userInfo}
+          />
+        )}
+        {comments.data !== undefined &&
+          comments.data.map((c: any) => {
+            // eslint-disable-next-line no-underscore-dangle
             return (
-              <ButtonBasic
-                key={hall.hallObjectId}
-                value={`${idx + 1}관`}
-                handleClick={() => handleHallButtonClick(hall.hallObjectId)}
+              <Comment
+                key={c._id}
+                commentId={c._id}
+                userId={user.userInfo._id}
+                author={c.author}
+                galleryId={galleryId}
+                currPage={currPage}
+                content={c.content}
+                handleClickDelete={() => handleDelete(c._id)}
               />
             );
           })}
-      </ButtonWrapper>
-      {isOpen(gallery.startDate, gallery.endDate) && user.isSignIn && (
-        <CommentInput
-          defaultText="방명록을 입력해 주세요."
-          value={newComment}
-          onChange={setNewComment}
-          handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
-            handleSubmit(event)
-          }
-          user={user.userInfo}
-        />
-      )}
-      {comments.data !== undefined &&
-        comments.data.map((c: any) => {
-          // eslint-disable-next-line no-underscore-dangle
-          return (
-            <Comment
-              key={c._id}
-              commentId={c._id}
-              userId={user.userInfo._id}
-              author={c.author}
-              galleryId={galleryId}
-              currPage={currPage}
-              content={c.content}
-              handleClickDelete={() => handleDelete(c._id)}
-            />
-          );
-        })}
-      {comments.data !== undefined && (
-        <Pagination
-          currPage={currPage}
-          pageCount={pageCount}
-          onClickPage={(num: number) => {
-            setCurrPage(num);
-          }}
-        />
-      )}
+        {comments.data !== undefined && comments.data.length > 0 ? (
+          <Pagination
+            currPage={currPage}
+            pageCount={pageCount}
+            onClickPage={(num: number) => {
+              setCurrPage(num);
+            }}
+          />
+        ) : (
+          <NoCommentTag>등록된 방명록이 없습니다.</NoCommentTag>
+        )}
+      </GalleryWrapper>
     </Background>
   );
 }

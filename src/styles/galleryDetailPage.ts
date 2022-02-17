@@ -17,19 +17,35 @@ export const Background = styled.div`
 `;
 
 export const GalleryInfoWrapper = styled.div`
-  margin: 48px auto 48px auto;
-  padding: 72px 48px;
+  margin: 48px auto;
+  padding: 56px 48px;
   box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
   border-radius: 20px;
   display: flex;
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
 
   @media (max-width: 1100px) {
     padding: 72px 24px;
+    margin: 48px 48px;
+    width: 90%;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 930px) {
     display: block;
-    padding: 72px auto;
   }
 `;
 
@@ -38,7 +54,7 @@ export const GalleryPoster = styled.img`
   height: 390px;
   border-radius: 10px;
   box-shadow: -8px -8px 16px rgb(255 255 255 / 25%), 4px 8px 16px #bbbbbb;
-  @media (max-width: 800px) {
+  @media (max-width: 930px) {
     display: block;
     margin: 0px auto 24px auto;
   }
@@ -53,14 +69,14 @@ export const GalleryInfo = styled.div`
     width: 50vw;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 930px) {
     width: 100%;
     margin: 0px;
   }
 `;
 
 export const GalleryTitle = styled.h1`
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
   line-height: 48px;
@@ -69,7 +85,7 @@ export const GalleryTitle = styled.h1`
 
 export const GalleryPeriod = styled.p`
   margin-top: 16px;
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
@@ -80,7 +96,7 @@ export const GalleryPeriod = styled.p`
 export const GalleryDescription = styled.p`
   margin: 48px 0;
   min-height: 115px;
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -117,24 +133,34 @@ export const AuthorInfo = styled.div`
 `;
 
 export const AuthorName = styled.h2`
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
   line-height: 29px;
   text-align: right;
   margin-bottom: 8px;
+  color: transparent;
+  background: #aaaaaa;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;
 
 export const AuthorEmail = styled.p`
-  font-family: Pretendard;
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   text-align: right;
-  text-decoration-line: underline;
-  color: #777777;
+  color: transparent;
+  background: #aaaaaa;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;
 
 export const ButtonWrapper = styled.div`
@@ -149,4 +175,72 @@ export const EmptyDiv = styled.div<{ height: string }>`
     css`
       height: ${props.height};
     `}
+`;
+
+export const GalleryWrapper = styled.div`
+  margin: 48px auto;
+  padding: 72px 48px;
+  box-shadow: 10px 10px 20px #e1e2e4, -10px -10px 20px #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  align-items: center;
+
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
+
+  @media (max-width: 1100px) {
+    padding: 72px 24px;
+    margin: 48px 48px;
+  }
+`;
+
+export const CommentTitle = styled.p`
+  margin: 48px auto 12px auto;
+  padding: 0px 36px;
+  display: flex;
+  justify-content: start;
+  width: 848px;
+  font-family: 'Pretendard-Regular';
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 2px;
+ color: transparent;
+background: #CCCCCC;
+-webkit-background-clip: text;
+-moz-background-clip: text;
+background-clip: text;
+text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+  
+
+  @media (max-width: 1100px){
+    width: 90%;
+  }
+  @media (max-width: 850px) {
+    width: 100%;
+`;
+
+export const NoCommentTag = styled.div`
+  margin: 24px auto;
+  font-family: 'Pretendard-Regular';
+  font-size: 20px;
+  color: transparent;
+  background: #bbbbbb;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;

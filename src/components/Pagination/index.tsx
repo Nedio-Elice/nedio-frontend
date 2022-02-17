@@ -65,7 +65,7 @@ const Container = styled.div`
 `;
 
 const ArrowImg = styled.img<{ flip: boolean }>`
-  width: 16px;
+  width: 20px;
   ${(props) =>
     props.flip &&
     css`
@@ -77,11 +77,13 @@ const NumberButton = styled.button<{ active: boolean }>`
   type: button;
   margin: 0 4px;
   padding: 0;
-  width: 16px;
+  width: 20px;
   border: none;
   font-family: Pretendard;
   font-style: normal;
   font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
   text-align: center;
   background-color: transparent;
   cursor: pointer;
@@ -95,8 +97,8 @@ const NumberButton = styled.button<{ active: boolean }>`
 const ArrowButton = styled.button`
   display: block;
   padding: 0;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: none;
   background-color: transparent;
   cursor: pointer;

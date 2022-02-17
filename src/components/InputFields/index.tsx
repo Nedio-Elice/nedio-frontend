@@ -110,9 +110,10 @@ const InputBox = styled.input<{
   font-size: 16px;
   background: #ffffff;
   padding: 0px 20px 0px 20px;
-  border: 1px solid #d1d1d1;
+  border: 2px transparent;
   box-sizing: border-box;
-  box-shadow: 8px 8px 16px rgba(221, 225, 233, 0.75);
+  box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
+    rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
   border-radius: 5px;
 
   &::placeholder {
@@ -120,8 +121,7 @@ const InputBox = styled.input<{
     opacity: 0.6;
   }
   &:focus {
-    border: 1px solid #ff6e00;
-    outline: none;
+    outline: 2px solid #f3643f;
   }
 `;
 
@@ -146,10 +146,11 @@ const InputTextBox = styled.textarea<{
   font-size: 16px;
   background: #ffffff;
   padding: 12px 16px;
-  border: 1px solid #d1d1d1;
+  border: 2px transparent;
   box-sizing: border-box;
-  box-shadow: inset 2px 2px 0px #ffffff;
-  filter: drop-shadow(2px 8px 24px rgba(0, 0, 0, 0.12));
+  resize: none;
+  box-shadow: rgb(204, 219, 232) 1px 1px 3px 0px inset,
+    rgba(255, 255, 255, 0.5) -1px -1px 2px 0.5px inset;
   border-radius: 5px;
 
   &::placeholder {
@@ -158,8 +159,7 @@ const InputTextBox = styled.textarea<{
   }
 
   &:focus {
-    border: 1px solid #ff6e00;
-    outline: none;
+    outline: 2px solid #f3643f;
   }
 `;
 
@@ -168,7 +168,7 @@ const InputImage = styled.input`
 `;
 
 const Label = styled.label`
-  display: inline-block;
+  display: block;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
@@ -176,6 +176,8 @@ const Label = styled.label`
   color: #777777;
   border: none;
   height: 40px;
+  width: 120px;
+  margin: 0 auto;
   line-height: 40px;
   padding: 2px 12px;
   text-align: center;
@@ -191,14 +193,14 @@ const Label = styled.label`
 
   &:hover {
     height: 40px;
-    border: 2px solid #ff6e00;
+    border: 2px solid #f3643f;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;
   }
 
   &:active {
-    color: #ff6e00;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
     border: 0;

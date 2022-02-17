@@ -69,7 +69,6 @@ function MyInformation() {
       email,
     };
     dispatch(updateUser(newUser));
-    alert('프로필 사진이 업데이트 되었습니다.');
   };
 
   const handleSubmit = () => {
@@ -83,7 +82,6 @@ function MyInformation() {
     };
 
     dispatch(updateUser(newUser));
-    alert('유저 정보 업데이트가 되었습니다.');
   };
 
   if (!user.isSignIn) {
@@ -92,12 +90,14 @@ function MyInformation() {
 
   return (
     <>
-      <UserImg src={profileURL} />
-      <InputProfileLabel>
-        사진 업로드
-        <InputProfile onChange={handleImgUpdate} />
-      </InputProfileLabel>
       <InfoWrapper>
+        <InfoSubWrapper>
+          <UserImg src={profileURL} />
+          <InputProfileLabel>
+            프로필 업로드
+            <InputProfile onChange={handleImgUpdate} />
+          </InputProfileLabel>
+        </InfoSubWrapper>
         <InfoSubWrapper>
           <ProfileInfo
             name="이름"
@@ -114,8 +114,6 @@ function MyInformation() {
             width="100%"
             onChange={setEmail}
           />
-        </InfoSubWrapper>
-        <InfoSubWrapper>
           <ProfileTextInfo
             name="소개"
             defaultText={user.userInfo.introduce}
@@ -123,14 +121,14 @@ function MyInformation() {
             width="100%"
             onChange={setIntroduce}
           />
+          <ButtonWrapperRight>
+            <ButtonOrange
+              value="정보 변경"
+              type="submit"
+              handleClick={handleSubmit}
+            />
+          </ButtonWrapperRight>
         </InfoSubWrapper>
-        <ButtonWrapperRight>
-          <ButtonOrange
-            value="정보 변경"
-            type="submit"
-            handleClick={handleSubmit}
-          />
-        </ButtonWrapperRight>
       </InfoWrapper>
     </>
   );
