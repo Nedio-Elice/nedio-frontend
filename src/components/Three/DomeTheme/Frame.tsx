@@ -18,6 +18,8 @@ function Frame({
   customLight,
   imageTitle,
   imageDescription,
+  width,
+  height,
   ...props
 }: any) {
   const [ref] = useBox(() => ({
@@ -59,6 +61,8 @@ function Frame({
           imageTitle,
           imageDescription,
           imageUrl: path,
+          width,
+          height,
         });
       }
     };
@@ -67,7 +71,17 @@ function Frame({
     return () => {
       document.removeEventListener('mousedown', onDocumentMouseDown);
     };
-  }, [camera, ref, pickItem, imageUrl, imageTitle, imageDescription, path]);
+  }, [
+    camera,
+    ref,
+    pickItem,
+    imageUrl,
+    imageTitle,
+    imageDescription,
+    path,
+    width,
+    height,
+  ]);
 
   return (
     <>

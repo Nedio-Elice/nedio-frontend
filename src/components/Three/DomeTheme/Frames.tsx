@@ -35,6 +35,8 @@ function Frames({ pickItem, hall }: FramesProps) {
               pickItem={pickItem}
               imageTitle={imageTitle}
               imageDescription={imageDescription}
+              width={width}
+              height={height}
               frameSize={frameSize}
               position={position}
               rotation={rotation}
