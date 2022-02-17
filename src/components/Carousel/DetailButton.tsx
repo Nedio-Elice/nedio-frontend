@@ -31,6 +31,7 @@ const DetailButton = styled.button`
   border-radius: 15px;
   padding: 8px 28px;
   margin-left: 15px;
+  margin-top: 15px;
   border: 1px solid white;
 
   &:hover:not([disabled]) {

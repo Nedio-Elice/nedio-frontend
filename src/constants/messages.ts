@@ -1,5 +1,6 @@
 const MESSAGE = {
   LOGIN_SUCCESS: '로그인 되었습니다.',
+  LOGIN_FAIL: '로그인에 실패하였습니다.',
   LOGOUT_SUCCESS: '로그아웃 되었습니다.',
   INVALID_FORM: '모든 항목을 입력해주세요.',
   INVALID_DATE: '유효하지 않은 날짜 입력입니다.',

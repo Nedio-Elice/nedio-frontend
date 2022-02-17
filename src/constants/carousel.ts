@@ -22,7 +22,7 @@ const CAROUSEL = {
     NEXT: 1,
   },
   ITEM_MAX_WIDTH: 1250,
-  ITEM_MIN_WIDTH: 560,
+  ITEM_MIN_WIDTH: 450,
   INIT_DATA: initData,
 };
 

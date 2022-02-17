@@ -9,10 +9,13 @@ import AuthButton from '../../components/AuthButton';
 import Modal from '../../components/Modal';
 import { useAppDispatch } from '../../store/hooks';
 import { signInUser } from '../../store/user';
+import useToast from '../../hooks/useToast';
+import { MESSAGE } from '../../constants/messages';
 
 function SignInContainer() {
   const modalRef = useRef<React.ElementRef<typeof Modal>>(null);
   const dispatch = useAppDispatch();
+  const toast = useToast();
 
   const onSuccess = async (
     res: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -24,12 +27,30 @@ function SignInContainer() {
         profileURL,
         nickname,
       };
-      dispatch(signInUser(userData));
+      try {
+        const message = await dispatch(signInUser(userData));
+        if (message === 'success') {
+          toast({
+            title: '',
+            message: MESSAGE.LOGIN_SUCCESS,
+          });
+        }
+      } catch (e) {
+        toast({
+          title: '',
+          message: MESSAGE.LOGIN_FAIL,
+          type: 'error',
+        });
+      }
     }
   };
 
   const onFailure = (err: any) => {
-    console.log(err);
+    toast({
+      title: '',
+      message: MESSAGE.LOGIN_FAIL,
+      type: 'error',
+    });
   };
 
   return (
