@@ -32,8 +32,12 @@ const Title = styled.h3`
   margin-bottom: 2.5rem;
 
   @media ${DEVICE.DESKTOP_LARGE} {
-    font-size: 25px;
+    font-size: 23px;
     margin-bottom: 2rem;
+  }
+
+  @media ${DEVICE.TABLET} {
+    font-size: 20px;
   }
 `;
 
