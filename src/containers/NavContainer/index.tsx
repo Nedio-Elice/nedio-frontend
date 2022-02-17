@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import NavBar from '../../components/NavBar';
+import { MESSAGE } from '../../constants/messages';
+import useToast from '../../hooks/useToast';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 import { signInUserByToken, signOutUser } from '../../store/user';
@@ -9,8 +11,17 @@ function NavContainer() {
   const isSignIn = useAppSelector((state: RootState) => state.user.isSignIn);
   const userId = useAppSelector((state: RootState) => state.user.userInfo._id);
   const dispatch = useAppDispatch();
+  const toast = useToast();
 
-  const handleSignOut = () => dispatch(signOutUser());
+  const handleSignOut = async () => {
+    const message = await dispatch(signOutUser());
+    if (message === 'success') {
+      toast({
+        title: '',
+        message: MESSAGE.LOGOUT_SUCCESS,
+      });
+    }
+  };
 
   useEffect(() => {
     const token = getToken();

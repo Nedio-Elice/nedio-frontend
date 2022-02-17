@@ -50,14 +50,6 @@ const Container = styled.form`
   transition: width 0.8s;
   background-color: #f2f3f5;
 
-  /* background: linear-gradient(
-    90deg,
-    #f2f3f5 0.59%,
-    #ffffff 49.78%,
-    #f2f3f5 100%
-  ); */
-  /* box-shadow: inset -1.5px -1.5px 3px #f2f3f5, inset 1.5px 1.5px 3px #e1e2e4;
-  border-radius: 40px; */
   > svg {
     position: absolute;
 
@@ -71,6 +63,10 @@ const Container = styled.form`
         opacity: 0.8;
       }
     }
+  }
+
+  @media ${DEVICE.DESKTOP_LARGE} {
+    width: 250px;
   }
 
   @media ${DEVICE.TABLET} {

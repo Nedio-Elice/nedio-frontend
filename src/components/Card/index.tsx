@@ -67,6 +67,10 @@ const CardTitle = styled.h5`
   font-size: 1rem;
   letter-spacing: 2px;
   font-weight: 500;
+  padding: 0 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const CardContent = styled.div`
