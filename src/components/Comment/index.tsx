@@ -4,7 +4,8 @@ import { getComments, putComment } from '../../store/comment';
 import Buttons from '../Buttons';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CommentPost, CommentProps } from '../../types/Comment';
-import { RootState } from '../../store/root';
+import { MESSAGE } from '../../constants/messages';
+import useToast from '../../hooks/useToast';
 
 const { ButtonMini } = Buttons;
 
@@ -18,6 +19,8 @@ function Comment({
   handleClickDelete,
 }: CommentProps) {
   const dispatch = useAppDispatch();
+  const toast = useToast();
+
   const [text, setText] = useState<string>(content);
   const [update, setUpdate] = useState<boolean>(false);
 
@@ -27,10 +30,24 @@ function Comment({
   }
 
   async function handleUpdate(comment: CommentPost) {
-    await dispatch(
-      putComment({ commentId: comment.commentId, content: comment.content }),
-    );
-    await setUpdate(!update);
+    try {
+      const response: any = await dispatch(
+        putComment({ commentId: comment.commentId, content: comment.content }),
+      );
+      if (response.payload.message === 'success') {
+        toast({
+          title: '',
+          message: MESSAGE.COMMENT_UPDATE_SUCCESS,
+        });
+      }
+      await setUpdate(!update);
+    } catch (e) {
+      toast({
+        title: '',
+        message: MESSAGE.COMMENT_UPDATE_FAIL,
+        type: 'error',
+      });
+    }
     await dispatch(getComments({ galleryId, currPage }));
   }
 

@@ -20,12 +20,15 @@ import {
   NoCommentTag,
 } from '../styles/galleryDetailPage';
 import GalleryInformation from '../containers/GalleryInfoContainer';
+import { MESSAGE } from '../constants/messages';
+import useToast from '../hooks/useToast';
 
 const { ButtonBasic } = Buttons;
 
 function GalleryDetailPage() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const toast = useToast();
   const comments = useAppSelector((state: RootState) => state.comment);
   const user = useAppSelector((state: RootState) => state.user);
 
@@ -72,7 +75,21 @@ function GalleryDetailPage() {
   }
 
   async function handleDelete(commentId: string) {
-    await dispatch(deleteComment(commentId));
+    try {
+      const response: any = await dispatch(deleteComment(commentId));
+      if (response.payload.message === 'success') {
+        toast({
+          title: '',
+          message: MESSAGE.COMMENT_DELETE_SUCCESS,
+        });
+      }
+    } catch (e) {
+      toast({
+        title: '',
+        message: MESSAGE.COMMENT_DELETE_FAIL,
+        type: 'error',
+      });
+    }
     await dispatch(getComments({ galleryId, currPage }));
   }
 

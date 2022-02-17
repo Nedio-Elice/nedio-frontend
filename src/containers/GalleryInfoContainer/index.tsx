@@ -21,6 +21,8 @@ import { PATH } from '../../constants/path';
 import { MyInfo } from '../../store/user';
 import { useAppDispatch } from '../../store/hooks';
 import { deleteGallery } from '../../store/myGallery';
+import useToast from '../../hooks/useToast';
+import { MESSAGE } from '../../constants/messages';
 
 interface Props {
   gallery: Gallery;
@@ -33,12 +35,28 @@ const { ButtonEdit, ButtonDelete } = Buttons;
 function GalleryInformation({ gallery, galleryId, user }: Props) {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const toast = useToast();
+
   const handleEditClick = () => navigation(`${PATH.GALLERY_EDIT}/${galleryId}`);
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
     // eslint-disable-next-line no-alert
     if (window.confirm('해당 갤러리를 삭제하시겠습니까?')) {
-      dispatch(deleteGallery(galleryId));
-      navigation(PATH.MAIN);
+      try {
+        const response: any = await dispatch(deleteGallery(galleryId));
+        if (response.payload.message === 'success') {
+          toast({
+            title: '',
+            message: MESSAGE.GALLERY_DELETE_SUCCESS,
+          });
+          navigation(PATH.MAIN);
+        }
+      } catch (e) {
+        toast({
+          title: '',
+          message: MESSAGE.GALLERY_DELETE_FAIL,
+          type: 'error',
+        });
+      }
     }
   };
 

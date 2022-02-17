@@ -14,6 +14,8 @@ import Buttons from '../../components/Buttons';
 import axiosInstance from '../../api/api';
 import { updateUser } from '../../store/user';
 import { PATH } from '../../constants/path';
+import useToast from '../../hooks/useToast';
+import { MESSAGE } from '../../constants/messages';
 
 const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
 const { ButtonOrange } = Buttons;
@@ -28,7 +30,9 @@ interface ImageResponse {
 function MyInformation() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const toast = useToast();
   const user = useAppSelector((state: RootState) => state.user);
+
   const [profileURL, setProfileURL] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -69,10 +73,24 @@ function MyInformation() {
       nickname,
       email,
     };
-    dispatch(updateUser(newUser));
+    try {
+      const message = await dispatch(updateUser(newUser));
+      if (message === 'success') {
+        toast({
+          title: '',
+          message: MESSAGE.UPDATE_SUCCESS,
+        });
+      }
+    } catch (e) {
+      toast({
+        title: '',
+        message: MESSAGE.UPDATE_FAILED,
+        type: 'error',
+      });
+    }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newUser = {
       _id: user.userInfo._id,
       introduce,
@@ -82,7 +100,21 @@ function MyInformation() {
       email,
     };
 
-    dispatch(updateUser(newUser));
+    try {
+      const message = await dispatch(updateUser(newUser));
+      if (message === 'success') {
+        toast({
+          title: '',
+          message: MESSAGE.UPDATE_SUCCESS,
+        });
+      }
+    } catch (e) {
+      toast({
+        title: '',
+        message: MESSAGE.UPDATE_FAILED,
+        type: 'error',
+      });
+    }
   };
 
   if (!user.isSignIn) {
