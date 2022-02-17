@@ -40,12 +40,4 @@ const Grid = styled.div`
   align-content: space-evenly;
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-  /* @media (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  } */
 `;
