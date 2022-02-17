@@ -25,7 +25,7 @@ const persistConfig = {
 };
 
 const combinedReducer = combineReducers({
-  users: userReducer,
+  user: userReducer,
   gallery: galleryReducer,
   comment: commentReducer,
   myGallery: myGalleryReducer,

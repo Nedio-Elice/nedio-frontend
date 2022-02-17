@@ -156,7 +156,18 @@ const ItemContainer = styled.div`
   padding: 7px;
   height: 100%;
   display: flex;
-  background-color: #efa14b;
+  background-image: linear-gradient(
+    to right bottom,
+    #bc854e,
+    #cc8e4d,
+    #db964c,
+    #e3a056,
+    #ebaa60,
+    #f3b46a,
+    #f6c282,
+    #f9d09a,
+    #fcdeb3
+  );
   color: white;
   box-shadow: 8px 8px 16px rgba(174, 174, 174, 0.75);
 `;

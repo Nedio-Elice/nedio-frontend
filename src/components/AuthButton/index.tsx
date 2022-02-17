@@ -19,9 +19,8 @@ const Button = styled.button`
   border-radius: 25px;
   background: #f2f3f5;
   box-shadow: 5px 5px 10px #e1e2e4, -5px -5px 10px #ffffff;
-  color: rgba(156, 156, 156, 0.48);
+  color: rgba(156, 156, 156, 0.8);
   font-size: 0.8rem;
-  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.75);
 
   &:hover {
     cursor: pointer;

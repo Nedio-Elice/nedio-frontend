@@ -15,7 +15,7 @@ import {
 } from '../../styles/galleryDetailPage';
 import Buttons from '../../components/Buttons';
 import { Gallery } from '../../types/GalleryDetail';
-import formatDateString from '../../utils/datestring';
+import formatDateString from '../../utils/date';
 import { PATH } from '../../constants/path';
 import { MyInfo } from '../../store/user';
 

@@ -27,7 +27,7 @@ interface ImageResponse {
 function MyInformation() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
-  const user = useAppSelector((state: RootState) => state.users);
+  const user = useAppSelector((state: RootState) => state.user);
   const [profileURL, setProfileURL] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');

@@ -64,7 +64,7 @@ const CardImg = styled.img`
 
 const CardTitle = styled.h5`
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1rem;
   letter-spacing: 2px;
   font-weight: 500;
 `;
