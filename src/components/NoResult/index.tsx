@@ -28,6 +28,7 @@ const NoResultsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
 `;
 
 const NoResultsImg = styled.img`

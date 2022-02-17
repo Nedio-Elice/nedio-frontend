@@ -18,7 +18,6 @@ function HallContainer() {
   const { hallId } = useParams();
 
   const handlePictureClick = (item: any) => {
-    // 자유롭게 마우스를 움직일 수 있을 때는 클릭방지
     if (!control.isLocked) return;
     modalRef.current?.show();
     setSelectedItem(item);
@@ -26,7 +25,6 @@ function HallContainer() {
   };
 
   useLayoutEffect(() => {
-    // // TODO: hall 데이터 요청
     (async () => {
       await axiosInstance
         .get(`halls/${hallId}`)
@@ -34,16 +32,12 @@ function HallContainer() {
     })();
   }, [hallId]);
 
-  if (!hall) {
-    return null;
-  }
-
   return (
     <ErrorBoundary>
       <Container>
         <Landing />
         <MouseIcon />
-        <Hall pickItem={handlePictureClick} hall={hall} />
+        {hall && <Hall pickItem={handlePictureClick} hall={hall} />}
 
         <Modal ref={modalRef} width={400} height={480} isHall>
           {selectedItem && (

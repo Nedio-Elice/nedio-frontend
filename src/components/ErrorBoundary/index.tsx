@@ -1,5 +1,6 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import styled from 'styled-components';
 import NoResult from '../NoResult';
 
 interface Props {
@@ -28,7 +29,11 @@ class ErrorBoundary extends Component<Props, State> {
     const { children } = this.props;
 
     if (hasError) {
-      return <NoResult title="Three.js에서 오류가 발생했습니다" isHall />;
+      return (
+        <Container>
+          <NoResult title="Three.js에서 오류가 발생했습니다" isHall />
+        </Container>
+      );
     }
 
     return children;
@@ -36,3 +41,11 @@ class ErrorBoundary extends Component<Props, State> {
 }
 
 export default ErrorBoundary;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+`;
