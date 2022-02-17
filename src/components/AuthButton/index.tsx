@@ -7,7 +7,11 @@ interface Props {
 }
 
 function AuthButton({ tapMenu, handleClick }: Props) {
-  return <Button onClick={handleClick}>{tapMenu}</Button>;
+  return (
+    <Button onClick={handleClick} data-testid="auth-button">
+      {tapMenu}
+    </Button>
+  );
 }
 
 export default AuthButton;
