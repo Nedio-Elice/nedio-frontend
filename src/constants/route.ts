@@ -20,7 +20,7 @@ const ROUTE = [
   {
     path: PATH.MY_PAGE,
     Component: MyPage,
-    auth: false,
+    auth: true,
   },
   {
     path: PATH.GALLERY_DETAIL,
@@ -30,12 +30,12 @@ const ROUTE = [
   {
     path: PATH.GALLERY_EDIT,
     Component: GalleryEdit,
-    auth: false,
+    auth: true,
   },
   {
     path: PATH.GALLERY_EDIT_MODIFY,
     Component: GalleryEdit,
-    auth: false,
+    auth: true,
   },
   {
     path: PATH.HALL,
