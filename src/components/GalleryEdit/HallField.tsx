@@ -2,6 +2,7 @@ import { memo, useRef } from 'react';
 
 import styled from 'styled-components';
 import {
+  gradientSilver,
   greyButton,
   hoverOrange,
   inputArea,
@@ -106,6 +107,7 @@ const Container = styled.div`
   border-radius: 1em;
   width: 100%;
 
+  ${gradientSilver}
   ${posterShadow}
 
   & > input {

@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import {
   flexCenter,
   gradientBlue,
+  gradientSilver,
   greyButton,
   hoverOrange,
 } from '../../styles/mixins';
@@ -216,10 +217,10 @@ const Wrapper = styled.div`
   padding: 1em;
   padding-top: 3em;
   border-radius: 25px;
-  background: #f2f3f5;
   width: 380px;
   height: 500px;
   animation: ${modalUp} 0.5s ease-out forwards;
+  ${gradientSilver}
 
   div + div {
     margin-top: 1em;

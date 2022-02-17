@@ -3,6 +3,7 @@ import { memo } from 'react';
 import styled from 'styled-components';
 import {
   backgroundGradient,
+  gradientSilver,
   greyButton,
   hoverOrange,
   inputPadding,
@@ -147,6 +148,8 @@ const Inputs = styled.div`
   width: 100%;
   padding: 1em;
   border-radius: 1em;
+
+  ${gradientSilver}
 
   ${posterShadow}
 
