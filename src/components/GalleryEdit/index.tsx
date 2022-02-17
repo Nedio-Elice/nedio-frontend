@@ -6,6 +6,7 @@ import {
   greyButton,
   hoverOrange,
   inputPadding,
+  posterShadow,
 } from '../../styles/mixins';
 
 import { GalleryProps } from '../../types/GalleryEdit';
@@ -98,7 +99,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5%;
+  padding: 0 5%;
   width: 100vw;
   min-width: 365px;
   min-height: 100vh;
@@ -121,7 +122,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 2em;
+  margin: 3em 0;
   width: 680px;
   height: 20em;
 
@@ -144,6 +145,11 @@ const Inputs = styled.div`
   flex-direction: column;
   margin-left: 2em;
   width: 100%;
+  padding: 1em;
+  border-radius: 1em;
+
+  ${posterShadow}
+
   input {
     ${inputPadding}
   }
