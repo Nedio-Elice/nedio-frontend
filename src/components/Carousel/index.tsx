@@ -249,7 +249,7 @@ const Title = styled.h5`
 
 const Author = styled.p`
   font-weight: 500;
-  margin-bottom: 15%;
+  margin-bottom: 15px;
 `;
 const Period = styled.p`
   font-size: 0.8rem;
