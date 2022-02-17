@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useLoader, useThree } from '@react-three/fiber';
 import { Box } from '@react-three/drei';
 import { Triplet, useBox } from '@react-three/cannon';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Object3D, Raycaster, Vector3 } from 'three';
 import { HallImageData, HallImages } from '../../../../types/GalleryDetail';
 import { positions, rotations } from './orientation';
@@ -29,10 +29,10 @@ interface FrameProp {
 function Frame({ position, rotation, image, pickItem }: FrameProp) {
   const DETECT_FROM_DISTANCE = 15;
   const url = image.imageUrl;
-  const title = image.imageTitle;
-  const description = image.imageDescription;
+
   const { camera } = useThree();
-  const [proportion, setProportion] = useState<number>(1); // height / width
+  const proportion = Number(image.height) / Number(image.width);
+  // height / width
 
   const [ref] = useBox(() => ({
     type: 'Static',
@@ -61,10 +61,7 @@ function Frame({ position, rotation, image, pickItem }: FrameProp) {
         intersects.length > 0 &&
         intersects[0].distance < DETECT_FROM_DISTANCE
       ) {
-        pickItem({
-          title,
-          content: description,
-        });
+        pickItem(image);
       }
     };
 
@@ -73,22 +70,22 @@ function Frame({ position, rotation, image, pickItem }: FrameProp) {
     return () => {
       document.removeEventListener('mousedown', onDocumentMouseDown);
     };
-  }, [camera, ref, pickItem, title, description]);
+  }, [camera, ref, pickItem, image]);
 
-  useEffect(() => {
-    async function getSize() {
-      let img: any = new Image();
-      if (url !== undefined) {
-        img.onload = function callback() {
-          setProportion(img.height / img.width);
-          img = null;
-        };
-        img.src = url;
-      }
-    }
+  // useEffect(() => {
+  //   async function getSize() {
+  //     let img: any = new Image();
+  //     if (url !== undefined) {
+  //       img.onload = function callback() {
+  //         setProportion(img.height / img.width);
+  //         img = null;
+  //       };
+  //       img.src = url;
+  //     }
+  //   }
 
-    getSize();
-  }, [proportion, url]);
+  //   getSize();
+  // }, [proportion, url]);
 
   const [color, displacement, normal, ao, roughness, metalic] = useLoader<
     any,
