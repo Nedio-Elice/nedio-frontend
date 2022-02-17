@@ -39,11 +39,27 @@ const Title = styled.h3`
 
 const Grid = styled.div`
   display: grid;
-  column-gap: 1.5rem;
+  column-gap: 2rem;
   row-gap: 3rem;
-  justify-content: space-evenly;
   justify-items: center;
-  align-content: space-evenly;
-  align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: space-between;
+  grid-template-columns: repeat(4, 1fr);
+
+  @media ${DEVICE.DESKTOP_LARGE} {
+    justify-content: space-around;
+    column-gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media ${DEVICE.DESKTOP} {
+    justify-content: space-around;
+    column-gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media ${DEVICE.TABLET} {
+    justify-content: space-around;
+    column-gap: 1.5rem;
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
