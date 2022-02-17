@@ -31,13 +31,14 @@ const Container = styled.select`
   border: none;
   color: rgba(104, 104, 104, 0.5);
   font-size: 0.7rem;
-  border-radius: 15px;
-  background: linear-gradient(
+  border-radius: 5px;
+  background-color: #f2f3f5;
+  /* background: linear-gradient(
     90deg,
     #f2f3f5 0.59%,
     #ffffff 49.78%,
     #f2f3f5 100%
-  );
+  ); */
   box-shadow: inset -1.5px -1.5px 3px #f2f3f5, inset 1.5px 1.5px 3px #e1e2e4;
 
   &:hover {

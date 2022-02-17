@@ -26,9 +26,9 @@ const Container = styled.section`
 
 const Title = styled.h3`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 25px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 `;
 
 const Grid = styled.div`

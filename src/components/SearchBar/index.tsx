@@ -41,22 +41,23 @@ function SearchBar({
 }
 
 const Container = styled.form`
-  width: 320px;
+  width: 300px;
   height: 40px;
   display: flex;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 5px;
   position: relative;
   transition: width 0.8s;
+  background-color: #f2f3f5;
 
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
     #f2f3f5 0.59%,
     #ffffff 49.78%,
     #f2f3f5 100%
-  );
-  box-shadow: inset -1.5px -1.5px 3px #f2f3f5, inset 1.5px 1.5px 3px #e1e2e4;
-  border-radius: 40px;
+  ); */
+  /* box-shadow: inset -1.5px -1.5px 3px #f2f3f5, inset 1.5px 1.5px 3px #e1e2e4;
+  border-radius: 40px; */
   > svg {
     position: absolute;
 

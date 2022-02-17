@@ -44,7 +44,6 @@ function LandingPage() {
 export default LandingPage;
 
 const Container = styled.div`
-  font-family: cursive;
   color: white;
   height: 100vh;
   width: 100vw;
@@ -141,6 +140,8 @@ const FirstContent = styled.article`
   span:last-child {
     color: #efa14b;
     animation-delay: 0.5s;
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: 600;
   }
 `;
 
@@ -165,9 +166,10 @@ const LastContent = styled.article`
     animation-delay: 4.2s;
   }
 
-  span:last-child {
+  span:nth-child(2) {
     animation-delay: 4s;
-    color: #efa14b;
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: 600;
   }
 `;
 

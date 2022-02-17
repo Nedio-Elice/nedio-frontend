@@ -7,7 +7,7 @@ interface Props {
 }
 
 function CustomRoute({ auth, redirectTo }: Props) {
-  const isSignIn = useAppSelector((state) => state.users.isSignIn);
+  const isSignIn = useAppSelector((state) => state.user.isSignIn);
 
   return auth && !isSignIn ? <Navigate replace to={redirectTo} /> : <Outlet />;
 }

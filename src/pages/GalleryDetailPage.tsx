@@ -27,7 +27,7 @@ function GalleryDetailPage() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
   const comments = useAppSelector((state: RootState) => state.comment);
-  const user = useAppSelector((state: RootState) => state.users);
+  const user = useAppSelector((state: RootState) => state.user);
 
   const [gallery, setGallery] = useState<Gallery | null>(null);
   const [currPage, setCurrPage] = useState<number>(0);

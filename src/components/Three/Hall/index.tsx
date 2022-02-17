@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { Debug, Physics } from '@react-three/cannon';
@@ -14,6 +15,8 @@ interface Props {
 }
 
 function Hall({ pickItem, hall }: Props) {
+  const hallTheme = hall.hallTheme ? hall.hallTheme : 'Modern';
+
   return (
     <ReactReduxContext.Consumer>
       {({ store }) => (
@@ -22,11 +25,14 @@ function Hall({ pickItem, hall }: Props) {
             <Provider store={store}>
               <Physics gravity={[0, 0, 0]}>
                 {/* <Debug color="black" scale={1.1}> */}
-                {/* <DomeTheme pickItem={pickItem} hall={hall} /> */}
-                {/* <ModernTheme pickItem={pickItem} hall={hall} /> */}
-                <JazzTheme pickItem={pickItem} hall={hall} />
+                {hallTheme === 'Modern' ? (
+                  <ModernTheme pickItem={pickItem} hall={hall} />
+                ) : hallTheme === 'Jazz' ? (
+                  <JazzTheme pickItem={pickItem} hall={hall} />
+                ) : (
+                  <DomeTheme pickItem={pickItem} hall={hall} />
+                )}
                 {/* </Debug>
-                 */}
                 {/* <OrbitControls /> */}
               </Physics>
             </Provider>

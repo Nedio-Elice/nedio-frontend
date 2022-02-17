@@ -1,7 +1,7 @@
 import { RootState } from '../store/root';
 
 export const MOCK_STATE = {
-  users: {
+  user: {
     isSignIn: true,
     userInfo: {
       _id: '',
