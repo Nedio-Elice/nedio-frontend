@@ -13,7 +13,6 @@ export const Background = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 export const GalleryInfoWrapper = styled.div`

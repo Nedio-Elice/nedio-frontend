@@ -65,7 +65,7 @@ function ButtonNeumo({
 function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   return (
     <ButtonCog onClick={handleClick} type={type}>
-      <Cog width="24" height="24" opacity="0.6" />
+      <Cog width="24" height="24" opacity="0.4" />
     </ButtonCog>
   );
 }
@@ -73,7 +73,7 @@ function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
 function ButtonDelete({ className, value, type, handleClick }: ButtonProps) {
   return (
     <ButtonBin onClick={handleClick} type={type}>
-      <TrashCan width="24" height="24" opacity="0.6" />
+      <TrashCan width="24" height="24" opacity="0.4" />
     </ButtonBin>
   );
 }
@@ -119,18 +119,17 @@ export default {
 };
 
 const ButtonLarge = styled.button<{ stay: boolean }>`
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-style: normal;
   font-weight: 500;
-  font-size: 1.5em;
+  font-size: 1.4em;
   line-height: 43px;
   display: flex;
   text-align: center;
-  color: #e1e1e1;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+  color: rgba(156, 156, 156, 0.8);
   align-items: center;
   justify-content: center;
-  width: 15vw;
+  width: 12vw;
   max-width: 200px;
   min-width: 144px;
   height: 60px;
@@ -157,9 +156,6 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   &:hover {
     color: #f3643f;
     cursor: pointer;
-  }
-  @media (max-width: 200px) {
-    font-size: 16px;
   }
 
   &:active {
