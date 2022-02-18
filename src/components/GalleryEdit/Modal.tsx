@@ -79,8 +79,6 @@ function Modal({
       };
 
       setInputValues(updated);
-
-      console.log(inputValues);
     },
     [inputValues],
   );

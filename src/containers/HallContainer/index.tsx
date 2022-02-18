@@ -24,8 +24,6 @@ function HallContainer() {
     control?.unlock && control?.unlock();
   };
 
-  console.log(selectedItem);
-
   useLayoutEffect(() => {
     (async () => {
       await axiosInstance
