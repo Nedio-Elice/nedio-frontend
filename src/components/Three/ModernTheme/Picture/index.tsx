@@ -77,7 +77,7 @@ function Picture({ position, spotPos, rotation, data, pickItem, ratio }: any) {
       />
       <mesh ref={ref}>
         <boxGeometry args={[x + 4, y + 3, z + 1]} />
-        <meshBasicMaterial map={img} />
+        <meshPhongMaterial map={img} />
       </mesh>
     </>
   );
