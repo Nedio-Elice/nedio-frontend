@@ -149,3 +149,17 @@ export const CardWrapper = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
+
+export const NoGalleryTag = styled.div`
+  margin: auto;
+  width: 100%;
+  font-family: 'Pretendard-Regular';
+  font-size: 24px;
+  text-align: center;
+  color: transparent;
+  background: #bbbbbb;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+`;

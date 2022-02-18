@@ -93,7 +93,7 @@ export const GalleryPeriod = styled.p`
   font-size: 16px;
   line-height: 19px;
   color: transparent;
-  background: linear-gradient(to bottom, #8a8e96 0%, #636363 100%);
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
@@ -105,12 +105,12 @@ export const GalleryDescription = styled.p`
   min-height: 115px;
   font-family: 'Pretendard-Regular';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   white-space: pre-wrap;
   color: transparent;
-  background: #777777;
+  background: #666666;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
@@ -153,7 +153,7 @@ export const AuthorName = styled.h2`
   text-align: right;
   margin-bottom: 8px;
   color: transparent;
-  background: #aaaaaa;
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
@@ -168,7 +168,7 @@ export const AuthorEmail = styled.p`
   line-height: 19px;
   text-align: right;
   color: transparent;
-  background: #aaaaaa;
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
@@ -236,7 +236,7 @@ export const CommentTitle = styled.p`
   font-weight: 700;
   letter-spacing: 2px;
  color: transparent;
-background: #CCCCCC;
+background: #999999;
 -webkit-background-clip: text;
 -moz-background-clip: text;
 background-clip: text;
@@ -255,7 +255,7 @@ export const NoCommentTag = styled.div`
   font-family: 'Pretendard-Regular';
   font-size: 20px;
   color: transparent;
-  background: #bbbbbb;
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;

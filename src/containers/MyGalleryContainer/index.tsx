@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
-import { CardWrapper, GalleryWrapper } from '../../styles/myPage';
-import Buttons from '../../components/Buttons';
+import { CardWrapper, GalleryWrapper, NoGalleryTag } from '../../styles/myPage';
 import {
   getGalClosed,
   getGalComing,
@@ -88,17 +86,3 @@ function MyGallery() {
 }
 
 export default MyGallery;
-
-export const NoGalleryTag = styled.div`
-  margin: auto;
-  width: 100%;
-  font-family: 'Pretendard-Regular';
-  font-size: 24px;
-  text-align: center;
-  color: transparent;
-  background: #bbbbbb;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
-`;
