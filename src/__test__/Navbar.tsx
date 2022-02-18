@@ -9,7 +9,7 @@ type WrapperProps = {
   children: React.ReactNode;
 };
 
-describe('Navbar 테스트', () => {
+describe('Navbar', () => {
   window.scrollTo = jest.fn();
 
   function Wrapper({ children }: WrapperProps) {
@@ -20,7 +20,7 @@ describe('Navbar 테스트', () => {
     );
   }
 
-  it('Navbar가 제대로 렌더링 되었는가', async () => {
+  it('Navbar를 렌더링한다', async () => {
     const { getByTestId, getByText } = render(
       <ToastProvider>
         <MemoryRouter>
@@ -38,7 +38,7 @@ describe('Navbar 테스트', () => {
     });
   });
 
-  it('Modal이 제대로 띄워지는가', async () => {
+  it('로그인 버튼을 누르면 로그인모달을 띄운다', async () => {
     const { getByTestId, getByText } = render(
       <NavBar isSignIn={false} signOut={() => {}} userId={undefined} />,
       {

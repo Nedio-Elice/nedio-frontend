@@ -8,9 +8,8 @@ function Frame({ position, rotation, ratio, children }: any) {
   const obj: any = useLoader(OBJLoader, frameObj);
   const frame = obj.clone();
 
-  // TODO: ratio 관련 수정
-  const [x, y, z] = FRAME_RATIO.horizontal;
-  const [x1, y2, z3] = PICTURE_RATIO.horizontal;
+  const [x, y, z] = FRAME_RATIO[ratio];
+  const [x1, y2, z3] = PICTURE_RATIO[ratio];
 
   const [ref] = useBox(() => ({
     type: 'Static',

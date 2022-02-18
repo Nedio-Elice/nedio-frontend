@@ -24,7 +24,7 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
   padding-top: 150px;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: linear-gradient(
     180deg,
