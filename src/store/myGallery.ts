@@ -31,17 +31,19 @@ interface GalleryState {
 const initialState = {} as GalleryState;
 
 function FilterGalRunning(data: Array<Gallery>) {
+  const day = 60 * 60 * 24 * 1000;
   return data.filter(
     (g: Gallery) =>
       Date.parse(g.startDate) < Date.now() &&
-      Date.parse(g.endDate) > Date.now(),
+      Date.parse(g.endDate) + day > Date.now(),
   );
 }
 function FilterGalComing(data: Array<Gallery>) {
   return data.filter((g: Gallery) => Date.parse(g.startDate) > Date.now());
 }
 function FilterGalClosed(data: Array<Gallery>) {
-  return data.filter((g: Gallery) => Date.parse(g.endDate) < Date.now());
+  const day = 60 * 60 * 24 * 1000;
+  return data.filter((g: Gallery) => Date.parse(g.endDate) + day < Date.now());
 }
 
 function TrimGalleries(data: Array<Gallery>, currPage: number) {

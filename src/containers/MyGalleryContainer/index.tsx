@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 import { CardWrapper, GalleryWrapper } from '../../styles/myPage';
@@ -59,6 +60,7 @@ function MyGallery() {
       <GalleryTab changeState={changeState} />
       <CardWrapper>
         {myGalleries.list !== undefined &&
+          myGalleries.list.length > 0 &&
           myGalleries.list.map((cardInfo: any, idx) => (
             <Card
               key={`${idx}`}
@@ -67,7 +69,12 @@ function MyGallery() {
             />
           ))}
       </CardWrapper>
-      {myGalleries.list !== undefined && (
+      {galleryState !== '' &&
+        myGalleries.list !== undefined &&
+        myGalleries.list.length === 0 && (
+          <NoGalleryTag>해당 상태의 전시가 없습니다.</NoGalleryTag>
+        )}
+      {myGalleries.list !== undefined && myGalleries.list.length > 0 && (
         <Pagination
           currPage={currPage}
           pageCount={makePageCount(pageCount)}
@@ -81,3 +88,17 @@ function MyGallery() {
 }
 
 export default MyGallery;
+
+export const NoGalleryTag = styled.div`
+  margin: auto;
+  width: 100%;
+  font-family: 'Pretendard-Regular';
+  font-size: 24px;
+  text-align: center;
+  color: transparent;
+  background: #bbbbbb;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+`;
