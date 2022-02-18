@@ -19,6 +19,7 @@ const axiosInstance = axios.create({
   headers: {
     'Content-type': 'application/json',
   },
+  timeout: 10000,
   adapter: cache.adapter,
 });
 axiosInstance.defaults.withCredentials = true;

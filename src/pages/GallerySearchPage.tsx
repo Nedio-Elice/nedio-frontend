@@ -24,6 +24,7 @@ const Container = styled.div`
   user-select: none;
   width: 100vw;
   min-height: 100vh;
+  min-width: 460px;
 `;
 
 const ContentsPadding = styled.article`

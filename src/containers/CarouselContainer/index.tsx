@@ -15,7 +15,10 @@ function CarouselContainer() {
         },
       })
       .then((res) => {
-        if (res?.data.data) setCards(res.data.data);
+        if (res?.data.data) {
+          const items = res.data.data.filter((item: CardData) => item !== null);
+          setCards(items);
+        }
       })
       .catch((e) => console.log(e));
   }, []);
