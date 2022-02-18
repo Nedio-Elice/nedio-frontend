@@ -175,6 +175,13 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
     display: block;
   }
 
+  @media (max-width: 750px) {
+    font-size: 1rem;
+    height: 40px;
+    min-width: fit-content;
+    padding: 0 16px;
+  }
+
   ${(props) =>
     props.stay &&
     css`
