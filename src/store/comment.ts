@@ -38,10 +38,9 @@ export const putComment = createAsyncThunk(
           content: comment.content,
         },
       );
-      return response.data;
+      return { message: 'success' };
     } catch (error) {
-      const err = error as AxiosError;
-      throw new Error(err.response?.data);
+      return { message: 'error' };
     }
   },
 );
@@ -70,14 +69,13 @@ export const deleteComment = createAsyncThunk(
   'DELETE/COMMENT',
   async (commentId: string) => {
     try {
-      const response = await axiosInstance.delete<string>(
+      await axiosInstance.delete<string>(
         // eslint-disable-next-line no-underscore-dangle
         `comments/${commentId}`,
       );
-      return response;
+      return { message: 'success' };
     } catch (error) {
-      const err = error as AxiosError;
-      throw new Error(err.response?.data);
+      return { message: 'error' };
     }
   },
 );
@@ -91,9 +89,13 @@ const commentSlice = createSlice({
       return { ...state, data: payload.data, count: payload.count };
     });
     builder.addCase(getComments.rejected, (state, action) => {});
-    builder.addCase(putComment.fulfilled, (state, { payload }) => {});
+    builder.addCase(putComment.fulfilled, (state, { payload }) => {
+      return { ...state, ...payload };
+    });
     builder.addCase(postComment.fulfilled, (state, { payload }) => {});
-    builder.addCase(deleteComment.fulfilled, (state, { payload }) => {});
+    builder.addCase(deleteComment.fulfilled, (state, { payload }) => {
+      return { ...state, ...payload };
+    });
   },
 });
 

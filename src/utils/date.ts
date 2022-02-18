@@ -22,14 +22,10 @@ export const addDaysFromToday = (days: number) => {
 };
 
 export function isOpen({ startDate, endDate }: Term): boolean {
-  const todayMidnight = new Date().setHours(0, 0, 0, 0);
-  const startDateToString = startDate.toString();
-  const endDateToString = endDate.toString();
-
-  return (
-    Date.parse(startDateToString) < todayMidnight &&
-    Date.parse(endDateToString) > todayMidnight
-  );
+  const todayMidnight = new Date().setHours(0, 0, 0);
+  const start = startDate.setHours(0, 0, 0);
+  const end = endDate.setHours(24, 0, 0);
+  return start <= todayMidnight && end > todayMidnight;
 }
 
 function formatDateString(date: string): string {

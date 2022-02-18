@@ -13,7 +13,6 @@ export const Background = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 export const GalleryInfoWrapper = styled.div`
@@ -161,6 +160,11 @@ export const AuthorEmail = styled.p`
   -moz-background-clip: text;
   background-clip: text;
   text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
+`;
+
+export const EditButtons = styled.div`
+  display: flex;
+  align-items: end;
 `;
 
 export const ButtonWrapper = styled.div`

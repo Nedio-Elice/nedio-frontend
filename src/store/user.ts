@@ -1,6 +1,8 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import axiosInstance from '../api/api';
+import { MESSAGE } from '../constants/messages';
 import { SLICE } from '../constants/slice';
+import useToast from '../hooks/useToast';
 import { removeToken, setToken } from '../utils/auth';
 
 export interface MyInfo {
@@ -71,11 +73,10 @@ export function updateUser(userData: MyInfo) {
         email: userData.email,
       });
       dispatch(setUser(userData));
-      alert('유저 정보 업데이트가 되었습니다.');
-      return result.data;
+
+      return 'success';
     } catch (error) {
-      alert('유저 정보 업데이트에 실패하였습니다.');
-      return error;
+      return 'error';
     }
   };
 }

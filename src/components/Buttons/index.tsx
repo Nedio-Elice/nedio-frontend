@@ -1,7 +1,6 @@
-import { AsyncThunkAction } from '@reduxjs/toolkit';
-import React from 'react';
 import styled, { css } from 'styled-components';
 import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
+import { ReactComponent as TrashCan } from '../../assets/icons/trashcan.svg';
 
 interface ButtonProps {
   className?: string;
@@ -64,8 +63,16 @@ function ButtonNeumo({
 function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
   return (
     <ButtonCog onClick={handleClick} type={type}>
-      <Cog width="24" height="24" opacity="0.6" />
+      <Cog width="24" height="24" opacity="0.4" />
     </ButtonCog>
+  );
+}
+
+function ButtonDelete({ className, value, type, handleClick }: ButtonProps) {
+  return (
+    <ButtonBin onClick={handleClick} type={type}>
+      <TrashCan width="24" height="24" opacity="0.4" />
+    </ButtonBin>
   );
 }
 
@@ -94,6 +101,11 @@ ButtonEdit.defaultProps = {
   type: 'button',
   handleClick: () => {},
 };
+ButtonDelete.defaultProps = {
+  className: '',
+  type: 'button',
+  handleClick: () => {},
+};
 
 export default {
   ButtonBasic,
@@ -101,21 +113,21 @@ export default {
   ButtonNeumo,
   ButtonMini,
   ButtonEdit,
+  ButtonDelete,
 };
 
 const ButtonLarge = styled.button<{ stay: boolean }>`
-  font-family: Pretendard;
+  font-family: Pretendard-Regular;
   font-style: normal;
   font-weight: 500;
-  font-size: 1.5em;
+  font-size: 1.4em;
   line-height: 43px;
   display: flex;
   text-align: center;
-  color: #e1e1e1;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+  color: rgba(156, 156, 156, 0.8);
   align-items: center;
   justify-content: center;
-  width: 15vw;
+  width: 12vw;
   max-width: 200px;
   min-width: 144px;
   height: 60px;
@@ -142,9 +154,6 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   &:hover {
     color: #f3643f;
     cursor: pointer;
-  }
-  @media (max-width: 200px) {
-    font-size: 16px;
   }
 
   &:active {
@@ -294,7 +303,7 @@ const ButtonSmall = styled.button<{ orange: boolean }>`
 `;
 
 const ButtonCog = styled.button`
-  display: block;
+  display: inline-block;
   font-family: Pretendard;
   font-style: normal;
   font-weight: normal;
@@ -310,6 +319,28 @@ const ButtonCog = styled.button`
 
   text-align: center;
   margin-left: auto;
+  margin-right: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ButtonBin = styled.button`
+  display: inline-block;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #777777;
+  border: none;
+  background-color: transparent;
+  height: 24px;
+  width: 24px;
+
+  text-align: center;
   margin-right: 8px;
   &:hover {
     cursor: pointer;

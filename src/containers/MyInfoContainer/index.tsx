@@ -13,9 +13,12 @@ import ProfileInfos from '../../components/ProfileInfos';
 import Buttons from '../../components/Buttons';
 import axiosInstance from '../../api/api';
 import { updateUser } from '../../store/user';
+import { PATH } from '../../constants/path';
+import useToast from '../../hooks/useToast';
+import { MESSAGE } from '../../constants/messages';
 
 const { ProfileInfo, ProfileTextInfo } = ProfileInfos;
-const { ButtonOrange } = Buttons;
+const { ButtonOrange, ButtonEdit } = Buttons;
 const { InputProfile, InputProfileLabel } = InputField;
 
 interface ImageResponse {
@@ -27,11 +30,14 @@ interface ImageResponse {
 function MyInformation() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const toast = useToast();
   const user = useAppSelector((state: RootState) => state.user);
+
   const [profileURL, setProfileURL] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [introduce, setIntroduce] = useState('');
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     setProfileURL(user.userInfo.profileURL);
@@ -68,10 +74,24 @@ function MyInformation() {
       nickname,
       email,
     };
-    dispatch(updateUser(newUser));
+    try {
+      const message = await dispatch(updateUser(newUser));
+      if (message === 'success') {
+        toast({
+          title: '',
+          message: MESSAGE.UPDATE_SUCCESS,
+        });
+      }
+    } catch (e) {
+      toast({
+        title: '',
+        message: MESSAGE.UPDATE_FAILED,
+        type: 'error',
+      });
+    }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newUser = {
       _id: user.userInfo._id,
       introduce,
@@ -81,11 +101,25 @@ function MyInformation() {
       email,
     };
 
-    dispatch(updateUser(newUser));
+    try {
+      const message = await dispatch(updateUser(newUser));
+      if (message === 'success') {
+        toast({
+          title: '',
+          message: MESSAGE.UPDATE_SUCCESS,
+        });
+      }
+    } catch (e) {
+      toast({
+        title: '',
+        message: MESSAGE.UPDATE_FAILED,
+        type: 'error',
+      });
+    }
   };
 
   if (!user.isSignIn) {
-    navigation('/');
+    navigation(PATH.MAIN);
   }
 
   return (
@@ -99,20 +133,24 @@ function MyInformation() {
           </InputProfileLabel>
         </InfoSubWrapper>
         <InfoSubWrapper>
+          <ButtonWrapperRight>
+            <ButtonEdit value="수정" handleClick={() => setEdit(!edit)} />
+          </ButtonWrapperRight>
           <ProfileInfo
             name="이름"
             defaultText={user.userInfo.nickname}
             value={nickname}
             width="100%"
             onChange={setNickname}
+            edit={edit}
           />
-          <br />
           <ProfileInfo
             name="이메일"
             defaultText={user.userInfo.email}
             value={email}
             width="100%"
             onChange={setEmail}
+            edit={edit}
           />
           <ProfileTextInfo
             name="소개"
@@ -120,13 +158,17 @@ function MyInformation() {
             value={introduce}
             width="100%"
             onChange={setIntroduce}
+            edit={edit}
           />
+          <div style={{ marginTop: '24px' }} />
           <ButtonWrapperRight>
-            <ButtonOrange
-              value="정보 변경"
-              type="submit"
-              handleClick={handleSubmit}
-            />
+            {edit && (
+              <ButtonOrange
+                value="정보 변경"
+                type="submit"
+                handleClick={handleSubmit}
+              />
+            )}
           </ButtonWrapperRight>
         </InfoSubWrapper>
       </InfoWrapper>

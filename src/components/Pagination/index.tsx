@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Arrow from '../../assets/icons/Arrow_777777.png';
 import Arrows from '../../assets/icons/Arrows_777777.png';

@@ -28,6 +28,8 @@ export interface HallImageData {
   imageTitle: string;
   imageDescription: string;
   imageUrl: string;
+  width: string;
+  height: string;
 }
 
 export type HallImages = Array<HallImageData>;

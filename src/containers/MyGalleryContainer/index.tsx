@@ -15,8 +15,6 @@ import Pagination from '../../components/Pagination';
 import makePageCount from '../../utils/makePageCount';
 import GalleryTab from '../../components/GalleryTab';
 
-const { ButtonNeumo } = Buttons;
-
 function MyGallery() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();

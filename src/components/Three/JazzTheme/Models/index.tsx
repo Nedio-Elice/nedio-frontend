@@ -1,6 +1,5 @@
 import Chandelier from '../Chandelier';
 import Lamp from '../Lamp';
-import Sound from '../Sound';
 import Piano from '../Piano';
 
 function Models() {
