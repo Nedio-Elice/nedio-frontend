@@ -77,9 +77,12 @@ export const GalleryInfo = styled.div`
 export const GalleryTitle = styled.h1`
   font-family: 'Pretendard-Regular';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 48px;
   font-size: 36px;
+  background: linear-gradient(to bottom, #5a5e64 0%, #1f1f1f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 export const GalleryPeriod = styled.p`
@@ -89,18 +92,28 @@ export const GalleryPeriod = styled.p`
   font-weight: 300;
   font-size: 16px;
   line-height: 19px;
-  color: #a8a8a8;
+  color: transparent;
+  background: linear-gradient(to bottom, #8a8e96 0%, #636363 100%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;
 
 export const GalleryDescription = styled.p`
-  margin: 48px 0;
+  margin: 24px 0;
   min-height: 115px;
   font-family: 'Pretendard-Regular';
   font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   font-size: 16px;
   line-height: 24px;
   white-space: pre-wrap;
+  color: transparent;
+  background: #777777;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
 `;
 
 export const AuthorProfile = styled.div`

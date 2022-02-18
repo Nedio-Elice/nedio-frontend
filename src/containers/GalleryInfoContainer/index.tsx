@@ -48,7 +48,7 @@ function GalleryInformation({ gallery, galleryId, user }: Props) {
             title: '',
             message: MESSAGE.GALLERY_DELETE_SUCCESS,
           });
-          navigation(PATH.MAIN);
+          navigation(PATH.MAIN, { replace: true });
         }
       } catch (e) {
         toast({
@@ -66,7 +66,11 @@ function GalleryInformation({ gallery, galleryId, user }: Props) {
       <GalleryInfo>
         {gallery.authorId === user._id ? (
           <EditButtons>
-            <ButtonEdit value="수정" handleClick={() => handleEditClick()} />
+            <ButtonEdit
+              value="수정"
+              handleClick={() => handleEditClick()}
+              edit={false}
+            />
             <ButtonDelete
               value="삭제"
               handleClick={() => handleDeleteClick()}
