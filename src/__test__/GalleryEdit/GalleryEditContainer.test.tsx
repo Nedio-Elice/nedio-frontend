@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { MOCK_STATE } from '../../constants/state';
 
-import GalleryEditContainer from './index';
+import GalleryEditContainer from '../../containers/GalleryEditContainer';
 
 import { RootState } from '../../store/root';
 

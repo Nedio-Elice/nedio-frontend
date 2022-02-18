@@ -3,6 +3,7 @@ import { memo } from 'react';
 import styled from 'styled-components';
 import {
   leftSideSiverButton,
+  posterShadow,
   rightSideOrangeButton,
 } from '../../styles/mixins';
 
@@ -50,10 +51,12 @@ const Container = styled.div<ContainerStyles>`
 
     &:first-child {
       ${leftSideSiverButton}
+      ${posterShadow}
     }
 
     &:last-child {
       ${rightSideOrangeButton}
+      ${posterShadow}
     }
   }
 

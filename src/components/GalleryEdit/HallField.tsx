@@ -2,11 +2,13 @@ import { memo, useRef } from 'react';
 
 import styled from 'styled-components';
 import {
+  gradientSilver,
   greyButton,
   hoverOrange,
   inputArea,
   inputPadding,
   placeholders,
+  posterShadow,
 } from '../../styles/mixins';
 
 import { HallFieldProps } from '../../types/GalleryEdit';
@@ -101,7 +103,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-top: 2em;
+  padding: 1.5em 1em;
+  border-radius: 1em;
   width: 100%;
+
+  ${gradientSilver}
+  ${posterShadow}
 
   & > input {
     border: none;
@@ -162,6 +169,7 @@ const PieceButtons = styled.div`
       margin: 0.5em 0;
       align-items: center;
       justify-content: center;
+      ${posterShadow}
     }
   }
 `;

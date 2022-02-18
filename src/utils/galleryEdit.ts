@@ -24,14 +24,22 @@ export const isEmptyHalls = (halls: HallInfo[]) => {
   });
 };
 
-export const isValidDate = (startDate: string, endDate: string) => {
+export const isValidDate = (
+  startDate: string,
+  endDate: string,
+  mode: string,
+) => {
   const now = new Date();
   const start = new Date(startDate);
   const end = new Date(endDate);
 
   if (end.getTime() < start.getTime()) return false;
 
-  if (start.getTime() < now.getTime() && start.getDate() !== now.getDate())
+  if (
+    mode === 'create' &&
+    start.getTime() < now.getTime() &&
+    start.getDate() !== now.getDate()
+  )
     return false;
 
   return true;

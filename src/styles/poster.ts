@@ -17,6 +17,7 @@ const Poster = styled.div<PosterStyles>`
   min-width: 230px;
   background-size: 100% 100%;
   transition: all 1s ease;
+
   ${posterShadow}
   cursor: pointer;
 

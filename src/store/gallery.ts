@@ -192,7 +192,7 @@ export function updateGallery({ navigate, galleryId }: UpdateGallery) {
       return;
     }
 
-    if (!isValidDate(startDate, endDate)) {
+    if (!isValidDate(startDate, endDate, mode)) {
       dispatch(setNotification(MESSAGE.INVALID_DATE));
       return;
     }

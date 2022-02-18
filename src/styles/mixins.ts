@@ -57,6 +57,24 @@ export const posterShadow = css`
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
+export const gradientSilver = css`
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fdfdfd,
+    #fafafb,
+    #f8f8f9,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f5f6f7,
+    #f8f8f9,
+    #fafafb,
+    #fdfdfd,
+    #ffffff
+  );
+`;
+
 export const leftSideSiverButton = css`
   background-image: linear-gradient(
     to right,
@@ -124,5 +142,5 @@ export const greyButton = css`
   background-color: rgba(242, 243, 245, 0.79);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px,
     rgba(0, 0, 0, 0.1) 0px 2px 3px -1px, rgba(0, 0, 0, 0.1) 0px -1px 0px inset;
-  color: #e1e1e1;
+  color: rgba(156, 156, 156, 0.8);
 `;

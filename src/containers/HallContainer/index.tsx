@@ -25,6 +25,8 @@ function HallContainer() {
     control?.unlock && control?.unlock();
   };
 
+  console.log(selectedItem);
+
   useLayoutEffect(() => {
     // // TODO: hall 데이터 요청
     (async () => {
@@ -45,12 +47,33 @@ function HallContainer() {
         <MouseIcon />
         <Hall pickItem={handlePictureClick} hall={hall} />
 
-        <Modal ref={modalRef} width={400} height={480} isHall>
+        <Modal
+          ref={modalRef}
+          width={
+            selectedItem?.width &&
+            selectedItem.height &&
+            selectedItem.width > selectedItem.height
+              ? 960
+              : 830
+          }
+          height={460}
+          isHall
+        >
           {selectedItem && (
-            <>
-              <TempImg src={selectedItem.imageUrl} />
-              <div>{selectedItem.imageDescription}</div>
-            </>
+            <ModalWrapper>
+              <TextField>
+                <Title>{selectedItem.imageTitle}</Title>
+                <Description>{selectedItem.imageDescription}</Description>
+              </TextField>
+              <Img
+                src={selectedItem.imageUrl}
+                horizontal={
+                  selectedItem.width &&
+                  selectedItem.height &&
+                  selectedItem.width > selectedItem.height
+                }
+              />
+            </ModalWrapper>
           )}
         </Modal>
       </Container>
@@ -66,8 +89,38 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const TempImg = styled.img`
+const ModalWrapper = styled.div`
+  display: flex;
+  background-color: white;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+`;
+
+const Img = styled.img<{ horizontal: boolean }>`
+  width: ${(props) => (props.horizontal ? '60%' : '40%')};
+  height: 100%;
+  margin-left: auto;
+`;
+
+const TextField = styled.div`
+  width: fit-content;
+  border-radius: none;
+  margin-top: 4em;
+  padding: 2em;
+`;
+
+const Title = styled.h1`
+  font-size: 2em;
+  font-weight: 300;
+  margin-bottom: 2em;
+`;
+
+const Description = styled.p`
+  height: 280px;
+  text-align: left;
+  line-height: 1.2em;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
