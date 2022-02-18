@@ -133,7 +133,11 @@ export const deleteGallery = createAsyncThunk(
 const myGallerySlice = createSlice({
   name: SLICE.MYGALLERY,
   initialState,
-  reducers: {},
+  reducers: {
+    emptyState(state) {
+      return { ...state, list: [], length: 0 };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getGalRunning.fulfilled, (state, { payload }) => {
       return { list: payload.list, length: payload.length };
@@ -148,15 +152,15 @@ const myGallerySlice = createSlice({
     });
     builder.addCase(getGalClosed.rejected, (state, action) => {});
     builder.addCase(deleteGallery.fulfilled, (state, { payload }) => {
-      return { ...state, ...payload };
+      return { ...state, list: [], length: 0, ...payload };
     });
     builder.addCase(deleteGallery.rejected, (state, { payload }) => {
-      return { ...state, payload };
+      return { ...state, list: [], length: 0, payload };
     });
   },
 });
 
-// TODO: action 통일 및 createAsyncThunk 공부
+export const { emptyState } = myGallerySlice.actions;
 
 const myGalleryReducer = myGallerySlice.reducer;
 

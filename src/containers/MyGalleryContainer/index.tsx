@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/root';
 import { CardWrapper, GalleryWrapper, NoGalleryTag } from '../../styles/myPage';
 import {
+  emptyState,
   getGalClosed,
   getGalComing,
   getGalRunning,
@@ -17,6 +18,7 @@ import GalleryTab from '../../components/GalleryTab';
 function MyGallery() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const location = useLocation();
   const myGalleries = useAppSelector((state: RootState) => state.myGallery);
   const [currPage, setCurrPage] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(0);
@@ -25,6 +27,10 @@ function MyGallery() {
   useEffect(() => {
     setPageCount(myGalleries.length);
   }, [myGalleries.length, currPage]);
+
+  useEffect(() => {
+    dispatch(emptyState());
+  }, [dispatch, location]);
 
   useEffect(() => {
     switch (galleryState) {
