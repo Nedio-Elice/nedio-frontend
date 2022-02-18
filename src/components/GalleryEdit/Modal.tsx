@@ -79,8 +79,6 @@ function Modal({
       };
 
       setInputValues(updated);
-
-      console.log(inputValues);
     },
     [inputValues],
   );
@@ -204,7 +202,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   ${flexCenter}
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   min-height: fit-content;
   background: rgba(77, 77, 77, 0.5);
@@ -237,7 +235,7 @@ const Header = styled.div`
   padding: 0 1em;
   width: 100%;
   height: 2.5em;
-  ${gradientBlue}
+  background-color: #f3643f;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 0.5px 5px -1px;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 600;

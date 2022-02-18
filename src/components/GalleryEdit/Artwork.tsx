@@ -52,8 +52,7 @@ function Artwork({
 
             img.src = imageUrl;
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(() => {
             onChangeNotification(MESSAGE.UPDATE_FAILED);
           });
       })();

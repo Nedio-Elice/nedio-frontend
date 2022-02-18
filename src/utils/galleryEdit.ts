@@ -3,7 +3,11 @@ import { HallInfo, ImageInfo } from '../types/GalleryEdit';
 import { isOpen } from './date';
 
 export const updateArrayByIndex = (array: any, index: number, obj: any) => {
-  return [...array.slice(0, index), obj, ...array.slice(index + 1)];
+  return [
+    ...array.slice(0, index),
+    { ...array[index], ...obj },
+    ...array.slice(index + 1),
+  ];
 };
 
 export const isEmpty = (obj: any) => {

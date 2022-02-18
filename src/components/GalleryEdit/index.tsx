@@ -101,7 +101,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 5%;
-  width: 100vw;
+  width: 100%;
   min-width: 365px;
   min-height: 100vh;
   height: fit-content;
