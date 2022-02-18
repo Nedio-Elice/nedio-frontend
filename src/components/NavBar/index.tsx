@@ -37,7 +37,7 @@ function NavBar({ isSignIn, signOut, userId }: Props) {
   }, [pathname, setIsActive]);
 
   return (
-    <NavBarContainer ref={containerRef}>
+    <NavBarContainer ref={containerRef} data-testid="navbar">
       <NavTop>
         <LogoWrapper>
           <MobileLogo src={logo} onClick={handleNavMain} />
