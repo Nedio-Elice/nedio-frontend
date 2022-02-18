@@ -7,7 +7,7 @@ function Walls() {
   return (
     <>
       <Wall
-        wallSize={[100, 75, 100]}
+        wallSize={[85, 75, 85]}
         position={[0, 37.5, 0]}
         rotation={[0, Math.PI / 4, 0]}
         textureImage={whiteWall}
