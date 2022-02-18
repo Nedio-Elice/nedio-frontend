@@ -202,7 +202,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   ${flexCenter}
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   min-height: fit-content;
   background: rgba(77, 77, 77, 0.5);
