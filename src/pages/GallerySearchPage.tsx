@@ -22,13 +22,13 @@ const Container = styled.div`
     #f2f3f5 100%
   );
   user-select: none;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   min-width: 460px;
 `;
 
 const ContentsPadding = styled.article`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 70px 0;

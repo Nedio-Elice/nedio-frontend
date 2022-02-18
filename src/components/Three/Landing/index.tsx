@@ -42,7 +42,7 @@ export default Landing;
 
 const Container = styled.div`
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgba(77, 77, 77, 0.5);
   display: flex;

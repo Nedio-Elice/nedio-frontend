@@ -14,9 +14,8 @@ import {
 import Spotlight from '../Spotlight';
 import { DETECT_FROM_DISTANCE, PICTURE_RATIO } from '../Constants';
 
-function Picture({ position, spotPos, rotation, data, pickItem }: any) {
-  // TODO: ratio 관련 수정
-  const [x, y, z] = PICTURE_RATIO.horizontal;
+function Picture({ position, spotPos, rotation, data, pickItem, ratio }: any) {
+  const [x, y, z] = PICTURE_RATIO[ratio];
   const [ref] = useBox(() => ({
     type: 'Static',
     args: [x + 4, y + 3, z + 2],

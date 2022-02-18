@@ -19,7 +19,7 @@ function MainPage() {
 export default MainPage;
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   min-width: 460px;
   background: linear-gradient(
     180deg,
