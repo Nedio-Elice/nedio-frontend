@@ -46,7 +46,7 @@ export default LandingPage;
 const Container = styled.div`
   color: white;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   background: rgba(33, 33, 33);
   display: flex;
   justify-content: center;
@@ -177,7 +177,7 @@ const Video = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   object-fit: cover;
   animation-duration: 5s;
