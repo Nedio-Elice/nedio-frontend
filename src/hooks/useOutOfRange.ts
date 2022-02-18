@@ -4,10 +4,10 @@ interface ValidRefTarget {
   contains(target: EventTarget | null): any;
 }
 
-const useOutOfRange = (
+function useOutOfRange(
   el: React.RefObject<ValidRefTarget>,
   initState: boolean,
-) => {
+) {
   const [isActive, setIsActive] = useState<boolean>(initState);
 
   useEffect(() => {
@@ -25,6 +25,6 @@ const useOutOfRange = (
   }, [isActive, el]);
 
   return [isActive, setIsActive] as const;
-};
+}
 
 export default useOutOfRange;
