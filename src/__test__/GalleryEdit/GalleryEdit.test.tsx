@@ -1,14 +1,27 @@
 import { render } from '@testing-library/react';
 
-import * as reactRedux from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/root';
 
 import { GalleryInfo, HallInfo } from '../../types/GalleryEdit';
+import { MOCK_STATE } from '../../constants/state';
 
 import GalleryEdit from '../../components/GalleryEdit';
 
+jest.mock('react-redux');
+
 describe('GalleryEdit', () => {
-  const useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
-  const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+  const dispatch = jest.fn();
+
+  beforeEach(() => {
+    dispatch.mockClear();
+
+    (useDispatch as jest.Mock).mockImplementation(() => dispatch);
+
+    (useSelector as jest.Mock).mockImplementation(
+      (selector: (arg: RootState) => void) => selector(MOCK_STATE),
+    );
+  });
 
   const handleClickAddHallButton = jest.fn();
   const handleChangeHallName = jest.fn();
