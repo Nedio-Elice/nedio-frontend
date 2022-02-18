@@ -44,7 +44,7 @@ function HallContainer() {
           width={
             selectedItem?.width &&
             selectedItem.height &&
-            selectedItem.width > selectedItem.height
+            parseInt(selectedItem.width, 10) > parseInt(selectedItem.height, 10)
               ? 960
               : 830
           }
@@ -62,7 +62,8 @@ function HallContainer() {
                 horizontal={
                   selectedItem.width &&
                   selectedItem.height &&
-                  selectedItem.width > selectedItem.height
+                  parseInt(selectedItem.width, 10) >
+                    parseInt(selectedItem.height, 10)
                 }
               />
             </ModalWrapper>
