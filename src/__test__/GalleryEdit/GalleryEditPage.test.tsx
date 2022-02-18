@@ -4,11 +4,11 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { MOCK_STATE } from '../constants/state';
+import { MOCK_STATE } from '../../constants/state';
 
-import GalleryEditPage from './GalleryEditPage';
+import GalleryEditPage from '../../pages/GalleryEditPage';
 
-import { RootState } from '../store/root';
+import { RootState } from '../../store/root';
 
 jest.mock('react-redux');
 

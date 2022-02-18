@@ -4,7 +4,7 @@ import * as reactRedux from 'react-redux';
 
 import { GalleryInfo, HallInfo } from '../../types/GalleryEdit';
 
-import GalleryEdit from './index';
+import GalleryEdit from '../../components/GalleryEdit';
 
 describe('GalleryEdit', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
