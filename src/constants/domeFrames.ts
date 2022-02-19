@@ -5,12 +5,12 @@ const domeFrames = [
     customLight: null,
   },
   {
-    position: [0, 45, 146],
+    position: [0, 40, 146],
     rotation: [0, 0, 0],
     customLight: null,
   },
   {
-    position: [-146, 45, 0],
+    position: [-146, 40, 0],
     rotation: [0, -Math.PI / 2, 0],
     customLight: null,
   },
@@ -20,32 +20,32 @@ const domeFrames = [
     customLight: null,
   },
   {
-    position: [0, 45, -146],
+    position: [0, 40, -146],
     rotation: [0, 0, 0],
     customLight: null,
   },
   {
-    position: [146, 45, 0],
+    position: [146, 40, 0],
     rotation: [0, -Math.PI / 2, 0],
     customLight: null,
   },
   {
-    position: [36, 45, 36],
+    position: [30, 40, 30],
     rotation: [0, Math.PI / 4, 0],
     customLight: [100, 130, 100],
   },
   {
-    position: [36, 45, -36],
+    position: [30, 40, -30],
     rotation: [0, -Math.PI / 4, 0],
     customLight: [100, 130, -100],
   },
   {
-    position: [-36, 45, -36],
+    position: [-30, 40, -30],
     rotation: [0, Math.PI / 4, 0],
     customLight: [-100, 130, -100],
   },
   {
-    position: [-36, 45, 36],
+    position: [-30, 40, 30],
     rotation: [0, -Math.PI / 4, 0],
     customLight: [-100, 130, 100],
   },
