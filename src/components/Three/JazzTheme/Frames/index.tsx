@@ -28,7 +28,7 @@ interface FrameProp {
 }
 
 function Frame({ position, rotation, image, pickItem }: FrameProp) {
-  const DETECT_FROM_DISTANCE = 15;
+  const DETECT_FROM_DISTANCE = 5;
   const url = image.imageUrl;
 
   const { camera } = useThree();
