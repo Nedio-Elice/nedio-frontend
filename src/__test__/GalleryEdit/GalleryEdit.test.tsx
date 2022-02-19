@@ -143,14 +143,5 @@ describe('GalleryEdit', () => {
       name: 'description',
       value: 'description test',
     });
-
-    fireEvent.change(getByLabelText('설명'), {
-      target: { value: 'description test' },
-    });
-
-    expect(handleChangeGalleryInputField).toBeCalledWith({
-      name: 'description',
-      value: 'description test',
-    });
   });
 });
