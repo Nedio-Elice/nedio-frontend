@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  keyboard,
-  position,
-  question,
-  SearchIcon,
-} from '../../../constants/icons';
+import { keyboard, position, question } from '../../../constants/icons';
 import usePointerLock from '../../../hooks/usePointerLock';
 
 function Landing() {
@@ -33,7 +28,6 @@ function Landing() {
       <Title>클릭하여 시작하세요</Title>
       <Content>
         작품에 가까이 다가가 클릭시 자세한 정보를 확인할 수 있습니다
-        <SearchIcon />
       </Content>
       <Helper>
         <KeyboardIcon src={keyboard} />
@@ -75,13 +69,6 @@ const Content = styled.p`
   margin: 0 5px;
   display: flex;
   align-items: center;
-
-  > svg {
-    margin-left: 5px;
-  }
-  > svg path {
-    fill: white;
-  }
 `;
 
 const KeyboardIcon = styled.img`
