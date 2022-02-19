@@ -1,9 +1,10 @@
-<p align="center" >
+<br />
+<div align="center" >
   <img width="200px;" src="https://user-images.githubusercontent.com/53927959/154784523-4271ef55-d0f1-4b1c-9cd6-f38d9ca75904.png"/>
-</p>
-<h1 align="center">Nedio (Net + Studio)</h1>
+</div>
+<br />
 
-## 프로젝트 소개 📝
+## Nedio 소개 📝
 
 `아마추어 사진 작가들을 위한 온라인 3D 전시회 서비스`
 
@@ -37,7 +38,31 @@
 
 <br/>
 
-## 프로젝트 기술스택 🔨
+## 프로젝트 구조 💻  
+```
+📦src
+ ┣ 📂__mock__
+ ┣ 📂__test__
+ ┣ 📂api
+ ┣ 📂assets
+ ┣ 📂components
+ ┃ ┣ 📂Three
+ ┣ 📂constants
+ ┣ 📂containers
+ ┣ 📂hooks
+ ┣ 📂pages
+ ┣ 📂store
+ ┣ 📂styles
+ ┣ 📂types
+ ┣ 📂utils
+ ┣ 📜App.tsx
+ ┣ 📜index.tsx
+ ┗ 📜setupTests.ts
+```
+
+<br/>
+
+## 프로젝트 기술스택  🔨
 
 <img src="https://user-images.githubusercontent.com/53927959/154787933-9ba55ba4-2c86-46dd-b019-550966116fc8.png" width=500px alt="기술스택"/>
 
