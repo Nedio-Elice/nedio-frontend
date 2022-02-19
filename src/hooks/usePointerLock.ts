@@ -10,6 +10,7 @@ function usePointerLock() {
 
     document.addEventListener('pointerlockchange', onPointerlockchange);
     return () => {
+      setIsPointerLock(false);
       document.addEventListener('pointerlockchange', onPointerlockchange);
     };
   }, []);
