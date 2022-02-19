@@ -22,7 +22,20 @@
 
 <br/>
 
-## 페이지 별 화면 📑
+##  주요 기능 📌
+Nedio에서는...
+
+- 프로가 아니여도 누구나 특별한 나만의 전시관을 열 수 있습니다.
+
+- 다양한 사람들의 전시회를 테마별로 관람할 수 있습니다.
+
+- 캐릭터를 움직여 자유롭게 3D 전시관을 관람할 수 있습니다.
+
+- 전시회에 대한 방명록을 남길 수 있습니다.
+
+<br/>
+
+### 페이지 별 화면 📑
 
 | ![image](https://user-images.githubusercontent.com/53927959/154785727-afa3cc68-c3a3-4fac-ac78-b87d8bdaca90.gif) | ![image](https://user-images.githubusercontent.com/53927959/154786583-c2c219da-cddd-4af4-b50a-ba33b6444c5d.png) |
 | :-------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: |
@@ -32,11 +45,26 @@
 | ![image](https://user-images.githubusercontent.com/53927959/154786898-28a6f068-a7ee-4cc1-8a26-d5afc4ee9b68.png) | ![image](https://user-images.githubusercontent.com/53927959/154786873-d7323d89-2a4a-435c-ad28-7905e4b269b2.png) |
 |                                   갤러리 생성 페이지 (갤러리 수정 페이지 동일)                                   |                                                  마이 갤러리 페이지                                                  |
 | ![image](https://user-images.githubusercontent.com/53927959/154786922-4829f05d-1767-46f2-af26-97eab91cca3f.png) | ![image](https://user-images.githubusercontent.com/53927959/154787681-5c2476f5-9900-4bce-bbfe-3579440fe97a.png) |
-|                                                  로그인 페이지                                                  |                                                   홀 페이지(Jazz Theme)                                                  
+|                                                  로그인 페이지                                                  |                                                   전시관 페이지(Jazz Theme)                                                  
 | ![image](https://user-images.githubusercontent.com/53927959/154787740-afb30cfd-27b8-4558-a5d8-7f4c9414c7b1.png) | ![image](https://user-images.githubusercontent.com/53927959/154787794-14bd1f63-6c9a-498f-9243-f3f230d8ec03.png) |
-|                                                  홀 페이지(Modern Theme)                                                  |                                                   홀 페이지(Dome Theme)                                                  |
+|                                                  전시관 페이지(Modern Theme)                                                  |                                                   전시관 페이지(Dome Theme)                                                  |
 
 <br/>
+
+
+
+
+## 부가기능  📌
+<details>
+      <summary>자세히 보기</summary>
+
+| ![image](https://user-images.githubusercontent.com/53927959/154791664-f146e4fe-5d00-4cce-ad98-a2e1f7f01238.gif) | ![image](https://user-images.githubusercontent.com/53927959/154791712-3bf27ec8-f9b4-46a2-952f-3ef942929961.png) |
+| :-------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: |
+|                                     토스트 메시지                                    |                                                   검색결과 없음                                                   |                                               
+</details>
+
+<br/>
+
 
 ## 프로젝트 구조 💻  
 ```
@@ -104,5 +132,8 @@
 - [디자인](https://www.figma.com/file/xinKMFuBASubklsb2phl0g/Nedio---%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C?node-id=0%3A1)
 
 <br />
+
+## Api 문서 📜
+- [Postman](https://documenter.getpostman.com/view/18610955/UVkjvdDh)
 
 
