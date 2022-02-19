@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from 'three';
 import { useLoader, useThree } from '@react-three/fiber';
 import { Box } from '@react-three/drei';

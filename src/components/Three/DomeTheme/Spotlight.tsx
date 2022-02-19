@@ -1,7 +1,6 @@
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import * as THREE from 'three';
-// import { useHelper } from '@react-three/drei';
 
 function Spotlight({
   position,
@@ -12,15 +11,12 @@ function Spotlight({
   sBias,
   angle,
   decay,
-}: any) {
-  // const spotLight = useRef();
-  // useHelper(spotLight, THREE.SpotLightHelper, 'teal');
-
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any) {
   const light = useMemo(() => new THREE.SpotLight(0xffffff), []);
   return (
     <>
       <primitive
-        // ref={spotLight}
         object={light}
         castShadow
         position={position}

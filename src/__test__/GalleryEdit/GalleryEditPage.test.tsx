@@ -34,8 +34,6 @@ describe('GalleryEditPage', () => {
   }
 
   it('renders buttons for this page', () => {
-    // mockState(GALLERY_STATE);
-
     const { container } = renderGalleryEditPage();
 
     expect(container).toHaveTextContent('전시관 추가');

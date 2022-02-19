@@ -20,7 +20,9 @@ function CarouselContainer() {
           setCards(items);
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        // console.log(e);
+      });
   }, []);
 
   return <Carousel cardInfo={cards} />;

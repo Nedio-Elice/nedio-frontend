@@ -191,10 +191,12 @@ const Label = styled.label`
   box-shadow: inset 2px 2px 0px #ffffff;
   filter: drop-shadow(2px 8px 24px rgba(0, 0, 0, 0.12));
   border-radius: 4px;
+  cursor: pointer;
 
   &:hover {
     height: 40px;
     border: 2px solid #f3643f;
+    box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     padding: 0px 10px;

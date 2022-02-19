@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
@@ -29,7 +30,10 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.message === 'Network Error') return console.log('NETWORK ERROR');
+    if (error.message === 'Network Error') {
+      // console.log('NETWORK ERROR')
+      return;
+    }
 
     const {
       config,
@@ -44,9 +48,6 @@ axiosInstance.interceptors.response.use(
         error.response.data.message ===
         '만료나 유효하지 않는 토큰 처리할 때(의견나눠야함)'
       ) {
-        // token setting
-        // axiosInstance.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-        // originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return axiosInstance(originalRequest);
       }
     }
