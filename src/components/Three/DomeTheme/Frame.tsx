@@ -56,7 +56,7 @@ function Frame({
       const raycaster = new Raycaster(camera.position, cameraDir);
       const intersects = raycaster.intersectObject(obj);
 
-      if (intersects.length > 0 && intersects[0].distance < 30) {
+      if (intersects.length > 0 && intersects[0].distance < 60) {
         pickItem({
           imageTitle,
           imageDescription,
