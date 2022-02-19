@@ -21,8 +21,8 @@ function Celling() {
 
   color.wrapS = THREE.RepeatWrapping;
   color.wrapT = THREE.RepeatWrapping;
-  color.repeat.x = 2;
-  color.repeat.y = 2;
+  color.repeat.x = 1;
+  color.repeat.y = 1;
 
   return (
     <mesh ref={ref} receiveShadow>
