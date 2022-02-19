@@ -10,7 +10,7 @@ const setState = <T>(key: string, value: T): void => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (err) {
-    console.error(err);
+    // console.error(err);
   }
 };
 

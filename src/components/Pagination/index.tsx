@@ -1,9 +1,7 @@
 import styled, { css } from 'styled-components';
 import Arrow from '../../assets/icons/Arrow_777777.png';
-import Arrows from '../../assets/icons/Arrows_777777.png';
 
 function getPageNumbers(currPage: number, pageCount: number) {
-  // 페이지네이션 숫자 버튼 목록을 리턴하는 함수를 작성하세요.
   const resultPages = [];
   resultPages.push(currPage);
 
@@ -73,7 +71,6 @@ const ArrowImg = styled.img<{ flip: boolean }>`
 `;
 
 const NumberButton = styled.button<{ active: boolean }>`
-  type: button;
   margin: 0 4px;
   padding: 0;
   width: 20px;

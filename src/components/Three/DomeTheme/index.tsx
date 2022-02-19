@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sky } from '@react-three/drei';
 import Scene from '../Scene';
 import Roof from './Roof';

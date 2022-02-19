@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 import { Provider, ReactReduxContext } from 'react-redux';
-import { Debug, Physics } from '@react-three/cannon';
-import { OrbitControls } from '@react-three/drei';
+import { Physics } from '@react-three/cannon';
+// import { Debug } from '@react-three/cannon';
+// import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 import DomeTheme from '../DomeTheme';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Frame from './Frame';
 
 import { HallInfo, ImageInfo } from '../../../types/GalleryEdit';

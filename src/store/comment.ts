@@ -99,8 +99,6 @@ const commentSlice = createSlice({
   },
 });
 
-// TODO: action 통일 및 createAsyncThunk 공부
-
 const commentReducer = commentSlice.reducer;
 
 export default commentReducer;

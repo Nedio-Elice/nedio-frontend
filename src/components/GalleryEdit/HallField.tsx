@@ -44,7 +44,6 @@ function HallField({
   };
 
   const handleClickPreview = () => {
-    // TODO: 미리보기 기능 추가
     if (!theme) {
       onChangeNotification(MESSAGE.NO_THEME);
       return;

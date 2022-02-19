@@ -1,8 +1,6 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import axiosInstance from '../api/api';
-import { MESSAGE } from '../constants/messages';
 import { SLICE } from '../constants/slice';
-import useToast from '../hooks/useToast';
 import { removeToken, setToken } from '../utils/auth';
 
 export interface MyInfo {
@@ -38,7 +36,7 @@ const { actions, reducer } = createSlice({
         },
       };
     },
-    resetUser(state) {
+    resetUser() {
       return {
         ...initialState,
       };
@@ -65,7 +63,7 @@ export function signInUser(userData: MyInfo) {
 export function updateUser(userData: MyInfo) {
   return async (dispatch: Dispatch) => {
     try {
-      const result = await axiosInstance.put(`/users/${userData._id}`, {
+      await axiosInstance.put(`/users/${userData._id}`, {
         introduce: userData.introduce,
         contact: userData.contact,
         profileURL: userData.profileURL,
@@ -84,7 +82,6 @@ export function updateUser(userData: MyInfo) {
 export function signOutUser() {
   return async (dispatch: Dispatch) => {
     dispatch(resetUser());
-    // http only 시 삭제
     document.cookie = `${'token'}=; expires=Thu, 01 Jan 1999 00:00:00 GMT;`;
     removeToken();
     axiosInstance.defaults.headers.common.Authorization = ``;
@@ -101,7 +98,7 @@ export function signInUserByToken(token: string) {
 
       dispatch(setUser(result.data));
     } catch (e) {
-      // 만료또는 유효하지 않는 토큰일경우,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       dispatch(signOutUser() as any);
     }
   };

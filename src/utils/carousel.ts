@@ -2,7 +2,6 @@ import { CardData } from '../types/Card';
 import { CAROUSEL } from '../constants/carousel';
 
 export function paddingToItem(items: Array<CardData>, paddingLength: number) {
-  // shallow copy
   if (items.length < 1) items.push(CAROUSEL.INIT_DATA);
   const paddedItems: Array<CardData> = [...items];
 
