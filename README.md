@@ -1,7 +1,7 @@
-<p align="middle" >
+<p align="center" >
   <img width="200px;" src="https://user-images.githubusercontent.com/53927959/154784523-4271ef55-d0f1-4b1c-9cd6-f38d9ca75904.png"/>
 </p>
-<h1 align="middle">Nedio (Net + Studio)</h1>
+<h1 align="center">Nedio (Net + Studio)</h1>
 
 ## 프로젝트 소개 📝
 
@@ -74,9 +74,9 @@
 
 프로젝트와 관련된 상세한 내용은 [**Nedio**](https://gleaming-conifer-b0e.notion.site/Nedio-52f94e6dc4c7457abc89892508161e55)에 기록되어 있습니다.
 
-- [프로토타입]()
+- [와이어프레임](https://kdt-gitlab.elice.io/sw_track/class_01/project_2/team2/nedio-frontend/-/blob/jiseong/archive/wireframe/Nedio.pdf)
 
-- [디자인]()
+- [디자인](https://www.figma.com/file/xinKMFuBASubklsb2phl0g/Nedio---%EC%8A%A4%ED%86%A0%EB%A6%AC%EB%B3%B4%EB%93%9C?node-id=0%3A1)
 
 <br />
 
