@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
+import { ReactComponent as ReturnArrow } from '../../assets/icons/return.svg';
 import { ReactComponent as TrashCan } from '../../assets/icons/trashcan.svg';
 
 interface ButtonProps {
@@ -7,6 +8,12 @@ interface ButtonProps {
   value: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   handleClick?: any;
+}
+
+interface EditButtonProps {
+  value: string;
+  handleClick?: any;
+  edit: any;
 }
 
 interface TabButtonProps {
@@ -60,10 +67,14 @@ function ButtonNeumo({
   );
 }
 
-function ButtonEdit({ className, value, type, handleClick }: ButtonProps) {
+function ButtonEdit({ value, handleClick, edit }: EditButtonProps) {
   return (
-    <ButtonCog onClick={handleClick} type={type}>
-      <Cog width="24" height="24" opacity="0.4" />
+    <ButtonCog onClick={handleClick}>
+      {edit === false ? (
+        <Cog width="24" height="24" opacity="0.4" />
+      ) : (
+        <ReturnArrow width="24" height="24" opacity="0.4" />
+      )}
     </ButtonCog>
   );
 }
@@ -97,8 +108,6 @@ ButtonNeumo.defaultProps = {
   handleClick: () => {},
 };
 ButtonEdit.defaultProps = {
-  className: '',
-  type: 'button',
   handleClick: () => {},
 };
 ButtonDelete.defaultProps = {
@@ -164,6 +173,13 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
 
   @media (max-width: 1100px) {
     display: block;
+  }
+
+  @media (max-width: 750px) {
+    font-size: 1rem;
+    height: 40px;
+    min-width: fit-content;
+    padding: 0 16px;
   }
 
   ${(props) =>

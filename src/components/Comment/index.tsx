@@ -140,9 +140,10 @@ const CommentImg = styled.img`
 const CommentUsername = styled.p`
   line-height: 18px;
   font-family: Pretendard-Regular;
-  font-style: medium;
+  font-weight: 600;
   font-size: 14px;
   margin-bottom: 8px;
+  color: #555555;
 `;
 
 const CommentText = styled.p`
@@ -152,6 +153,7 @@ const CommentText = styled.p`
   font-style: normal;
   font-size: 14px;
   word-break: break-word;
+  color: #555555;
 `;
 
 const UpdateWrapper = styled.p`

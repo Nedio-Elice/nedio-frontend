@@ -31,17 +31,19 @@ interface GalleryState {
 const initialState = {} as GalleryState;
 
 function FilterGalRunning(data: Array<Gallery>) {
+  const day = 60 * 60 * 24 * 1000;
   return data.filter(
     (g: Gallery) =>
       Date.parse(g.startDate) < Date.now() &&
-      Date.parse(g.endDate) > Date.now(),
+      Date.parse(g.endDate) + day > Date.now(),
   );
 }
 function FilterGalComing(data: Array<Gallery>) {
   return data.filter((g: Gallery) => Date.parse(g.startDate) > Date.now());
 }
 function FilterGalClosed(data: Array<Gallery>) {
-  return data.filter((g: Gallery) => Date.parse(g.endDate) < Date.now());
+  const day = 60 * 60 * 24 * 1000;
+  return data.filter((g: Gallery) => Date.parse(g.endDate) + day < Date.now());
 }
 
 function TrimGalleries(data: Array<Gallery>, currPage: number) {
@@ -131,7 +133,11 @@ export const deleteGallery = createAsyncThunk(
 const myGallerySlice = createSlice({
   name: SLICE.MYGALLERY,
   initialState,
-  reducers: {},
+  reducers: {
+    emptyState(state) {
+      return { ...state, list: [], length: 0 };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getGalRunning.fulfilled, (state, { payload }) => {
       return { list: payload.list, length: payload.length };
@@ -146,15 +152,15 @@ const myGallerySlice = createSlice({
     });
     builder.addCase(getGalClosed.rejected, (state, action) => {});
     builder.addCase(deleteGallery.fulfilled, (state, { payload }) => {
-      return { ...state, ...payload };
+      return { ...state, list: [], length: 0, ...payload };
     });
     builder.addCase(deleteGallery.rejected, (state, { payload }) => {
-      return { ...state, payload };
+      return { ...state, list: [], length: 0, payload };
     });
   },
 });
 
-// TODO: action 통일 및 createAsyncThunk 공부
+export const { emptyState } = myGallerySlice.actions;
 
 const myGalleryReducer = myGallerySlice.reducer;
 

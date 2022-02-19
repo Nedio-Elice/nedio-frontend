@@ -177,6 +177,7 @@ const Label = styled.label`
   border: none;
   height: 40px;
   width: 120px;
+  min-width: fit-content;
   margin: 0 auto;
   line-height: 40px;
   padding: 2px 12px;

@@ -77,9 +77,12 @@ export const GalleryInfo = styled.div`
 export const GalleryTitle = styled.h1`
   font-family: 'Pretendard-Regular';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 48px;
   font-size: 36px;
+  background: linear-gradient(to bottom, #5a5e64 0%, #1f1f1f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 export const GalleryPeriod = styled.p`
@@ -89,18 +92,28 @@ export const GalleryPeriod = styled.p`
   font-weight: 300;
   font-size: 16px;
   line-height: 19px;
-  color: #a8a8a8;
+  color: transparent;
+  background: #999999;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;
 
 export const GalleryDescription = styled.p`
-  margin: 48px 0;
+  margin: 24px 0;
   min-height: 115px;
   font-family: 'Pretendard-Regular';
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   white-space: pre-wrap;
+  color: transparent;
+  background: #666666;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
 `;
 
 export const AuthorProfile = styled.div`
@@ -140,7 +153,7 @@ export const AuthorName = styled.h2`
   text-align: right;
   margin-bottom: 8px;
   color: transparent;
-  background: #aaaaaa;
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
@@ -155,7 +168,7 @@ export const AuthorEmail = styled.p`
   line-height: 19px;
   text-align: right;
   color: transparent;
-  background: #aaaaaa;
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
@@ -223,7 +236,7 @@ export const CommentTitle = styled.p`
   font-weight: 700;
   letter-spacing: 2px;
  color: transparent;
-background: #CCCCCC;
+background: #999999;
 -webkit-background-clip: text;
 -moz-background-clip: text;
 background-clip: text;
@@ -242,7 +255,7 @@ export const NoCommentTag = styled.div`
   font-family: 'Pretendard-Regular';
   font-size: 20px;
   color: transparent;
-  background: #bbbbbb;
+  background: #999999;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
