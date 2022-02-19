@@ -3,19 +3,18 @@ import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import {
   flexCenter,
-  gradientBlue,
   gradientSilver,
   greyButton,
   hoverOrange,
 } from '../../styles/mixins';
 
 import { capitalizeString, isEmpty } from '../../utils/galleryEdit';
+import { MESSAGE } from '../../constants/messages';
 import {
   ChangeValueWithName,
   ImageInfo,
   ModalProps,
 } from '../../types/GalleryEdit';
-import { MESSAGE } from '../../constants/messages';
 
 import Description from './Description';
 import Title from './Title';

@@ -1,12 +1,7 @@
 import { memo } from 'react';
 
 import styled from 'styled-components';
-import {
-  inputArea,
-  inputPadding,
-  placeholders,
-  transparentLabel,
-} from '../../styles/mixins';
+import { inputArea, placeholders, transparentLabel } from '../../styles/mixins';
 
 import { InputProps } from '../../types/GalleryEdit';
 

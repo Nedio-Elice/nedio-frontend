@@ -39,6 +39,9 @@ export default memo(Themes);
 const Container = styled.div`
   display: flex;
   align-items: center;
+  label {
+    display: none;
+  }
   select {
     ${inputArea}
     width: auto;
