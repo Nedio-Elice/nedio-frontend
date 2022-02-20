@@ -33,9 +33,13 @@ describe('GalleryEditPage', () => {
     );
   }
 
-  it('renders buttons for this page', () => {
+  it('renders interfaces', () => {
     const { container } = renderGalleryEditPage();
 
+    expect(container).toHaveTextContent('제목');
+    expect(container).toHaveTextContent('분류');
+    expect(container).toHaveTextContent('기간');
+    expect(container).toHaveTextContent('설명');
     expect(container).toHaveTextContent('전시관 추가');
     expect(container).toHaveTextContent('갤러리 생성');
   });

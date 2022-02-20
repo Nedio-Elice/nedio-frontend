@@ -62,7 +62,7 @@ function HallField({
           onChange={handleChangeName}
         />
         <Themes
-          label=""
+          label="theme"
           theme={theme}
           hallIndex={hallIndex}
           onChangeHallTheme={onChangeHallTheme}
@@ -81,6 +81,7 @@ function HallField({
             halls={halls}
             pieceIndex={index}
             hallIndex={hallIndex}
+            data-testid="piece-button"
             openModal={openModal}
           />
         ))}

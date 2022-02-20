@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/root';
 
 import { GalleryInfo, HallInfo } from '../../types/GalleryEdit';
-import { MOCK_STATE } from '../../constants/state';
+import { MOCK_HALLS, MOCK_STATE } from '../../constants/state';
 
 import GalleryEdit from '../../components/GalleryEdit';
 
@@ -42,24 +42,9 @@ describe('GalleryEdit', () => {
     posterUrl: '',
   };
 
-  const initialHalls = [
-    {
-      id: '1',
-      hallName: '',
-      hallTheme: '',
-      imagesData: [],
-    },
-    {
-      id: '2',
-      hallName: '',
-      hallTheme: '',
-      imagesData: [],
-    },
-  ];
-
   function renderGalleryEdit(
     gallery: GalleryInfo = initialGallery,
-    halls: HallInfo[] = initialHalls,
+    halls: HallInfo[] = MOCK_HALLS,
   ) {
     return render(
       <GalleryEdit
@@ -115,7 +100,7 @@ describe('GalleryEdit', () => {
   });
 
   it('listens change events', () => {
-    const { getByLabelText } = renderGalleryEdit();
+    const { getByLabelText, getByTestId } = renderGalleryEdit();
 
     fireEvent.change(getByLabelText('제목'), {
       target: { value: 'title test' },
@@ -142,6 +127,24 @@ describe('GalleryEdit', () => {
     expect(handleChangeGalleryInputField).toBeCalledWith({
       name: 'description',
       value: 'description test',
+    });
+
+    fireEvent.change(getByTestId('start-date'), {
+      target: { value: '2022-02-20' },
+    });
+
+    expect(handleChangeGalleryInputField).toBeCalledWith({
+      name: 'startDate',
+      value: '2022-02-20',
+    });
+
+    fireEvent.change(getByTestId('end-date'), {
+      target: { value: '2022-02-25' },
+    });
+
+    expect(handleChangeGalleryInputField).toBeCalledWith({
+      name: 'endDate',
+      value: '2022-02-25',
     });
   });
 });

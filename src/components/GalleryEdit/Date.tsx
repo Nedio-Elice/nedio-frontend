@@ -20,6 +20,7 @@ function Date({
       <input
         type="date"
         id="date"
+        data-testid="start-date"
         name="startDate"
         value={startDate}
         onChange={handleChange}
@@ -28,6 +29,7 @@ function Date({
       <input
         type="date"
         id="date"
+        data-testid="end-date"
         name="endDate"
         value={endDate}
         onChange={handleChange}
