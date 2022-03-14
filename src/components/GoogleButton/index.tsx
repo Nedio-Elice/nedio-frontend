@@ -10,7 +10,7 @@ function GoogleButton({ onClick, disabled }: Props) {
   return (
     <Container>
       <Button disabled={disabled} onClick={onClick}>
-        <GoogleIcon />
+        <GoogleIcon width={35} height={35} />
       </Button>
     </Container>
   );
