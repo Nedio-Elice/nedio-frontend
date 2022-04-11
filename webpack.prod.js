@@ -1,16 +1,18 @@
 const { merge } = require('webpack-merge');
+const webpack = require('webpack');
 const common = require('./webpack.common.js');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+require('dotenv').config();
 
 module.exports = merge(common, {
   mode: "production",
   plugins: [
     // new BundleAnalyzerPlugin(),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.ico',
-    }),
+    new webpack.EnvironmentPlugin([
+      "REACT_APP_GOOGLE_API_KEY",
+      "REACT_APP_SERVER_URL",
+    ]),
   ],
   devtool: 'source-map',
   optimization: {
@@ -41,5 +43,5 @@ module.exports = merge(common, {
         }
       },
     },
-  },
+  }
 });

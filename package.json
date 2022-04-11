@@ -4,7 +4,8 @@
     "scripts": {
         "start": "webpack serve --config webpack.dev.js --progress --open --hot",
         "build": "webpack --config webpack.prod.js",
-        "test": "jest --watch"
+        "test": "jest --watch",
+        "start:prod": "npx serve -l 3000 -s build"
     },
     "dependencies": {
         "@react-three/cannon": "^2.3.5",
