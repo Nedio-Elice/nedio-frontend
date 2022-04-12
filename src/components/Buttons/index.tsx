@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { ReactComponent as Cog } from '../../assets/icons/cog.svg';
-import { ReactComponent as ReturnArrow } from '../../assets/icons/return.svg';
-import { ReactComponent as TrashCan } from '../../assets/icons/trashcan.svg';
+import Cog from '../../assets/icons/cog.svg';
+import ReturnArrow from '../../assets/icons/return.svg';
+import TrashCan from '../../assets/icons/trashcan.svg';
 
 interface ButtonProps {
   className?: string;
@@ -166,7 +166,7 @@ const ButtonLarge = styled.button<{ stay: boolean }>`
   }
 
   &:active {
-    color: ##f3643f;
+    color: #f3643f;
     box-shadow: inset -3px -3px 7px #ffffff,
       inset 3px 3px 7px rgba(156, 156, 156, 0.48);
   }
