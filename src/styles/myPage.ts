@@ -27,7 +27,7 @@ export const ProfileForm = styled.div`
     padding: 72px 15vw 72px 15vw;
   }
   @media (max-width: 600px) {
-    padding: 48px 48px;
+    padding: 48px 0;
   }
 `;
 
@@ -94,10 +94,12 @@ export const ButtonWrapperRight = styled.div`
 
 export const ButtonWrapperTab = styled.div`
   display: flex;
-  margin: 0 24px 48px 24px;
+  margin: 0 24px 48px auto;
   gap: 48px;
   @media (max-width: 800px) {
     gap: 5vw;
+    justify-content: space-evenly;
+    margin: 0 auto 48px auto;
   }
 `;
 
@@ -146,4 +148,18 @@ export const CardWrapper = styled.div`
   @media (max-width: 660px) {
     grid-template-columns: repeat(1, 1fr);
   }
+`;
+
+export const NoGalleryTag = styled.div`
+  margin: auto;
+  width: 100%;
+  font-family: 'Pretendard-Regular';
+  font-size: 24px;
+  text-align: center;
+  color: transparent;
+  background: #bbbbbb;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5);
 `;

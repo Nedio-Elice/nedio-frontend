@@ -85,7 +85,7 @@ export const leftSideSiverButton = css`
   background-size: 200% auto;
   text-shadow: none;
   transition: 0.5s;
-  color: #f3643f;
+  color: rgba(156, 156, 156, 0.8);
   opacity: 0.8;
   &:hover {
     background-position: right center;

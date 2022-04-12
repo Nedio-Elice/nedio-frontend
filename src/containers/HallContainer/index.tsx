@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -24,8 +25,6 @@ function HallContainer() {
     control?.unlock && control?.unlock();
   };
 
-  console.log(selectedItem);
-
   useLayoutEffect(() => {
     (async () => {
       await axiosInstance
@@ -46,7 +45,7 @@ function HallContainer() {
           width={
             selectedItem?.width &&
             selectedItem.height &&
-            selectedItem.width > selectedItem.height
+            parseInt(selectedItem.width, 10) > parseInt(selectedItem.height, 10)
               ? 960
               : 830
           }
@@ -64,7 +63,8 @@ function HallContainer() {
                 horizontal={
                   selectedItem.width &&
                   selectedItem.height &&
-                  selectedItem.width > selectedItem.height
+                  parseInt(selectedItem.width, 10) >
+                    parseInt(selectedItem.height, 10)
                 }
               />
             </ModalWrapper>
@@ -79,7 +79,7 @@ export default HallContainer;
 
 const Container = styled.div`
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 `;
 

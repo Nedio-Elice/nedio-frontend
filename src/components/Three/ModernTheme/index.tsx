@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Player from '../Player';
 import Scene from '../Scene';
 import Bench from './Bench';

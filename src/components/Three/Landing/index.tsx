@@ -26,6 +26,9 @@ function Landing() {
         &#10094;
       </CloseBtn>
       <Title>클릭하여 시작하세요</Title>
+      <Content>
+        작품에 가까이 다가가 클릭시 자세한 정보를 확인할 수 있습니다
+      </Content>
       <Helper>
         <KeyboardIcon src={keyboard} />
         <Content>방향키를 사용해 움직여보세요</Content>
@@ -42,7 +45,7 @@ export default Landing;
 
 const Container = styled.div`
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgba(77, 77, 77, 0.5);
   display: flex;
@@ -59,10 +62,13 @@ const Container = styled.div`
 
 const Title = styled.h3`
   font-size: 2rem;
+  margin-bottom: 15px;
 `;
 
 const Content = styled.p`
   margin: 0 5px;
+  display: flex;
+  align-items: center;
 `;
 
 const KeyboardIcon = styled.img`

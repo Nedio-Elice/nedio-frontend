@@ -119,7 +119,7 @@ function MyInformation() {
   };
 
   if (!user.isSignIn) {
-    navigation(PATH.MAIN);
+    navigation(PATH.MAIN, { replace: true });
   }
 
   return (
@@ -134,7 +134,11 @@ function MyInformation() {
         </InfoSubWrapper>
         <InfoSubWrapper>
           <ButtonWrapperRight>
-            <ButtonEdit value="수정" handleClick={() => setEdit(!edit)} />
+            <ButtonEdit
+              value="수정"
+              handleClick={() => setEdit(!edit)}
+              edit={edit}
+            />
           </ButtonWrapperRight>
           <ProfileInfo
             name="이름"

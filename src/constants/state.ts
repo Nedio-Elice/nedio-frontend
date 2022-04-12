@@ -1,5 +1,30 @@
 import { RootState } from '../store/root';
 
+export const MOCK_PIECE = {
+  imageTitle: '',
+  imageDescription: '',
+  imageUrl: '',
+  width: '',
+  height: '',
+};
+
+export const MOCK_PIECES = new Array(10).fill(MOCK_PIECE);
+
+export const MOCK_HALLS = [
+  {
+    id: '1',
+    hallName: '',
+    hallTheme: '',
+    imagesData: MOCK_PIECES,
+  },
+  {
+    id: '2',
+    hallName: '',
+    hallTheme: '',
+    imagesData: MOCK_PIECES,
+  },
+];
+
 export const MOCK_STATE = {
   user: {
     isSignIn: true,
@@ -19,7 +44,7 @@ export const MOCK_STATE = {
       description: '',
       posterUrl: '',
     },
-    halls: [],
+    halls: [MOCK_HALLS[0]],
     deletedHalls: [],
     notification: '',
     mode: 'create',
@@ -56,5 +81,3 @@ export const MOCK_STATE = {
     rehydrated: true,
   },
 } as RootState;
-
-export const xxx = '';

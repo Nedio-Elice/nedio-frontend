@@ -60,8 +60,8 @@ const { actions, reducer } = createSlice({
 
       const updateHall = {
         hallName: value,
-        hallTheme: state.halls[index].hallTheme,
-        imagesData: state.halls[index].imagesData,
+        hallTheme: halls[index].hallTheme,
+        imagesData: halls[index].imagesData,
       };
 
       const updated = updateArrayByIndex(halls, index, updateHall);
@@ -75,9 +75,9 @@ const { actions, reducer } = createSlice({
       const { halls } = state;
 
       const updateHall = {
-        hallName: state.halls[index].hallName,
+        hallName: halls[index].hallName,
         hallTheme: value,
-        imagesData: state.halls[index].imagesData,
+        imagesData: halls[index].imagesData,
       };
 
       const updated = updateArrayByIndex(halls, index, updateHall);

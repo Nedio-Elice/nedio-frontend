@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Ceiling from './Ceiling';
 import Ground from './Ground';
 import Frames from './Frames';

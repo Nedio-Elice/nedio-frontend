@@ -44,7 +44,6 @@ function HallField({
   };
 
   const handleClickPreview = () => {
-    // TODO: 미리보기 기능 추가
     if (!theme) {
       onChangeNotification(MESSAGE.NO_THEME);
       return;
@@ -63,7 +62,7 @@ function HallField({
           onChange={handleChangeName}
         />
         <Themes
-          label=""
+          label="theme"
           theme={theme}
           hallIndex={hallIndex}
           onChangeHallTheme={onChangeHallTheme}
@@ -82,6 +81,7 @@ function HallField({
             halls={halls}
             pieceIndex={index}
             hallIndex={hallIndex}
+            data-testid="piece-button"
             openModal={openModal}
           />
         ))}

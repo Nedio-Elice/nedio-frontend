@@ -24,7 +24,7 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
   padding-top: 150px;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: linear-gradient(
     180deg,
@@ -36,8 +36,8 @@ const Container = styled.section`
 `;
 
 const NotFound = styled.img`
-  width: 650px;
-  height: 650px;
+  width: 550px;
+  height: 550px;
 
   @media ${DEVICE.TABLET} {
     width: 350px;
@@ -46,15 +46,12 @@ const NotFound = styled.img`
 `;
 
 const NotFoundTitle = styled.h2`
-  position: relative;
-  top: -35px;
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 10px;
+  margin: 10px 0;
 
   @media ${DEVICE.TABLET} {
     font-size: 1rem;
-    margin-bottom: -10px;
   }
 `;
 

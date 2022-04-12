@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sky } from '@react-three/drei';
 import Scene from '../Scene';
 import Roof from './Roof';
@@ -22,7 +23,7 @@ function DomTheme({ pickItem, hall }: Props) {
   return (
     <>
       <Sky />
-      <Player position={[50, 33, 50]} speed={80} />
+      <Player position={[-85, 33, 70]} speed={80} />
       <Scene>
         <pointLight intensity={1} position={[0, 200, 0]} />
         <pointLight intensity={0.7} position={[0, 300, 300]} />
